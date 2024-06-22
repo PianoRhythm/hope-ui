@@ -5,6 +5,10 @@ import { css } from "../../styled-system/stitches.config";
 export const containerStyles = css({
   width: "100%",
 
+  "@desktop_s": { maxWidth: "$containerDesktopS" },
+  "@mobile_s": { maxWidth: "$containerMobileS" },
+  "@mobile_m": { maxWidth: "$containerMobileM" },
+  "@mobile_l": { maxWidth: "$containerMobileL" },
   "@sm": { maxWidth: "$containerSm" },
   "@md": { maxWidth: "$containerMd" },
   "@lg": { maxWidth: "$containerLg" },

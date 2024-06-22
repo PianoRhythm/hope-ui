@@ -48,7 +48,7 @@ export function Switch<C extends ElementType = "label">(props: SwitchProps<C>) {
     labelPlacement: theme?.defaultProps?.root?.labelPlacement ?? "start",
   };
 
-  const propsWitDefault: SwitchProps<"label"> = mergeProps(defaultProps, props);
+  const propsWitDefault = mergeProps(defaultProps, props) as SwitchProps<"label">;
   const [local, others] = splitProps(propsWitDefault, [
     "children",
     "class",

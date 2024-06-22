@@ -7,16 +7,20 @@ import pkg from "./package.json";
 
 export default defineConfig({
   plugins: [
-    solidPlugin(),
+    solidPlugin({ ssr: true }),
     dts({
-      tsConfigFilePath: "tsconfig.build.json",
+      tsconfigPath: "tsconfig.build.json",
       insertTypesEntry: true,
-      noEmitOnError: true,
-      skipDiagnostics: false,
-      logDiagnostics: true,
+      bundledPackages: ["@stitches/core"],
+      noEmitOnError: false,
+      // skipDiagnostics: false,
+      // logDiagnostics: false,
+
     }),
   ],
   build: {
+    minify: true,
+    ssr: true,
     lib: {
       entry: path.resolve(__dirname, "src/index.ts"),
       formats: ["es", "cjs"],

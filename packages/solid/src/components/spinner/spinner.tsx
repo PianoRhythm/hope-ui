@@ -64,7 +64,7 @@ export function Spinner<C extends ElementType = "div">(props: SpinnerProps<C>) {
     speed: theme?.defaultProps?.speed,
   };
 
-  const propsWithDefault: SpinnerProps<"div"> = mergeProps(defaultProps, props);
+  const propsWithDefault = mergeProps(defaultProps, props) as SpinnerProps<"div">;
   const [local, others] = splitProps(propsWithDefault, [
     "class",
     "children",

@@ -62,6 +62,10 @@ export function toCssObject(
    * Destination object containing all responsive styles grouped by `@media` rule.
    */
   const destResponsiveStyleObject: Record<SystemMediaCssSelector, SystemStyleObject> = {
+    "@desktop_s": {},
+    "@mobile_s": {},
+    "@mobile_m": {},
+    "@mobile_l": {},
     "@sm": {},
     "@md": {},
     "@lg": {},

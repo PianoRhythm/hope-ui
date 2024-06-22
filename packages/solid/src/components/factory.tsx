@@ -1,6 +1,7 @@
-import { createMemo, mergeProps, splitProps } from "solid-js";
-import { Dynamic } from "solid-js/web";
-
+import { autoUpdate, flip, offset, shift } from "@floating-ui/dom";
+import { useFloating } from 'solid-floating-ui';
+import { Component, createMemo, createSignal, createUniqueId, mergeProps, onMount, Show, splitProps } from "solid-js";
+import { Dynamic, Portal } from "solid-js/web";
 import { createStyledSystemClass, getUsedStylePropNames } from "../styled-system/system";
 import { isFunction } from "../utils/assertion";
 import { classNames, createClassSelector } from "../utils/css";
@@ -13,7 +14,6 @@ import {
   HTMLHopeComponents,
   HTMLHopeProps,
 } from "./types";
-
 // TODO: add stitches variant support
 
 const styled: HopeFactory = <T extends ElementType>(
@@ -27,7 +27,24 @@ const styled: HopeFactory = <T extends ElementType>(
 
     const [local, styleProps, others] = splitProps(
       propsWithDefault as HTMLHopeProps<any>,
-      ["as", "class", "className", "__baseStyle"],
+      [
+        "__tooltip_title",
+        "__tooltip_show_arrow",
+        "__tooltip_placement",
+        "__tooltip_id",
+        "__tooltip_context_id",
+        "__tooltip_open_delay",
+        "__tooltip_close_delay",
+        "__tooltip_open_on_focus",
+        "__tooltip_skip_delay_duration",
+        "__tooltip_open_on_hover",
+        "__tooltip_close_on_escape",
+        "__tooltip_close_on_pointer_down",
+        "__tooltip_open",
+        "__tooltip_close_on_scroll",
+        "__tooltip_hoverable_content",
+        "as", "class", "className", "__baseStyle"
+      ],
       usedStylePropNames
     );
 
@@ -49,7 +66,110 @@ const styled: HopeFactory = <T extends ElementType>(
       );
     };
 
-    return <Dynamic component={local.as ?? "div"} class={classes()} {...others} />;
+    let DynamicComponent = () =>
+      <Dynamic component={local.as ?? "div"} class={classes()} {...others} />;
+
+    let DynamicComponentWithTooltip: Component = () => {
+      const [onOpen, setOpen] = createSignal(false);
+      const [reference, setReference] = createSignal<HTMLElement>();
+      const [floating, setFloating] = createSignal<HTMLElement>();
+
+      let referenceElementID = createUniqueId();
+      let floatingElementID = createUniqueId();
+
+      let placement = (local.__tooltip_placement ?? "top").toLowerCase();
+      let position = useFloating(reference, floating, {
+        // @ts-ignore
+        placement: placement,
+        middleware: [
+          offset(10),
+          flip(),
+          shift()
+        ],
+        whileElementsMounted: autoUpdate,
+      });
+
+      onMount(() => {
+        setReference(document.querySelector(`[unique-id="${referenceElementID}"]`) as HTMLElement);
+        setFloating(document.querySelector(`[unique-id="${floatingElementID}"]`) as HTMLElement);
+      });
+
+      const onCloseEvent = (event: Event) => {
+        // event.stopPropagation();
+        setOpen(false);
+      };
+
+      return (<>
+        <Dynamic
+          component={local.as ?? "div"}
+          class={classes()}
+          {...others}
+          unique-id={referenceElementID}
+          onMouseOver={(evt: MouseEvent) => {
+            // Target must match the reference element unique id
+            // if (evt.target instanceof HTMLElement && evt.target.getAttribute("unique-id") === referenceElementID) {
+            // evt.stopPropagation();
+            // }
+
+            setOpen(true);
+            (others.onMouseOver ?? others.onmouseover)?.(evt);
+          }}
+          onMouseOut={(evt: MouseEvent) => {
+            setOpen(false);
+            (others.onMouseOut ?? others.onmouseout)?.(evt);
+          }}
+          onBlur={(evt: FocusEvent) => {
+            setOpen(false);
+            (others.onBlur ?? others.onblur)?.(evt);
+          }}
+          onClick={(evt: MouseEvent) => {
+            setOpen(false);
+            (others.onClick ?? others.onclick)?.(evt);
+          }}
+          onMouseDown={(evt: MouseEvent) => {
+            setOpen(false);
+            (others.onMouseDown ?? others.onmousedown)?.(evt);
+          }}
+        />
+        <Portal>
+          <Dynamic
+            component="div"
+            unique-id={floatingElementID}
+            style={{
+              position: position.strategy,
+              "z-index": "var(--hope-zIndices-tooltip, 1000)",
+              top: `${position.y ?? 0}px`,
+              left: `${position.x ?? 0}px`,
+              display: onOpen() ? "block" : "none",
+              width: "max-content"
+            }}
+            onMouseOver={() => setOpen(true)}
+            onMouseOut={onCloseEvent}
+            onBlur={onCloseEvent}
+            onClick={onCloseEvent}
+            onMouseDown={onCloseEvent}
+            data-open={onOpen()}
+            data-corvu-tooltip-content
+          >
+            {local.__tooltip_title}
+            {(local.__tooltip_show_arrow ?? true) && <Dynamic
+              component="div"
+              style={{ "z-index": "var(--hope-zIndices-tooltip, 1000)" }}
+              data-corvu-tooltip-arrow
+              arrow-left={placement == "left"}
+              arrow-top={placement == "top"}
+              arrow-right={placement == "right"}
+              arrow-bottom={placement == "bottom"}
+            />
+            }
+          </Dynamic>
+        </Portal >
+      </>);
+    };
+
+    return <Show when={local.__tooltip_title} fallback={<DynamicComponent />}>
+      <DynamicComponentWithTooltip />
+    </Show>;
   };
 
   // In order to target the component in stitches css method and prop, like any other Hope UI components.

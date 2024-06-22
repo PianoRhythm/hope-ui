@@ -405,7 +405,7 @@ export default function SpinnerDoc() {
                 description: "Notification will close in 2 seconds",
                 duration: 2_000,
               });
-            }, 3_000);
+            }, 2_000);
           }}
         >
           Show update notification
@@ -458,15 +458,28 @@ export default function SpinnerDoc() {
       <Preview snippet={snippets.limitAndQueue} mb="$12">
         <HStack spacing="$4">
           <Button
-            onClick={() => {
-              Array(20)
-                .fill(0)
-                .forEach((_, index) => {
-                  notificationService.show({
-                    title: `Notification ${index + 1}`,
-                    description: "Most notifications are added to queue",
-                  });
+            onClick={async () => {
+              const notify = (index: number) => {
+                notificationService.show({
+                  id: `notification-test`,
+                  title: `Notification Test ${index}`,
+                  duration: index === 1 ? 250 : 1000,
+                  loading: true,
+                  description: "TEST TEST TEST",
                 });
+              };
+
+              setTimeout(async () => {
+                notify(0);
+                await new Promise(resolve => setTimeout(resolve, 3500));
+                notify(2);
+                await new Promise(resolve => setTimeout(resolve, 100));
+                notify(3);
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                notify(4);
+                notify(5);
+                notify(6);
+              }, 0);
             }}
           >
             Show 20 notifications

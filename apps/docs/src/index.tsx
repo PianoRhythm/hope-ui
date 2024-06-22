@@ -36,7 +36,7 @@ render(
   () => (
     <Router>
       <HopeProvider config={config}>
-        <NotificationsProvider>
+        <NotificationsProvider debugMode>
           <App />
         </NotificationsProvider>
       </HopeProvider>

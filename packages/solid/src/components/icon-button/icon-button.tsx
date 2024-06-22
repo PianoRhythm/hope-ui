@@ -40,6 +40,7 @@ export function IconButton<C extends ElementType = "button">(props: IconButtonPr
 
   const [local, others] = splitProps(props, [
     "class",
+    "className",
     "children",
     "icon",
     "variant",

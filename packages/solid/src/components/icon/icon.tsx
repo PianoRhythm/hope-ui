@@ -45,7 +45,7 @@ export function Icon<C extends ElementType = "svg">(props: IconProps<C>) {
       when={shouldRenderComponent()}
       fallback={
         <hope.svg class={classes()} viewBox={local.viewBox} {...others}>
-          <Show when={local.children} fallback={fallbackIcon.path}>
+          <Show when={local.children} fallback={fallbackIcon.path()}>
             {local.children}
           </Show>
         </hope.svg>

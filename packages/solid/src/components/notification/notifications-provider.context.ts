@@ -21,7 +21,7 @@ export interface NotificationsProviderContextValue {
   /**
    * Update a notification for a given `id`.
    */
-  updateNotification(id: string, config: NotificationConfig): void;
+  updateNotification(id: string, config: NotificationConfig): boolean;
 
   /**
    * Hide a notification.
@@ -38,6 +38,11 @@ export interface NotificationsProviderContextValue {
    * Remove all pending notifications for the queue only.
    */
   clearQueue(): void;
+
+  /**
+   * Get the debug mode.
+   */
+  debugMode: Accessor<boolean>;
 }
 
 export const NotificationsProviderContext = createContext<NotificationsProviderContextValue>();

@@ -4,8 +4,27 @@
     "emitDeclarationOnly": true,
     "declaration": true,
     "declarationMap": true,
-    "declarationDir": "dist"
+    "declarationDir": "dist",
+    "suppressExcessPropertyErrors": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "paths": {
+      "@stitches": [
+        "node_modules/@stitches"
+      ],
+      "@stitches/core": [
+        "node_modules/@stitches/core"
+      ],
+      "@stitches/core/types/styled-component": [
+        "node_modules/@stitches/core/types/styled-component"
+      ],
+    }
   },
-  "include": ["./src"],
-  "exclude": ["**/*.spec.*", "**/*.test.*", "**/*.stories.*"]
+  "include": [
+    "./src",
+  ],
+  "exclude": [
+    "**/*.spec.*",
+    "**/*.test.*",
+    "**/*.stories.*"
+  ]
 }

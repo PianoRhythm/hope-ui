@@ -7,7 +7,8 @@
 # Turborepo
 .turbo
 build/**
-dist/**
+# dist/**
+# !./packages/solid/dist/**
 
 
 # Storybook
@@ -17,7 +18,7 @@ storybook-static
 *.local
 
 # Vite
-dist/
+# dist/
 
 ### JetBrains ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
@@ -138,6 +139,7 @@ coverage
 
 # Dependency directories
 node_modules/
+!node_modules/packages/solid/@stitches/**/*
 
 # TypeScript cache
 *.tsbuildinfo

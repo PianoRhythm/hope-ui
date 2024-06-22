@@ -1,8 +1,12 @@
 import { action } from "@storybook/addon-actions";
-import { JSX } from "solid-js";
+import { For, JSX } from "solid-js";
 
 import { HopeWrapper } from "../storybook-utils";
 import { Button } from "./button";
+import { Box } from "../box";
+import { VStack } from "../stack";
+import { CloseButton } from "../close-button";
+import { Select, SelectTrigger, SelectPlaceholder, SelectValue, SelectIcon, SelectContent, SelectListbox, SelectOption, SelectOptionText, SelectOptionIndicator } from "../select";
 
 function IconCart(props: JSX.SvgSVGAttributes<SVGSVGElement>) {
   return (
@@ -89,7 +93,55 @@ export default {
   },
 };
 
-export const Default = (args: any) => <Button {...args} onClick={action("clicked")} />;
+export const Default = (args: any) =>
+  <>
+    <Box w="100vw" h="1000px" background={"lightblue"}>
+      <Select>
+        <SelectTrigger
+          w="200px"
+          position={"absolute"}
+          top={40}
+          left={200}
+        >
+          <SelectPlaceholder>Choose a framework</SelectPlaceholder>
+          <SelectValue />
+          <SelectIcon />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectListbox>
+            <For each={["React", "Angular", "Vue", "Svelte", "Solid"]}>
+              {item => (
+                <SelectOption value={item}>
+                  <SelectOptionText>{item}</SelectOptionText>
+                  <SelectOptionIndicator />
+                </SelectOption>
+              )}
+            </For>
+          </SelectListbox>
+        </SelectContent>
+      </Select>
+      <VStack spacing={"$1"}>
+        <Button>Hello1</Button>
+        <Button>Hello1</Button>
+        <Button>Hello1</Button>
+        <CloseButton />
+        <Button
+          __tooltip_title={<VStack>
+            <Box>hello world!</Box>
+            <Box>hello world!</Box>
+            <Box>hello world!</Box>
+            <Box>hello world!</Box>
+          </VStack>}
+          __tooltip_placement="left"
+          __tooltip_open_delay={500}
+          {...args} onClick={action("clicked")} />
+        <Button>Hello1</Button>
+        <Button>Hello1</Button>
+        <Button>Hello1</Button>
+      </VStack>
+    </Box>
+  </>
+  ;
 
 export const WithLeftIcon = (args: any) => (
   <Button leftIcon={<IconCart />} onClick={action("clicked")} {...args} />

@@ -1,4 +1,4 @@
-import { JSX, splitProps } from "solid-js";
+import { createUniqueId, JSX, onMount, splitProps } from "solid-js";
 
 import { useStyleConfig } from "../../hope-provider";
 import { isFunction } from "../../utils/assertion";
@@ -17,6 +17,7 @@ const hopeSelectTriggerClass = "hope-select__trigger";
  * The trigger that toggles the select.
  */
 export function SelectTrigger<C extends ElementType = "button">(props: SelectTriggerProps<C>) {
+  let referenceElementID = createUniqueId();
   const theme = useStyleConfig().Select;
 
   const selectContext = useSelectContext();
@@ -42,6 +43,7 @@ export function SelectTrigger<C extends ElementType = "button">(props: SelectTri
   };
 
   const assignTriggerRef = (el: HTMLButtonElement) => {
+    if (!el) return;
     selectContext.assignTriggerRef(el);
 
     if (isFunction(local.ref)) {
@@ -51,6 +53,10 @@ export function SelectTrigger<C extends ElementType = "button">(props: SelectTri
       local.ref = el;
     }
   };
+
+  onMount(() => {
+    assignTriggerRef(document.querySelector(`[unique-id="${referenceElementID}"]`) as HTMLButtonElement);
+  });
 
   const onClick: JSX.EventHandlerUnion<HTMLButtonElement, MouseEvent> = event => {
     chainHandlers(selectContext.onTriggerClick, local.onClick)(event);
@@ -76,6 +82,7 @@ export function SelectTrigger<C extends ElementType = "button">(props: SelectTri
     <hope.button
       ref={assignTriggerRef}
       id={selectContext.state.triggerId}
+      unique-id={referenceElementID}
       disabled={selectContext.state.disabled}
       role="combobox"
       type="button"

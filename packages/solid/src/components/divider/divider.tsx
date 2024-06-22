@@ -16,6 +16,12 @@ export interface DividerOptions extends DividerVariants {
    * ```
    */
   thickness?: Property.BorderWidth<SizeScaleValue>;
+
+  /**
+   * The orientation of the divider
+   * @default "horizontal"
+   */
+  orientation?: "horizontal" | "vertical";
 }
 
 export type DividerProps<C extends ElementType = "div"> = HTMLHopeProps<C, DividerOptions>;

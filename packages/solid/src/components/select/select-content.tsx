@@ -1,4 +1,4 @@
-import { children, createEffect, createSignal, on, Show, splitProps } from "solid-js";
+import { children, createEffect, createSignal, createUniqueId, on, onMount, Show, splitProps } from "solid-js";
 import { Portal } from "solid-js/web";
 import { Transition } from "solid-transition-group";
 
@@ -19,6 +19,7 @@ const hopeSelectContentClass = "hope-select__content";
  * The component that pops out when the select is open.
  */
 export function SelectContent<C extends ElementType = "div">(props: SelectContentProps<C>) {
+  let referenceElementID = createUniqueId();
   const theme = useStyleConfig().Select;
 
   const selectContext = useSelectContext();
@@ -59,6 +60,8 @@ export function SelectContent<C extends ElementType = "div">(props: SelectConten
   const resolvedChildren = children(() => local.children);
 
   const assignContentRef = (el: HTMLDivElement) => {
+    if (!el) return;
+
     selectContext.assignContentRef(el);
 
     if (isFunction(local.ref)) {
@@ -68,6 +71,11 @@ export function SelectContent<C extends ElementType = "div">(props: SelectConten
       local.ref = el;
     }
   };
+
+  createEffect(() => {
+    if (!isPortalMounted()) return;
+    assignContentRef(document.querySelector(`[unique-id="${referenceElementID}"]`) as HTMLDivElement);
+  });
 
   const onClickOutside = (event: Event) => {
     selectContext.onContentClickOutside(event.target as HTMLElement);
@@ -92,6 +100,7 @@ export function SelectContent<C extends ElementType = "div">(props: SelectConten
                 ref={assignContentRef}
                 class={classes()}
                 __baseStyle={theme?.baseStyle?.content}
+                unique-id={referenceElementID}
                 {...others}
               >
                 {resolvedChildren()}

@@ -285,20 +285,20 @@ export function Select(props: SelectProps) {
       return;
     }
 
-    const { x, y } = await computePosition(triggerRef, contentRef, {
+    const result = await computePosition(triggerRef, contentRef, {
       placement: "bottom",
       middleware: [
         offset(props.offset ?? theme?.defaultProps?.root?.offset ?? 5),
         flip(),
         shift(),
         size({
-          apply({ reference }) {
+          apply(output) {
             if (!contentRef) {
               return;
             }
 
             Object.assign(contentRef.style, {
-              width: `${reference.width}px`,
+              width: `${output.rects.reference.width}px`,
             });
           },
         }),
@@ -310,8 +310,8 @@ export function Select(props: SelectProps) {
     }
 
     Object.assign(contentRef.style, {
-      left: `${Math.round(x)}px`,
-      top: `${Math.round(y)}px`,
+      left: `${Math.round(result.x)}px`,
+      top: `${Math.round(result.y)}px`,
     });
   };
 
@@ -361,7 +361,7 @@ export function Select(props: SelectProps) {
 
     const selectedOptions = getDefaultSelectedValues()
       .map(value => state.options.find(option => option.value === value))
-      .filter(Boolean);
+      .filter(Boolean) as SelectOptionData[];
 
     setState("selectedOptions", prev => [...prev, ...selectedOptions]);
 
@@ -686,7 +686,7 @@ export function Select(props: SelectProps) {
 
         const selectedOptions = controlledValues
           .map(value => state.options.find(option => option.value === value))
-          .filter(Boolean);
+          .filter(Boolean) as SelectOptionData[];
 
         setState("selectedOptions", selectedOptions);
       },

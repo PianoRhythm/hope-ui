@@ -1,4 +1,4 @@
-import { Component, ComponentProps, JSX, ParentProps } from "solid-js";
+import { Component, ComponentProps, JSX, JSXElement, ParentProps } from "solid-js";
 
 import { StyleProps } from "../styled-system/system";
 import { SystemStyleObject } from "../styled-system/types";
@@ -25,7 +25,7 @@ export type PropsOf<C extends ElementType> = ComponentProps<C>;
 export interface ClassProps {
   class?: string;
   className?: string;
-  classList?: { [key: string]: boolean };
+  classList?: { [key: string]: boolean; };
 }
 
 /**
@@ -35,17 +35,38 @@ export interface AsProp<C extends ElementType> {
   as?: C;
 }
 
+export interface HtmlTooltipProps {
+  __tooltip_title?: string | JSXElement;
+  __tooltip_id?: string;
+  __tooltip_placement?: string;
+  __tooltip_context_id?: string;
+  __tooltip_open_delay?: number;
+  __tooltip_close_delay?: number;
+  __tooltip_skip_delay_duration?: number;
+  __tooltip_open?: boolean;
+  __tooltip_show_arrow?: boolean;
+  __tooltip_open_on_focus?: boolean;
+  __tooltip_open_on_hover?: boolean;
+  __tooltip_close_on_escape?: boolean;
+  __tooltip_close_on_pointer_down?: boolean;
+  __tooltip_close_on_scroll?: boolean;
+  __tooltip_hoverable_content?: boolean;
+  __tooltip_on_blur?: (e: MouseEvent) => void;
+  __tooltip_on_mouse_leave?: (e: MouseEvent) => void;
+  __tooltip_on_scroll?: (e: Event) => void;
+}
+
 /**
  * Hope UI specific props.
  */
-export type HopeProps = StyleProps & ClassProps & { __baseStyle?: SystemStyleObject };
+export type HopeProps = StyleProps & ClassProps & HtmlTooltipProps & { __baseStyle?: SystemStyleObject; };
 
 /**
  * Enhance props of a SolidJS component or JSX element with Hope UI props.
  */
 export type HTMLHopeProps<C extends ElementType, AdditionalProps = {}> = OverrideProps<
   ParentProps<PropsOf<C>>,
-  HopeProps & AdditionalProps & { as?: C }
+  HopeProps & AdditionalProps & { as?: C; }
 >;
 
 /**

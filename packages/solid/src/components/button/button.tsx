@@ -1,6 +1,5 @@
 import { Property } from "csstype";
 import { JSX, mergeProps, Show, splitProps } from "solid-js";
-
 import { useStyleConfig } from "../../hope-provider";
 import { SpaceScaleValue, SystemStyleObject } from "../../styled-system/types";
 import { classNames, createClassSelector } from "../../utils/css";
@@ -12,6 +11,11 @@ import { ButtonIcon } from "./button-icon";
 import { ButtonLoader } from "./button-loader";
 
 export interface ButtonOptions extends ButtonVariants {
+  /**
+   * If `true`, the button will show a spinner.
+   */
+  loading?: boolean;
+
   /**
    * If `true`, the button will be disabled.
    */

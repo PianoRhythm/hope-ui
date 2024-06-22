@@ -2,6 +2,12 @@
  * Common to light and dark palette
  * -----------------------------------------------------------------------------------------------*/
 
+// Tooltip Colors
+const tooltip = {
+  tooltipContent: "#00000090",
+  tooltipArrow: "#00000090",
+};
+
 // Radix - BlackA
 const blackAlpha = {
   blackAlpha1: "#00000003",
@@ -169,6 +175,7 @@ const semanticColors = {
 };
 
 export const lightColors = {
+  ...tooltip,
   ...primary,
   ...accent,
   ...neutral,
@@ -305,6 +312,7 @@ const semanticDarkColors = {
 };
 
 export const darkColors: typeof lightColors = {
+  ...tooltip,
   ...primaryDark,
   ...accentDark,
   ...neutralDark,

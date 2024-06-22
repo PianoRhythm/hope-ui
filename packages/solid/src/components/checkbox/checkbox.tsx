@@ -69,8 +69,8 @@ export function Checkbox<C extends ElementType = "label">(props: CheckboxProps<C
       "end",
   };
 
-  const propsWitDefault: CheckboxProps<"label"> = mergeProps(defaultProps, props);
-  const [local, others] = splitProps(propsWitDefault, [
+  const propsWithDefault = mergeProps(defaultProps, props) as CheckboxProps<"label">;
+  const [local, others] = splitProps(propsWithDefault, [
     "children",
     "class",
     "variant",

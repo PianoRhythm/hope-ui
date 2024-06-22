@@ -66,6 +66,8 @@ export interface NotificationConfig {
    * It will receive the notification `id` and a `close` function as render props.
    */
   render?: (props: NotificationConfigRenderProps) => JSX.Element;
+
+  queuedNotificationUpdates?: NotificationConfig[];
 }
 
 export type ShowNotificationProps = Partial<NotificationConfig>;

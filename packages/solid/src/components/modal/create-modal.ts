@@ -1,12 +1,11 @@
-// import { clearAllBodyScrollLocks, disableBodyScroll } from "body-scroll-lock";
 import { createFocusTrap, FocusTrap } from "focus-trap";
-import {
-  addScrollableSelector,
-  clearQueueScrollLocks,
-  disablePageScroll,
-  enablePageScroll,
-  removeScrollableSelector,
-} from "scroll-lock";
+// import {
+//   addScrollableSelector,
+//   clearQueueScrollLocks,
+//   disablePageScroll,
+//   enablePageScroll,
+//   removeScrollableSelector,
+// } from "scroll-lock";
 import { JSX, onCleanup, onMount } from "solid-js";
 
 import { chainHandlers } from "../../utils/function";
@@ -66,30 +65,17 @@ export function createModal(props: CreateModalProps): CreateModalReturn {
     }
 
     if (modalContext.state.blockScrollOnMount) {
-      addScrollableSelector(childOfDialogSelector());
-      disablePageScroll(containerRef);
-
-      // disableBodyScroll(containerRef, {
-      //   allowTouchMove: el => {
-      //     if (!containerRef || containerRef === el) {
-      //       return false;
-      //     }
-      //     // allow touchmove only if `el` is a child of `container`
-      //     return containerRef.contains(el);
-      //   },
-      //   reserveScrollBarGap: modalContext.state.preserveScrollBarGap,
-      // });
+      // addScrollableSelector(childOfDialogSelector());
+      // disablePageScroll(containerRef);
     }
   };
 
   const disableFocusTrapAndScrollLock = () => {
     focusTrap?.deactivate();
 
-    removeScrollableSelector(childOfDialogSelector());
-    clearQueueScrollLocks();
-    enablePageScroll();
-
-    //clearAllBodyScrollLocks();
+    // removeScrollableSelector(childOfDialogSelector());
+    // clearQueueScrollLocks();
+    // enablePageScroll();
   };
 
   onMount(() => {
