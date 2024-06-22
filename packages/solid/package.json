@@ -14,11 +14,11 @@
   ],
   "homepage": "https://hope-ui.com",
   "bugs": {
-    "url": "https://github.com/fabien-ml/hope-ui/issues"
+    "url": "https://github.com/fabien-ml/PianoRhythm/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fabien-ml/hope-ui.git",
+    "url": "git+https://github.com/PianoRhythm/hope-ui.git",
     "directory": "packages/design-system"
   },
   "license": "MIT",
