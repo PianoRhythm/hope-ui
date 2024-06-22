@@ -4,11 +4,11 @@
   "description": "The SolidJS component library you've hoped for.",
   "homepage": "https://hope-ui.com",
   "bugs": {
-    "url": "https://github.com/fabien-ml/hope-ui/issues"
+    "url": "https://github.com/PianoRhythm/hope-ui/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fabien-ml/hope-ui.git"
+    "url": "git+https://github.com/PianoRhythm/hope-ui.git"
   },
   "license": "MIT",
   "author": "Fabien MARIE-LOUISE (https://github.com/fabien-ml)",
