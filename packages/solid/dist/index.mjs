@@ -9794,21 +9794,24 @@ function NotificationsProvider(props) {
   };
   const updateNotification = (id, notification) => {
     notificationQueue().update((notifications) => {
+      var _a, _b, _c, _d, _e, _f, _g, _h, _i;
       const index = notifications.findIndex((n) => n[0].id === id);
       if (index === -1) {
         showNotification(notification);
         return notifications;
       }
       const newNotifications = [...notifications];
+      let target = newNotifications[index][0];
       let updateTarget = newNotifications[index][1];
-      updateTarget("description", notification.description);
-      updateTarget("title", notification.title);
-      updateTarget("status", notification.status);
-      updateTarget("loading", notification.loading);
-      updateTarget("persistent", notification.persistent);
-      updateTarget("duration", notification.duration);
-      updateTarget("closable", notification.closable);
-      updateTarget("onClose", notification.onClose);
+      updateTarget("description", (_a = notification.description) != null ? _a : target.description);
+      updateTarget("title", (_b = notification.title) != null ? _b : target.title);
+      updateTarget("status", (_c = notification.status) != null ? _c : target.status);
+      updateTarget("loading", (_d = notification.loading) != null ? _d : target.loading);
+      updateTarget("persistent", (_e = notification.persistent) != null ? _e : target.persistent);
+      updateTarget("duration", (_f = notification.duration) != null ? _f : target.duration);
+      updateTarget("closable", (_g = notification.closable) != null ? _g : target.closable);
+      updateTarget("onClose", (_h = notification.onClose) != null ? _h : target.onClose);
+      updateTarget("onClose", (_i = notification.render) != null ? _i : target.render);
       return newNotifications;
     });
   };

@@ -139,15 +139,17 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
 
       const newNotifications = [...notifications];
 
+      let target = newNotifications[index][0];
       let updateTarget = newNotifications[index][1];
-      updateTarget("description", notification.description);
-      updateTarget("title", notification.title);
-      updateTarget("status", notification.status);
-      updateTarget("loading", notification.loading);
-      updateTarget("persistent", notification.persistent);
-      updateTarget("duration", notification.duration);
-      updateTarget("closable", notification.closable);
-      updateTarget("onClose", notification.onClose);
+      updateTarget("description", notification.description ?? target.description);
+      updateTarget("title", notification.title ?? target.title);
+      updateTarget("status", notification.status ?? target.status);
+      updateTarget("loading", notification.loading ?? target.loading);
+      updateTarget("persistent", notification.persistent ?? target.persistent);
+      updateTarget("duration", notification.duration ?? target.duration);
+      updateTarget("closable", notification.closable ?? target.closable);
+      updateTarget("onClose", notification.onClose ?? target.onClose);
+      updateTarget("onClose", notification.render ?? target.render);
 
       return newNotifications;
     });

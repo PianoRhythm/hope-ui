@@ -1,5 +1,0 @@
-import{o as n,i as s,a as e,T as t,k as o}from"./index.c286ed2e.js";import{C as l}from"./CodeSnippet.09eb96d9.js";import{P as c,a as h}from"./PageTitle.adcff517.js";import"./Footer.11a1bc70.js";const p=`/* index.css */
-
-#root {
-  background-color: var(--hope-colors-neutral1);
-}`,m={cssVariables:p};function k(){const r={href:"/docs/theming/customize-theme",label:"Customize theme"},a={href:"/docs/theming/color-mode",label:"Color mode"},i=[];return n(()=>{s.highlightAll()}),e(h,{previousLink:r,nextLink:a,contextualNavLinks:i,get children(){return[e(c,{children:"CSS variables"}),e(t,{mb:"$5",get children(){return["All Hope UI theme tokens are available as CSS custom properties (aka CSS variables) with the"," ",e(o,{children:"hope"})," prefix."]}}),e(t,{mb:"$5",get children(){return["Let's say you want to change your application ",e(o,{children:"#root"})," div"," ",e(o,{children:"background-color"})," using a color from the Hope UI theme. In a plain CSS file you can do it like this:"]}}),e(l,{lang:"css",get snippet(){return m.cssVariables}})]}})}export{k as default};
