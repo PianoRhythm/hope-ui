@@ -129,6 +129,9 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
       const index = notifications.findIndex(n => n[0].id === id);
 
       if (index === -1) {
+        // Create new instead
+        showNotification(notification);
+
         return notifications;
       }
 
@@ -232,7 +235,6 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
         <Box class={classes()} zIndex={local.zIndex}>
           <TransitionGroup
             name={transitionName()}
-
           >
             <For each={context.notifications()}>
               {(notification) =>

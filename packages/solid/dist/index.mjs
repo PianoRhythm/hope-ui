@@ -9780,6 +9780,7 @@ function NotificationsProvider(props) {
     notificationQueue().update((notifications) => {
       const index = notifications.findIndex((n) => n[0].id === id);
       if (index === -1) {
+        showNotification(notification);
         return notifications;
       }
       const newNotifications = [...notifications];
