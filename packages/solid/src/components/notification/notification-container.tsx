@@ -67,7 +67,7 @@ export function NotificationContainer(props: NotificationContainerProps) {
   };
 
   const closeWithDelay = () => {
-    if (local.persistent || local.duration == null) {
+    if (local.persistent && !local.queuedNotificationUpdates?.length || local.duration == null) {
       return;
     }
 

@@ -9618,7 +9618,8 @@ function NotificationContainer(props) {
     }
   };
   const closeWithDelay = () => {
-    if (local.persistent || local.duration == null) {
+    var _a;
+    if (local.persistent && !((_a = local.queuedNotificationUpdates) == null ? void 0 : _a.length) || local.duration == null) {
       return;
     }
     closeDelayId = window.setTimeout(closeNotification, local.duration);
