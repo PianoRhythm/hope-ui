@@ -459,11 +459,13 @@ export default function SpinnerDoc() {
         <HStack spacing="$4">
           <Button
             onClick={() => {
-              Array(20)
+              Array(3)
                 .fill(0)
                 .forEach((_, index) => {
                   notificationService.show({
+                    id: `notification-test`,
                     title: `Notification ${index + 1}`,
+                    duration: 2000,
                     description: "Most notifications are added to queue",
                   });
                 });

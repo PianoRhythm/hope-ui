@@ -45,10 +45,6 @@ export interface NotificationConfig {
      */
     loading?: boolean;
     /**
-     * If `true`, the notification will show a loader.
-     */
-    disableUpdateTransition?: boolean;
-    /**
      * Callback function to run side effects after the notification has closed.
      */
     onClose?: (id: string) => void;
@@ -57,6 +53,7 @@ export interface NotificationConfig {
      * It will receive the notification `id` and a `close` function as render props.
      */
     render?: (props: NotificationConfigRenderProps) => JSX.Element;
+    queuedNotificationUpdates?: NotificationConfig[];
 }
 export declare type ShowNotificationProps = Partial<NotificationConfig>;
 //# sourceMappingURL=notification.types.d.ts.map

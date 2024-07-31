@@ -13,9 +13,13 @@ import { NotificationIcon } from "./notification-icon";
 import { NotificationTitle } from "./notification-title";
 import { useNotificationsProviderContext } from "./notifications-provider.context";
 
+type NotificationContainerPropsExtended = {
+  onCloseWithNotificationQueued?: (notification: NotificationConfig) => void;
+};
+
 type NotificationContainerOptions = Omit<NotificationConfig, "onClose">;
 
-export type NotificationContainerProps = HTMLHopeProps<"div", NotificationContainerOptions>;
+export type NotificationContainerProps = HTMLHopeProps<"div", NotificationContainerOptions> & NotificationContainerPropsExtended;
 
 /**
  * The container for a notification.
@@ -36,6 +40,7 @@ export function NotificationContainer(props: NotificationContainerProps) {
     "loading",
     "onMouseEnter",
     "onMouseLeave",
+    "queuedNotificationUpdates",
   ]);
 
   let closeDelayId: number | undefined;
@@ -48,7 +53,17 @@ export function NotificationContainer(props: NotificationContainerProps) {
 
   const closeNotification = () => {
     clearCloseDelay();
-    notificationsProviderContext.hideNotification(local.id);
+
+    let queued = local.queuedNotificationUpdates;
+    if (queued && queued.length > 0) {
+      // Get next notification in queue (without mutating) and update
+      let next = queued[0];
+      notificationsProviderContext.updateNotification(local.id, next!);
+      props.onCloseWithNotificationQueued?.(next!);
+      closeWithDelay();
+    } else {
+      notificationsProviderContext.hideNotification(local.id);
+    }
   };
 
   const closeWithDelay = () => {

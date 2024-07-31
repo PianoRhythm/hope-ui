@@ -1,7 +1,10 @@
 import { HTMLHopeProps } from "../types";
 import { NotificationConfig } from "./notification.types";
+declare type NotificationContainerPropsExtended = {
+    onCloseWithNotificationQueued?: (notification: NotificationConfig) => void;
+};
 declare type NotificationContainerOptions = Omit<NotificationConfig, "onClose">;
-export declare type NotificationContainerProps = HTMLHopeProps<"div", NotificationContainerOptions>;
+export declare type NotificationContainerProps = HTMLHopeProps<"div", NotificationContainerOptions> & NotificationContainerPropsExtended;
 /**
  * The container for a notification.
  * It renders the default Hope UI designed notification or a custom one if the `render` prop is passed.

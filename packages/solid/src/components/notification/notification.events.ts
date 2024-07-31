@@ -6,6 +6,7 @@ export const NOTIFICATIONS_EVENTS = {
   hide: "hope-ui:hide-notification",
   clear: "hope-ui:clear-notifications",
   clearQueue: "hope-ui:clear-notifications-queue",
+  addToNotificationQueue: "hope-ui:add-to-notification-queue",
 } as const;
 
 export function createEvent(type: ValueOf<typeof NOTIFICATIONS_EVENTS>, detail?: any) {

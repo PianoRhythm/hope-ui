@@ -21,10 +21,15 @@ function clearQueue() {
   window.dispatchEvent(createEvent(NOTIFICATIONS_EVENTS.clearQueue));
 }
 
+function addToNotificationQueue(config: NotificationConfig & { id: string }) {
+  window.dispatchEvent(createEvent(NOTIFICATIONS_EVENTS.addToNotificationQueue, config));
+}
+
 export const notificationService = {
   show,
   update,
   hide,
   clear,
   clearQueue,
+  addToNotificationQueue,
 };

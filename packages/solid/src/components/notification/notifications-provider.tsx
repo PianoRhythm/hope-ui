@@ -103,20 +103,23 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
     const persistent = notification.persistent ?? local.persistent ?? false;
     const duration = notification.duration ?? local.duration ?? DEFAULT_NOTIFICATION_DURATION;
     const closable = notification.closable ?? local.closable ?? true;
+    const queuedNotificationUpdates = notification.queuedNotificationUpdates ?? [];
 
     notificationQueue().update(notifications => {
-      if (notification.id && notifications.some(n => n[0].id === notification.id)) {
-        return notifications;
-      }
-
       const newNotification: NotificationConfig = {
         ...notification,
+        queuedNotificationUpdates,
         id,
         persistent,
         duration,
         closable,
-        disableUpdateTransition: false,
       };
+
+      // If notification with the same id already exists, add it to the queue
+      if (notification.id && notifications.some(n => n[0].id === notification.id)) {
+        addToNotificationQueue(notification.id, newNotification);
+        return notifications;
+      }
 
       return [...notifications, createStore(newNotification)];
     });
@@ -131,12 +134,10 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
       if (index === -1) {
         // Create new instead
         showNotification(notification);
-
         return notifications;
       }
 
       const newNotifications = [...notifications];
-      notification.disableUpdateTransition = true;
 
       let updateTarget = newNotifications[index][1];
       updateTarget("description", notification.description);
@@ -165,9 +166,45 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
     });
   };
 
+  const addToNotificationQueue = (id: string, notification: NotificationConfig) => {
+    if (!id || !notification) return;
+
+    notificationQueue().update(notifications => {
+      const index = notifications.findIndex(n => n[0].id === id);
+
+      if (index === -1) {
+        // Create new instead
+        showNotification(notification);
+        return notifications;
+      }
+
+      let target = notifications[index];
+      let updateTarget = target[1];
+      updateTarget("queuedNotificationUpdates", [...target[0].queuedNotificationUpdates ?? [], notification]);
+
+      return [...notifications];
+    });
+  };
+
   const clear = () => notificationQueue().update(() => []);
 
   const clearQueue = () => notificationQueue().clearQueue();
+
+  const removeNotificationFromQueue = (id: string) => {
+    notificationQueue().update(notifications => {
+      const index = notifications.findIndex(n => n[0].id === id);
+
+      if (index === -1) {
+        return notifications;
+      }
+
+      let target = notifications[index];
+      let updateTarget = target[1];
+      updateTarget("queuedNotificationUpdates", target[0].queuedNotificationUpdates?.slice(1));
+
+      return [...notifications];
+    });
+  };
 
   const classes = () => {
     return classNames(
@@ -207,11 +244,13 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
     hideNotification,
     clear,
     clearQueue,
+    addToNotificationQueue,
   };
 
   const showHandler = (event: any) => showNotification(event.detail);
   const updateHandler = (event: any) => updateNotification(event.detail.id, event.detail);
   const hideHandler = (event: any) => hideNotification(event.detail);
+  const addToNotificationQueueHandler = (event: any) => addToNotificationQueue(event.detail.id, event.detail);
 
   onMount(() => {
     window.addEventListener(NOTIFICATIONS_EVENTS.show, showHandler);
@@ -219,6 +258,7 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
     window.addEventListener(NOTIFICATIONS_EVENTS.hide, hideHandler);
     window.addEventListener(NOTIFICATIONS_EVENTS.clear, clear);
     window.addEventListener(NOTIFICATIONS_EVENTS.clearQueue, clearQueue);
+    window.addEventListener(NOTIFICATIONS_EVENTS.addToNotificationQueue, addToNotificationQueueHandler);
   });
 
   onCleanup(() => {
@@ -227,19 +267,23 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
     window.removeEventListener(NOTIFICATIONS_EVENTS.hide, hideHandler);
     window.removeEventListener(NOTIFICATIONS_EVENTS.clear, clear);
     window.removeEventListener(NOTIFICATIONS_EVENTS.clearQueue, clearQueue);
+    window.removeEventListener(NOTIFICATIONS_EVENTS.addToNotificationQueue, addToNotificationQueueHandler);
   });
 
   return (
     <NotificationsProviderContext.Provider value={context}>
       <Portal>
         <Box class={classes()} zIndex={local.zIndex}>
-          <TransitionGroup
-            name={transitionName()}
-          >
+          <TransitionGroup name={transitionName()}>
             <For each={context.notifications()}>
               {(notification) =>
                 // @ts-ignore
-                <NotificationContainer {...notification[0]} />
+                <NotificationContainer {...notification[0]}
+                  onCloseWithNotificationQueued={(config) => {
+                    // Remove the next item in the queue
+                    removeNotificationFromQueue(config.id);
+                  }}
+                />
               }
             </For>
           </TransitionGroup>
