@@ -9761,7 +9761,7 @@ function NotificationsProvider(props) {
     const duration = (_e = (_d = notification.duration) != null ? _d : local.duration) != null ? _e : DEFAULT_NOTIFICATION_DURATION;
     const closable = (_g = (_f = notification.closable) != null ? _f : local.closable) != null ? _g : true;
     notificationQueue().update((notifications) => {
-      if (notification.id && notifications.some((n) => n.id === notification.id)) {
+      if (notification.id && notifications.some((n) => n[0].id === notification.id)) {
         return notifications;
       }
       const newNotification = {
@@ -9769,29 +9769,39 @@ function NotificationsProvider(props) {
         id,
         persistent,
         duration,
-        closable
+        closable,
+        disableUpdateTransition: false
       };
-      return [...notifications, newNotification];
+      return [...notifications, createStore(newNotification)];
     });
     return id;
   };
   const updateNotification = (id, notification) => {
     notificationQueue().update((notifications) => {
-      const index = notifications.findIndex((n) => n.id === id);
+      const index = notifications.findIndex((n) => n[0].id === id);
       if (index === -1) {
         return notifications;
       }
       const newNotifications = [...notifications];
-      newNotifications[index] = notification;
+      notification.disableUpdateTransition = true;
+      let updateTarget = newNotifications[index][1];
+      updateTarget("description", notification.description);
+      updateTarget("title", notification.title);
+      updateTarget("status", notification.status);
+      updateTarget("loading", notification.loading);
+      updateTarget("persistent", notification.persistent);
+      updateTarget("duration", notification.duration);
+      updateTarget("closable", notification.closable);
+      updateTarget("onClose", notification.onClose);
       return newNotifications;
     });
   };
   const hideNotification = (id) => {
     notificationQueue().update((notifications) => {
       return notifications.filter((notification) => {
-        var _a;
-        if (notification.id === id) {
-          (_a = notification.onClose) == null ? void 0 : _a.call(notification, notification.id);
+        var _a, _b;
+        if (notification[0].id === id) {
+          (_b = (_a = notification[0]).onClose) == null ? void 0 : _b.call(_a, notification[0].id);
           return false;
         }
         return true;
@@ -9871,7 +9881,7 @@ function NotificationsProvider(props) {
                     get each() {
                       return context.notifications();
                     },
-                    children: (notification) => createComponent(NotificationContainer, notification)
+                    children: (notification) => createComponent(NotificationContainer, mergeProps$1(() => notification[0]))
                   });
                 }
               });

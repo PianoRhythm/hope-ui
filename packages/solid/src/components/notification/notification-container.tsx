@@ -48,7 +48,6 @@ export function NotificationContainer(props: NotificationContainerProps) {
 
   const closeNotification = () => {
     clearCloseDelay();
-
     notificationsProviderContext.hideNotification(local.id);
   };
 

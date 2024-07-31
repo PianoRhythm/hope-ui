@@ -8,8 +8,11 @@ import {
   onMount,
   splitProps,
 } from "solid-js";
+import type { StoreNode, Store, SetStoreFunction } from "solid-js/store";
+
+
 import { Portal } from "solid-js/web";
-import { TransitionGroup } from "solid-transition-group";
+import { Transition, TransitionGroup } from "solid-transition-group";
 
 import { createQueue } from "../../hooks/create-queue";
 import { PositionProps } from "../../styled-system/props/position";
@@ -27,6 +30,7 @@ import {
   NotificationsProviderContext,
   NotificationsProviderContextValue,
 } from "./notifications-provider.context";
+import { createStore } from "solid-js/store";
 
 interface NotificationsProviderProps extends NotificationListVariants {
   /**
@@ -80,7 +84,8 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
   ]);
 
   const notificationQueue = createMemo(() => {
-    return createQueue<NotificationConfig>({
+    // return createQueue<NotificationConfig>({
+    return createQueue<[get: Store<NotificationConfig>, set: SetStoreFunction<NotificationConfig>]>({
       initialValues: [],
       limit: local.limit ?? 10,
     });
@@ -100,7 +105,7 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
     const closable = notification.closable ?? local.closable ?? true;
 
     notificationQueue().update(notifications => {
-      if (notification.id && notifications.some(n => n.id === notification.id)) {
+      if (notification.id && notifications.some(n => n[0].id === notification.id)) {
         return notifications;
       }
 
@@ -110,9 +115,10 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
         persistent,
         duration,
         closable,
+        disableUpdateTransition: false,
       };
 
-      return [...notifications, newNotification];
+      return [...notifications, createStore(newNotification)];
     });
 
     return id;
@@ -120,14 +126,24 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
 
   const updateNotification = (id: string, notification: NotificationConfig) => {
     notificationQueue().update(notifications => {
-      const index = notifications.findIndex(n => n.id === id);
+      const index = notifications.findIndex(n => n[0].id === id);
 
       if (index === -1) {
         return notifications;
       }
 
       const newNotifications = [...notifications];
-      newNotifications[index] = notification;
+      notification.disableUpdateTransition = true;
+
+      let updateTarget = newNotifications[index][1];
+      updateTarget("description", notification.description);
+      updateTarget("title", notification.title);
+      updateTarget("status", notification.status);
+      updateTarget("loading", notification.loading);
+      updateTarget("persistent", notification.persistent);
+      updateTarget("duration", notification.duration);
+      updateTarget("closable", notification.closable);
+      updateTarget("onClose", notification.onClose);
 
       return newNotifications;
     });
@@ -136,8 +152,8 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
   const hideNotification = (id: string) => {
     notificationQueue().update(notifications => {
       return notifications.filter(notification => {
-        if (notification.id === id) {
-          notification.onClose?.(notification.id);
+        if (notification[0].id === id) {
+          notification[0].onClose?.(notification[0].id);
           return false;
         }
 
@@ -179,7 +195,9 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
   };
 
   const context: NotificationsProviderContextValue = {
+    //@ts-ignore
     notifications: notificationsAccessor,
+    //@ts-ignore
     queue: queueAccessor,
     showNotification,
     updateNotification,
@@ -212,9 +230,15 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
     <NotificationsProviderContext.Provider value={context}>
       <Portal>
         <Box class={classes()} zIndex={local.zIndex}>
-          <TransitionGroup name={transitionName()}>
+          <TransitionGroup
+            name={transitionName()}
+
+          >
             <For each={context.notifications()}>
-              {notification => <NotificationContainer {...notification} />}
+              {(notification) =>
+                // @ts-ignore
+                <NotificationContainer {...notification[0]} />
+              }
             </For>
           </TransitionGroup>
         </Box>

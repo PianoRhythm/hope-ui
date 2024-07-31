@@ -405,7 +405,7 @@ export default function SpinnerDoc() {
                 description: "Notification will close in 2 seconds",
                 duration: 2_000,
               });
-            }, 3_000);
+            }, 2_000);
           }}
         >
           Show update notification

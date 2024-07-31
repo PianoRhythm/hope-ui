@@ -45,6 +45,10 @@ export interface NotificationConfig {
      */
     loading?: boolean;
     /**
+     * If `true`, the notification will show a loader.
+     */
+    disableUpdateTransition?: boolean;
+    /**
      * Callback function to run side effects after the notification has closed.
      */
     onClose?: (id: string) => void;
