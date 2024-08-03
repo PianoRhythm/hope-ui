@@ -27,6 +27,10 @@ interface NotificationsProviderProps extends NotificationListVariants {
      * The children of the notifications provider.
      */
     children: JSX.Element;
+    /**
+     * If `true`, the notification system will log debug information.
+     */
+    debugMode?: boolean;
 }
 /**
  * Context provider for the notification system.

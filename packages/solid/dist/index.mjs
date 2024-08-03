@@ -9773,24 +9773,25 @@ function NotificationContainer(props) {
 const hopeNotificationListClass = "hope-notification__list";
 const DEFAULT_NOTIFICATION_DURATION = 5e3;
 function NotificationsProvider(props) {
-  const [debugMode, setDebugMode2] = createSignal(false);
+  var _a;
+  const [debugMode, setDebugMode2] = createSignal((_a = props.debugMode) != null ? _a : false);
   const [local] = splitProps(props, ["children", "placement", "duration", "persistent", "closable", "limit", "zIndex"]);
   const notificationQueue = createMemo(() => {
-    var _a;
+    var _a2;
     return createQueue({
       initialValues: [],
-      limit: (_a = local.limit) != null ? _a : 10
+      limit: (_a2 = local.limit) != null ? _a2 : 10
     });
   });
   const finalPlacement = () => {
-    var _a;
-    return (_a = local.placement) != null ? _a : "top-end";
+    var _a2;
+    return (_a2 = local.placement) != null ? _a2 : "top-end";
   };
   const notificationsAccessor = () => notificationQueue().state.current();
   const queueAccessor = () => notificationQueue().state.queue();
   const showNotification = (notification) => {
-    var _a, _b, _c, _d, _e, _f, _g, _h;
-    const id = (_a = notification.id) != null ? _a : `hope-notification-${createUniqueId()}`;
+    var _a2, _b, _c, _d, _e, _f, _g, _h;
+    const id = (_a2 = notification.id) != null ? _a2 : `hope-notification-${createUniqueId()}`;
     const persistent = (_c = (_b = notification.persistent) != null ? _b : local.persistent) != null ? _c : false;
     const duration = (_e = (_d = notification.duration) != null ? _d : local.duration) != null ? _e : DEFAULT_NOTIFICATION_DURATION;
     const closable = (_g = (_f = notification.closable) != null ? _f : local.closable) != null ? _g : true;
@@ -9820,7 +9821,7 @@ function NotificationsProvider(props) {
   };
   const updateNotification = (id, notification) => {
     notificationQueue().update((notifications) => {
-      var _a, _b, _c, _d, _e, _f, _g, _h, _i;
+      var _a2, _b, _c, _d, _e, _f, _g, _h, _i;
       const index = notifications.findIndex((n) => n[0].id === id);
       if (index === -1) {
         showNotification(notification);
@@ -9832,7 +9833,7 @@ function NotificationsProvider(props) {
       const newNotifications = [...notifications];
       let target = newNotifications[index][0];
       let updateTarget = newNotifications[index][1];
-      updateTarget("description", (_a = notification.description) != null ? _a : target.description);
+      updateTarget("description", (_a2 = notification.description) != null ? _a2 : target.description);
       updateTarget("title", (_b = notification.title) != null ? _b : target.title);
       updateTarget("status", (_c = notification.status) != null ? _c : target.status);
       updateTarget("loading", (_d = notification.loading) != null ? _d : target.loading);
@@ -9850,9 +9851,9 @@ function NotificationsProvider(props) {
   const hideNotification = (id) => {
     notificationQueue().update((notifications) => {
       return notifications.filter((notification) => {
-        var _a, _b;
+        var _a2, _b;
         if (notification[0].id === id) {
-          (_b = (_a = notification[0]).onClose) == null ? void 0 : _b.call(_a, notification[0].id);
+          (_b = (_a2 = notification[0]).onClose) == null ? void 0 : _b.call(_a2, notification[0].id);
           if (debugMode()) {
             console.log("[hideNotification] Hiding notification.", id, notification);
           }
@@ -9869,7 +9870,7 @@ function NotificationsProvider(props) {
     if (!id || !notification)
       return;
     notificationQueue().update((notifications) => {
-      var _a;
+      var _a2;
       const index = notifications.findIndex((n) => n[0].id === id);
       if (index === -1) {
         showNotification(notification);
@@ -9880,7 +9881,7 @@ function NotificationsProvider(props) {
       }
       let target = notifications[index];
       let updateTarget = target[1];
-      updateTarget("queuedNotificationUpdates", [...(_a = target[0].queuedNotificationUpdates) != null ? _a : [], notification]);
+      updateTarget("queuedNotificationUpdates", [...(_a2 = target[0].queuedNotificationUpdates) != null ? _a2 : [], notification]);
       if (debugMode()) {
         console.log("[addToNotificationQueue] Notification found in list, updating", id, notification);
       }
@@ -9891,14 +9892,14 @@ function NotificationsProvider(props) {
   const clearQueue2 = () => notificationQueue().clearQueue();
   const removeNotificationFromQueue = (id) => {
     notificationQueue().update((notifications) => {
-      var _a;
+      var _a2;
       const index = notifications.findIndex((n) => n[0].id === id);
       if (index === -1) {
         return notifications;
       }
       let target = notifications[index];
       let updateTarget = target[1];
-      updateTarget("queuedNotificationUpdates", (_a = target[0].queuedNotificationUpdates) == null ? void 0 : _a.slice(1));
+      updateTarget("queuedNotificationUpdates", (_a2 = target[0].queuedNotificationUpdates) == null ? void 0 : _a2.slice(1));
       return [...notifications];
     });
   };
@@ -9941,8 +9942,8 @@ function NotificationsProvider(props) {
   const hideHandler = (event) => hideNotification(event.detail);
   const addToNotificationQueueHandler = (event) => addToNotificationQueue2(event.detail.id, event.detail);
   const setDebugModeHandler = (event) => {
-    var _a;
-    setDebugMode2((_a = event.detail) != null ? _a : false);
+    var _a2;
+    setDebugMode2((_a2 = event.detail) != null ? _a2 : false);
   };
   onMount(() => {
     window.addEventListener(NOTIFICATIONS_EVENTS.show, showHandler);
