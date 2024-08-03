@@ -15,6 +15,7 @@ import { useNotificationsProviderContext } from "./notifications-provider.contex
 
 type NotificationContainerPropsExtended = {
   onCloseWithNotificationQueued?: (notification: NotificationConfig) => void;
+  onClose?: (id: string) => void;
 };
 
 type NotificationContainerOptions = Omit<NotificationConfig, "onClose">;
@@ -64,6 +65,8 @@ export function NotificationContainer(props: NotificationContainerProps) {
     } else {
       notificationsProviderContext.hideNotification(local.id);
     }
+
+    props.onClose?.(local.id);
   };
 
   const closeWithDelay = () => {

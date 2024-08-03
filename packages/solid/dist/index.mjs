@@ -9605,7 +9605,7 @@ function NotificationContainer(props) {
     }
   };
   const closeNotification = () => {
-    var _a;
+    var _a, _b;
     clearCloseDelay();
     let queued = local.queuedNotificationUpdates;
     if (queued && queued.length > 0) {
@@ -9616,6 +9616,7 @@ function NotificationContainer(props) {
     } else {
       notificationsProviderContext.hideNotification(local.id);
     }
+    (_b = props.onClose) == null ? void 0 : _b.call(props, local.id);
   };
   const closeWithDelay = () => {
     var _a;
@@ -9937,6 +9938,9 @@ function NotificationsProvider(props) {
                     children: (notification) => createComponent(NotificationContainer, mergeProps$1(() => notification[0], {
                       onCloseWithNotificationQueued: (config2) => {
                         removeNotificationFromQueue(config2.id);
+                      },
+                      onClose: (id) => {
+                        console.log("onClose", id, context.notifications(), context.queue());
                       }
                     }))
                   });

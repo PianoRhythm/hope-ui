@@ -285,6 +285,9 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
                     // Remove the next item in the queue
                     removeNotificationFromQueue(config.id);
                   }}
+                  onClose={(id) => {
+                    console.log("onClose", id, context.notifications(), context.queue());
+                  }}
                 />
               }
             </For>
