@@ -9606,13 +9606,13 @@ function NotificationContainer(props) {
   let closeDelayId;
   const clearCloseDelay = () => {
     if (closeDelayId) {
-      window.clearTimeout(closeDelayId);
-      closeDelayId = void 0;
       if (notificationsProviderContext.debugMode()) {
         console.log("NotificationContainer: clearTimeout called.", closeDelayId, local.id, {
           ...local
         });
       }
+      window.clearTimeout(closeDelayId);
+      closeDelayId = void 0;
     }
   };
   const closeNotification = () => {
@@ -9628,9 +9628,14 @@ function NotificationContainer(props) {
       }
       closeWithDelay();
     } else {
+      if (notificationsProviderContext.debugMode()) {
+        console.log("NotificationContainer: Hide notification", local.id, {
+          ...local
+        });
+      }
       notificationsProviderContext.hideNotification(local.id);
+      (_b = props.onClose) == null ? void 0 : _b.call(props, local.id);
     }
-    (_b = props.onClose) == null ? void 0 : _b.call(props, local.id);
   };
   const closeWithDelay = () => {
     var _a;
@@ -10010,8 +10015,6 @@ function NotificationsProvider(props) {
                         if (context.debugMode()) {
                           console.log("NotificationProvider: Notificaion - onClose", id, context.notifications(), context.queue());
                         }
-                        if (!context.notifications().some((n) => n[0].id == id))
-                          ;
                       }
                     }))
                   });

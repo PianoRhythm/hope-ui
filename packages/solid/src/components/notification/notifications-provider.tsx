@@ -345,12 +345,6 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
                     if (context.debugMode()) {
                       console.log("NotificationProvider: Notificaion - onClose", id, context.notifications(), context.queue());
                     }
-
-                    // Handle edge case where the notification is
-                    // not in the list but still needs to be removed
-                    if (!context.notifications().some(n => (n as any)[0].id == id)) {
-                      // showNotification({ id, duration: 0 });
-                    }
                   }}
                 />
               }

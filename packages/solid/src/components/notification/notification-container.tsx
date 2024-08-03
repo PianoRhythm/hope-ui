@@ -48,12 +48,12 @@ export function NotificationContainer(props: NotificationContainerProps) {
 
   const clearCloseDelay = () => {
     if (closeDelayId) {
+      if (notificationsProviderContext.debugMode()) {
+        console.log("NotificationContainer: clearTimeout called.", closeDelayId, local.id, { ...local });
+      }
+
       window.clearTimeout(closeDelayId);
       closeDelayId = undefined;
-
-      if (notificationsProviderContext.debugMode()) {
-        console.log("NotificationContainer: clearTimeout called.", closeDelayId, local.id, {...local});
-      }
     }
   };
 
@@ -73,23 +73,25 @@ export function NotificationContainer(props: NotificationContainerProps) {
 
       closeWithDelay();
     } else {
+      if (notificationsProviderContext.debugMode()) {
+        console.log("NotificationContainer: Hide notification", local.id, { ...local });
+      }
       notificationsProviderContext.hideNotification(local.id);
+      props.onClose?.(local.id);
     }
-
-    props.onClose?.(local.id);
   };
 
   const closeWithDelay = () => {
     if (local.persistent && !local.queuedNotificationUpdates?.length || local.duration == null) {
       if (notificationsProviderContext.debugMode()) {
-        console.log("NotificationContainer: Persistent notification - setTimeout not called.", local.id, {...local});
+        console.log("NotificationContainer: Persistent notification - setTimeout not called.", local.id, { ...local });
       }
       return;
     }
 
     closeDelayId = window.setTimeout(closeNotification, local.duration);
     if (notificationsProviderContext.debugMode()) {
-      console.log("NotificationContainer: setTimeout called.", closeDelayId, local.duration, local.id, {...local});
+      console.log("NotificationContainer: setTimeout called.", closeDelayId, local.duration, local.id, { ...local });
     }
   };
 
