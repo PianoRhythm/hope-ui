@@ -125,15 +125,16 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
 
       // If notification with the same id already exists, add it to the queue
       if (newNotification.id && notifications.some(n => n[0].id === newNotification.id)) {
-        addToNotificationQueue(newNotification.id, newNotification);
         if (debugMode()) {
-          console.log("[showNotification] Notification with the same id already exists, adding to queue", newNotification.id, newNotification);
+          console.log("[showNotification] Notification with the same id already exists, adding to queue", newNotification.id, { ...newNotification });
         }
+
+        addToNotificationQueue(newNotification.id, newNotification);
         return notifications;
       }
 
       if (debugMode()) {
-        console.log("[showNotification] Adding to list and showing notification.", newNotification);
+        console.log("[showNotification] Adding to list and showing notification.", { ...newNotification });
       }
 
       return [...notifications, createStore(newNotification)];
@@ -147,12 +148,12 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
       const index = notifications.findIndex(n => n[0].id === id);
 
       if (index === -1) {
-        // Create new instead
-        showNotification(notification);
-
         if (debugMode()) {
           console.log("[updateNotification] Notification not found in list, creating new", id, notification);
         }
+
+        // Create new instead
+        showNotification(notification);
 
         return notifications;
       }
@@ -183,12 +184,11 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
     notificationQueue().update(notifications => {
       return notifications.filter(notification => {
         if (notification[0].id === id) {
-          notification[0].onClose?.(notification[0].id);
-
           if (debugMode()) {
             console.log("[hideNotification] Hiding notification.", id, notification);
           }
 
+          notification[0].onClose?.(notification[0].id);
           return false;
         }
 
@@ -209,12 +209,12 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
       // console.log("addToNotificationQueue", id, notification, index);
 
       if (index === -1) {
-        // Create new instead
-        showNotification(notification);
-
         if (debugMode()) {
           console.log("[addToNotificationQueue] Notification not found in list, creating new", id, notification);
         }
+
+        // Create new instead
+        showNotification(notification);
 
         return notifications;
       }
@@ -240,12 +240,19 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
       const index = notifications.findIndex(n => n[0].id === id);
 
       if (index === -1) {
+        if (debugMode()) {
+          console.log("[removeNotificationFromQueue] Notification not found in list.", id);
+        }
         return notifications;
       }
 
       let target = notifications[index];
       let updateTarget = target[1];
       updateTarget("queuedNotificationUpdates", target[0].queuedNotificationUpdates?.slice(1));
+
+      if (debugMode()) {
+        console.log("[removeNotificationFromQueue] Notification found in list, removing...", id);
+      }
 
       return [...notifications];
     });
@@ -336,7 +343,7 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
                   }}
                   onClose={(id) => {
                     if (context.debugMode()) {
-                      console.log("onClose", id, context.notifications(), context.queue());
+                      console.log("NotificationProvider: Notificaion - onClose", id, context.notifications(), context.queue());
                     }
 
                     // Handle edge case where the notification is
