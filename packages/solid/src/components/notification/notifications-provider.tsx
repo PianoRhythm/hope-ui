@@ -186,11 +186,13 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
   };
 
   const hideNotification = (id: string) => {
+    let notFoundFlag = false;
+
     notificationQueue().update(notifications => {
       return notifications.filter(notification => {
         if (notification[0].id === id) {
           if (debugMode()) {
-            console.log("[hideNotification] Hiding notification.", id, notification);
+            console.log("[hideNotification] Hiding notification.", id, { ...notification[0] });
           }
 
           notification[1]("queuedNotificationUpdates", []);
@@ -198,9 +200,11 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
           return false;
         }
 
-        if (debugMode()) {
-          console.log("[hideNotification] Keeping notification since it was not found in list.", id, notification);
+        if (!notFoundFlag && debugMode()) {
+          console.warn("[hideNotification] Keeping notification since it was not found in list.", id, {...notification[0]});
+          notFoundFlag = true;
         }
+
         return true;
       });
     });
@@ -216,11 +220,8 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
 
       if (index === -1) {
         if (debugMode()) {
-          console.log("[addToNotificationQueue] Notification not found in list, creating new", id, notification);
+          console.log("[addToNotificationQueue] Notification not found in list.", id, notification);
         }
-
-        // Create new instead
-        showNotification(notification);
 
         return notifications;
       }

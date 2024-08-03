@@ -46,6 +46,11 @@ export function NotificationContainer(props: NotificationContainerProps) {
 
   let closeDelayId: number | undefined;
 
+  const _clearCloseDelay = () => {
+    window.clearTimeout(closeDelayId);
+    closeDelayId = undefined;
+  };
+
   const clearCloseDelay = (force: boolean = false) => {
     // If there are at least one queued notifications, don't clear the timeout
     if (!force && (local.queuedNotificationUpdates?.length ?? 0) > 0) return;
@@ -55,26 +60,24 @@ export function NotificationContainer(props: NotificationContainerProps) {
         console.log("NotificationContainer: clearTimeout called.", closeDelayId, local.id, { ...local });
       }
 
-      window.clearTimeout(closeDelayId);
-      closeDelayId = undefined;
+      _clearCloseDelay();
     }
   };
 
   const _closeNotification = () => {
+    _clearCloseDelay();
+
     if (notificationsProviderContext.debugMode()) {
       console.log("NotificationContainer: Hide notification", local.id, { ...local });
     }
+
     notificationsProviderContext.hideNotification(local.id);
     props.onClose?.(local.id);
   };
 
   const closeNotification = () => {
-    clearCloseDelay();
-
     let queued = local.queuedNotificationUpdates;
     if (queued && queued.length > 0) {
-      window.clearTimeout(closeDelayId ?? -1);
-
       // Get next notification in queue (without mutating) and update
       let next = queued[0];
       let updated = notificationsProviderContext.updateNotification(local.id, next!);
@@ -86,6 +89,7 @@ export function NotificationContainer(props: NotificationContainerProps) {
         return;
       }
 
+      window.clearTimeout(closeDelayId ?? -1);
       props.onCloseWithNotificationQueued?.(next!);
 
       if (notificationsProviderContext.debugMode()) {
@@ -119,7 +123,7 @@ export function NotificationContainer(props: NotificationContainerProps) {
   });
 
   onCleanup(() => {
-    clearCloseDelay(true);
+    _clearCloseDelay();
   });
 
   return (
