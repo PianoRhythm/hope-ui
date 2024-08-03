@@ -9941,6 +9941,12 @@ function NotificationsProvider(props) {
                       },
                       onClose: (id) => {
                         console.log("onClose", id, context.notifications(), context.queue());
+                        if (!context.notifications().some((n) => n[0].id == id)) {
+                          showNotification({
+                            id,
+                            duration: 0
+                          });
+                        }
                       }
                     }))
                   });
