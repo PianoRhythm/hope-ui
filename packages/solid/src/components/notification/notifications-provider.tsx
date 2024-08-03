@@ -9,16 +9,18 @@ import {
   onMount,
   splitProps,
 } from "solid-js";
-import type { StoreNode, Store, SetStoreFunction } from "solid-js/store";
+import type { SetStoreFunction, Store } from "solid-js/store";
 
 
 import { Portal } from "solid-js/web";
-import { Transition, TransitionGroup } from "solid-transition-group";
+import { TransitionGroup } from "solid-transition-group";
 
+import { createStore } from "solid-js/store";
 import { createQueue } from "../../hooks/create-queue";
 import { PositionProps } from "../../styled-system/props/position";
 import { classNames } from "../../utils/css";
 import { Box } from "../box/box";
+import { NotificationContainer } from "./notification-container";
 import { NOTIFICATIONS_EVENTS } from "./notification.events";
 import {
   notificationListStyles,
@@ -26,12 +28,10 @@ import {
   notificationTransitionName,
 } from "./notification.styles";
 import { NotificationConfig, ShowNotificationProps } from "./notification.types";
-import { NotificationContainer } from "./notification-container";
 import {
   NotificationsProviderContext,
   NotificationsProviderContextValue,
 } from "./notifications-provider.context";
-import { createStore } from "solid-js/store";
 
 interface NotificationsProviderProps extends NotificationListVariants {
   /**
@@ -64,6 +64,11 @@ interface NotificationsProviderProps extends NotificationListVariants {
    * The children of the notifications provider.
    */
   children: JSX.Element;
+
+  /**
+   * If `true`, the notification system will log debug information.
+   */
+  debugMode?: boolean;
 }
 
 const hopeNotificationListClass = "hope-notification__list";
@@ -74,7 +79,7 @@ const DEFAULT_NOTIFICATION_DURATION = 5_000;
  * Context provider for the notification system.
  */
 export function NotificationsProvider(props: NotificationsProviderProps) {
-  const [debugMode, setDebugMode] = createSignal(false);
+  const [debugMode, setDebugMode] = createSignal(props.debugMode ?? false);
 
   const [local] = splitProps(props, [
     "children",
