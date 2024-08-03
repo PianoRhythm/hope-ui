@@ -1,4 +1,4 @@
-import { createEffect, Match, onCleanup, onMount, Show, splitProps, Switch } from "solid-js";
+import { Match, onCleanup, onMount, Show, splitProps, Switch } from "solid-js";
 
 import { CloseButton } from "../close-button/close-button";
 import { Flex } from "../flex/flex";
@@ -6,11 +6,11 @@ import { IconSpinner } from "../icons/IconSpinner";
 import { VStack } from "../stack/stack";
 import { HTMLHopeProps } from "../types";
 import { Notification } from "./notification";
-import { notificationLoaderStyles } from "./notification.styles";
-import { NotificationConfig } from "./notification.types";
 import { NotificationDescription } from "./notification-description";
 import { NotificationIcon } from "./notification-icon";
 import { NotificationTitle } from "./notification-title";
+import { notificationLoaderStyles } from "./notification.styles";
+import { NotificationConfig } from "./notification.types";
 import { useNotificationsProviderContext } from "./notifications-provider.context";
 
 type NotificationContainerPropsExtended = {
@@ -46,9 +46,9 @@ export function NotificationContainer(props: NotificationContainerProps) {
 
   let closeDelayId: number | undefined;
 
-  const clearCloseDelay = () => {
+  const clearCloseDelay = (force: boolean = false) => {
     // If there are at least one queued notifications, don't clear the timeout
-    if (local.queuedNotificationUpdates?.length ?? 0 > 0) return;
+    if (!force && (local.queuedNotificationUpdates?.length ?? 0) > 0) return;
 
     if (closeDelayId) {
       if (notificationsProviderContext.debugMode()) {
@@ -60,6 +60,14 @@ export function NotificationContainer(props: NotificationContainerProps) {
     }
   };
 
+  const _closeNotification = () => {
+    if (notificationsProviderContext.debugMode()) {
+      console.log("NotificationContainer: Hide notification", local.id, { ...local });
+    }
+    notificationsProviderContext.hideNotification(local.id);
+    props.onClose?.(local.id);
+  };
+
   const closeNotification = () => {
     clearCloseDelay();
 
@@ -69,20 +77,24 @@ export function NotificationContainer(props: NotificationContainerProps) {
 
       // Get next notification in queue (without mutating) and update
       let next = queued[0];
-      notificationsProviderContext.updateNotification(local.id, next!);
+      let updated = notificationsProviderContext.updateNotification(local.id, next!);
+      if (!updated) {
+        if (notificationsProviderContext.debugMode())
+          console.error("NotificationContainer: Failed to update queued notification", local.id, next, queued);
+
+        _closeNotification();
+        return;
+      }
+
       props.onCloseWithNotificationQueued?.(next!);
 
       if (notificationsProviderContext.debugMode()) {
-        console.log("NotificationContainer: Update queued notifications", next, queued);
+        console.log("NotificationContainer: Update queued notifications", updated, next, queued);
       }
 
       closeWithDelay();
     } else {
-      if (notificationsProviderContext.debugMode()) {
-        console.log("NotificationContainer: Hide notification", local.id, { ...local });
-      }
-      notificationsProviderContext.hideNotification(local.id);
-      props.onClose?.(local.id);
+      _closeNotification();
     }
   };
 
@@ -107,14 +119,8 @@ export function NotificationContainer(props: NotificationContainerProps) {
   });
 
   onCleanup(() => {
-    clearCloseDelay();
+    clearCloseDelay(true);
   });
-
-  // createEffect(() => {
-  //   if (local.queuedNotificationUpdates?.length ?? 0 > 1) {
-  //     closeWithDelay();
-  //   }
-  // });
 
   return (
     <Show
@@ -123,7 +129,7 @@ export function NotificationContainer(props: NotificationContainerProps) {
         <Notification
           status={local.status}
           pr={local.closable ? "$9" : "$3"}
-          onMouseEnter={clearCloseDelay}
+          onMouseEnter={() => clearCloseDelay()}
           onMouseLeave={closeWithDelay}
         >
           <Show when={showIcon()}>
@@ -166,7 +172,7 @@ export function NotificationContainer(props: NotificationContainerProps) {
       <Flex
         w="$full"
         justifyContent="flex-end"
-        onMouseEnter={clearCloseDelay}
+        onMouseEnter={() => clearCloseDelay()}
         onMouseLeave={closeWithDelay}
       >
         {local.render?.({

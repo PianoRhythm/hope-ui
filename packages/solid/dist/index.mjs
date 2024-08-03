@@ -9604,9 +9604,9 @@ function NotificationContainer(props) {
   const notificationsProviderContext = useNotificationsProviderContext();
   const [local] = splitProps(props, ["render", "id", "status", "title", "description", "duration", "persistent", "closable", "loading", "onMouseEnter", "onMouseLeave", "queuedNotificationUpdates"]);
   let closeDelayId;
-  const clearCloseDelay = () => {
+  const clearCloseDelay = (force = false) => {
     var _a, _b;
-    if ((_b = (_a = local.queuedNotificationUpdates) == null ? void 0 : _a.length) != null ? _b : 0 > 0)
+    if (!force && ((_b = (_a = local.queuedNotificationUpdates) == null ? void 0 : _a.length) != null ? _b : 0) > 0)
       return;
     if (closeDelayId) {
       if (notificationsProviderContext.debugMode()) {
@@ -9618,27 +9618,37 @@ function NotificationContainer(props) {
       closeDelayId = void 0;
     }
   };
+  const _closeNotification = () => {
+    var _a;
+    if (notificationsProviderContext.debugMode()) {
+      console.log("NotificationContainer: Hide notification", local.id, {
+        ...local
+      });
+    }
+    notificationsProviderContext.hideNotification(local.id);
+    (_a = props.onClose) == null ? void 0 : _a.call(props, local.id);
+  };
   const closeNotification = () => {
-    var _a, _b;
+    var _a;
     clearCloseDelay();
     let queued = local.queuedNotificationUpdates;
     if (queued && queued.length > 0) {
       window.clearTimeout(closeDelayId != null ? closeDelayId : -1);
       let next = queued[0];
-      notificationsProviderContext.updateNotification(local.id, next);
+      let updated = notificationsProviderContext.updateNotification(local.id, next);
+      if (!updated) {
+        if (notificationsProviderContext.debugMode())
+          console.error("NotificationContainer: Failed to update queued notification", local.id, next, queued);
+        _closeNotification();
+        return;
+      }
       (_a = props.onCloseWithNotificationQueued) == null ? void 0 : _a.call(props, next);
       if (notificationsProviderContext.debugMode()) {
-        console.log("NotificationContainer: Update queued notifications", next, queued);
+        console.log("NotificationContainer: Update queued notifications", updated, next, queued);
       }
       closeWithDelay();
     } else {
-      if (notificationsProviderContext.debugMode()) {
-        console.log("NotificationContainer: Hide notification", local.id, {
-          ...local
-        });
-      }
-      notificationsProviderContext.hideNotification(local.id);
-      (_b = props.onClose) == null ? void 0 : _b.call(props, local.id);
+      _closeNotification();
     }
   };
   const closeWithDelay = () => {
@@ -9658,14 +9668,12 @@ function NotificationContainer(props) {
       });
     }
   };
-  const showIcon = () => {
-    return local.status && !local.loading;
-  };
+  const showIcon = () => local.status && !local.loading;
   onMount(() => {
     closeWithDelay();
   });
   onCleanup(() => {
-    clearCloseDelay();
+    clearCloseDelay(true);
   });
   return createComponent(Show, {
     get when() {
@@ -9679,7 +9687,7 @@ function NotificationContainer(props) {
         get pr() {
           return local.closable ? "$9" : "$3";
         },
-        onMouseEnter: clearCloseDelay,
+        onMouseEnter: () => clearCloseDelay(),
         onMouseLeave: closeWithDelay,
         get children() {
           return [createComponent(Show, {
@@ -9773,7 +9781,7 @@ function NotificationContainer(props) {
       return createComponent(Flex, {
         w: "$full",
         justifyContent: "flex-end",
-        onMouseEnter: clearCloseDelay,
+        onMouseEnter: () => clearCloseDelay(),
         onMouseLeave: closeWithDelay,
         get children() {
           var _a;
@@ -9840,14 +9848,11 @@ function NotificationsProvider(props) {
     return id;
   };
   const updateNotification = (id, notification) => {
+    let updated = false;
     notificationQueue().update((notifications) => {
       var _a2, _b, _c, _d, _e, _f, _g, _h, _i;
       const index = notifications.findIndex((n) => n[0].id === id);
       if (index === -1) {
-        if (debugMode()) {
-          console.log("[updateNotification] Notification not found in list, creating new", id, notification);
-        }
-        showNotification(notification);
         return notifications;
       }
       const newNotifications = [...notifications];
@@ -9865,8 +9870,10 @@ function NotificationsProvider(props) {
       if (debugMode()) {
         console.log("[updateNotification] Notification found in list, updating", id, notification);
       }
+      updated = true;
       return newNotifications;
     });
+    return updated;
   };
   const hideNotification = (id) => {
     notificationQueue().update((notifications) => {
@@ -9876,6 +9883,7 @@ function NotificationsProvider(props) {
           if (debugMode()) {
             console.log("[hideNotification] Hiding notification.", id, notification);
           }
+          notification[1]("queuedNotificationUpdates", []);
           (_b = (_a2 = notification[0]).onClose) == null ? void 0 : _b.call(_a2, notification[0].id);
           return false;
         }
@@ -9908,8 +9916,6 @@ function NotificationsProvider(props) {
       return [...notifications];
     });
   };
-  const clear2 = () => notificationQueue().update(() => []);
-  const clearQueue2 = () => notificationQueue().clearQueue();
   const removeNotificationFromQueue = (id) => {
     notificationQueue().update((notifications) => {
       var _a2;
@@ -9929,6 +9935,8 @@ function NotificationsProvider(props) {
       return [...notifications];
     });
   };
+  const clear2 = () => notificationQueue().update(() => []);
+  const clearQueue2 = () => notificationQueue().clearQueue();
   const classes = () => {
     return classNames(hopeNotificationListClass, notificationListStyles({
       placement: finalPlacement()

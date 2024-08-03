@@ -16,7 +16,7 @@ export interface NotificationsProviderContextValue {
     /**
      * Update a notification for a given `id`.
      */
-    updateNotification(id: string, config: NotificationConfig): void;
+    updateNotification(id: string, config: NotificationConfig): boolean;
     /**
      * Hide a notification.
      */

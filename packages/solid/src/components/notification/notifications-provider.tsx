@@ -144,16 +144,18 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
   };
 
   const updateNotification = (id: string, notification: NotificationConfig) => {
+    let updated = false;
+
     notificationQueue().update(notifications => {
       const index = notifications.findIndex(n => n[0].id === id);
 
       if (index === -1) {
-        if (debugMode()) {
-          console.log("[updateNotification] Notification not found in list, creating new", id, notification);
-        }
+        // if (debugMode()) {
+        //   console.log("[updateNotification] Notification not found in list, creating new", id, notification);
+        // }
 
-        // Create new instead
-        showNotification(notification);
+        // // Create new instead
+        // showNotification(notification);
 
         return notifications;
       }
@@ -176,8 +178,11 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
         console.log("[updateNotification] Notification found in list, updating", id, notification);
       }
 
+      updated = true;
       return newNotifications;
     });
+
+    return updated;
   };
 
   const hideNotification = (id: string) => {
@@ -188,6 +193,7 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
             console.log("[hideNotification] Hiding notification.", id, notification);
           }
 
+          notification[1]("queuedNotificationUpdates", []);
           notification[0].onClose?.(notification[0].id);
           return false;
         }
@@ -231,10 +237,6 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
     });
   };
 
-  const clear = () => notificationQueue().update(() => []);
-
-  const clearQueue = () => notificationQueue().clearQueue();
-
   const removeNotificationFromQueue = (id: string) => {
     notificationQueue().update(notifications => {
       const index = notifications.findIndex(n => n[0].id === id);
@@ -257,6 +259,10 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
       return [...notifications];
     });
   };
+
+  const clear = () => notificationQueue().update(() => []);
+
+  const clearQueue = () => notificationQueue().clearQueue();
 
   const classes = () => {
     return classNames(
