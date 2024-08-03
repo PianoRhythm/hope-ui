@@ -9605,6 +9605,9 @@ function NotificationContainer(props) {
   const [local] = splitProps(props, ["render", "id", "status", "title", "description", "duration", "persistent", "closable", "loading", "onMouseEnter", "onMouseLeave", "queuedNotificationUpdates"]);
   let closeDelayId;
   const clearCloseDelay = () => {
+    var _a, _b;
+    if ((_b = (_a = local.queuedNotificationUpdates) == null ? void 0 : _a.length) != null ? _b : 0 > 0)
+      return;
     if (closeDelayId) {
       if (notificationsProviderContext.debugMode()) {
         console.log("NotificationContainer: clearTimeout called.", closeDelayId, local.id, {
@@ -9662,6 +9665,12 @@ function NotificationContainer(props) {
   });
   onCleanup(() => {
     clearCloseDelay();
+  });
+  createEffect(() => {
+    var _a, _b;
+    if ((_b = (_a = local.queuedNotificationUpdates) == null ? void 0 : _a.length) != null ? _b : 0 > 1) {
+      closeWithDelay();
+    }
   });
   return createComponent(Show, {
     get when() {

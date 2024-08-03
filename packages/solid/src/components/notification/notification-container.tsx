@@ -1,4 +1,4 @@
-import { Match, onCleanup, onMount, Show, splitProps, Switch } from "solid-js";
+import { createEffect, Match, onCleanup, onMount, Show, splitProps, Switch } from "solid-js";
 
 import { CloseButton } from "../close-button/close-button";
 import { Flex } from "../flex/flex";
@@ -47,6 +47,9 @@ export function NotificationContainer(props: NotificationContainerProps) {
   let closeDelayId: number | undefined;
 
   const clearCloseDelay = () => {
+    // If there are at least one queued notifications, don't clear the timeout
+    if (local.queuedNotificationUpdates?.length ?? 0 > 0) return;
+
     if (closeDelayId) {
       if (notificationsProviderContext.debugMode()) {
         console.log("NotificationContainer: clearTimeout called.", closeDelayId, local.id, { ...local });
@@ -105,6 +108,12 @@ export function NotificationContainer(props: NotificationContainerProps) {
 
   onCleanup(() => {
     clearCloseDelay();
+  });
+
+  createEffect(() => {
+    if (local.queuedNotificationUpdates?.length ?? 0 > 1) {
+      closeWithDelay();
+    }
   });
 
   return (
