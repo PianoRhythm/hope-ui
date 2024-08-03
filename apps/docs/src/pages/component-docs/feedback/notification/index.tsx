@@ -480,12 +480,6 @@ export default function SpinnerDoc() {
                 notify(5);
                 notify(6);
               }, 0);
-
-              Array(4)
-                .fill(0)
-                .forEach((_, index) => {
-
-                });
             }}
           >
             Show 20 notifications

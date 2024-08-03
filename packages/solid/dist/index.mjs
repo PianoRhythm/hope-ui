@@ -9625,26 +9625,26 @@ function NotificationContainer(props) {
     var _a;
     _clearCloseDelay();
     if (notificationsProviderContext.debugMode()) {
-      console.log("NotificationContainer: Hide notification", local.id, {
+      console.log("NotificationContainer: [_closeNotification]", local.id, {
         ...local
       });
     }
     notificationsProviderContext.hideNotification(local.id);
     (_a = props.onClose) == null ? void 0 : _a.call(props, local.id);
   };
-  const closeNotification = () => {
+  const closeNotification = (id) => {
     var _a;
     let queued = local.queuedNotificationUpdates;
     if (queued && queued.length > 0) {
       let next = queued[0];
-      let updated = notificationsProviderContext.updateNotification(local.id, next);
+      let updated = notificationsProviderContext.updateNotification(id != null ? id : local.id, next);
       if (!updated) {
         if (notificationsProviderContext.debugMode())
-          console.error("NotificationContainer: Failed to update queued notification", local.id, next, queued);
+          console.error("NotificationContainer: Failed to update queued notification", id != null ? id : local.id, next, queued);
         _closeNotification();
         return;
       }
-      window.clearTimeout(closeDelayId != null ? closeDelayId : -1);
+      _clearCloseDelay();
       (_a = props.onCloseWithNotificationQueued) == null ? void 0 : _a.call(props, next);
       if (notificationsProviderContext.debugMode()) {
         console.log("NotificationContainer: Update queued notifications", updated, next, queued);
@@ -9655,8 +9655,8 @@ function NotificationContainer(props) {
     }
   };
   const closeWithDelay = () => {
-    var _a;
-    if (local.persistent && !((_a = local.queuedNotificationUpdates) == null ? void 0 : _a.length) || local.duration == null) {
+    var _a, _b;
+    if (local.persistent && ((_b = (_a = local.queuedNotificationUpdates) == null ? void 0 : _a.length) != null ? _b : 0) > 0 || local.duration == null) {
       if (notificationsProviderContext.debugMode()) {
         console.log("NotificationContainer: Persistent notification - setTimeout not called.", local.id, {
           ...local
@@ -9664,15 +9664,20 @@ function NotificationContainer(props) {
       }
       return;
     }
-    closeDelayId = window.setTimeout(closeNotification, local.duration);
+    closeDelayId = window.setTimeout(() => closeNotification(local.id), local.duration);
     if (notificationsProviderContext.debugMode()) {
-      console.log("NotificationContainer: setTimeout called.", closeDelayId, local.duration, local.id, {
+      console.log("NotificationContainer: [closeWithDelay] setTimeout called.", closeDelayId, local.duration, local.id, {
         ...local
       });
     }
   };
   const showIcon = () => local.status && !local.loading;
   onMount(() => {
+    if (notificationsProviderContext.debugMode()) {
+      console.log("NotificationContainer: onMount", local.id, {
+        ...local
+      });
+    }
     closeWithDelay();
   });
   onCleanup(() => {
@@ -9773,7 +9778,7 @@ function NotificationContainer(props) {
                 position: "absolute",
                 top: "$1_5",
                 right: "$1_5",
-                onClick: closeNotification
+                onClick: () => closeNotification()
               });
             }
           })];
@@ -9938,7 +9943,7 @@ function NotificationsProvider(props) {
       let updateTarget = target[1];
       updateTarget("queuedNotificationUpdates", (_a2 = target[0].queuedNotificationUpdates) == null ? void 0 : _a2.slice(1));
       if (debugMode()) {
-        console.log("[removeNotificationFromQueue] Notification found in list, removing...", id);
+        console.log("[removeNotificationFromQueue] Queued Notification found in list, removing...", id);
       }
       return [...notifications];
     });
@@ -10032,9 +10037,6 @@ function NotificationsProvider(props) {
                         removeNotificationFromQueue(config2.id);
                       },
                       onClose: (id) => {
-                        if (context.debugMode()) {
-                          console.log("NotificationProvider: Notificaion - onClose", id, context.notifications(), context.queue());
-                        }
                       }
                     }))
                   });

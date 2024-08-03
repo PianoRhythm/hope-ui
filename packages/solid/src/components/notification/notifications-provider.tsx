@@ -254,7 +254,7 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
       updateTarget("queuedNotificationUpdates", target[0].queuedNotificationUpdates?.slice(1));
 
       if (debugMode()) {
-        console.log("[removeNotificationFromQueue] Notification found in list, removing...", id);
+        console.log("[removeNotificationFromQueue] Queued Notification found in list, removing...", id);
       }
 
       return [...notifications];
@@ -349,9 +349,9 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
                     removeNotificationFromQueue(config.id);
                   }}
                   onClose={(id) => {
-                    if (context.debugMode()) {
-                      console.log("NotificationProvider: Notificaion - onClose", id, context.notifications(), context.queue());
-                    }
+                    // if (context.debugMode()) {
+                    //   console.log("NotificationProvider: Notification - onClose", id, context.notifications(), context.queue());
+                    // }
                   }}
                 />
               }

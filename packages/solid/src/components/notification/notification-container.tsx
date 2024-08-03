@@ -68,28 +68,28 @@ export function NotificationContainer(props: NotificationContainerProps) {
     _clearCloseDelay();
 
     if (notificationsProviderContext.debugMode()) {
-      console.log("NotificationContainer: Hide notification", local.id, { ...local });
+      console.log("NotificationContainer: [_closeNotification]", local.id, { ...local });
     }
 
     notificationsProviderContext.hideNotification(local.id);
     props.onClose?.(local.id);
   };
 
-  const closeNotification = () => {
+  const closeNotification = (id?: string) => {
     let queued = local.queuedNotificationUpdates;
     if (queued && queued.length > 0) {
       // Get next notification in queue (without mutating) and update
       let next = queued[0];
-      let updated = notificationsProviderContext.updateNotification(local.id, next!);
+      let updated = notificationsProviderContext.updateNotification(id ?? local.id, next!);
       if (!updated) {
         if (notificationsProviderContext.debugMode())
-          console.error("NotificationContainer: Failed to update queued notification", local.id, next, queued);
+          console.error("NotificationContainer: Failed to update queued notification", id ?? local.id, next, queued);
 
         _closeNotification();
         return;
       }
 
-      window.clearTimeout(closeDelayId ?? -1);
+      _clearCloseDelay();
       props.onCloseWithNotificationQueued?.(next!);
 
       if (notificationsProviderContext.debugMode()) {
@@ -103,22 +103,26 @@ export function NotificationContainer(props: NotificationContainerProps) {
   };
 
   const closeWithDelay = () => {
-    if (local.persistent && !local.queuedNotificationUpdates?.length || local.duration == null) {
+    if (local.persistent && (local.queuedNotificationUpdates?.length ?? 0) > 0 || local.duration == null) {
       if (notificationsProviderContext.debugMode()) {
         console.log("NotificationContainer: Persistent notification - setTimeout not called.", local.id, { ...local });
       }
       return;
     }
 
-    closeDelayId = window.setTimeout(closeNotification, local.duration);
+    closeDelayId = window.setTimeout(() => closeNotification(local.id), local.duration);
     if (notificationsProviderContext.debugMode()) {
-      console.log("NotificationContainer: setTimeout called.", closeDelayId, local.duration, local.id, { ...local });
+      console.log("NotificationContainer: [closeWithDelay] setTimeout called.", closeDelayId, local.duration, local.id, { ...local });
     }
   };
 
   const showIcon = () => local.status && !local.loading;
 
   onMount(() => {
+    if (notificationsProviderContext.debugMode()) {
+      console.log("NotificationContainer: onMount", local.id, { ...local });
+    }
+
     closeWithDelay();
   });
 
@@ -167,7 +171,7 @@ export function NotificationContainer(props: NotificationContainerProps) {
               position="absolute"
               top="$1_5"
               right="$1_5"
-              onClick={closeNotification}
+              onClick={() => closeNotification()}
             />
           </Show>
         </Notification>
