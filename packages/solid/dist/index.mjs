@@ -9623,6 +9623,7 @@ function NotificationContainer(props) {
     clearCloseDelay();
     let queued = local.queuedNotificationUpdates;
     if (queued && queued.length > 0) {
+      window.clearTimeout(closeDelayId != null ? closeDelayId : -1);
       let next = queued[0];
       notificationsProviderContext.updateNotification(local.id, next);
       (_a = props.onCloseWithNotificationQueued) == null ? void 0 : _a.call(props, next);
@@ -9665,12 +9666,6 @@ function NotificationContainer(props) {
   });
   onCleanup(() => {
     clearCloseDelay();
-  });
-  createEffect(() => {
-    var _a, _b;
-    if ((_b = (_a = local.queuedNotificationUpdates) == null ? void 0 : _a.length) != null ? _b : 0 > 1) {
-      closeWithDelay();
-    }
   });
   return createComponent(Show, {
     get when() {

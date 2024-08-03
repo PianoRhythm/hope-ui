@@ -65,6 +65,8 @@ export function NotificationContainer(props: NotificationContainerProps) {
 
     let queued = local.queuedNotificationUpdates;
     if (queued && queued.length > 0) {
+      window.clearTimeout(closeDelayId ?? -1);
+
       // Get next notification in queue (without mutating) and update
       let next = queued[0];
       notificationsProviderContext.updateNotification(local.id, next!);
@@ -98,9 +100,7 @@ export function NotificationContainer(props: NotificationContainerProps) {
     }
   };
 
-  const showIcon = () => {
-    return local.status && !local.loading;
-  };
+  const showIcon = () => local.status && !local.loading;
 
   onMount(() => {
     closeWithDelay();
@@ -110,11 +110,11 @@ export function NotificationContainer(props: NotificationContainerProps) {
     clearCloseDelay();
   });
 
-  createEffect(() => {
-    if (local.queuedNotificationUpdates?.length ?? 0 > 1) {
-      closeWithDelay();
-    }
-  });
+  // createEffect(() => {
+  //   if (local.queuedNotificationUpdates?.length ?? 0 > 1) {
+  //     closeWithDelay();
+  //   }
+  // });
 
   return (
     <Show
