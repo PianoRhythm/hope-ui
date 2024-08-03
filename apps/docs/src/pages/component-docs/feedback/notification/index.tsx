@@ -189,6 +189,19 @@ export default function SpinnerDoc() {
 
   onMount(() => {
     Prism.highlightAll();
+
+    Array(3)
+      .fill(0)
+      .forEach((_, index) => {
+        let id = notificationService.show({
+          id: `notification-test-load`,
+          title: `Notification Test ${index + 1}`,
+          duration: 2000,
+          // loading: true,
+          description: "TEST TEST TEST",
+        });
+        console.log("SHOWING!", index, id);
+      });
   });
 
   return (
@@ -464,11 +477,44 @@ export default function SpinnerDoc() {
                 .forEach((_, index) => {
                   notificationService.show({
                     id: `notification-test`,
-                    title: `Notification ${index + 1}`,
-                    duration: 2000,
-                    description: "Most notifications are added to queue",
+                    title: `Notification Test ${index + 1}`,
+                    duration: 1250,
+                    loading: true,
+                    description: "TEST TEST TEST",
                   });
                 });
+
+              Array(3)
+                .fill(0)
+                .forEach((_, index) => {
+                  notificationService.show({
+                    id: `notification-test2`,
+                    title: `Notification Test ${index + 1}`,
+                    duration: 2250,
+                    loading: true,
+                    description: "TEST TEST TEST",
+                  });
+                });
+              setTimeout(() => {
+                notificationService.hide("notification-test");
+                notificationService.hide("notification-test");
+                // notificationService.clear();
+
+                // Array(3)
+                //   .fill(0)
+                //   .forEach((_, index) => {
+                //     notificationService.show({
+                //       id: `notification-test`,
+                //       title: `Notification ${index + 1}`,
+                //       duration: 2000,
+                //       loading: false,
+                //       description: "Most notifications are added to queue",
+                //     });
+                //   });
+                console.log("CLOSING!");
+              }, 2000);
+
+
             }}
           >
             Show 20 notifications

@@ -105,6 +105,8 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
     const closable = notification.closable ?? local.closable ?? true;
     const queuedNotificationUpdates = notification.queuedNotificationUpdates ?? [];
 
+    // console.log("showNotification", notification, notificationQueue().state.queue());
+
     notificationQueue().update(notifications => {
       const newNotification: NotificationConfig = {
         ...notification,
@@ -116,11 +118,13 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
       };
 
       // If notification with the same id already exists, add it to the queue
-      if (notification.id && notifications.some(n => n[0].id === notification.id)) {
-        addToNotificationQueue(notification.id, newNotification);
+      if (newNotification.id && notifications.some(n => n[0].id === newNotification.id)) {
+        // console.log("Adding to queue", newNotification.id, newNotification);
+        addToNotificationQueue(newNotification.id, newNotification);
         return notifications;
       }
 
+      // console.log("Adding new", newNotification.id, newNotification);
       return [...notifications, createStore(newNotification)];
     });
 
@@ -149,7 +153,7 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
       updateTarget("duration", notification.duration ?? target.duration);
       updateTarget("closable", notification.closable ?? target.closable);
       updateTarget("onClose", notification.onClose ?? target.onClose);
-      updateTarget("onClose", notification.render ?? target.render);
+      updateTarget("render", notification.render ?? target.render);
 
       return newNotifications;
     });
@@ -173,6 +177,8 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
 
     notificationQueue().update(notifications => {
       const index = notifications.findIndex(n => n[0].id === id);
+
+      // console.log("addToNotificationQueue", id, notification, index);
 
       if (index === -1) {
         // Create new instead
@@ -286,12 +292,12 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
                     removeNotificationFromQueue(config.id);
                   }}
                   onClose={(id) => {
-                    console.log("onClose", id, context.notifications(), context.queue());
+                    // console.log("onClose", id, context.notifications(), context.queue());
 
                     // Handle edge case where the notification is
                     // not in the list but still needs to be removed
                     if (!context.notifications().some(n => (n as any)[0].id == id)) {
-                      showNotification({ id, duration: 0 });
+                      // showNotification({ id, duration: 0 });
                     }
                   }}
                 />

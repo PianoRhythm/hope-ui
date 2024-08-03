@@ -9786,8 +9786,8 @@ function NotificationsProvider(props) {
         duration,
         closable
       };
-      if (notification.id && notifications.some((n) => n[0].id === notification.id)) {
-        addToNotificationQueue2(notification.id, newNotification);
+      if (newNotification.id && notifications.some((n) => n[0].id === newNotification.id)) {
+        addToNotificationQueue2(newNotification.id, newNotification);
         return notifications;
       }
       return [...notifications, createStore(newNotification)];
@@ -9813,7 +9813,7 @@ function NotificationsProvider(props) {
       updateTarget("duration", (_f = notification.duration) != null ? _f : target.duration);
       updateTarget("closable", (_g = notification.closable) != null ? _g : target.closable);
       updateTarget("onClose", (_h = notification.onClose) != null ? _h : target.onClose);
-      updateTarget("onClose", (_i = notification.render) != null ? _i : target.render);
+      updateTarget("render", (_i = notification.render) != null ? _i : target.render);
       return newNotifications;
     });
   };
@@ -9940,13 +9940,8 @@ function NotificationsProvider(props) {
                         removeNotificationFromQueue(config2.id);
                       },
                       onClose: (id) => {
-                        console.log("onClose", id, context.notifications(), context.queue());
-                        if (!context.notifications().some((n) => n[0].id == id)) {
-                          showNotification({
-                            id,
-                            duration: 0
-                          });
-                        }
+                        if (!context.notifications().some((n) => n[0].id == id))
+                          ;
                       }
                     }))
                   });
