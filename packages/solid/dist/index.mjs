@@ -9400,7 +9400,8 @@ const NOTIFICATIONS_EVENTS = {
   hide: "hope-ui:hide-notification",
   clear: "hope-ui:clear-notifications",
   clearQueue: "hope-ui:clear-notifications-queue",
-  addToNotificationQueue: "hope-ui:add-to-notification-queue"
+  addToNotificationQueue: "hope-ui:add-to-notification-queue",
+  setDebugMode: "hope-ui:set-debug-mode"
 };
 function createEvent(type, detail) {
   return new CustomEvent(type, { detail });
@@ -9423,13 +9424,17 @@ function clearQueue() {
 function addToNotificationQueue(config2) {
   window.dispatchEvent(createEvent(NOTIFICATIONS_EVENTS.addToNotificationQueue, config2));
 }
+function setDebugMode(debugMode) {
+  window.dispatchEvent(createEvent(NOTIFICATIONS_EVENTS.setDebugMode, debugMode));
+}
 const notificationService = {
   show,
   update,
   hide,
   clear,
   clearQueue,
-  addToNotificationQueue
+  addToNotificationQueue,
+  setDebugMode
 };
 const hopeNotificationDescriptionClass = "hope-notification__description";
 function NotificationDescription(props) {
@@ -9603,6 +9608,9 @@ function NotificationContainer(props) {
     if (closeDelayId) {
       window.clearTimeout(closeDelayId);
     }
+    if (notificationsProviderContext.debugMode()) {
+      console.log("NotificationContainer: clearTimeout called.", closeDelayId, local.id, local);
+    }
   };
   const closeNotification = () => {
     var _a, _b;
@@ -9612,6 +9620,9 @@ function NotificationContainer(props) {
       let next = queued[0];
       notificationsProviderContext.updateNotification(local.id, next);
       (_a = props.onCloseWithNotificationQueued) == null ? void 0 : _a.call(props, next);
+      if (notificationsProviderContext.debugMode()) {
+        console.log("NotificationContainer: Update queued notifications", next, queued);
+      }
       closeWithDelay();
     } else {
       notificationsProviderContext.hideNotification(local.id);
@@ -9621,9 +9632,15 @@ function NotificationContainer(props) {
   const closeWithDelay = () => {
     var _a;
     if (local.persistent && !((_a = local.queuedNotificationUpdates) == null ? void 0 : _a.length) || local.duration == null) {
+      if (notificationsProviderContext.debugMode()) {
+        console.log("NotificationContainer: Persistent notification - setTimeout not called.", local.id, local);
+      }
       return;
     }
     closeDelayId = window.setTimeout(closeNotification, local.duration);
+    if (notificationsProviderContext.debugMode()) {
+      console.log("NotificationContainer: setTimeout called.", local.duration, local.id, local);
+    }
   };
   const showIcon = () => {
     return local.status && !local.loading;
@@ -9756,6 +9773,7 @@ function NotificationContainer(props) {
 const hopeNotificationListClass = "hope-notification__list";
 const DEFAULT_NOTIFICATION_DURATION = 5e3;
 function NotificationsProvider(props) {
+  const [debugMode, setDebugMode2] = createSignal(false);
   const [local] = splitProps(props, ["children", "placement", "duration", "persistent", "closable", "limit", "zIndex"]);
   const notificationQueue = createMemo(() => {
     var _a;
@@ -9788,7 +9806,13 @@ function NotificationsProvider(props) {
       };
       if (newNotification.id && notifications.some((n) => n[0].id === newNotification.id)) {
         addToNotificationQueue2(newNotification.id, newNotification);
+        if (debugMode()) {
+          console.log("[showNotification] Notification with the same id already exists, adding to queue", newNotification.id, newNotification);
+        }
         return notifications;
+      }
+      if (debugMode()) {
+        console.log("[showNotification] Adding to list and showing notification.", newNotification);
       }
       return [...notifications, createStore(newNotification)];
     });
@@ -9800,6 +9824,9 @@ function NotificationsProvider(props) {
       const index = notifications.findIndex((n) => n[0].id === id);
       if (index === -1) {
         showNotification(notification);
+        if (debugMode()) {
+          console.log("[updateNotification] Notification not found in list, creating new", id, notification);
+        }
         return notifications;
       }
       const newNotifications = [...notifications];
@@ -9814,6 +9841,9 @@ function NotificationsProvider(props) {
       updateTarget("closable", (_g = notification.closable) != null ? _g : target.closable);
       updateTarget("onClose", (_h = notification.onClose) != null ? _h : target.onClose);
       updateTarget("render", (_i = notification.render) != null ? _i : target.render);
+      if (debugMode()) {
+        console.log("[updateNotification] Notification found in list, updating", id, notification);
+      }
       return newNotifications;
     });
   };
@@ -9823,7 +9853,13 @@ function NotificationsProvider(props) {
         var _a, _b;
         if (notification[0].id === id) {
           (_b = (_a = notification[0]).onClose) == null ? void 0 : _b.call(_a, notification[0].id);
+          if (debugMode()) {
+            console.log("[hideNotification] Hiding notification.", id, notification);
+          }
           return false;
+        }
+        if (debugMode()) {
+          console.log("[hideNotification] Keeping notification since it was not found in list.", id, notification);
         }
         return true;
       });
@@ -9837,11 +9873,17 @@ function NotificationsProvider(props) {
       const index = notifications.findIndex((n) => n[0].id === id);
       if (index === -1) {
         showNotification(notification);
+        if (debugMode()) {
+          console.log("[addToNotificationQueue] Notification not found in list, creating new", id, notification);
+        }
         return notifications;
       }
       let target = notifications[index];
       let updateTarget = target[1];
       updateTarget("queuedNotificationUpdates", [...(_a = target[0].queuedNotificationUpdates) != null ? _a : [], notification]);
+      if (debugMode()) {
+        console.log("[addToNotificationQueue] Notification found in list, updating", id, notification);
+      }
       return [...notifications];
     });
   };
@@ -9891,12 +9933,17 @@ function NotificationsProvider(props) {
     hideNotification,
     clear: clear2,
     clearQueue: clearQueue2,
-    addToNotificationQueue: addToNotificationQueue2
+    addToNotificationQueue: addToNotificationQueue2,
+    debugMode
   };
   const showHandler = (event) => showNotification(event.detail);
   const updateHandler = (event) => updateNotification(event.detail.id, event.detail);
   const hideHandler = (event) => hideNotification(event.detail);
   const addToNotificationQueueHandler = (event) => addToNotificationQueue2(event.detail.id, event.detail);
+  const setDebugModeHandler = (event) => {
+    var _a;
+    setDebugMode2((_a = event.detail) != null ? _a : false);
+  };
   onMount(() => {
     window.addEventListener(NOTIFICATIONS_EVENTS.show, showHandler);
     window.addEventListener(NOTIFICATIONS_EVENTS.update, updateHandler);
@@ -9904,6 +9951,7 @@ function NotificationsProvider(props) {
     window.addEventListener(NOTIFICATIONS_EVENTS.clear, clear2);
     window.addEventListener(NOTIFICATIONS_EVENTS.clearQueue, clearQueue2);
     window.addEventListener(NOTIFICATIONS_EVENTS.addToNotificationQueue, addToNotificationQueueHandler);
+    window.addEventListener(NOTIFICATIONS_EVENTS.setDebugMode, setDebugModeHandler);
   });
   onCleanup(() => {
     window.removeEventListener(NOTIFICATIONS_EVENTS.show, showHandler);
@@ -9912,6 +9960,7 @@ function NotificationsProvider(props) {
     window.removeEventListener(NOTIFICATIONS_EVENTS.clear, clear2);
     window.removeEventListener(NOTIFICATIONS_EVENTS.clearQueue, clearQueue2);
     window.removeEventListener(NOTIFICATIONS_EVENTS.addToNotificationQueue, addToNotificationQueueHandler);
+    window.removeEventListener(NOTIFICATIONS_EVENTS.setDebugMode, setDebugModeHandler);
   });
   return createComponent(NotificationsProviderContext.Provider, {
     value: context,
@@ -9940,6 +9989,9 @@ function NotificationsProvider(props) {
                         removeNotificationFromQueue(config2.id);
                       },
                       onClose: (id) => {
+                        if (context.debugMode()) {
+                          console.log("onClose", id, context.notifications(), context.queue());
+                        }
                         if (!context.notifications().some((n) => n[0].id == id))
                           ;
                       }

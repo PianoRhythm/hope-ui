@@ -30,6 +30,10 @@ export interface NotificationsProviderContextValue {
      * Remove all pending notifications for the queue only.
      */
     clearQueue(): void;
+    /**
+     * Get the debug mode.
+     */
+    debugMode: Accessor<boolean>;
 }
 export declare const NotificationsProviderContext: import("solid-js").Context<NotificationsProviderContextValue | undefined>;
 export declare function useNotificationsProviderContext(): NotificationsProviderContextValue;

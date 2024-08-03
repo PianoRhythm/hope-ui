@@ -1,6 +1,7 @@
 import {
   Accessor,
   createMemo,
+  createSignal,
   createUniqueId,
   For,
   JSX,
@@ -73,6 +74,8 @@ const DEFAULT_NOTIFICATION_DURATION = 5_000;
  * Context provider for the notification system.
  */
 export function NotificationsProvider(props: NotificationsProviderProps) {
+  const [debugMode, setDebugMode] = createSignal(false);
+
   const [local] = splitProps(props, [
     "children",
     "placement",
@@ -105,8 +108,6 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
     const closable = notification.closable ?? local.closable ?? true;
     const queuedNotificationUpdates = notification.queuedNotificationUpdates ?? [];
 
-    // console.log("showNotification", notification, notificationQueue().state.queue());
-
     notificationQueue().update(notifications => {
       const newNotification: NotificationConfig = {
         ...notification,
@@ -119,12 +120,17 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
 
       // If notification with the same id already exists, add it to the queue
       if (newNotification.id && notifications.some(n => n[0].id === newNotification.id)) {
-        // console.log("Adding to queue", newNotification.id, newNotification);
         addToNotificationQueue(newNotification.id, newNotification);
+        if (debugMode()) {
+          console.log("[showNotification] Notification with the same id already exists, adding to queue", newNotification.id, newNotification);
+        }
         return notifications;
       }
 
-      // console.log("Adding new", newNotification.id, newNotification);
+      if (debugMode()) {
+        console.log("[showNotification] Adding to list and showing notification.", newNotification);
+      }
+
       return [...notifications, createStore(newNotification)];
     });
 
@@ -138,6 +144,11 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
       if (index === -1) {
         // Create new instead
         showNotification(notification);
+
+        if (debugMode()) {
+          console.log("[updateNotification] Notification not found in list, creating new", id, notification);
+        }
+
         return notifications;
       }
 
@@ -155,6 +166,10 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
       updateTarget("onClose", notification.onClose ?? target.onClose);
       updateTarget("render", notification.render ?? target.render);
 
+      if (debugMode()) {
+        console.log("[updateNotification] Notification found in list, updating", id, notification);
+      }
+
       return newNotifications;
     });
   };
@@ -164,9 +179,17 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
       return notifications.filter(notification => {
         if (notification[0].id === id) {
           notification[0].onClose?.(notification[0].id);
+
+          if (debugMode()) {
+            console.log("[hideNotification] Hiding notification.", id, notification);
+          }
+
           return false;
         }
 
+        if (debugMode()) {
+          console.log("[hideNotification] Keeping notification since it was not found in list.", id, notification);
+        }
         return true;
       });
     });
@@ -183,12 +206,21 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
       if (index === -1) {
         // Create new instead
         showNotification(notification);
+
+        if (debugMode()) {
+          console.log("[addToNotificationQueue] Notification not found in list, creating new", id, notification);
+        }
+
         return notifications;
       }
 
       let target = notifications[index];
       let updateTarget = target[1];
       updateTarget("queuedNotificationUpdates", [...target[0].queuedNotificationUpdates ?? [], notification]);
+
+      if (debugMode()) {
+        console.log("[addToNotificationQueue] Notification found in list, updating", id, notification);
+      }
 
       return [...notifications];
     });
@@ -253,12 +285,16 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
     clear,
     clearQueue,
     addToNotificationQueue,
+    debugMode,
   };
 
   const showHandler = (event: any) => showNotification(event.detail);
   const updateHandler = (event: any) => updateNotification(event.detail.id, event.detail);
   const hideHandler = (event: any) => hideNotification(event.detail);
   const addToNotificationQueueHandler = (event: any) => addToNotificationQueue(event.detail.id, event.detail);
+  const setDebugModeHandler = (event: any) => {
+    setDebugMode(event.detail ?? false);
+  };
 
   onMount(() => {
     window.addEventListener(NOTIFICATIONS_EVENTS.show, showHandler);
@@ -267,6 +303,7 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
     window.addEventListener(NOTIFICATIONS_EVENTS.clear, clear);
     window.addEventListener(NOTIFICATIONS_EVENTS.clearQueue, clearQueue);
     window.addEventListener(NOTIFICATIONS_EVENTS.addToNotificationQueue, addToNotificationQueueHandler);
+    window.addEventListener(NOTIFICATIONS_EVENTS.setDebugMode, setDebugModeHandler);
   });
 
   onCleanup(() => {
@@ -276,6 +313,7 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
     window.removeEventListener(NOTIFICATIONS_EVENTS.clear, clear);
     window.removeEventListener(NOTIFICATIONS_EVENTS.clearQueue, clearQueue);
     window.removeEventListener(NOTIFICATIONS_EVENTS.addToNotificationQueue, addToNotificationQueueHandler);
+    window.removeEventListener(NOTIFICATIONS_EVENTS.setDebugMode, setDebugModeHandler);
   });
 
   return (
@@ -292,7 +330,9 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
                     removeNotificationFromQueue(config.id);
                   }}
                   onClose={(id) => {
-                    // console.log("onClose", id, context.notifications(), context.queue());
+                    if (context.debugMode()) {
+                      console.log("onClose", id, context.notifications(), context.queue());
+                    }
 
                     // Handle edge case where the notification is
                     // not in the list but still needs to be removed

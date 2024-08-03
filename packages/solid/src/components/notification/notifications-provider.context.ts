@@ -38,6 +38,11 @@ export interface NotificationsProviderContextValue {
    * Remove all pending notifications for the queue only.
    */
   clearQueue(): void;
+
+  /**
+   * Get the debug mode.
+   */
+  debugMode: Accessor<boolean>;
 }
 
 export const NotificationsProviderContext = createContext<NotificationsProviderContextValue>();
