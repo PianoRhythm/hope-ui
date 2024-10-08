@@ -1,6 +1,6 @@
 import { autoUpdate, flip, offset, shift } from "@floating-ui/dom";
 import { useFloating } from 'solid-floating-ui';
-import { Component, createMemo, createSignal, createUniqueId, mergeProps, onMount, Show, splitProps } from "solid-js";
+import { Component, createEffect, createMemo, createSignal, createUniqueId, mergeProps, onMount, Show, splitProps } from "solid-js";
 import { Dynamic, Portal } from "solid-js/web";
 import { createStyledSystemClass, getUsedStylePropNames } from "../styled-system/system";
 import { isFunction } from "../utils/assertion";
@@ -80,7 +80,7 @@ const styled: HopeFactory = <T extends ElementType>(
       let placement = (local.__tooltip_placement ?? "top").toLowerCase();
       let position = useFloating(reference, floating, {
         open: onOpen,
-        onOpenChange: setOpen,
+        // onOpenChange: setOpen,
         // @ts-ignore
         placement: placement,
         middleware: [
@@ -88,12 +88,16 @@ const styled: HopeFactory = <T extends ElementType>(
           flip(),
           shift()
         ],
-        // whileElementsMounted: autoUpdate,
+        whileElementsMounted: autoUpdate,
       });
 
       onMount(() => {
         setReference(document.querySelector(`[unique-id="${referenceElementID}"]`) as HTMLElement);
-        // setFloating(document.querySelector(`[unique-id="${floatingElementID}"]`) as HTMLElement);
+      });
+
+      createEffect(() => {
+        setFloating(document.querySelector(`[unique-id="${floatingElementID}"]`) as HTMLElement);
+        console.log("tooltip", onOpen(), floating(), position);
       });
 
       const onCloseEvent = (event: Event) => {
@@ -131,7 +135,6 @@ const styled: HopeFactory = <T extends ElementType>(
         {onOpen() && <Portal>
           <Dynamic
             component="div"
-            ref={setFloating}
             unique-id={floatingElementID}
             style={{
               position: position.strategy,
