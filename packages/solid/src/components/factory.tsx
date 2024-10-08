@@ -105,6 +105,47 @@ const styled: HopeFactory = <T extends ElementType>(
         setOpen(false);
       };
 
+      const DynamicTooltip = () => {
+        let element!: HTMLDivElement;
+
+        onMount(() => {
+          console.log("tooltip mounted", element);
+          setFloating(element);
+        });
+
+        return <Dynamic
+          component="div"
+          unique-id={floatingElementID}
+          ref={element}
+          style={{
+            position: position.strategy,
+            "z-index": "var(--hope-zIndices-tooltip, 1000)",
+            top: `${position.y ?? 0}px`,
+            left: `${position.x ?? 0}px`,
+            width: "max-content"
+          }}
+          onMouseOver={() => setOpen(true)}
+          onMouseOut={onCloseEvent}
+          onBlur={onCloseEvent}
+          onClick={onCloseEvent}
+          onMouseDown={onCloseEvent}
+          data-open={onOpen()}
+          data-corvu-tooltip-content
+        >
+          {local.__tooltip_title}
+          {(local.__tooltip_show_arrow ?? true) && <Dynamic
+            component="div"
+            style={{ "z-index": "var(--hope-zIndices-tooltip, 1000)" }}
+            data-corvu-tooltip-arrow
+            arrow-left={placement == "left"}
+            arrow-top={placement == "top"}
+            arrow-right={placement == "right"}
+            arrow-bottom={placement == "bottom"}
+          />
+          }
+        </Dynamic>;
+      };
+
       return (<>
         <Dynamic
           component={local.as ?? "div"}
@@ -132,39 +173,9 @@ const styled: HopeFactory = <T extends ElementType>(
             (others.onMouseDown ?? others.onmousedown)?.(evt);
           }}
         />
-        {onOpen() && <Portal>
-          <Dynamic
-            component="div"
-            unique-id={floatingElementID}
-            style={{
-              position: position.strategy,
-              "z-index": "var(--hope-zIndices-tooltip, 1000)",
-              top: `${position.y ?? 0}px`,
-              left: `${position.x ?? 0}px`,
-              width: "max-content"
-            }}
-            onMouseOver={() => setOpen(true)}
-            onMouseOut={onCloseEvent}
-            onBlur={onCloseEvent}
-            onClick={onCloseEvent}
-            onMouseDown={onCloseEvent}
-            data-open={onOpen()}
-            data-corvu-tooltip-content
-          >
-            {local.__tooltip_title}
-            {(local.__tooltip_show_arrow ?? true) && <Dynamic
-              component="div"
-              style={{ "z-index": "var(--hope-zIndices-tooltip, 1000)" }}
-              data-corvu-tooltip-arrow
-              arrow-left={placement == "left"}
-              arrow-top={placement == "top"}
-              arrow-right={placement == "right"}
-              arrow-bottom={placement == "bottom"}
-            />
-            }
-          </Dynamic>
+        <Portal>
+          {onOpen() && <DynamicTooltip />}
         </Portal >
-        }
       </>);
     };
 
