@@ -73,14 +73,11 @@ const styled: HopeFactory = <T extends ElementType>(
       const [onOpen, setOpen] = createSignal(false);
       const [reference, setReference] = createSignal<HTMLElement>();
       const [floating, setFloating] = createSignal<HTMLElement>();
-
       let referenceElementID = createUniqueId();
-      let floatingElementID = createUniqueId();
 
       let placement = (local.__tooltip_placement ?? "top").toLowerCase();
       let position = useFloating(reference, floating, {
         open: onOpen,
-        // onOpenChange: setOpen,
         // @ts-ignore
         placement: placement,
         middleware: [
@@ -95,11 +92,6 @@ const styled: HopeFactory = <T extends ElementType>(
         setReference(document.querySelector(`[unique-id="${referenceElementID}"]`) as HTMLElement);
       });
 
-      createEffect(() => {
-        setFloating(document.querySelector(`[unique-id="${floatingElementID}"]`) as HTMLElement);
-        console.log("tooltip", onOpen(), floating(), position);
-      });
-
       const onCloseEvent = (event: Event) => {
         // event.stopPropagation();
         setOpen(false);
@@ -107,15 +99,10 @@ const styled: HopeFactory = <T extends ElementType>(
 
       const DynamicTooltip = () => {
         let element!: HTMLDivElement;
-
-        onMount(() => {
-          console.log("tooltip mounted", element);
-          setFloating(element);
-        });
+        onMount(() => { setFloating(element); });
 
         return <Dynamic
           component="div"
-          unique-id={floatingElementID}
           ref={element}
           style={{
             position: position.strategy,
@@ -156,13 +143,15 @@ const styled: HopeFactory = <T extends ElementType>(
             setOpen(true);
             (others.onMouseOver ?? others.onmouseover)?.(evt);
           }}
-          onMouseOut={(evt: MouseEvent) => {
+          onMouseLeave={(evt: MouseEvent) => {
             setOpen(false);
-            (others.onMouseOut ?? others.onmouseout)?.(evt);
+            (others.onMouseLeave ?? others.onmouseleave)?.(evt);
           }}
-          onBlur={(evt: FocusEvent) => {
-            setOpen(false);
-            (others.onBlur ?? others.onblur)?.(evt);
+          onBlur={(event: FocusEvent) => {
+            if (!(event.currentTarget as HTMLElement)?.contains(event.relatedTarget as any)) {
+              setOpen(false);
+            }
+            (others.onBlur ?? others.onblur)?.(event);
           }}
           onClick={(evt: MouseEvent) => {
             setOpen(false);
