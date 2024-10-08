@@ -99,7 +99,7 @@ const styled: HopeFactory = <T extends ElementType>(
 
       const DynamicTooltip = () => {
         onMount(() => {
-          setReference(document.getElementById(floatingElementID) as HTMLElement);
+          setFloating(document.getElementById(floatingElementID) as HTMLElement);
         });
 
         return <Dynamic

@@ -2757,7 +2757,7 @@ const Jt = (e, t) => {
       const q = (I) => {
         C(!1);
       }, D = () => (ue(() => {
-        h(document.getElementById(k));
+        w(document.getElementById(k));
       }), i(Ct, {
         component: "div",
         id: k,
