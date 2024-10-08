@@ -79,8 +79,8 @@ const styled: HopeFactory = <T extends ElementType>(
 
       let placement = (local.__tooltip_placement ?? "top").toLowerCase();
       let position = useFloating(reference, floating, {
-        // open: onOpen,
-        // onOpenChange: setOpen,
+        open: onOpen,
+        onOpenChange: setOpen,
         // @ts-ignore
         placement: placement,
         middleware: [
@@ -88,12 +88,12 @@ const styled: HopeFactory = <T extends ElementType>(
           flip(),
           shift()
         ],
-        whileElementsMounted: autoUpdate,
+        // whileElementsMounted: autoUpdate,
       });
 
       onMount(() => {
         setReference(document.querySelector(`[unique-id="${referenceElementID}"]`) as HTMLElement);
-        setFloating(document.querySelector(`[unique-id="${floatingElementID}"]`) as HTMLElement);
+        // setFloating(document.querySelector(`[unique-id="${floatingElementID}"]`) as HTMLElement);
       });
 
       const onCloseEvent = (event: Event) => {
@@ -131,6 +131,7 @@ const styled: HopeFactory = <T extends ElementType>(
         {onOpen() && <Portal>
           <Dynamic
             component="div"
+            ref={setFloating}
             unique-id={floatingElementID}
             style={{
               position: position.strategy,
