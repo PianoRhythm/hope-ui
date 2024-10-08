@@ -74,6 +74,7 @@ const styled: HopeFactory = <T extends ElementType>(
       const [reference, setReference] = createSignal<HTMLElement>();
       const [floating, setFloating] = createSignal<HTMLElement>();
       let referenceElementID = createUniqueId();
+      let floatingElementID = createUniqueId();
 
       let placement = (local.__tooltip_placement ?? "top").toLowerCase();
       let position = useFloating(reference, floating, {
@@ -93,17 +94,17 @@ const styled: HopeFactory = <T extends ElementType>(
       });
 
       const onCloseEvent = (event: Event) => {
-        // event.stopPropagation();
         setOpen(false);
       };
 
       const DynamicTooltip = () => {
-        let element!: HTMLDivElement;
-        onMount(() => { setFloating(element); });
+        onMount(() => {
+          setReference(document.getElementById(floatingElementID) as HTMLElement);
+        });
 
         return <Dynamic
           component="div"
-          ref={element}
+          id={floatingElementID}
           style={{
             position: position.strategy,
             "z-index": "var(--hope-zIndices-tooltip, 1000)",
