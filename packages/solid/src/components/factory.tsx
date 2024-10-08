@@ -79,6 +79,8 @@ const styled: HopeFactory = <T extends ElementType>(
 
       let placement = (local.__tooltip_placement ?? "top").toLowerCase();
       let position = useFloating(reference, floating, {
+        open: onOpen,
+        onOpenChange: setOpen,
         // @ts-ignore
         placement: placement,
         middleware: [
@@ -86,7 +88,7 @@ const styled: HopeFactory = <T extends ElementType>(
           flip(),
           shift()
         ],
-        whileElementsMounted: autoUpdate,
+        // whileElementsMounted: autoUpdate,
       });
 
       onMount(() => {
@@ -106,11 +108,6 @@ const styled: HopeFactory = <T extends ElementType>(
           {...others}
           unique-id={referenceElementID}
           onMouseOver={(evt: MouseEvent) => {
-            // Target must match the reference element unique id
-            // if (evt.target instanceof HTMLElement && evt.target.getAttribute("unique-id") === referenceElementID) {
-            // evt.stopPropagation();
-            // }
-
             setOpen(true);
             (others.onMouseOver ?? others.onmouseover)?.(evt);
           }}
@@ -131,7 +128,7 @@ const styled: HopeFactory = <T extends ElementType>(
             (others.onMouseDown ?? others.onmousedown)?.(evt);
           }}
         />
-        <Portal>
+        {onOpen() && <Portal>
           <Dynamic
             component="div"
             unique-id={floatingElementID}
@@ -140,7 +137,6 @@ const styled: HopeFactory = <T extends ElementType>(
               "z-index": "var(--hope-zIndices-tooltip, 1000)",
               top: `${position.y ?? 0}px`,
               left: `${position.x ?? 0}px`,
-              display: onOpen() ? "block" : "none",
               width: "max-content"
             }}
             onMouseOver={() => setOpen(true)}
@@ -164,6 +160,7 @@ const styled: HopeFactory = <T extends ElementType>(
             }
           </Dynamic>
         </Portal >
+        }
       </>);
     };
 
