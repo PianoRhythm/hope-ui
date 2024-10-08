@@ -86,7 +86,7 @@ const styled: HopeFactory = <T extends ElementType>(
           flip(),
           shift()
         ],
-        whileElementsMounted: autoUpdate,
+        // whileElementsMounted: autoUpdate,
       });
 
       onMount(() => {
