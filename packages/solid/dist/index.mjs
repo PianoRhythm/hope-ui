@@ -2746,8 +2746,6 @@ const Jt = (e, t) => {
       var D;
       const [p, C] = oe(!1), [T, h] = oe(), [y, w] = oe();
       let x = de(), k = de(), L = ((D = s.__tooltip_placement) != null ? D : "top").toLowerCase(), A = Rs(T, y, {
-        open: p,
-        onOpenChange: C,
         placement: L,
         middleware: [yt(10), wt(), _t()],
         whileElementsMounted: It

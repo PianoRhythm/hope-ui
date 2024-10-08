@@ -79,8 +79,8 @@ const styled: HopeFactory = <T extends ElementType>(
 
       let placement = (local.__tooltip_placement ?? "top").toLowerCase();
       let position = useFloating(reference, floating, {
-        open: onOpen,
-        onOpenChange: setOpen,
+        // open: onOpen,
+        // onOpenChange: setOpen,
         // @ts-ignore
         placement: placement,
         middleware: [
