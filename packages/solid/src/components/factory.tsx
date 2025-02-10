@@ -1,6 +1,6 @@
-import { autoUpdate, flip, offset, shift } from "@floating-ui/dom";
+import { flip, offset, shift } from "@floating-ui/dom";
 import { useFloating } from 'solid-floating-ui';
-import { Component, createEffect, createMemo, createSignal, createUniqueId, mergeProps, onMount, Show, splitProps } from "solid-js";
+import { Component, createMemo, createSignal, createUniqueId, mergeProps, onMount, Show, splitProps } from "solid-js";
 import { Dynamic, Portal } from "solid-js/web";
 import { createStyledSystemClass, getUsedStylePropNames } from "../styled-system/system";
 import { isFunction } from "../utils/assertion";

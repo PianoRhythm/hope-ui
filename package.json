@@ -102,12 +102,12 @@
     "storybook-dark-mode": "1.0.9",
     "ts-jest": "27.1.4",
     "turbo": "2.1.0",
-    "typescript": "5.5.4",
-    "vite": "3.2.3",
+    "typescript": "5.7.3",
+    "vite": "5.4.11",
     "vite-plugin-dts": "4.0.3",
     "vite-plugin-prismjs": "0.0.11",
     "vite-plugin-solid": "2.10.2",
-    "webpack": "5.93.0"
+    "webpack": "5.97.1"
   },
   "packageManager": "pnpm@9.4.0"
 }
