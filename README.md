@@ -22,14 +22,6 @@
   </a>
 </p>
 
-# ⚠️ WARNING ⚠️
-
-Hope UI is no longer maintained. Focus is on the developement of it's successor: https://github.com/kobaltedev/pigment.
-
-## Documentation
-
-For full documentation, visit [hope-ui.netlify.app](https://hope-ui.netlify.app).
-
 ## Acknowledgment
 
 This project is inspired by :

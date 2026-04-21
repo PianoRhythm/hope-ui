@@ -110,9 +110,27 @@ export function NotificationContainer(props: NotificationContainerProps) {
       return;
     }
 
+    // Background tabs throttle setTimeout and pause rAF, which stalls the exit
+    // transition and can leave a notification stuck. Wait for visibilitychange
+    // to start a fresh countdown when the user is actually looking.
+    if (document.hidden) {
+      if (notificationsProviderContext.debugMode()) {
+        console.log("NotificationContainer: tab hidden - deferring dismiss timer.", local.id, { ...local });
+      }
+      return;
+    }
+
     closeDelayId = window.setTimeout(() => closeNotification(local.id), local.duration);
     if (notificationsProviderContext.debugMode()) {
       console.log("NotificationContainer: [closeWithDelay] setTimeout called.", closeDelayId, local.duration, local.id, { ...local });
+    }
+  };
+
+  const handleVisibilityChange = () => {
+    if (document.hidden) {
+      clearCloseDelay(true);
+    } else {
+      closeWithDelay();
     }
   };
 
@@ -124,10 +142,12 @@ export function NotificationContainer(props: NotificationContainerProps) {
     }
 
     closeWithDelay();
+    document.addEventListener("visibilitychange", handleVisibilityChange);
   });
 
   onCleanup(() => {
     _clearCloseDelay();
+    document.removeEventListener("visibilitychange", handleVisibilityChange);
   });
 
   return (
