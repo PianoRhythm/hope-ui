@@ -21,7 +21,7 @@ import { PositionProps } from "../../styled-system/props/position";
 import { classNames } from "../../utils/css";
 import { Box } from "../box/box";
 import { NotificationContainer } from "./notification-container";
-import { NOTIFICATIONS_EVENTS } from "./notification.events";
+import { NotificationEventDetailMap, NOTIFICATIONS_EVENTS } from "./notification.events";
 import {
   notificationListStyles,
   NotificationListVariants,
@@ -102,9 +102,16 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
   const finalPlacement: Accessor<NotificationsProviderProps["placement"]> = () =>
     local.placement ?? "top-end";
 
-  const notificationsAccessor = () => notificationQueue().state.current();
+  // Internal: tuple form `[store, setter][]` — used by the <For> below so we keep
+  // stable store references for Solid's reconciliation and still have access to
+  // the per-notification setter where needed.
+  const notificationTuples = () => notificationQueue().state.current();
 
-  const queueAccessor = () => notificationQueue().state.queue();
+  // Public: strip setters before exposing to context consumers. Matches the
+  // declared NotificationsProviderContextValue shape (Accessor<NotificationConfig[]>).
+  const notificationsAccessor = () => notificationTuples().map(([config]) => config);
+
+  const queueAccessor = () => notificationQueue().state.queue().map(([config]) => config);
 
   const showNotification = (notification: ShowNotificationProps) => {
     const id = notification.id ?? `hope-notification-${createUniqueId()}`;
@@ -294,9 +301,7 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
   };
 
   const context: NotificationsProviderContextValue = {
-    //@ts-ignore
     notifications: notificationsAccessor,
-    //@ts-ignore
     queue: queueAccessor,
     showNotification,
     updateNotification,
@@ -307,12 +312,24 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
     debugMode,
   };
 
-  const showHandler = (event: any) => showNotification(event.detail);
-  const updateHandler = (event: any) => updateNotification(event.detail.id, event.detail);
-  const hideHandler = (event: any) => hideNotification(event.detail);
-  const addToNotificationQueueHandler = (event: any) => addToNotificationQueue(event.detail.id, event.detail);
-  const setDebugModeHandler = (event: any) => {
-    setDebugMode(event.detail ?? false);
+  type Detail<K extends keyof NotificationEventDetailMap> = NotificationEventDetailMap[K];
+  const getDetail = <K extends keyof NotificationEventDetailMap>(event: Event) =>
+    (event as CustomEvent<Detail<K>>).detail;
+
+  const showHandler = (event: Event) =>
+    showNotification(getDetail<typeof NOTIFICATIONS_EVENTS.show>(event));
+  const updateHandler = (event: Event) => {
+    const detail = getDetail<typeof NOTIFICATIONS_EVENTS.update>(event);
+    updateNotification(detail.id, detail);
+  };
+  const hideHandler = (event: Event) =>
+    hideNotification(getDetail<typeof NOTIFICATIONS_EVENTS.hide>(event));
+  const addToNotificationQueueHandler = (event: Event) => {
+    const detail = getDetail<typeof NOTIFICATIONS_EVENTS.addToNotificationQueue>(event);
+    addToNotificationQueue(detail.id, detail);
+  };
+  const setDebugModeHandler = (event: Event) => {
+    setDebugMode(getDetail<typeof NOTIFICATIONS_EVENTS.setDebugMode>(event) ?? false);
   };
 
   onMount(() => {
@@ -340,18 +357,15 @@ export function NotificationsProvider(props: NotificationsProviderProps) {
       <Portal>
         <Box class={classes()} zIndex={local.zIndex}>
           <TransitionGroup name={transitionName()}>
-            <For each={context.notifications()}>
+            <For each={notificationTuples()}>
               {(notification) =>
-                // @ts-ignore
                 <NotificationContainer {...notification[0]}
                   onCloseWithNotificationQueued={(config) => {
                     // Remove the next item in the queue
                     removeNotificationFromQueue(config.id);
                   }}
-                  onClose={(id) => {
-                    // if (context.debugMode()) {
-                    //   console.log("NotificationProvider: Notification - onClose", id, context.notifications(), context.queue());
-                    // }
+                  onClose={() => {
+                    // reserved for future use
                   }}
                 />
               }

@@ -20,37 +20,38 @@ Thank you for showing interest in contributing to Hope UI. All of your contribut
 
 ## Git branches
 
-- **main**: the current version
-- **develop**: contains the next version under development (you should create a PR to this branch)
+- **main**: the active development branch of this fork — open PRs here.
 
 ## Get started with Hope UI locally
 
-- Fork the [Hope UI repository](https://github.com/fabien-ml/hope-ui)
+- Fork the [PianoRhythm/hope-ui repository](https://github.com/PianoRhythm/hope-ui)
 - Install the [editorconfig](https://editorconfig.org/) extension for your editor
 - Install dependencies with pnpm – `pnpm install`
-- Take an initial peek at our components by running `pnpm storybook`
+- Take an initial peek at the components by running `pnpm --filter @hope-ui/solid storybook`
 
 ### Project Structure
 
-Hope UI is a monorepo separated in two main folders.
+Hope UI is a pnpm + Turborepo monorepo:
 
 ```
 apps/
-  docs/            - Hope UI documentation website
+  docs/            - Hope UI documentation website (Vite)
 packages/
-  design-system/   - Hope UI component library
-  primitives/      - Hope UI low level primitives for building components
+  solid/           - @hope-ui/solid — the published component library
 ```
 
-## npm scripts
+## Scripts
 
-### Development scripts
+Run from the repo root (Turbo orchestrates per-package scripts):
 
-- `dev:docs` – starts the docs development server
-- `storybook` - starts the storybook development server
+### Development
 
-### Testing scripts
+- `pnpm --filter @hope-ui/docs dev` – starts the docs development server
+- `pnpm --filter @hope-ui/solid dev` – starts the in-package playground (`packages/solid/dev/`)
+- `pnpm --filter @hope-ui/solid storybook` – starts Storybook
 
-- `typecheck` – runs TypeScript typechecking with `tsc --noEmit` on all packages and docs
-- `lint` – runs ESLint on all packages and docs
-- `test` – runs tests with jest
+### Quality
+
+- `pnpm typecheck` – `tsc --noEmit` across packages
+- `pnpm lint` – ESLint on `.ts`/`.tsx`
+- `pnpm test` – Jest across packages. Run a single test with `pnpm --filter @hope-ui/solid test -- -t "<name>"`

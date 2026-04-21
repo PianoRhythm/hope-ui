@@ -8,19 +8,16 @@
 </p>
 
 <p align="center">
-  <a href="https://lgtm.com/projects/g/fabien-ml/hope-ui/context:javascript">
-    <img src="https://img.shields.io/lgtm/grade/javascript/g/fabien-ml/hope-ui.svg?logo=lgtm&logoWidth=18" alt="Language grade: JavaScript"/>
-  </a>
   <a href="LICENSE.md">
-    <img src="https://img.shields.io/github/license/fabien-ml/hope-ui" alt="MIT License"/>
-  </a>
-  <a href="https://www.npmjs.com/package/@hope-ui/solid">
-    <img src="https://img.shields.io/npm/v/@hope-ui/solid" alt="npm - @hope-ui/solid"/>
-  </a>
-  <a href="https://www.npmjs.com/package/@hope-ui/solid">
-    <img src="https://img.shields.io/npm/dm/@hope-ui/solid.svg" alt="npm - downloads" height="18">
+    <img src="https://img.shields.io/github/license/PianoRhythm/hope-ui" alt="MIT License"/>
   </a>
 </p>
+
+> This is the [PianoRhythm](https://github.com/PianoRhythm) fork of Hope UI. The original upstream (`fabien-ml/hope-ui`) is no longer maintained; its author moved on to [Pigment](https://github.com/kobaltedev/pigment). This fork continues to maintain `@hope-ui/solid` for projects that still depend on it.
+
+## Documentation
+
+For reference documentation of the original library, visit [hope-ui.netlify.app](https://hope-ui.netlify.app). API-level behavior in this fork tracks upstream, but specifics may diverge — check the source and `CHANGELOG.md` in `packages/solid` for the authoritative behavior.
 
 ## Acknowledgment
 

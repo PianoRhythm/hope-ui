@@ -7,6 +7,7 @@ import { Box } from "../box";
 import { VStack } from "../stack";
 import { CloseButton } from "../close-button";
 import { Select, SelectTrigger, SelectPlaceholder, SelectValue, SelectIcon, SelectContent, SelectListbox, SelectOption, SelectOptionText, SelectOptionIndicator } from "../select";
+import { Tooltip } from "../tooltip";
 
 function IconCart(props: JSX.SvgSVGAttributes<SVGSVGElement>) {
   return (
@@ -125,16 +126,18 @@ export const Default = (args: any) =>
         <Button>Hello1</Button>
         <Button>Hello1</Button>
         <CloseButton />
-        <Button
-          __tooltip_title={<VStack>
+        <Tooltip
+          placement="left"
+          openDelay={500}
+          label={<VStack>
             <Box>hello world!</Box>
             <Box>hello world!</Box>
             <Box>hello world!</Box>
             <Box>hello world!</Box>
           </VStack>}
-          __tooltip_placement="left"
-          __tooltip_open_delay={500}
-          {...args} onClick={action("clicked")} />
+        >
+          <Button {...args} onClick={action("clicked")} />
+        </Tooltip>
         <Button>Hello1</Button>
         <Button>Hello1</Button>
         <Button>Hello1</Button>
