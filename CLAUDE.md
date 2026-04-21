@@ -82,7 +82,7 @@ Compound components (modal, menu, drawer, popover, select, accordion, tabs, form
 
 ## Build & publish notes
 
-- `vite.config.ts` builds in SSR mode (`ssr: true`) with ES + CJS outputs and externalizes every `dependencies`/`peerDependencies` entry plus `solid-js` subpaths. `@stitches/core` types are bundled into the emitted `.d.ts`.
+- `vite.config.ts` builds with the Solid compiler in **client/DOM mode** (no `ssr: true` on `solidPlugin` or on `build`) — this is required so the Solid compiler emits `template()` + `cloneNode(true)` rather than `ssr()` calls, which don't mount on the client (notably manifests as icons/SVGs not rendering). ES + CJS outputs are produced, and every `dependencies`/`peerDependencies` entry plus `solid-js` subpaths are externalized. `@stitches/core` types are bundled into the emitted `.d.ts`.
 - Peer deps are pinned ranges of `@stitches/core`, `solid-js`, and `solid-transition-group` — consumers must install these.
 - `sideEffects: false` is set on `@hope-ui/solid`; avoid introducing top-level side effects in new source files (module-scope Stitches globals are the existing exception, wired through `HopeProvider` to stay tree-shake-safe).
 

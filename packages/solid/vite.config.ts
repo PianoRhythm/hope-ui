@@ -7,7 +7,7 @@ import pkg from "./package.json";
 
 export default defineConfig({
   plugins: [
-    solidPlugin({ ssr: true }),
+    solidPlugin(),
     dts({
       tsconfigPath: "tsconfig.build.json",
       insertTypesEntry: true,
@@ -20,7 +20,6 @@ export default defineConfig({
   ],
   build: {
     minify: true,
-    ssr: true,
     lib: {
       entry: path.resolve(__dirname, "src/index.ts"),
       formats: ["es", "cjs"],
