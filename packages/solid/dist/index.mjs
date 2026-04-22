@@ -1,89 +1,88 @@
-import { isServer as tr, createComponent as i, Dynamic as ht, mergeProps as p, Portal as tt, ssr as re, ssrHydrationKey as oe, ssrAttribute as R, escape as V } from "solid-js/web";
-import { createContext as J, mergeProps as q, createSignal as Z, createEffect as pe, useContext as Q, splitProps as b, createMemo as Se, Show as D, createUniqueId as ne, onMount as ae, onCleanup as ge, children as rt, createRenderEffect as Ps, Switch as Lr, Match as bt, on as st, For as Dr, Index as Ts } from "solid-js";
-import { createStitches as zs, defaultThemeMap as Bs } from "@stitches/core";
-import vr from "lodash.merge";
-import { createStore as te } from "solid-js/store";
-import { offset as Bt, flip as Lt, shift as Dt, autoUpdate as rr, computePosition as or, inline as Ls, arrow as Ds, hide as Hs, size as As } from "@floating-ui/dom";
-import { useFloating as Es } from "solid-floating-ui";
-import { Transition as De, TransitionGroup as Ms } from "solid-transition-group";
-import { createFocusTrap as Hr } from "focus-trap";
-const Ar = process.env.NODE_ENV !== "production";
-function Os(e) {
+import { isServer as Lt, createComponent as i, Dynamic as Or, mergeProps as p, template as se, memo as nt, use as ar, effect as _e, className as xt, setAttribute as G, Portal as gt, insert as Mr } from "solid-js/web";
+import { createContext as te, mergeProps as N, createSignal as re, createEffect as me, useContext as Z, splitProps as S, createMemo as ye, onCleanup as fe, createUniqueId as ue, Show as H, children as ot, createRenderEffect as Ws, Switch as Rr, Match as St, onMount as ge, on as ct, For as Wr, Index as Fs } from "solid-js";
+import { createStitches as Ns, defaultThemeMap as Vs } from "@stitches/core";
+import $r from "lodash.merge";
+import { createStore as ae } from "solid-js/store";
+import { Transition as Ee, TransitionGroup as qs } from "solid-transition-group";
+import { createFocusTrap as Fr } from "focus-trap";
+import { autoUpdate as Ht, computePosition as Dt, offset as Et, flip as At, shift as Ot, inline as Nr, arrow as Vr, hide as qr, size as js } from "@floating-ui/dom";
+const jr = process.env.NODE_ENV !== "production";
+function Ks(e) {
   return typeof e == "number";
 }
-function it(e) {
+function dt(e) {
   return Array.isArray(e);
 }
-function Ht(e) {
+function Mt(e) {
   const t = typeof e;
-  return e != null && (t === "object" || t === "function") && !it(e);
+  return e != null && (t === "object" || t === "function") && !dt(e);
 }
-function Te(e) {
+function de(e) {
   return typeof e == "function";
 }
-function Er(e) {
+function Kr(e) {
   return e == null;
 }
-function Rs(e) {
+function Xs(e) {
   return Object.prototype.toString.call(e) === "[object String]";
 }
-function Cp(e) {
+function Ph(e) {
   return typeof e > "u" || e === void 0;
 }
-function Sr() {
+function wr() {
 }
-function yp(e) {
+function Th(e) {
   return e;
 }
-function Ws(e, t) {
-  return Ht(e) ? Object.keys(e).reduce((r, o) => (r[o] = t(e[o]), r), {}) : e != null ? t(e) : null;
+function Us(e, t) {
+  return Mt(e) ? Object.keys(e).reduce((r, n) => (r[n] = t(e[n]), r), {}) : e != null ? t(e) : null;
 }
-function ue(e, t) {
-  return e && (Te(e) ? e(t) : e[0](e[1], t)), t == null ? void 0 : t.defaultPrevented;
+function oe(e, t) {
+  return e && (de(e) ? e(t) : e[0](e[1], t)), t == null ? void 0 : t.defaultPrevented;
 }
-function fe(...e) {
+function he(...e) {
   return function(t) {
-    e.some((r) => ue(r, t));
+    e.some((r) => oe(r, t));
   };
 }
-function Fs(e) {
+function Qs(e) {
   return Array(e).fill(1).map((t, r) => r + 1);
 }
-const Ns = {
-  classList: { add: Sr, remove: Sr }
-}, Mr = () => typeof Storage < "u", Or = "hope-ui-color-mode", lt = {
+const Ys = {
+  classList: { add: wr, remove: wr }
+}, Xr = () => typeof Storage < "u", Ur = "hope-ui-color-mode", ut = {
   light: "hope-ui-light",
   dark: "hope-ui-dark"
 };
-function Vs() {
-  if (!Mr())
+function Zs() {
+  if (!Xr())
     return null;
   try {
-    return localStorage.getItem(Or);
+    return localStorage.getItem(Ur);
   } catch (e) {
-    return Ar && console.log(e), null;
+    return jr && console.log(e), null;
   }
 }
-function qs(e) {
-  if (Mr())
+function Js(e) {
+  if (Xr())
     try {
-      localStorage.setItem(Or, e);
+      localStorage.setItem(Ur, e);
     } catch (t) {
-      Ar && console.log(t);
+      jr && console.log(t);
     }
 }
-function js(e) {
-  const t = Vs();
+function Gs(e) {
+  const t = Zs();
   return t || (e === "system" ? window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light" : e);
 }
-function Ks(e) {
-  return e ? lt.dark : lt.light;
+function ei(e) {
+  return e ? ut.dark : ut.light;
 }
-function Xs(e) {
-  const t = tr ? Ns : document.body;
-  t.classList.add(Ks(e)), t.classList.remove(e ? lt.light : lt.dark);
+function ti(e) {
+  const t = Lt ? Ys : document.body;
+  t.classList.add(ei(e)), t.classList.remove(e ? ut.light : ut.dark);
 }
-const Rr = {
+const Qr = {
   px: "1px",
   "0_5": "0.125rem",
   1: "0.25rem",
@@ -117,8 +116,8 @@ const Rr = {
   72: "18rem",
   80: "20rem",
   96: "24rem"
-}, Ie = {
-  ...Rr,
+}, ze = {
+  ...Qr,
   prose: "65ch",
   max: "max-content",
   min: "min-content",
@@ -146,20 +145,20 @@ const Rr = {
   containerLg: "1024px",
   containerXl: "1280px",
   container2xl: "1536px"
-}, Us = {
-  desktop_s: `(min-width: ${Ie.containerDesktopS})`,
-  mobile_s: `(min-width: ${Ie.containerMobileS})`,
-  mobile_m: `(min-width: ${Ie.containerMobileM})`,
-  mobile_l: `(min-width: ${Ie.containerMobileL})`,
-  sm: `(min-width: ${Ie.containerSm})`,
-  md: `(min-width: ${Ie.containerMd})`,
-  lg: `(min-width: ${Ie.containerLg})`,
-  xl: `(min-width: ${Ie.containerXl})`,
-  "2xl": `(min-width: ${Ie.container2xl})`,
+}, ri = {
+  desktop_s: `(min-width: ${ze.containerDesktopS})`,
+  mobile_s: `(min-width: ${ze.containerMobileS})`,
+  mobile_m: `(min-width: ${ze.containerMobileM})`,
+  mobile_l: `(min-width: ${ze.containerMobileL})`,
+  sm: `(min-width: ${ze.containerSm})`,
+  md: `(min-width: ${ze.containerMd})`,
+  lg: `(min-width: ${ze.containerLg})`,
+  xl: `(min-width: ${ze.containerXl})`,
+  "2xl": `(min-width: ${ze.container2xl})`,
   "reduce-motion": "(prefers-reduced-motion: reduce)",
   light: "(prefers-color-scheme: light)",
   dark: "(prefers-color-scheme: dark)"
-}, Qs = {
+}, ni = {
   /**
    * The CSS `background` property
    */
@@ -168,7 +167,7 @@ const Rr = {
    * The CSS `background-color` property
    */
   bgColor: (e) => ({ backgroundColor: e })
-}, Ys = {
+}, oi = {
   /**
    * The CSS `border-right` and `border-left` property
    */
@@ -183,12 +182,12 @@ const Rr = {
     borderTop: e,
     borderBottom: e
   })
-}, Zs = {
+}, ai = {
   /**
    * The CSS `display` property
    */
   d: (e) => ({ display: e })
-}, Js = {
+}, si = {
   /**
    * The CSS `margin` property
    */
@@ -252,7 +251,7 @@ const Rr = {
       marginTop: e
     }
   })
-}, Gs = {
+}, ii = {
   /**
    * The CSS `padding` property
    */
@@ -300,19 +299,19 @@ const Rr = {
    * The CSS `padding-top` and `padding-bottom` property
    */
   py: (e) => ({ paddingTop: e, paddingBottom: e })
-}, ei = {
+}, li = {
   /**
    * The CSS `position` property
    */
   pos: (e) => ({ position: e })
 };
-function Be(...e) {
+function He(...e) {
   return e.map((t) => `[role=group]${t} &, [data-group]${t} &, .group${t} &`).join(", ");
 }
-function _e(...e) {
+function Te(...e) {
   return e.map((t) => `[data-peer]${t} ~ &, .peer${t} ~ &`).join(", ");
 }
-const ti = {
+const ci = {
   /**
    * Styles for CSS selector `&:hover`
    */
@@ -526,115 +525,115 @@ const ti = {
    * Styles to apply when a parent element with `.group`, `data-group` or `role=group` is hovered
    */
   _groupHover: (e) => ({
-    [Be(":hover", "[data-hover]")]: e
+    [He(":hover", "[data-hover]")]: e
   }),
   /**
    * Styles to apply when a sibling element with `.peer` or `data-peer` is hovered
    */
   _peerHover: (e) => ({
-    [_e(":hover", "[data-hover]")]: e
+    [Te(":hover", "[data-hover]")]: e
   }),
   /**
    * Styles to apply when a parent element with `.group`, `data-group` or `role=group` is focused
    */
   _groupFocus: (e) => ({
-    [Be(":focus", "[data-focus]")]: e
+    [He(":focus", "[data-focus]")]: e
   }),
   /**
    * Styles to apply when a sibling element with `.peer` or `data-peer` is focused
    */
   _peerFocus: (e) => ({
-    [_e(":focus", "[data-focus]")]: e
+    [Te(":focus", "[data-focus]")]: e
   }),
   /**
    * Styles to apply when a parent element with `.group`, `data-group` or `role=group` has visible focus
    */
   _groupFocusVisible: (e) => ({
-    [Be(":focus-visible")]: e
+    [He(":focus-visible")]: e
   }),
   /**
    * Styles to apply when a sibling element with `.peer`or `data-peer` has visible focus
    */
   _peerFocusVisible: (e) => ({
-    [_e(":focus-visible")]: e
+    [Te(":focus-visible")]: e
   }),
   /**
    * Styles to apply when a parent element with `.group`, `data-group` or `role=group` is active
    */
   _groupActive: (e) => ({
-    [Be(":active", "[data-active]")]: e
+    [He(":active", "[data-active]")]: e
   }),
   /**
    * Styles to apply when a sibling element with `.peer` or `data-peer` is active
    */
   _peerActive: (e) => ({
-    [_e(":active", "[data-active]")]: e
+    [Te(":active", "[data-active]")]: e
   }),
   /**
    * Styles to apply when a parent element with `.group`, `data-group` or `role=group` is selected
    */
   _groupSelected: (e) => ({
-    [Be("[aria-selected=true]", "[data-selected]")]: e
+    [He("[aria-selected=true]", "[data-selected]")]: e
   }),
   /**
    * Styles to apply when a sibling element with `.peer` or `data-peer` is selected
    */
   _peerSelected: (e) => ({
-    [_e("[aria-selected=true]", "[data-selected]")]: e
+    [Te("[aria-selected=true]", "[data-selected]")]: e
   }),
   /**
    * Styles to apply when a parent element with `.group`, `data-group` or `role=group` is disabled
    */
   _groupDisabled: (e) => ({
-    [Be(":disabled", "[data-disabled]")]: e
+    [He(":disabled", "[data-disabled]")]: e
   }),
   /**
    *  Styles to apply when a sibling element with `.peer` or `data-peer` is disabled
    */
   _peerDisabled: (e) => ({
-    [_e(":disabled", "[data-disabled]")]: e
+    [Te(":disabled", "[data-disabled]")]: e
   }),
   /**
    *  Styles to apply when a parent element with `.group`, `data-group` or `role=group` is invalid
    */
   _groupInvalid: (e) => ({
-    [Be(":invalid", "[data-invalid]")]: e
+    [He(":invalid", "[data-invalid]")]: e
   }),
   /**
    *  Styles to apply when a sibling element with `.peer` or `data-peer` is invalid
    */
   _peerInvalid: (e) => ({
-    [_e(":invalid", "[data-invalid]")]: e
+    [Te(":invalid", "[data-invalid]")]: e
   }),
   /**
    * Styles to apply when a parent element with `.group`, `data-group` or `role=group` is checked
    */
   _groupChecked: (e) => ({
-    [Be(":checked", "[data-checked]")]: e
+    [He(":checked", "[data-checked]")]: e
   }),
   /**
    * Styles to apply when a sibling element with `.peer` or `data-peer` is checked
    */
   _peerChecked: (e) => ({
-    [_e(":checked", "[data-checked]")]: e
+    [Te(":checked", "[data-checked]")]: e
   }),
   /**
    *  Styles to apply when a parent element with `.group`, `data-group` or `role=group` has focus within
    */
   _groupFocusWithin: (e) => ({
-    [Be(":focus-within")]: e
+    [He(":focus-within")]: e
   }),
   /**
    *  Styles to apply when a sibling element with `.peer` or `data-peer` has focus within
    */
   _peerFocusWithin: (e) => ({
-    [_e(":focus-within")]: e
+    [Te(":focus-within")]: e
   }),
   /**
    * Styles to apply when a sibling element with `.peer` or `data-peer` has placeholder shown
    */
   _peerPlaceholderShown: (e) => ({
-    [_e(":placeholder-shown")]: e
+    [Te(":placeholder-shown")]: e
   }),
   /**
    * Styles for CSS Selector `&:placeholder-shown`.
@@ -688,7 +687,7 @@ const ti = {
   _light: (e) => ({
     ".hope-ui-light &": e
   })
-}, ri = {
+}, di = {
   /**
    * The CSS `border-top-left-radius` and `border-top-right-radius` property
    */
@@ -779,12 +778,12 @@ const ti = {
     borderStartEndRadius: e,
     borderEndEndRadius: e
   })
-}, oi = {
+}, ui = {
   /**
    * The CSS `box-shadow` property
    */
   shadow: (e) => ({ boxShadow: e })
-}, ni = {
+}, gi = {
   /**
    * The CSS `width` property
    */
@@ -813,7 +812,7 @@ const ti = {
    * The CSS `width` and `height` property
    */
   boxSize: (e) => ({ width: e, height: e })
-}, ai = {
+}, fi = {
   /**
    * Utility to visually truncating text after a fixed number of lines.
    */
@@ -823,22 +822,22 @@ const ti = {
     "-webkit-box-orient": "vertical",
     "-webkit-line-clamp": e
   })
-}, si = {
-  ...Qs,
-  ...Ys,
-  ...Zs,
-  ...ei,
-  ...ti,
-  ...ri,
-  ...Js,
-  ...Gs,
-  ...oi,
+}, hi = {
   ...ni,
-  ...ai
-}, Wr = {
+  ...oi,
+  ...ai,
+  ...li,
+  ...ci,
+  ...di,
+  ...si,
+  ...ii,
+  ...ui,
+  ...gi,
+  ...fi
+}, Yr = {
   tooltipContent: "#00000090",
   tooltipArrow: "#00000090"
-}, ii = {
+}, pi = {
   blackAlpha1: "#00000003",
   blackAlpha2: "#00000007",
   blackAlpha3: "#0000000c",
@@ -851,7 +850,7 @@ const ti = {
   blackAlpha10: "#0000007a",
   blackAlpha11: "#00000090",
   blackAlpha12: "#000000e8"
-}, li = {
+}, bi = {
   whiteAlpha1: "#ffffff00",
   whiteAlpha2: "#ffffff03",
   whiteAlpha3: "#ffffff09",
@@ -864,14 +863,14 @@ const ti = {
   whiteAlpha10: "#ffffff72",
   whiteAlpha11: "#ffffff97",
   whiteAlpha12: "#ffffffeb"
-}, ci = {
+}, mi = {
   // transparent: "transparent",
   // current: "currentColor",
   // black: "#000000",
   // white: "#ffffff",
-  ...ii,
-  ...li
-}, di = {
+  ...pi,
+  ...bi
+}, vi = {
   primary1: "#fafdfe",
   primary2: "#f2fcfd",
   primary3: "#e7f9fb",
@@ -884,7 +883,7 @@ const ti = {
   primary10: "#0894b3",
   primary11: "#0c7792",
   primary12: "#04313c"
-}, ui = {
+}, Si = {
   accent1: "#fdfcfe",
   accent2: "#fbfaff",
   accent3: "#f5f2ff",
@@ -897,7 +896,7 @@ const ti = {
   accent10: "#644fc1",
   accent11: "#5746af",
   accent12: "#20134b"
-}, gi = {
+}, xi = {
   neutral1: "#fbfcfd",
   neutral2: "#f8f9fa",
   neutral3: "#f1f3f5",
@@ -910,7 +909,7 @@ const ti = {
   neutral10: "#7e868c",
   neutral11: "#687076",
   neutral12: "#11181c"
-}, fi = {
+}, Ci = {
   success1: "#fbfefc",
   success2: "#f2fcf5",
   success3: "#e9f9ee",
@@ -923,7 +922,7 @@ const ti = {
   success10: "#299764",
   success11: "#18794e",
   success12: "#153226"
-}, pi = {
+}, yi = {
   info1: "#fbfdff",
   info2: "#f5faff",
   info3: "#edf6ff",
@@ -936,7 +935,7 @@ const ti = {
   info10: "#0081f1",
   info11: "#006adc",
   info12: "#00254d"
-}, hi = {
+}, $i = {
   warning1: "#fefdfb",
   warning2: "#fff9ed",
   warning3: "#fff4d5",
@@ -949,7 +948,7 @@ const ti = {
   warning10: "#ffa01c",
   warning11: "#ad5700",
   warning12: "#4e2009"
-}, bi = {
+}, wi = {
   danger1: "#fffcfc",
   danger2: "#fff8f8",
   danger3: "#ffefef",
@@ -962,24 +961,24 @@ const ti = {
   danger10: "#dc3d43",
   danger11: "#cd2b31",
   danger12: "#381316"
-}, mi = {
+}, Ii = {
   loContrast: "white",
   background: "$loContrast",
   focusRing: "#96c7f2",
   closeButtonHoverBackground: "$blackAlpha4",
   closeButtonActiveBackground: "$blackAlpha5",
   progressStripe: "$whiteAlpha6"
-}, vi = {
-  ...Wr,
-  ...di,
-  ...ui,
-  ...gi,
-  ...fi,
-  ...pi,
-  ...hi,
-  ...bi,
-  ...mi
-}, Si = {
+}, ki = {
+  ...Yr,
+  ...vi,
+  ...Si,
+  ...xi,
+  ...Ci,
+  ...yi,
+  ...$i,
+  ...wi,
+  ...Ii
+}, _i = {
   primary1: "#07191d",
   primary2: "#061e24",
   primary3: "#072830",
@@ -992,7 +991,7 @@ const ti = {
   primary10: "#00b1cc",
   primary11: "#00c2d7",
   primary12: "#e1f8fa"
-}, xi = {
+}, Pi = {
   accent1: "#17151f",
   accent2: "#1c172b",
   accent3: "#251e40",
@@ -1005,7 +1004,7 @@ const ti = {
   accent10: "#7c66dc",
   accent11: "#9e8cfc",
   accent12: "#f1eefe"
-}, Ci = {
+}, Ti = {
   neutral1: "#151718",
   neutral2: "#1a1d1e",
   neutral3: "#202425",
@@ -1018,7 +1017,7 @@ const ti = {
   neutral10: "#787f85",
   neutral11: "#9ba1a6",
   neutral12: "#ecedee"
-}, yi = {
+}, zi = {
   success1: "#0d1912",
   success2: "#0c1f17",
   success3: "#0f291e",
@@ -1031,7 +1030,7 @@ const ti = {
   success10: "#3cb179",
   success11: "#4cc38a",
   success12: "#e5fbeb"
-}, $i = {
+}, Bi = {
   info1: "#0f1720",
   info2: "#0f1b2d",
   info3: "#10243e",
@@ -1044,7 +1043,7 @@ const ti = {
   info10: "#369eff",
   info11: "#52a9ff",
   info12: "#eaf6ff"
-}, wi = {
+}, Li = {
   warning1: "#1f1300",
   warning2: "#271700",
   warning3: "#341c00",
@@ -1057,7 +1056,7 @@ const ti = {
   warning10: "#ffcb47",
   warning11: "#f1a10d",
   warning12: "#fef3dd"
-}, _i = {
+}, Hi = {
   danger1: "#1f1315",
   danger2: "#291415",
   danger3: "#3c181a",
@@ -1070,24 +1069,24 @@ const ti = {
   danger10: "#f2555a",
   danger11: "#ff6369",
   danger12: "#feecee"
-}, Ii = {
+}, Di = {
   loContrast: "$neutral1",
   background: "$loContrast",
   focusRing: "#0a4481",
   closeButtonHoverBackground: "$whiteAlpha4",
   closeButtonActiveBackground: "$whiteAlpha5",
   progressStripe: "$blackAlpha6"
-}, ki = {
-  ...Wr,
-  ...Si,
-  ...xi,
-  ...Ci,
-  ...yi,
-  ...$i,
-  ...wi,
+}, Ei = {
+  ...Yr,
   ..._i,
-  ...Ii
-}, Pi = {
+  ...Pi,
+  ...Ti,
+  ...zi,
+  ...Bi,
+  ...Li,
+  ...Hi,
+  ...Di
+}, Ai = {
   none: "0",
   xs: "0.125rem",
   sm: "0.25rem",
@@ -1097,7 +1096,7 @@ const ti = {
   "2xl": "1rem",
   "3xl": "1.5rem",
   full: "9999px"
-}, Ti = {
+}, Oi = {
   none: "0 0 #0000",
   xs: "0 1px 2px 0 rgb(0 0 0 / 0.05)",
   sm: "0 1px 3px 0 rgb(0 0 0 / 0.09), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
@@ -1107,13 +1106,13 @@ const ti = {
   "2xl": "0 25px 50px -12px rgb(0 0 0 / 0.24)",
   inner: "inset 0 2px 4px 0 rgb(0 0 0 / 0.06)",
   outline: "0 0 0 3px $colors$focusRing"
-}, zi = {
+}, Mi = {
   lg: "rgba(0, 0, 0, 0.1) 0px 0px 0px 1px, rgba(0, 0, 0, 0.2) 0px 5px 10px, rgba(0, 0, 0, 0.4) 0px 15px 40px"
-}, Bi = {
+}, Ri = {
   sans: 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol","Noto Color Emoji"',
   serif: 'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif',
   mono: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace'
-}, Li = {
+}, Wi = {
   "2xs": "0.625rem",
   xs: "0.75rem",
   sm: "0.875rem",
@@ -1128,7 +1127,7 @@ const ti = {
   "7xl": "4.5rem",
   "8xl": "6rem",
   "9xl": "8rem"
-}, Di = {
+}, Fi = {
   hairline: 100,
   thin: 200,
   light: 300,
@@ -1138,7 +1137,7 @@ const ti = {
   bold: 700,
   extrabold: 800,
   black: 900
-}, Hi = {
+}, Ni = {
   normal: "normal",
   none: 1,
   shorter: 1.25,
@@ -1154,14 +1153,14 @@ const ti = {
   8: "2rem",
   9: "2.25rem",
   10: "2.5rem"
-}, Ai = {
+}, Vi = {
   tighter: "-0.05em",
   tight: "-0.025em",
   normal: "0",
   wide: "0.025em",
   wider: "0.05em",
   widest: "0.1em"
-}, Ei = {
+}, qi = {
   hide: -1,
   auto: "auto",
   base: 0,
@@ -1175,36 +1174,36 @@ const ti = {
   tooltip: 1600,
   skipLink: 1700,
   notification: 1800
-}, Mi = {
+}, ji = {
   colors: {
-    ...ci,
-    ...vi
+    ...mi,
+    ...ki
   },
-  space: Rr,
-  sizes: Ie,
-  fonts: Bi,
-  fontSizes: Li,
-  fontWeights: Di,
-  letterSpacings: Ai,
-  lineHeights: Hi,
-  radii: Pi,
-  shadows: Ti,
-  zIndices: Ei
-}, Oi = {
-  colors: ki,
-  shadows: zi
+  space: Qr,
+  sizes: ze,
+  fonts: Ri,
+  fontSizes: Wi,
+  fontWeights: Fi,
+  letterSpacings: Vi,
+  lineHeights: Ni,
+  radii: Ai,
+  shadows: Oi,
+  zIndices: qi
+}, Ki = {
+  colors: Ei,
+  shadows: Mi
 }, {
-  theme: Ri,
-  css: m,
-  globalCss: Me,
-  config: $p,
-  createTheme: Wi,
-  getCssText: wp,
-  keyframes: ct
-} = zs({
+  theme: Xi,
+  css: C,
+  globalCss: We,
+  config: zh,
+  createTheme: Ui,
+  getCssText: Bh,
+  keyframes: ft
+} = Ns({
   prefix: "hope",
   themeMap: {
-    ...Bs,
+    ...Vs,
     borderWidth: "sizes",
     borderTopWidth: "sizes",
     borderRightWidth: "sizes",
@@ -1212,66 +1211,66 @@ const ti = {
     borderLeftWidth: "sizes",
     strokeWidth: "sizes"
   },
-  theme: Mi,
-  media: Us,
-  utils: si
-}), ce = {
+  theme: ji,
+  media: ri,
+  utils: hi
+}), le = {
   fade: "hope-modal-fade-transition",
   fadeInBottom: "hope-modal-fade-in-bottom-transition",
   scale: "hope-modal-scale-transition"
-}, Fi = Me({
+}, Qi = We({
   /* fade */
-  [`.${ce.fade}-enter, .${ce.fade}-exit-to`]: {
+  [`.${le.fade}-enter, .${le.fade}-exit-to`]: {
     opacity: 0
   },
-  [`.${ce.fade}-enter-to, .${ce.fade}-exit`]: {
+  [`.${le.fade}-enter-to, .${le.fade}-exit`]: {
     opacity: 1
   },
-  [`.${ce.fade}-enter-active`]: {
+  [`.${le.fade}-enter-active`]: {
     transition: "opacity 300ms ease-out"
   },
-  [`.${ce.fade}-exit-active`]: {
+  [`.${le.fade}-exit-active`]: {
     transition: "opacity 200ms ease-in"
   },
   /* fade-in-bottom */
-  [`.${ce.fadeInBottom}-enter, .${ce.fadeInBottom}-exit-to`]: {
+  [`.${le.fadeInBottom}-enter, .${le.fadeInBottom}-exit-to`]: {
     opacity: 0,
     transform: "translateY(16px)"
   },
-  [`.${ce.fadeInBottom}-enter-to, .${ce.fadeInBottom}-exit`]: {
+  [`.${le.fadeInBottom}-enter-to, .${le.fadeInBottom}-exit`]: {
     opacity: 1,
     transform: "translateY(0)"
   },
-  [`.${ce.fadeInBottom}-enter-active`]: {
+  [`.${le.fadeInBottom}-enter-active`]: {
     transitionProperty: "opacity, transform",
     transitionDuration: "300ms",
     transitionTimingFunction: "ease-out"
   },
-  [`.${ce.fadeInBottom}-exit-active`]: {
+  [`.${le.fadeInBottom}-exit-active`]: {
     transitionProperty: "opacity, transform",
     transitionDuration: "200ms",
     transitionTimingFunction: "ease-in"
   },
   /* scale */
-  [`.${ce.scale}-enter, .${ce.scale}-exit-to`]: {
+  [`.${le.scale}-enter, .${le.scale}-exit-to`]: {
     opacity: 0,
     transform: "scale(0.95)"
   },
-  [`.${ce.scale}-enter-to, .${ce.scale}-exit`]: {
+  [`.${le.scale}-enter-to, .${le.scale}-exit`]: {
     opacity: 1,
     transform: "scale(1)"
   },
-  [`.${ce.scale}-enter-active`]: {
+  [`.${le.scale}-enter-active`]: {
     transitionProperty: "opacity, transform",
     transitionDuration: "300ms",
     transitionTimingFunction: "ease-out"
   },
-  [`.${ce.scale}-exit-active`]: {
+  [`.${le.scale}-exit-active`]: {
     transitionProperty: "opacity, transform",
     transitionDuration: "200ms",
     transitionTimingFunction: "ease-in"
   }
-}), Fr = m({
+}), Zr = C({
   zIndex: "$overlay",
   position: "fixed",
   top: 0,
@@ -1280,7 +1279,7 @@ const ti = {
   height: "100vh",
   backgroundColor: "hsl(0 0% 0% / 65%)"
   //"$blackAlpha11",
-}), Nr = m({
+}), Jr = C({
   zIndex: "$modal",
   position: "fixed",
   top: 0,
@@ -1295,7 +1294,7 @@ const ti = {
   "&:focus": {
     outline: "none"
   }
-}), Ni = m(Nr, {
+}), Yi = C(Jr, {
   justifyContent: "center",
   variants: {
     centered: {
@@ -1315,7 +1314,7 @@ const ti = {
       }
     }
   }
-}), Vr = m({
+}), Gr = C({
   zIndex: "$modal",
   position: "relative",
   display: "flex",
@@ -1328,7 +1327,7 @@ const ti = {
   "&:focus": {
     outline: "none"
   }
-}), Vi = m(Vr, {
+}), Zi = C(Gr, {
   justifyContent: "center",
   my: "3.75rem",
   borderRadius: "$sm",
@@ -1389,14 +1388,14 @@ const ti = {
       }
     }
   }
-}), qi = m({
+}), Ji = C({
   flex: 0,
   pt: "$5",
   px: "$5",
   pb: "$3",
   fontSize: "$lg",
   fontWeight: "$medium"
-}), ji = m({
+}), Gi = C({
   flex: 1,
   px: "$5",
   py: "$2",
@@ -1410,70 +1409,70 @@ const ti = {
       }
     }
   }
-}), Ki = m({
+}), el = C({
   display: "flex",
   alignItems: "center",
   justifyContent: "flex-end",
   pt: "$3",
   px: "$5",
   pb: "$5"
-}), Xi = m({
+}), tl = C({
   position: "absolute",
   top: "$4",
   insetInlineEnd: "$4"
-}), j = {
+}), q = {
   fade: "hope-drawer-fade-transition",
   slideInTop: "hope-drawer-slide-in-top-transition",
   slideInRight: "hope-drawer-slide-in-right-transition",
   slideInBottom: "hope-drawer-slide-in-bottom-transition",
   slideInLeft: "hope-drawer-slide-in-left-transition"
-}, Ui = Me({
+}, rl = We({
   /* fade */
-  [`.${j.fade}-enter, .${j.fade}-exit-to`]: {
+  [`.${q.fade}-enter, .${q.fade}-exit-to`]: {
     opacity: 0
   },
-  [`.${j.fade}-enter-to, .${j.fade}-exit`]: {
+  [`.${q.fade}-enter-to, .${q.fade}-exit`]: {
     opacity: 1
   },
-  [`.${j.fade}-enter-active, .${j.fade}-exit-active`]: {
+  [`.${q.fade}-enter-active, .${q.fade}-exit-active`]: {
     transition: "opacity 500ms ease-in-out"
   },
   /* slide common */
-  [`.${j.slideInTop}-enter-active, .${j.slideInTop}-exit-active,
-    .${j.slideInRight}-enter-active, .${j.slideInRight}-exit-active,
-    .${j.slideInBottom}-enter-active, .${j.slideInBottom}-exit-active,
-    .${j.slideInLeft}-enter-active, .${j.slideInLeft}-exit-active`]: {
+  [`.${q.slideInTop}-enter-active, .${q.slideInTop}-exit-active,
+    .${q.slideInRight}-enter-active, .${q.slideInRight}-exit-active,
+    .${q.slideInBottom}-enter-active, .${q.slideInBottom}-exit-active,
+    .${q.slideInLeft}-enter-active, .${q.slideInLeft}-exit-active`]: {
     transition: "transform 500ms ease-in-out"
   },
   /* slide-in-top */
-  [`.${j.slideInTop}-enter, .${j.slideInTop}-exit-to`]: {
+  [`.${q.slideInTop}-enter, .${q.slideInTop}-exit-to`]: {
     transform: "translateY(-100%)"
   },
-  [`.${j.slideInTop}-enter-to, .${j.slideInTop}-exit`]: {
+  [`.${q.slideInTop}-enter-to, .${q.slideInTop}-exit`]: {
     transform: "translateY(0)"
   },
   /* slide-in-right */
-  [`.${j.slideInRight}-enter, .${j.slideInRight}-exit-to`]: {
+  [`.${q.slideInRight}-enter, .${q.slideInRight}-exit-to`]: {
     transform: "translateX(100%)"
   },
-  [`.${j.slideInRight}-enter-to, .${j.slideInRight}-exit`]: {
+  [`.${q.slideInRight}-enter-to, .${q.slideInRight}-exit`]: {
     transform: "translateX(0)"
   },
   /* slide-in-bottom */
-  [`.${j.slideInBottom}-enter, .${j.slideInBottom}-exit-to`]: {
+  [`.${q.slideInBottom}-enter, .${q.slideInBottom}-exit-to`]: {
     transform: "translateY(100%)"
   },
-  [`.${j.slideInBottom}-enter-to, .${j.slideInBottom}-exit`]: {
+  [`.${q.slideInBottom}-enter-to, .${q.slideInBottom}-exit`]: {
     transform: "translateY(0)"
   },
   /* slide-in-left */
-  [`.${j.slideInLeft}-enter, .${j.slideInLeft}-exit-to`]: {
+  [`.${q.slideInLeft}-enter, .${q.slideInLeft}-exit-to`]: {
     transform: "translateX(-100%)"
   },
-  [`.${j.slideInLeft}-enter-to, .${j.slideInLeft}-exit`]: {
+  [`.${q.slideInLeft}-enter-to, .${q.slideInLeft}-exit`]: {
     transform: "translateX(0)"
   }
-}), Qi = m(Nr, {
+}), nl = C(Jr, {
   overflow: "hidden",
   variants: {
     placement: {
@@ -1495,7 +1494,7 @@ const ti = {
       }
     }
   }
-}), Yi = m(Vr, {
+}), ol = C(Gr, {
   maxHeight: "100vh",
   variants: {
     size: {
@@ -1550,13 +1549,13 @@ const ti = {
     { placement: "bottom", size: "lg", css: { maxWidth: "100vw" } },
     { placement: "bottom", size: "xl", css: { maxWidth: "100vw" } }
   ]
-}), Ee = {
+}), Re = {
   scaleTopLeft: "hope-menu-scale-top-left-transition",
   scaleTopRight: "hope-menu-scale-top-right-transition",
   scaleBottomLeft: "hope-menu-scale-bottom-left-transition",
   scaleBottomRight: "hope-menu-scale-bottom-right-transition"
 };
-function yt(e, t) {
+function $t(e, t) {
   return {
     [`.${e}-enter, .${e}-exit-to`]: {
       opacity: 0,
@@ -1580,17 +1579,17 @@ function yt(e, t) {
     }
   };
 }
-const Zi = Me({
-  ...yt(Ee.scaleTopLeft, "top left"),
-  ...yt(Ee.scaleTopRight, "top right"),
-  ...yt(Ee.scaleBottomLeft, "bottom left"),
-  ...yt(Ee.scaleBottomRight, "bottom right")
-}), Ji = m({
+const al = We({
+  ...$t(Re.scaleTopLeft, "top left"),
+  ...$t(Re.scaleTopRight, "top right"),
+  ...$t(Re.scaleBottomLeft, "bottom left"),
+  ...$t(Re.scaleBottomRight, "bottom right")
+}), sl = C({
   appearance: "none",
   display: "inline-flex",
   alignItems: "center",
   outline: "none"
-}), Gi = m({
+}), il = C({
   zIndex: "$dropdown",
   position: "absolute",
   left: 0,
@@ -1610,7 +1609,7 @@ const Zi = Me({
   "&:focus": {
     outline: "none"
   }
-}), el = m({}), tl = m({
+}), ll = C({}), cl = C({
   display: "flex",
   alignItems: "center",
   mx: "$1",
@@ -1621,7 +1620,7 @@ const Zi = Me({
   fontWeight: "$medium",
   lineHeight: "$4"
 });
-function We(e) {
+function Ne(e) {
   return {
     color: e.color,
     "&[data-active]": {
@@ -1629,7 +1628,7 @@ function We(e) {
     }
   };
 }
-const rl = m({
+const dl = C({
   position: "relative",
   display: "flex",
   alignItems: "center",
@@ -1649,43 +1648,43 @@ const rl = m({
   },
   variants: {
     colorScheme: {
-      primary: We({ color: "$primary11", bgColorActive: "$primary3" }),
-      accent: We({ color: "$accent11", bgColorActive: "$accent3" }),
-      neutral: We({ color: "$neutral12", bgColorActive: "$neutral4" }),
-      success: We({ color: "$success11", bgColorActive: "$success3" }),
-      info: We({ color: "$info11", bgColorActive: "$info3" }),
-      warning: We({ color: "$warning11", bgColorActive: "$warning3" }),
-      danger: We({ color: "$danger11", bgColorActive: "$danger3" })
+      primary: Ne({ color: "$primary11", bgColorActive: "$primary3" }),
+      accent: Ne({ color: "$accent11", bgColorActive: "$accent3" }),
+      neutral: Ne({ color: "$neutral12", bgColorActive: "$neutral4" }),
+      success: Ne({ color: "$success11", bgColorActive: "$success3" }),
+      info: Ne({ color: "$info11", bgColorActive: "$info3" }),
+      warning: Ne({ color: "$warning11", bgColorActive: "$warning3" }),
+      danger: Ne({ color: "$danger11", bgColorActive: "$danger3" })
     }
   },
   defaultVariants: {
     colorScheme: "neutral"
   }
-}), ol = m({
+}), ul = C({
   display: "inline-flex",
   alignItems: "center",
   justifyContent: "center",
   flexShrink: 0
-}), nl = m({
+}), gl = C({
   flexGrow: 1
-}), al = m({
+}), fl = C({
   flexShrink: 0,
   color: "$neutral11",
   fontSize: "$sm",
   lineHeight: "$none"
-}), At = ct({
+}), Rt = ft({
   from: { transform: "rotate(0deg)" },
   to: { transform: "rotate(360deg)" }
-}), sl = ct({
+}), hl = ft({
   from: { opacity: 0 },
   to: { opacity: 1 }
-}), we = {
+}), ke = {
   slideInTop: "hope-notification-slide-in-top-transition",
   slideInRight: "hope-notification-slide-in-right-transition",
   slideInBottom: "hope-notification-slide-in-bottom-transition",
   slideInLeft: "hope-notification-slide-in-left-transition"
 };
-function $t(e) {
+function wt(e) {
   return {
     [`.${e.name}-enter, .${e.name}-exit-to`]: {
       opacity: 0,
@@ -1707,28 +1706,28 @@ function $t(e) {
     }
   };
 }
-const il = Me({
-  ...$t({
-    name: we.slideInTop,
+const pl = We({
+  ...wt({
+    name: ke.slideInTop,
     enterTransform: "translateY(-100%)",
     leaveTransform: "translateY(0)"
   }),
-  ...$t({
-    name: we.slideInRight,
+  ...wt({
+    name: ke.slideInRight,
     enterTransform: "translateX(100%)",
     leaveTransform: "translateX(0)"
   }),
-  ...$t({
-    name: we.slideInBottom,
+  ...wt({
+    name: ke.slideInBottom,
     enterTransform: "translateY(100%)",
     leaveTransform: "translateY(0)"
   }),
-  ...$t({
-    name: we.slideInLeft,
+  ...wt({
+    name: ke.slideInLeft,
     enterTransform: "translateX(-100%)",
     leaveTransform: "translateX(0)"
   })
-}), ll = m({
+}), bl = C({
   position: "fixed",
   zIndex: "$notification",
   display: "flex",
@@ -1770,7 +1769,7 @@ const il = Me({
   defaultVariants: {
     placement: "top-end"
   }
-}), cl = m({
+}), ml = C({
   position: "relative",
   display: "flex",
   alignItems: "center",
@@ -1791,9 +1790,9 @@ const il = Me({
       danger: {}
     }
   }
-}), dl = m({
-  animation: `1s linear infinite ${At}`
-}), ul = m({
+}), vl = C({
+  animation: `1s linear infinite ${Rt}`
+}), Sl = C({
   flexShrink: 0,
   variants: {
     status: {
@@ -1803,34 +1802,34 @@ const il = Me({
       danger: { color: "$danger9" }
     }
   }
-}), gl = m({
+}), xl = C({
   fontWeight: "$medium"
-}), fl = m({
+}), Cl = C({
   display: "inline-block",
   color: "$neutral11"
-}), Ye = {
+}), Je = {
   scale: "hope-popover-scale-transition"
-}, pl = Me({
+}, yl = We({
   /* scale */
-  [`.${Ye.scale}-enter, .${Ye.scale}-exit-to`]: {
+  [`.${Je.scale}-enter, .${Je.scale}-exit-to`]: {
     opacity: 0,
     transform: "scale(0.95)"
   },
-  [`.${Ye.scale}-enter-to, .${Ye.scale}-exit`]: {
+  [`.${Je.scale}-enter-to, .${Je.scale}-exit`]: {
     opacity: 1,
     transform: "scale(1)"
   },
-  [`.${Ye.scale}-enter-active`]: {
+  [`.${Je.scale}-enter-active`]: {
     transitionProperty: "opacity, transform",
     transitionDuration: "300ms",
     transitionTimingFunction: "ease"
   },
-  [`.${Ye.scale}-exit-active`]: {
+  [`.${Je.scale}-exit-active`]: {
     transitionProperty: "opacity, transform",
     transitionDuration: "200ms",
     transitionTimingFunction: "ease-in-out"
   }
-}), hl = m({
+}), $l = C({
   zIndex: "$popover",
   position: "absolute",
   display: "flex",
@@ -1848,7 +1847,7 @@ const il = Me({
     outline: "none"
     //boxShadow: "$outline",
   }
-}), bl = m({
+}), wl = C({
   display: "flex",
   alignItems: "center",
   flex: 0,
@@ -1858,22 +1857,22 @@ const il = Me({
   py: "$2",
   fontSize: "$base",
   fontWeight: "$medium"
-}), ml = m({
+}), Il = C({
   flex: 1,
   px: "$3",
   py: "$2"
-}), vl = m({
+}), kl = C({
   display: "flex",
   alignItems: "center",
   borderColor: "inherit",
   borderTopWidth: "1px",
   px: "$3",
   py: "$2"
-}), Sl = m({
+}), _l = C({
   position: "absolute",
   top: "$2",
   insetInlineEnd: "$2"
-}), xl = m({
+}), Pl = C({
   zIndex: "$popover",
   position: "absolute",
   boxSize: "8px",
@@ -1903,19 +1902,19 @@ const il = Me({
     }
   }
 });
-function wt(e) {
+function It(e) {
   return {
     minHeight: e.minHeight,
     fontSize: e.fontSize,
     lineHeight: e.lineHeight
   };
 }
-const Pe = {
-  xs: wt({ fontSize: "$xs", lineHeight: "$4", minHeight: "$6" }),
-  sm: wt({ fontSize: "$sm", lineHeight: "$5", minHeight: "$8" }),
-  md: wt({ fontSize: "$base", lineHeight: "$6", minHeight: "$10" }),
-  lg: wt({ fontSize: "$lg", lineHeight: "$7", minHeight: "$12" })
-}, xr = {
+const Le = {
+  xs: It({ fontSize: "$xs", lineHeight: "$4", minHeight: "$6" }),
+  sm: It({ fontSize: "$sm", lineHeight: "$5", minHeight: "$8" }),
+  md: It({ fontSize: "$base", lineHeight: "$6", minHeight: "$10" }),
+  lg: It({ fontSize: "$lg", lineHeight: "$7", minHeight: "$12" })
+}, Ir = {
   "&:disabled": {
     opacity: 0.4,
     cursor: "not-allowed"
@@ -1930,7 +1929,7 @@ const Pe = {
   "&[aria-invalid=true]:focus": {
     boxShadow: "0 0 0 3px $colors$danger5"
   }
-}, nr = m({
+}, sr = C({
   appearance: "none",
   position: "relative",
   width: "100%",
@@ -1960,7 +1959,7 @@ const Pe = {
         "&:hover": {
           borderColor: "$neutral8"
         },
-        ...xr
+        ...Ir
       },
       filled: {
         border: "1px solid transparent",
@@ -1968,7 +1967,7 @@ const Pe = {
         "&:hover, &:focus": {
           backgroundColor: "$neutral4"
         },
-        ...xr
+        ...Ir
       },
       unstyled: {
         border: "1px solid transparent",
@@ -1976,11 +1975,11 @@ const Pe = {
       }
     },
     size: {
-      ...Pe
+      ...Le
     }
   }
 });
-function Ce(e) {
+function $e(e) {
   return [
     {
       variant: e.variant,
@@ -2001,7 +2000,7 @@ function Ce(e) {
     }
   ];
 }
-const Cl = m(nr, {
+const Tl = C(sr, {
   variants: {
     withLeftElement: {
       true: {}
@@ -2024,25 +2023,25 @@ const Cl = m(nr, {
     /* -------------------------------------------------------------------------------------------------
      * Variant - outline + size
      * -----------------------------------------------------------------------------------------------*/
-    ...Ce({
+    ...$e({
       variant: "outline",
       size: "xs",
       paddingX: "$2",
       paddingWithElement: "$6"
     }),
-    ...Ce({
+    ...$e({
       variant: "outline",
       size: "sm",
       paddingX: "$2_5",
       paddingWithElement: "$8"
     }),
-    ...Ce({
+    ...$e({
       variant: "outline",
       size: "md",
       paddingX: "$3",
       paddingWithElement: "$10"
     }),
-    ...Ce({
+    ...$e({
       variant: "outline",
       size: "lg",
       paddingX: "$4",
@@ -2051,25 +2050,25 @@ const Cl = m(nr, {
     /* -------------------------------------------------------------------------------------------------
      * Variant - filled + size
      * -----------------------------------------------------------------------------------------------*/
-    ...Ce({
+    ...$e({
       variant: "filled",
       size: "xs",
       paddingX: "$2",
       paddingWithElement: "$6"
     }),
-    ...Ce({
+    ...$e({
       variant: "filled",
       size: "sm",
       paddingX: "$2_5",
       paddingWithElement: "$8"
     }),
-    ...Ce({
+    ...$e({
       variant: "filled",
       size: "md",
       paddingX: "$3",
       paddingWithElement: "$10"
     }),
-    ...Ce({
+    ...$e({
       variant: "filled",
       size: "lg",
       paddingX: "$4",
@@ -2078,36 +2077,36 @@ const Cl = m(nr, {
     /* -------------------------------------------------------------------------------------------------
      * Variant - unstyled + size
      * -----------------------------------------------------------------------------------------------*/
-    ...Ce({
+    ...$e({
       variant: "unstyled",
       size: "xs",
       paddingX: 0,
       paddingWithElement: "$6"
     }),
-    ...Ce({
+    ...$e({
       variant: "unstyled",
       size: "sm",
       paddingX: 0,
       paddingWithElement: "$8"
     }),
-    ...Ce({
+    ...$e({
       variant: "unstyled",
       size: "md",
       paddingX: 0,
       paddingWithElement: "$10"
     }),
-    ...Ce({
+    ...$e({
       variant: "unstyled",
       size: "lg",
       paddingX: 0,
       paddingWithElement: "$12"
     })
   ]
-}), yl = m({
+}), zl = C({
   position: "relative",
   display: "flex",
   width: "100%"
-}), $l = m({
+}), Bl = C({
   position: "absolute",
   top: "0",
   zIndex: 2,
@@ -2121,32 +2120,32 @@ const Cl = m(nr, {
     },
     size: {
       xs: {
-        ...Pe.xs,
-        width: Pe.xs.minHeight
+        ...Le.xs,
+        width: Le.xs.minHeight
       },
       sm: {
-        ...Pe.sm,
-        width: Pe.sm.minHeight
+        ...Le.sm,
+        width: Le.sm.minHeight
       },
       md: {
-        ...Pe.md,
-        width: Pe.md.minHeight
+        ...Le.md,
+        width: Le.md.minHeight
       },
       lg: {
-        ...Pe.lg,
-        width: Pe.lg.minHeight
+        ...Le.lg,
+        width: Le.lg.minHeight
       }
     }
   }
 });
-function ye(e) {
+function we(e) {
   return {
     variant: e.variant,
     size: e.size,
     css: { px: e.paddingX }
   };
 }
-const wl = m({
+const Ll = C({
   display: "flex",
   alignItems: "center",
   flex: "0 0 auto",
@@ -2180,7 +2179,7 @@ const wl = m({
       }
     },
     size: {
-      ...Pe
+      ...Le
     }
   },
   compoundVariants: [
@@ -2227,22 +2226,22 @@ const wl = m({
     /* -------------------------------------------------------------------------------------------------
      * Variant - outline + size
      * -----------------------------------------------------------------------------------------------*/
-    ye({
+    we({
       variant: "outline",
       size: "xs",
       paddingX: "$2"
     }),
-    ye({
+    we({
       variant: "outline",
       size: "sm",
       paddingX: "$2_5"
     }),
-    ye({
+    we({
       variant: "outline",
       size: "md",
       paddingX: "$3"
     }),
-    ye({
+    we({
       variant: "outline",
       size: "lg",
       paddingX: "$4"
@@ -2250,22 +2249,22 @@ const wl = m({
     /* -------------------------------------------------------------------------------------------------
      * Variant - filled + size
      * -----------------------------------------------------------------------------------------------*/
-    ye({
+    we({
       variant: "filled",
       size: "xs",
       paddingX: "$2"
     }),
-    ye({
+    we({
       variant: "filled",
       size: "sm",
       paddingX: "$2_5"
     }),
-    ye({
+    we({
       variant: "filled",
       size: "md",
       paddingX: "$3"
     }),
-    ye({
+    we({
       variant: "filled",
       size: "lg",
       paddingX: "$4"
@@ -2273,51 +2272,51 @@ const wl = m({
     /* -------------------------------------------------------------------------------------------------
      * Variant - unstyled + size
      * -----------------------------------------------------------------------------------------------*/
-    ye({
+    we({
       variant: "unstyled",
       size: "xs",
       paddingX: 0
     }),
-    ye({
+    we({
       variant: "unstyled",
       size: "sm",
       paddingX: 0
     }),
-    ye({
+    we({
       variant: "unstyled",
       size: "md",
       paddingX: 0
     }),
-    ye({
+    we({
       variant: "unstyled",
       size: "lg",
       paddingX: 0
     })
   ]
-}), Ze = {
+}), Ge = {
   fadeInTop: "hope-select-fade-in-top-transition"
-}, _l = Me({
+}, Hl = We({
   /* fade-in-top */
-  [`.${Ze.fadeInTop}-enter, .${Ze.fadeInTop}-exit-to`]: {
+  [`.${Ge.fadeInTop}-enter, .${Ge.fadeInTop}-exit-to`]: {
     opacity: 0,
     transform: "translateY(-16px)"
   },
-  [`.${Ze.fadeInTop}-enter-to, .${Ze.fadeInTop}-exit`]: {
+  [`.${Ge.fadeInTop}-enter-to, .${Ge.fadeInTop}-exit`]: {
     opacity: 1,
     transform: "translateY(0)"
   },
-  [`.${Ze.fadeInTop}-enter-active`]: {
+  [`.${Ge.fadeInTop}-enter-active`]: {
     transitionProperty: "opacity, transform",
     transitionDuration: "200ms",
     transitionTimingFunction: "ease-out"
   },
-  [`.${Ze.fadeInTop}-exit-active`]: {
+  [`.${Ge.fadeInTop}-exit-active`]: {
     transitionProperty: "opacity, transform",
     transitionDuration: "100ms",
     transitionTimingFunction: "ease-in"
   }
 });
-function qt(e, t, r) {
+function Ut(e, t, r) {
   return Object.entries({
     xs: {
       start: t ?? "$2",
@@ -2335,16 +2334,16 @@ function qt(e, t, r) {
       start: t ?? "$4",
       end: r ?? "$3"
     }
-  }).map(([o, a]) => ({
+  }).map(([n, a]) => ({
     variant: e,
-    size: o,
+    size: n,
     css: {
       paddingInlineStart: a.start,
       paddingInlineEnd: a.end
     }
   }));
 }
-const Il = m(nr, {
+const Dl = C(sr, {
   appearance: "none",
   display: "inline-flex",
   alignItems: "center",
@@ -2354,18 +2353,18 @@ const Il = m(nr, {
     outline: "none"
   },
   compoundVariants: [
-    ...qt("outline"),
-    ...qt("filled"),
-    ...qt("unstyled", 0, 0)
+    ...Ut("outline"),
+    ...Ut("filled"),
+    ...Ut("unstyled", 0, 0)
   ]
-}), qr = m({
+}), en = C({
   flexGrow: 1,
   flexShrink: 1,
   textAlign: "start",
   overflow: "hidden",
   textOverflow: "ellipsis",
   whiteSpace: "nowrap"
-}), kl = m({
+}), El = C({
   display: "inline-flex",
   alignItems: "center",
   justifyContent: "flex-start",
@@ -2392,7 +2391,7 @@ const Il = m(nr, {
       }
     }
   }
-}), Pl = m({
+}), Al = C({
   display: "inline-flex",
   justifyContent: "center",
   alignItems: "center",
@@ -2432,7 +2431,7 @@ const Il = m(nr, {
       }
     }
   }
-}), Tl = m({
+}), Ol = C({
   appearance: "none",
   display: "inline-flex",
   justifyContent: "center",
@@ -2455,10 +2454,10 @@ const Il = m(nr, {
     outline: "none",
     boxShadow: "$outline"
   }
-}), zl = m(qr, {
+}), Ml = C(en, {
   color: "$neutral9",
   opacity: 1
-}), Bl = m({
+}), Rl = C({
   flexGrow: 0,
   flexShrink: 0,
   marginInlineStart: "auto",
@@ -2474,7 +2473,7 @@ const Il = m(nr, {
       }
     }
   }
-}), Ll = m({
+}), Wl = C({
   zIndex: "$dropdown",
   position: "absolute",
   left: 0,
@@ -2489,7 +2488,7 @@ const Il = m(nr, {
   borderRadius: "$sm",
   backgroundColor: "$loContrast",
   padding: 0
-}), Dl = m({
+}), Fl = C({
   position: "relative",
   display: "flex",
   flexDirection: "column",
@@ -2500,7 +2499,7 @@ const Il = m(nr, {
   padding: "$1",
   //0,
   listStyle: "none"
-}), Hl = m({}), Al = m({
+}), Nl = C({}), Vl = C({
   display: "flex",
   alignItems: "center",
   py: "$2",
@@ -2508,7 +2507,7 @@ const Il = m(nr, {
   color: "$neutral11",
   fontSize: "$xs",
   lineHeight: "$4"
-}), El = m({
+}), ql = C({
   position: "relative",
   display: "flex",
   alignItems: "center",
@@ -2526,13 +2525,13 @@ const Il = m(nr, {
   "&[data-active]": {
     backgroundColor: "$neutral4"
   }
-}), Ml = m({
+}), jl = C({
   display: "inline-flex",
   alignItems: "center",
   py: "$2",
   paddingInlineStart: "$3",
   paddingInlineEnd: "$6"
-}), Ol = m({
+}), Kl = C({
   position: "absolute",
   top: 0,
   bottom: 0,
@@ -2542,29 +2541,29 @@ const Il = m(nr, {
   paddingInlineEnd: "$3",
   color: "$primary10",
   pointerEvents: "none"
-}), Je = {
+}), et = {
   scale: "hope-tooltip-scale-transition"
-}, Rl = Me({
+}, Xl = We({
   /* scale */
-  [`.${Je.scale}-enter, .${Je.scale}-exit-to`]: {
+  [`.${et.scale}-enter, .${et.scale}-exit-to`]: {
     opacity: 0,
     transform: "scale(0.90)"
   },
-  [`.${Je.scale}-enter-to, .${Je.scale}-exit`]: {
+  [`.${et.scale}-enter-to, .${et.scale}-exit`]: {
     opacity: 1,
     transform: "scale(1)"
   },
-  [`.${Je.scale}-enter-active`]: {
+  [`.${et.scale}-enter-active`]: {
     transitionProperty: "opacity, transform",
     transitionDuration: "200ms",
     transitionTimingFunction: "ease"
   },
-  [`.${Je.scale}-exit-active`]: {
+  [`.${et.scale}-exit-active`]: {
     transitionProperty: "opacity, transform",
     transitionDuration: "150ms",
     transitionTimingFunction: "ease-in-out"
   }
-}), Wl = m({
+}), Ul = C({
   zIndex: "$tooltip",
   position: "absolute",
   maxWidth: "$96",
@@ -2577,13 +2576,13 @@ const Il = m(nr, {
   fontSize: "$sm",
   fontWeight: "$normal",
   lineHeight: "$4"
-}), Fl = m({
+}), Ql = C({
   zIndex: "$tooltip",
   position: "absolute",
   boxSize: "8px",
   backgroundColor: "inherit",
   transform: "rotate(45deg)"
-}), Nl = Me({
+}), Yl = We({
   /*
     1. Use a more-intuitive box-sizing model.
     2. Set default border width and style to apply border props easily.
@@ -2749,26 +2748,26 @@ const Il = m(nr, {
     }
   }
 });
-function Cr(e, t, r) {
-  Object.entries(e).forEach(([o, a]) => {
-    if (Ht(a))
-      if (o in r) {
-        const n = o;
-        r[n] = {
-          ...r[n],
+function kr(e, t, r) {
+  Object.entries(e).forEach(([n, a]) => {
+    if (Mt(a))
+      if (n in r) {
+        const o = n;
+        r[o] = {
+          ...r[o],
           ...a
         };
       } else
-        t[o] = {
-          ...t[o],
+        t[n] = {
+          ...t[n],
           ...a
         };
     else
-      t[o] = a;
+      t[n] = a;
   });
 }
-function Vl(e, t) {
-  const r = {}, o = {
+function Zl(e, t) {
+  const r = {}, n = {
     "@desktop_s": {},
     "@mobile_s": {},
     "@mobile_m": {},
@@ -2783,32 +2782,32 @@ function Vl(e, t) {
     "@dark": {}
   };
   return t == null || t.forEach(
-    (a) => a && Cr(a, r, o)
-  ), Object.entries(e).forEach(([a, n]) => {
-    n != null && a !== "css" && (a.startsWith("_") ? r[a] = n : Ht(n) ? Object.keys(n).forEach((s) => {
+    (a) => a && kr(a, r, n)
+  ), Object.entries(e).forEach(([a, o]) => {
+    o != null && a !== "css" && (a.startsWith("_") ? r[a] = o : Mt(o) ? Object.keys(o).forEach((s) => {
       if (s === "@initial")
-        r[a] = n[s];
-      else if (s in o) {
+        r[a] = o[s];
+      else if (s in n) {
         const l = s;
-        o[l] = {
-          ...o[l],
-          [a]: n[l]
+        n[l] = {
+          ...n[l],
+          [a]: o[l]
         };
       }
-    }) : r[a] = n);
-  }), e.css && Cr(e.css, r, o), { ...r, ...o };
+    }) : r[a] = o);
+  }), e.css && kr(e.css, r, n), { ...r, ...n };
 }
-function yr(e, t) {
-  const r = e === "dark", o = r ? lt.dark : lt.light, a = r ? vr({}, Oi, t) : t, n = Wi(o, a);
-  return vr({}, Ri, n);
+function _r(e, t) {
+  const r = e === "dark", n = r ? ut.dark : ut.light, a = r ? $r({}, Ki, t) : t, o = Ui(n, a);
+  return $r({}, Xi, o);
 }
-function ar(e, t) {
-  return Ht(e) ? Object.keys(e).reduce((r, o) => (r[o] = t(e[o]), r), {}) : e != null ? t(e) : null;
+function ir(e, t) {
+  return Mt(e) ? Object.keys(e).reduce((r, n) => (r[n] = t(e[n]), r), {}) : e != null ? t(e) : null;
 }
-function $r(e) {
+function Pr(e) {
   return e.startsWith("$") ? `var(--hope-colors-${e.substring(1)})` : e;
 }
-const Et = m({
+const Wt = C({
   position: "absolute",
   width: "1px",
   height: "1px",
@@ -2818,49 +2817,49 @@ const Et = m({
   clip: "rect(0, 0, 0, 0)",
   whiteSpace: "nowrap",
   borderWidth: "0"
-}), Mt = J();
-function ql() {
-  Ui(), Zi(), Fi(), il(), pl(), _l(), Rl();
+}), Ft = te();
+function Jl() {
+  rl(), al(), Qi(), pl(), yl(), Hl(), Xl();
 }
-function _p(e) {
-  var x, z, C, $;
-  e = q({
+function Lh(e) {
+  var b, P, h, x;
+  e = N({
     enableCssReset: !0
   }, e);
-  const r = yr("light", ((x = e.config) == null ? void 0 : x.lightTheme) ?? {}), o = yr("dark", ((z = e.config) == null ? void 0 : z.darkTheme) ?? {}), a = js(((C = e.config) == null ? void 0 : C.initialColorMode) ?? "light"), n = a === "dark" ? o : r, [s, l] = Z(a), [c, d] = Z(n), f = () => s() === "dark", u = (B) => {
-    l(B), qs(B);
+  const r = _r("light", ((b = e.config) == null ? void 0 : b.lightTheme) ?? {}), n = _r("dark", ((P = e.config) == null ? void 0 : P.darkTheme) ?? {}), a = Gs(((h = e.config) == null ? void 0 : h.initialColorMode) ?? "light"), o = a === "dark" ? n : r, [s, l] = re(a), [c, u] = re(o), f = () => s() === "dark", d = (z) => {
+    l(z), Js(z);
   }, g = () => {
-    u(f() ? "light" : "dark");
-  }, S = {
-    components: (($ = e.config) == null ? void 0 : $.components) ?? {},
+    d(f() ? "light" : "dark");
+  }, y = {
+    components: ((x = e.config) == null ? void 0 : x.components) ?? {},
     theme: c,
     colorMode: s,
-    setColorMode: u,
+    setColorMode: d,
     toggleColorMode: g
   };
-  return pe(() => {
-    d(f() ? o : r), Xs(f());
-  }), e.enableCssReset && Nl(), ql(), i(Mt.Provider, {
-    value: S,
+  return me(() => {
+    u(f() ? n : r), ti(f());
+  }), e.enableCssReset && Yl(), Jl(), i(Ft.Provider, {
+    value: y,
     get children() {
       return e.children;
     }
   });
 }
-function Ip() {
-  const e = Q(Mt);
+function Hh() {
+  const e = Z(Ft);
   if (!e)
     throw new Error("[Hope UI]: useTheme must be used within a HopeProvider");
   return e.theme;
 }
-function y() {
-  const e = Q(Mt);
+function w() {
+  const e = Z(Ft);
   if (!e)
     throw new Error("[Hope UI]: useStyleConfig must be used within a HopeProvider");
   return e.components;
 }
-function jl() {
-  const e = Q(Mt);
+function Gl() {
+  const e = Z(Ft);
   if (!e)
     throw new Error("[Hope UI]: useColorMode must be used within a HopeProvider");
   return {
@@ -2869,30 +2868,30 @@ function jl() {
     toggleColorMode: e.toggleColorMode
   };
 }
-function kp(e, t) {
+function Dh(e, t) {
   const {
     colorMode: r
-  } = jl();
+  } = Gl();
   return () => r() === "dark" ? t : e;
 }
-function v(e) {
+function $(e) {
   return `.${e}`;
 }
-function h(...e) {
+function m(...e) {
   return e.filter(Boolean).join(" ");
 }
-function jr(e, t, r) {
+function tn(e, t, r) {
   return (e - t) * 100 / (r - t);
 }
-function It(e, t, r) {
-  let o = e + 1;
-  return o > t && (o = r ? 0 : t), o;
+function _t(e, t, r) {
+  let n = e + 1;
+  return n > t && (n = r ? 0 : t), n;
 }
-function kt(e, t, r) {
-  let o = e - 1;
-  return o < 0 && (o = r ? t : 0), o;
+function Pt(e, t, r) {
+  let n = e - 1;
+  return n < 0 && (n = r ? t : 0), n;
 }
-const Kl = {
+const ec = {
   border: !0,
   borderWidth: !0,
   borderStyle: !0,
@@ -2915,14 +2914,14 @@ const Kl = {
   borderLeftColor: !0,
   borderX: !0,
   borderY: !0
-}, Xl = {
+}, tc = {
   color: !0,
   background: !0,
   bg: !0,
   backgroundColor: !0,
   bgColor: !0,
   opacity: !0
-}, Ul = { css: !0 }, Ql = {
+}, rc = { css: !0 }, nc = {
   alignItems: !0,
   alignContent: !0,
   alignSelf: !0,
@@ -2936,7 +2935,7 @@ const Kl = {
   flexShrink: !0,
   flexBasis: !0,
   order: !0
-}, Yl = {
+}, oc = {
   gridTemplate: !0,
   gridTemplateColumns: !0,
   gridTemplateRows: !0,
@@ -2957,7 +2956,7 @@ const Kl = {
   gap: !0,
   rowGap: !0,
   columnGap: !0
-}, Zl = {
+}, ac = {
   appearance: !0,
   userSelect: !0,
   pointerEvents: !0,
@@ -2966,7 +2965,7 @@ const Kl = {
   outline: !0,
   outlineOffset: !0,
   outlineColor: !0
-}, Jl = {
+}, sc = {
   display: !0,
   d: !0,
   verticalAlign: !0,
@@ -2975,7 +2974,7 @@ const Kl = {
   overflowY: !0,
   objectFit: !0,
   objectPosition: !0
-}, Gl = {
+}, ic = {
   margin: !0,
   m: !0,
   marginTop: !0,
@@ -2992,7 +2991,7 @@ const Kl = {
   me: !0,
   mx: !0,
   my: !0
-}, ec = {
+}, lc = {
   padding: !0,
   p: !0,
   paddingTop: !0,
@@ -3009,7 +3008,7 @@ const Kl = {
   pe: !0,
   px: !0,
   py: !0
-}, tc = {
+}, cc = {
   position: !0,
   pos: !0,
   zIndex: !0,
@@ -3017,7 +3016,7 @@ const Kl = {
   right: !0,
   bottom: !0,
   left: !0
-}, rc = {
+}, dc = {
   _hover: !0,
   _active: !0,
   _focus: !0,
@@ -3075,7 +3074,7 @@ const Kl = {
   _mediaReduceMotion: !0,
   _dark: !0,
   _light: !0
-}, oc = {
+}, uc = {
   borderRadius: !0,
   borderTopRightRadius: !0,
   borderTopLeftRadius: !0,
@@ -3094,11 +3093,11 @@ const Kl = {
   roundedBottom: !0,
   roundedLeft: !0,
   roundedEnd: !0
-}, nc = {
+}, gc = {
   textShadow: !0,
   boxShadow: !0,
   shadow: !0
-}, ac = {
+}, fc = {
   width: !0,
   w: !0,
   minWidth: !0,
@@ -3112,11 +3111,11 @@ const Kl = {
   maxHeight: !0,
   maxH: !0,
   boxSize: !0
-}, sc = {
+}, hc = {
   transform: !0,
   transformOrigin: !0,
   clipPath: !0
-}, ic = {
+}, pc = {
   transition: !0,
   transitionProperty: !0,
   transitionTimingFunction: !0,
@@ -3124,7 +3123,7 @@ const Kl = {
   transitionDelay: !0,
   animation: !0,
   willChange: !0
-}, lc = {
+}, bc = {
   fontFamily: !0,
   fontSize: !0,
   fontWeight: !0,
@@ -3135,172 +3134,76 @@ const Kl = {
   textTransform: !0,
   textDecoration: !0,
   noOfLines: !0
-}, cc = {
-  ...Kl,
-  ...Xl,
-  ...Ql,
-  ...Yl,
-  ...Zl,
-  ...Jl,
-  ...Gl,
+}, mc = {
   ...ec,
   ...tc,
-  ...oc,
   ...nc,
+  ...oc,
   ...ac,
   ...sc,
   ...ic,
   ...lc,
-  ...rc,
-  ...Ul
-}, dc = m({});
-function uc(e, t) {
-  return dc({ css: Vl(e, t) });
+  ...cc,
+  ...uc,
+  ...gc,
+  ...fc,
+  ...hc,
+  ...pc,
+  ...bc,
+  ...dc,
+  ...rc
+}, vc = C({});
+function Sc(e, t) {
+  return vc({ css: Zl(e, t) });
 }
-function gc(e) {
-  return Object.keys(e).filter((t) => t in cc);
+function xc(e) {
+  return Object.keys(e).filter((t) => t in mc);
 }
-const jt = (e, t) => {
-  const r = (o) => {
-    const a = gc(o), n = q({
+const Qt = (e, t) => {
+  const r = (n) => {
+    const a = xc(n), o = N({
       as: e
-    }, o), [s, l, c] = b(n, ["__tooltip_title", "__tooltip_show_arrow", "__tooltip_placement", "__tooltip_id", "__tooltip_context_id", "__tooltip_open_delay", "__tooltip_close_delay", "__tooltip_open_on_focus", "__tooltip_skip_delay_duration", "__tooltip_open_on_hover", "__tooltip_close_on_escape", "__tooltip_close_on_pointer_down", "__tooltip_open", "__tooltip_close_on_scroll", "__tooltip_hoverable_content", "as", "class", "className", "__baseStyle"], a), d = Se(() => [Te(t == null ? void 0 : t.baseStyle) ? t == null ? void 0 : t.baseStyle(o) : t == null ? void 0 : t.baseStyle, s.__baseStyle]), f = () => h(
+    }, n), [s, l, c] = S(o, ["as", "class", "className", "__baseStyle"], a), u = ye(() => [de(t == null ? void 0 : t.baseStyle) ? t == null ? void 0 : t.baseStyle(n) : t == null ? void 0 : t.baseStyle, s.__baseStyle]), f = () => m(
       t == null ? void 0 : t.baseClass,
       // In order to target the component in stitches css method and prop, like any other Hope UI components.
       s.class,
       s.className,
-      uc(l, d())
+      Sc(l, u())
     );
-    let u = () => i(ht, p({
+    return i(Or, p({
       get component() {
         return s.as ?? "div";
       },
       get class() {
         return f();
       }
-    }, c)), g = () => {
-      const [S, x] = Z(!1), [z, C] = Z(), [$, B] = Z();
-      let w = ne(), E = ne(), M = (s.__tooltip_placement ?? "top").toLowerCase(), N = Es(z, $, {
-        open: S,
-        // @ts-ignore
-        placement: M,
-        middleware: [Bt(10), Lt(), Dt()]
-        // whileElementsMounted: autoUpdate,
-      });
-      ae(() => {
-        C(document.querySelector(`[unique-id="${w}"]`));
-      });
-      const L = (_) => {
-        x(!1);
-      }, O = () => (ae(() => {
-        B(document.getElementById(E));
-      }), i(ht, {
-        component: "div",
-        id: E,
-        get style() {
-          return {
-            position: N.strategy,
-            "z-index": "var(--hope-zIndices-tooltip, 1000)",
-            top: `${N.y ?? 0}px`,
-            left: `${N.x ?? 0}px`,
-            width: "max-content"
-          };
-        },
-        onMouseOver: () => x(!0),
-        onMouseOut: L,
-        onBlur: L,
-        onClick: L,
-        onMouseDown: L,
-        get "data-open"() {
-          return S();
-        },
-        "data-corvu-tooltip-content": !0,
-        get children() {
-          return [s.__tooltip_title, (s.__tooltip_show_arrow ?? !0) && i(ht, {
-            component: "div",
-            style: {
-              "z-index": "var(--hope-zIndices-tooltip, 1000)"
-            },
-            "data-corvu-tooltip-arrow": !0,
-            "arrow-left": M == "left",
-            "arrow-top": M == "top",
-            "arrow-right": M == "right",
-            "arrow-bottom": M == "bottom"
-          })];
-        }
-      }));
-      return [i(ht, p({
-        get component() {
-          return s.as ?? "div";
-        },
-        get class() {
-          return f();
-        }
-      }, c, {
-        "unique-id": w,
-        onMouseOver: (_) => {
-          var k;
-          x(!0), (k = c.onMouseOver ?? c.onmouseover) == null || k(_);
-        },
-        onMouseLeave: (_) => {
-          var k;
-          x(!1), (k = c.onMouseLeave ?? c.onmouseleave) == null || k(_);
-        },
-        onBlur: (_) => {
-          var k, K;
-          (k = _.currentTarget) != null && k.contains(_.relatedTarget) || x(!1), (K = c.onBlur ?? c.onblur) == null || K(_);
-        },
-        onClick: (_) => {
-          var k;
-          x(!1), (k = c.onClick ?? c.onclick) == null || k(_);
-        },
-        onMouseDown: (_) => {
-          var k;
-          x(!1), (k = c.onMouseDown ?? c.onmousedown) == null || k(_);
-        }
-      })), i(tt, {
-        get children() {
-          return S() && i(O, {});
-        }
-      })];
-    };
-    return i(D, {
-      get when() {
-        return s.__tooltip_title;
-      },
-      get fallback() {
-        return i(u, {});
-      },
-      get children() {
-        return i(g, {});
-      }
-    });
+    }, c));
   };
-  return r.toString = () => t != null && t.baseClass ? v(t.baseClass) : "", r;
+  return r.toString = () => t != null && t.baseClass ? $(t.baseClass) : "", r;
 };
-function fc() {
+function Cc() {
   const e = /* @__PURE__ */ new Map();
-  return new Proxy(jt, {
+  return new Proxy(Qt, {
     /**
      * @example
      * const Div = hope("div")
      * const WithHope = hope(AnotherComponent)
      */
-    apply(t, r, o) {
-      return jt(...o);
+    apply(t, r, n) {
+      return Qt(...n);
     },
     /**
      * @example
      * <hope.div />
      */
     get(t, r) {
-      return e.has(r) || e.set(r, jt(r)), e.get(r);
+      return e.has(r) || e.set(r, Qt(r)), e.get(r);
     }
   });
 }
-const A = fc(), P = A.div, Kr = "hope-accordion";
-function pc(e) {
-  const t = y().Accordion, [r, o] = Z([]), [a, n] = te({
+const A = Cc(), B = A.div, rn = "hope-accordion";
+function yc(e) {
+  const t = w().Accordion, [r, n] = re([]), [a, o] = ae({
     // eslint-disable-next-line solid/reactivity
     _expandedIndex: e.defaultIndex ?? (e.allowMultiple ? [] : -1),
     focusedIndex: -1,
@@ -3311,76 +3214,76 @@ function pc(e) {
     get expandedIndex() {
       return this.isControlled ? e.index : this._expandedIndex;
     }
-  }), [s, l] = b(e, ["class", "allowMultiple", "index", "defaultIndex", "onChange"]), c = Se(() => r().slice().reverse()), d = (w) => {
-    n("focusedIndex", w);
-  }, f = (w, E) => {
-    var N;
-    let M = -1;
-    s.allowMultiple && it(a.expandedIndex) ? M = E ? [...a.expandedIndex, w] : a.expandedIndex.filter((L) => L !== w) : E ? M = w : M = -1, n("_expandedIndex", M), (N = s.onChange) == null || N.call(s, M);
-  }, u = (w) => it(a.expandedIndex) ? a.expandedIndex.includes(w) : a.expandedIndex === w, g = (w) => o((E) => [...E, w]).length - 1, S = () => {
-    const w = r().length - 1;
-    let E = It(a.focusedIndex, w, !0), M = r()[E];
-    for (; M.disabled; )
-      E = It(E, w, !0), M = r()[E];
-    M.focus();
-  }, x = () => {
-    const w = r().length - 1;
-    let E = kt(a.focusedIndex, w, !0), M = r()[E];
-    for (; M.disabled; )
-      E = kt(E, w, !0), M = r()[E];
-    M.focus();
-  }, z = () => {
-    var w;
-    (w = r().find((E) => !E.disabled)) == null || w.focus();
-  }, C = () => {
-    var w;
-    (w = c().find((E) => !E.disabled)) == null || w.focus();
-  }, $ = () => h(s.class, Kr);
-  ge(() => {
-    d(-1);
+  }), [s, l] = S(e, ["class", "allowMultiple", "index", "defaultIndex", "onChange"]), c = ye(() => r().slice().reverse()), u = (v) => {
+    o("focusedIndex", v);
+  }, f = (v, D) => {
+    var R;
+    let _ = -1;
+    s.allowMultiple && dt(a.expandedIndex) ? _ = D ? [...a.expandedIndex, v] : a.expandedIndex.filter((j) => j !== v) : D ? _ = v : _ = -1, o("_expandedIndex", _), (R = s.onChange) == null || R.call(s, _);
+  }, d = (v) => dt(a.expandedIndex) ? a.expandedIndex.includes(v) : a.expandedIndex === v, g = (v) => n((D) => [...D, v]).length - 1, y = () => {
+    const v = r().length - 1;
+    let D = _t(a.focusedIndex, v, !0), _ = r()[D];
+    for (; _.disabled; )
+      D = _t(D, v, !0), _ = r()[D];
+    _.focus();
+  }, b = () => {
+    const v = r().length - 1;
+    let D = Pt(a.focusedIndex, v, !0), _ = r()[D];
+    for (; _.disabled; )
+      D = Pt(D, v, !0), _ = r()[D];
+    _.focus();
+  }, P = () => {
+    var v;
+    (v = r().find((D) => !D.disabled)) == null || v.focus();
+  }, h = () => {
+    var v;
+    (v = c().find((D) => !D.disabled)) == null || v.focus();
+  }, x = () => m(s.class, rn);
+  fe(() => {
+    u(-1);
   });
-  const B = {
+  const z = {
     state: a,
-    setFocusedIndex: d,
+    setFocusedIndex: u,
     setExpandedIndex: f,
-    isExpandedIndex: u,
+    isExpandedIndex: d,
     registerAccordionButton: g,
-    focusNextAccordionButton: S,
-    focusPrevAccordionButton: x,
-    focusFirstAccordionButton: z,
-    focusLastAccordionButton: C
+    focusNextAccordionButton: y,
+    focusPrevAccordionButton: b,
+    focusFirstAccordionButton: P,
+    focusLastAccordionButton: h
   };
-  return i(Xr.Provider, {
-    value: B,
+  return i(nn.Provider, {
+    value: z,
     get children() {
-      return i(P, p({
+      return i(B, p({
         get class() {
-          return $();
+          return x();
         },
         get __baseStyle() {
-          var w;
-          return (w = t == null ? void 0 : t.baseStyle) == null ? void 0 : w.root;
+          var v;
+          return (v = t == null ? void 0 : t.baseStyle) == null ? void 0 : v.root;
         }
       }, l));
     }
   });
 }
-pc.toString = () => v(Kr);
-const Xr = J();
-function hc() {
-  const e = Q(Xr);
+yc.toString = () => $(rn);
+const nn = te();
+function $c() {
+  const e = Z(nn);
   if (!e)
     throw new Error("[Hope UI]: useAccordionContext must be used within a `<Accordion />` component");
   return e;
 }
-const bc = m({
+const wc = C({
   borderTopWidth: "1px",
   borderColor: "$neutral7",
   overflowAnchor: "none",
   "&:last-of-type": {
     borderBottomWidth: "1px"
   }
-}), mc = m({
+}), Ic = C({
   appearance: "none",
   display: "flex",
   alignItems: "center",
@@ -3405,7 +3308,7 @@ const bc = m({
     outline: "none",
     boxShadow: "$outline"
   }
-}), vc = m({
+}), kc = C({
   flexGrow: 0,
   flexShrink: 0,
   fontSize: "1.25em",
@@ -3424,56 +3327,56 @@ const bc = m({
       }
     }
   }
-}), Sc = m({
+}), _c = C({
   pt: "$2",
   px: "$4",
   pb: "$4"
 });
-function Ur(e) {
+function on(e) {
   return e != null && typeof e == "object" && "nodeType" in e && e.nodeType === Node.ELEMENT_NODE;
 }
-function xc(e) {
-  if (!Ur(e))
+function Pc(e) {
+  if (!on(e))
     return !1;
   const t = e.ownerDocument.defaultView ?? window;
   return e instanceof t.HTMLElement;
 }
-function Pt(e) {
-  return Ur(e) ? e.ownerDocument ?? document : document;
+function Tt(e) {
+  return on(e) ? e.ownerDocument ?? document : document;
 }
-function Kt(e, t) {
+function Yt(e, t) {
   const r = e.target;
-  return e.button > 0 || r && !Pt(r).body.contains(r) ? !1 : !(t != null && t.contains(r));
+  return e.button > 0 || r && !Tt(r).body.contains(r) ? !1 : !(t != null && t.contains(r));
 }
-function Qr(e) {
+function an(e) {
   const { key: t, keyCode: r } = e;
   return r >= 37 && r <= 40 && t.indexOf("Arrow") !== 0 ? `Arrow${t}` : t;
 }
-function Cc(e) {
-  const t = Pt(e);
+function Tc(e) {
+  const t = Tt(e);
   return t == null ? void 0 : t.activeElement;
 }
-function Ge(e, t) {
+function tt(e, t) {
   return e ? e === t || e.contains(t) : !1;
 }
-function Tt(e) {
-  const t = e.target ?? e.currentTarget, r = Cc(t);
+function zt(e) {
+  const t = e.target ?? e.currentTarget, r = Tc(t);
   return e.relatedTarget ?? r;
 }
-function Yr(e) {
+function sn(e) {
   return e && e.clientHeight < e.scrollHeight;
 }
-function Zr(e, t) {
-  const { offsetHeight: r, offsetTop: o } = e, { offsetHeight: a, scrollTop: n } = t, s = o < n, l = o + r > n + a;
-  s ? t.scrollTo(0, o) : l && t.scrollTo(0, o - a + r);
+function ln(e, t) {
+  const { offsetHeight: r, offsetTop: n } = e, { offsetHeight: a, scrollTop: o } = t, s = n < o, l = n + r > o + a;
+  s ? t.scrollTo(0, n) : l && t.scrollTo(0, n - a + r);
 }
-function mt(e) {
+function Ct(e) {
   const t = Object.getOwnPropertyDescriptor(e, "children");
-  return t == null ? !1 : Te(t.value);
+  return t == null ? !1 : de(t.value);
 }
-const Jr = "hope-accordion__item";
-function yc(e) {
-  const t = `hope-accordion-item-${ne()}`, r = y().Accordion, o = hc(), [a, n] = te({
+const cn = "hope-accordion__item";
+function zc(e) {
+  const t = `hope-accordion-item-${ue()}`, r = w().Accordion, n = $c(), [a, o] = ae({
     index: -1,
     get buttonId() {
       return `${t}-button`;
@@ -3482,58 +3385,58 @@ function yc(e) {
       return `${t}-panel`;
     },
     get expanded() {
-      return o.isExpandedIndex(this.index);
+      return n.isExpandedIndex(this.index);
     },
     get disabled() {
       return e.disabled ?? !1;
     }
-  }), [s, l] = b(e, ["class", "children"]), c = ($) => {
-    const B = o.registerAccordionButton($);
-    n("index", B);
-  }, d = () => {
-    o.setFocusedIndex(a.index);
+  }), [s, l] = S(e, ["class", "children"]), c = (x) => {
+    const z = n.registerAccordionButton(x);
+    o("index", z);
+  }, u = () => {
+    n.setFocusedIndex(a.index);
   }, f = () => {
-    o.setExpandedIndex(a.index, !a.expanded);
-  }, u = Se(() => ({
-    ArrowDown: o.focusNextAccordionButton,
-    ArrowUp: o.focusPrevAccordionButton,
-    Home: o.focusFirstAccordionButton,
-    End: o.focusLastAccordionButton
-  })), g = ($) => {
-    const B = Qr($), w = u()[B];
-    w && ($.preventDefault(), ue(w, $));
-  }, S = () => a.expanded, x = () => a.disabled, z = () => h(s.class, Jr, bc()), C = {
+    n.setExpandedIndex(a.index, !a.expanded);
+  }, d = ye(() => ({
+    ArrowDown: n.focusNextAccordionButton,
+    ArrowUp: n.focusPrevAccordionButton,
+    Home: n.focusFirstAccordionButton,
+    End: n.focusLastAccordionButton
+  })), g = (x) => {
+    const z = an(x), v = d()[z];
+    v && (x.preventDefault(), oe(v, x));
+  }, y = () => a.expanded, b = () => a.disabled, P = () => m(s.class, cn, wc()), h = {
     state: a,
     registerButton: c,
-    setFocusedIndex: d,
+    setFocusedIndex: u,
     toggleExpandedState: f,
     onButtonKeyDown: g
   };
-  return i(Gr.Provider, {
-    value: C,
+  return i(dn.Provider, {
+    value: h,
     get children() {
-      return i(P, p({
+      return i(B, p({
         get class() {
-          return z();
+          return P();
         },
         get __baseStyle() {
-          var $;
-          return ($ = r == null ? void 0 : r.baseStyle) == null ? void 0 : $.item;
+          var x;
+          return (x = r == null ? void 0 : r.baseStyle) == null ? void 0 : x.item;
         }
       }, l, {
         get children() {
-          return i(D, {
+          return i(H, {
             get when() {
-              return mt(s);
+              return Ct(s);
             },
             get fallback() {
               return s.children;
             },
             get children() {
-              var $;
-              return ($ = s.children) == null ? void 0 : $.call(s, {
-                expanded: S,
-                disabled: x
+              var x;
+              return (x = s.children) == null ? void 0 : x.call(s, {
+                expanded: y,
+                disabled: b
               });
             }
           });
@@ -3542,26 +3445,29 @@ function yc(e) {
     }
   });
 }
-yc.toString = () => v(Jr);
-const Gr = J();
-function sr() {
-  const e = Q(Gr);
+zc.toString = () => $(cn);
+const dn = te();
+function lr() {
+  const e = Z(dn);
   if (!e)
     throw new Error("[Hope UI]: useAccordionItemContext must be used within a `<AccordionItem />` component");
   return e;
 }
-const eo = "hope-accordion__button";
-function $c(e) {
-  const t = y().Accordion, r = sr(), [o, a] = b(e, ["ref", "class", "disabled", "onClick", "onFocus", "onKeyDown"]), n = (d) => {
-    ue(o.onClick, d), r.toggleExpandedState();
-  }, s = (d) => {
-    ue(o.onFocus, d), r.setFocusedIndex();
-  }, l = (d) => {
-    fe(o.onKeyDown, r.onButtonKeyDown)(d);
-  }, c = () => h(o.class, eo, mc());
+const un = "hope-accordion__button";
+function Bc(e) {
+  const t = w().Accordion, r = lr(), [n, a] = S(e, ["ref", "class", "disabled", "onClick", "onFocus", "onKeyDown"]), o = (f) => {
+    r.registerButton(f), de(n.ref) ? n.ref(f) : n.ref = f;
+  }, s = (f) => {
+    oe(n.onClick, f), r.toggleExpandedState();
+  }, l = (f) => {
+    oe(n.onFocus, f), r.setFocusedIndex();
+  }, c = (f) => {
+    he(n.onKeyDown, r.onButtonKeyDown)(f);
+  }, u = () => m(n.class, un, Ic());
   return i(A.button, p({
     role: "button",
     type: "button",
+    ref: o,
     get id() {
       return r.state.buttonId;
     },
@@ -3575,19 +3481,19 @@ function $c(e) {
       return r.state.disabled;
     },
     get class() {
-      return c();
+      return u();
     },
     get __baseStyle() {
-      var d;
-      return (d = t == null ? void 0 : t.baseStyle) == null ? void 0 : d.button;
+      var f;
+      return (f = t == null ? void 0 : t.baseStyle) == null ? void 0 : f.button;
     },
-    onClick: n,
-    onFocus: s,
-    onKeyDown: l
+    onClick: s,
+    onFocus: l,
+    onKeyDown: c
   }, a));
 }
-$c.toString = () => v(eo);
-const wc = m({
+Bc.toString = () => $(un);
+const Lc = C({
   display: "inline-block",
   flexShrink: 0,
   boxSize: "1em",
@@ -3595,83 +3501,83 @@ const wc = m({
   lineHeight: "1em",
   verticalAlign: "middle"
 });
-var _c = ["<path", ' stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>'];
-const wr = {
+var Hc = /* @__PURE__ */ se('<svg><path stroke=currentColor stroke-linecap=round stroke-linejoin=round stroke-width=2 d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></svg>', !1, !0);
+const Tr = {
   viewBox: "0 0 24 24",
-  path: () => re(_c, oe())
-}, ir = "hope-icon";
-function ot(e) {
+  path: () => Hc()
+}, cr = "hope-icon";
+function at(e) {
   const t = {
-    viewBox: wr.viewBox
-  }, r = q(t, e), [o, a] = b(r, ["as", "class", "children", "viewBox"]), n = () => h(o.class, ir, wc()), s = () => o.as && !Rs(o.as);
-  return i(D, {
+    viewBox: Tr.viewBox
+  }, r = N(t, e), [n, a] = S(r, ["as", "class", "children", "viewBox"]), o = () => m(n.class, cr, Lc()), s = () => n.as && !Xs(n.as);
+  return i(H, {
     get when() {
       return s();
     },
     get fallback() {
       return i(A.svg, p({
         get class() {
-          return n();
+          return o();
         },
         get viewBox() {
-          return o.viewBox;
+          return n.viewBox;
         }
       }, a, {
         get children() {
-          return i(D, {
+          return i(H, {
             get when() {
-              return o.children;
+              return n.children;
             },
             get fallback() {
-              return wr.path();
+              return Tr.path();
             },
             get children() {
-              return o.children;
+              return n.children;
             }
           });
         }
       }));
     },
     get children() {
-      return i(P, p({
+      return i(B, p({
         get as() {
-          return o.as;
+          return n.as;
         },
         get class() {
-          return n();
+          return o();
         }
       }, a));
     }
   });
 }
-ot.toString = () => v(ir);
-function $e(e) {
+at.toString = () => $(cr);
+function Ie(e) {
   const {
     viewBox: t = "0 0 24 24",
     defaultProps: r = {}
-  } = e, o = (a) => i(ot, p({
+  } = e, n = (a) => i(at, p({
     viewBox: t
   }, r, a, {
     get children() {
       return e.path;
     }
   }));
-  return o.toString = () => v(ir), o;
+  return n.toString = () => $(cr), n;
 }
-var Ic = ["<path", ' d="M4.18179 6.18181C4.35753 6.00608 4.64245 6.00608 4.81819 6.18181L7.49999 8.86362L10.1818 6.18181C10.3575 6.00608 10.6424 6.00608 10.8182 6.18181C10.9939 6.35755 10.9939 6.64247 10.8182 6.81821L7.81819 9.81821C7.73379 9.9026 7.61934 9.95001 7.49999 9.95001C7.38064 9.95001 7.26618 9.9026 7.18179 9.81821L4.18179 6.81821C4.00605 6.64247 4.00605 6.35755 4.18179 6.18181Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>'];
-const kc = $e({
+var Dc = /* @__PURE__ */ se('<svg><path d="M4.18179 6.18181C4.35753 6.00608 4.64245 6.00608 4.81819 6.18181L7.49999 8.86362L10.1818 6.18181C10.3575 6.00608 10.6424 6.00608 10.8182 6.18181C10.9939 6.35755 10.9939 6.64247 10.8182 6.81821L7.81819 9.81821C7.73379 9.9026 7.61934 9.95001 7.49999 9.95001C7.38064 9.95001 7.26618 9.9026 7.18179 9.81821L4.18179 6.81821C4.00605 6.64247 4.00605 6.35755 4.18179 6.18181Z"fill=currentColor fill-rule=evenodd clip-rule=evenodd></svg>', !1, !0);
+const Ec = Ie({
   viewBox: "0 0 15 15",
-  path: () => re(Ic, oe())
-}), to = "hope-accordion__icon";
-function Pc(e) {
-  const t = y().Accordion, r = sr(), [o, a] = b(e, ["class"]), n = () => h(o.class, to, vc({
+  path: () => Dc()
+}), gn = "hope-accordion__icon";
+function Ac(e) {
+  const t = w().Accordion, r = lr(), [n, a] = S(e, ["class"]), o = () => m(n.class, gn, kc({
     expanded: r.state.expanded,
     disabled: r.state.disabled
   }));
-  return i(kc, p({
+  return i(Ec, p({
     "aria-hidden": !0,
     get class() {
-      return n();
+      return o();
     },
     get __baseStyle() {
       var s;
@@ -3679,69 +3585,69 @@ function Pc(e) {
     }
   }, a));
 }
-Pc.toString = () => v(to);
-const Tc = m({
+Ac.toString = () => $(gn);
+const Oc = C({
   overflow: "hidden"
-}), ro = "hope-collapse";
-function oo(e) {
-  const r = q({
+}), fn = "hope-collapse";
+function hn(e) {
+  const r = N({
     animateOpacity: !0,
     expandDuration: 300,
     expandTimingFunction: "ease",
     collapseDuration: 300,
     collapseTimingFunction: "ease",
     keepAlive: !0
-  }, e), [o, a] = b(r, ["class", "children", "expanded", "animateOpacity", "expandDuration", "expandTimingFunction", "collapseDuration", "collapseTimingFunction", "keepAlive"]), n = rt(() => o.children), s = () => h(o.class, ro, Tc()), l = () => {
-    const u = {
+  }, e), [n, a] = S(r, ["class", "children", "expanded", "animateOpacity", "expandDuration", "expandTimingFunction", "collapseDuration", "collapseTimingFunction", "keepAlive"]), o = ot(() => n.children), s = () => m(n.class, fn, Oc()), l = () => {
+    const d = {
       height: 0
     };
-    return o.animateOpacity ? {
-      ...u,
+    return n.animateOpacity ? {
+      ...d,
       opacity: 0
-    } : u;
-  }, c = (u) => {
+    } : d;
+  }, c = (d) => {
     const g = {
-      height: `${u.scrollHeight}px`
+      height: `${d.scrollHeight}px`
     };
-    return o.animateOpacity ? {
+    return n.animateOpacity ? {
       ...g,
       opacity: 1
     } : g;
   };
-  return i(De, {
-    onEnter: (u, g) => {
-      u.animate([l(), c(u)], {
-        duration: o.expandDuration,
-        easing: o.expandTimingFunction
+  return i(Ee, {
+    onEnter: (d, g) => {
+      d.animate([l(), c(d)], {
+        duration: n.expandDuration,
+        easing: n.expandTimingFunction
       }).finished.then(g);
     },
-    onExit: (u, g) => {
-      u.animate([c(u), l()], {
-        duration: o.collapseDuration,
-        easing: o.collapseTimingFunction
+    onExit: (d, g) => {
+      d.animate([c(d), l()], {
+        duration: n.collapseDuration,
+        easing: n.collapseTimingFunction
       }).finished.then(g);
     },
     get children() {
-      return i(D, {
+      return i(H, {
         get when() {
-          return o.expanded;
+          return n.expanded;
         },
         get children() {
-          return i(P, p({
+          return i(B, p({
             get class() {
               return s();
             }
           }, a, {
             get children() {
-              return i(D, {
+              return i(H, {
                 get when() {
-                  return o.keepAlive;
+                  return n.keepAlive;
                 },
                 get fallback() {
-                  return o.children;
+                  return n.children;
                 },
                 get children() {
-                  return n();
+                  return o();
                 }
               });
             }
@@ -3751,16 +3657,16 @@ function oo(e) {
     }
   });
 }
-oo.toString = () => v(ro);
-const no = "hope-accordion__panel";
-function zc(e) {
-  const t = y().Accordion, r = sr(), [o, a] = b(e, ["class"]), n = () => h(o.class, no, Sc());
-  return i(oo, {
+hn.toString = () => $(fn);
+const pn = "hope-accordion__panel";
+function Mc(e) {
+  const t = w().Accordion, r = lr(), [n, a] = S(e, ["class"]), o = () => m(n.class, pn, _c());
+  return i(hn, {
     get expanded() {
       return r.state.expanded;
     },
     get children() {
-      return i(P, p({
+      return i(B, p({
         role: "region",
         get id() {
           return r.state.panelId;
@@ -3769,7 +3675,7 @@ function zc(e) {
           return r.state.buttonId;
         },
         get class() {
-          return n();
+          return o();
         },
         get __baseStyle() {
           var s;
@@ -3779,14 +3685,14 @@ function zc(e) {
     }
   });
 }
-zc.toString = () => v(no);
-const ve = m({
+Mc.toString = () => $(pn);
+const Ce = C({
   flexShrink: 0
-}), Bc = m({
+}), Rc = C({
   fontWeight: "$semibold"
-}), Lc = m({
+}), Wc = C({
   display: "inline-block"
-}), Dc = m({
+}), Fc = C({
   position: "relative",
   display: "flex",
   alignItems: "center",
@@ -3860,7 +3766,7 @@ const ve = m({
       css: {
         backgroundColor: "$success3",
         color: "$success11",
-        [`& .${ve}`]: {
+        [`& .${Ce}`]: {
           color: "$success9"
         }
       }
@@ -3871,7 +3777,7 @@ const ve = m({
       css: {
         backgroundColor: "$info3",
         color: "$info11",
-        [`& .${ve}`]: {
+        [`& .${Ce}`]: {
           color: "$info9"
         }
       }
@@ -3882,7 +3788,7 @@ const ve = m({
       css: {
         backgroundColor: "$warning3",
         color: "$warning11",
-        [`& .${ve}`]: {
+        [`& .${Ce}`]: {
           color: "$warning9"
         }
       }
@@ -3893,7 +3799,7 @@ const ve = m({
       css: {
         backgroundColor: "$danger3",
         color: "$danger11",
-        [`& .${ve}`]: {
+        [`& .${Ce}`]: {
           color: "$danger9"
         }
       }
@@ -3908,7 +3814,7 @@ const ve = m({
         borderLeftColor: "$success9",
         backgroundColor: "$success3",
         color: "$success11",
-        [`& .${ve}`]: {
+        [`& .${Ce}`]: {
           color: "$success9"
         }
       }
@@ -3920,7 +3826,7 @@ const ve = m({
         borderLeftColor: "$info9",
         backgroundColor: "$info3",
         color: "$info11",
-        [`& .${ve}`]: {
+        [`& .${Ce}`]: {
           color: "$info9"
         }
       }
@@ -3932,7 +3838,7 @@ const ve = m({
         borderLeftColor: "$warning9",
         backgroundColor: "$warning3",
         color: "$warning11",
-        [`& .${ve}`]: {
+        [`& .${Ce}`]: {
           color: "$warning9"
         }
       }
@@ -3944,7 +3850,7 @@ const ve = m({
         borderLeftColor: "$danger9",
         backgroundColor: "$danger3",
         color: "$danger11",
-        [`& .${ve}`]: {
+        [`& .${Ce}`]: {
           color: "$danger9"
         }
       }
@@ -3959,7 +3865,7 @@ const ve = m({
         borderTopColor: "$success9",
         backgroundColor: "$success3",
         color: "$success11",
-        [`& .${ve}`]: {
+        [`& .${Ce}`]: {
           color: "$success9"
         }
       }
@@ -3971,7 +3877,7 @@ const ve = m({
         borderTopColor: "$info9",
         backgroundColor: "$info3",
         color: "$info11",
-        [`& .${ve}`]: {
+        [`& .${Ce}`]: {
           color: "$info9"
         }
       }
@@ -3983,7 +3889,7 @@ const ve = m({
         borderTopColor: "$warning9",
         backgroundColor: "$warning3",
         color: "$warning11",
-        [`& .${ve}`]: {
+        [`& .${Ce}`]: {
           color: "$warning9"
         }
       }
@@ -3995,102 +3901,102 @@ const ve = m({
         borderTopColor: "$danger9",
         backgroundColor: "$danger3",
         color: "$danger11",
-        [`& .${ve}`]: {
+        [`& .${Ce}`]: {
           color: "$danger9"
         }
       }
     }
   ]
-}), ao = "hope-alert";
-function Hc(e) {
-  var d, f, u, g;
-  const t = y().Alert, r = {
-    variant: ((f = (d = t == null ? void 0 : t.defaultProps) == null ? void 0 : d.root) == null ? void 0 : f.variant) ?? "subtle",
-    status: ((g = (u = t == null ? void 0 : t.defaultProps) == null ? void 0 : u.root) == null ? void 0 : g.status) ?? "info"
-  }, o = q(r, e), [a, n] = b(o, ["class", "variant", "status"]), s = () => h(a.class, ao, Dc({
+}), bn = "hope-alert";
+function Nc(e) {
+  var u, f, d, g;
+  const t = w().Alert, r = {
+    variant: ((f = (u = t == null ? void 0 : t.defaultProps) == null ? void 0 : u.root) == null ? void 0 : f.variant) ?? "subtle",
+    status: ((g = (d = t == null ? void 0 : t.defaultProps) == null ? void 0 : d.root) == null ? void 0 : g.status) ?? "info"
+  }, n = N(r, e), [a, o] = S(n, ["class", "variant", "status"]), s = () => m(a.class, bn, Fc({
     variant: a.variant,
     status: a.status
   })), c = {
     status: () => a.status
   };
-  return i(so.Provider, {
+  return i(mn.Provider, {
     value: c,
     get children() {
-      return i(P, p({
+      return i(B, p({
         role: "alert",
         get class() {
           return s();
         },
         get __baseStyle() {
-          var S;
-          return (S = t == null ? void 0 : t.baseStyle) == null ? void 0 : S.root;
+          var y;
+          return (y = t == null ? void 0 : t.baseStyle) == null ? void 0 : y.root;
         }
-      }, n));
+      }, o));
     }
   });
 }
-Hc.toString = () => v(ao);
-const so = J();
-function Ac() {
-  const e = Q(so);
+Nc.toString = () => $(bn);
+const mn = te();
+function Vc() {
+  const e = Z(mn);
   if (!e)
     throw new Error("[Hope UI]: useAlertContext must be used within an `<Alert />` component");
   return e;
 }
-const io = "hope-alert__description";
-function Ec(e) {
-  const t = y().Alert, [r, o] = b(e, ["class"]), a = () => h(r.class, io, Lc());
-  return i(P, p({
+const vn = "hope-alert__description";
+function qc(e) {
+  const t = w().Alert, [r, n] = S(e, ["class"]), a = () => m(r.class, vn, Wc());
+  return i(B, p({
     get class() {
       return a();
     },
     get __baseStyle() {
-      var n;
-      return (n = t == null ? void 0 : t.baseStyle) == null ? void 0 : n.description;
+      var o;
+      return (o = t == null ? void 0 : t.baseStyle) == null ? void 0 : o.description;
     }
-  }, o));
+  }, n));
 }
-Ec.toString = () => v(io);
-var Mc = ["<path", ' fill="currentColor" d="M16 2a14 14 0 1 0 14 14A14 14 0 0 0 16 2Zm-2 19.59l-5-5L10.59 15L14 18.41L21.41 11l1.596 1.586Z"></path>'], Oc = ["<path", ' fill="none" d="m14 21.591l-5-5L10.591 15L14 18.409L21.41 11l1.595 1.585L14 21.591z"></path>'];
-const lo = $e({
+qc.toString = () => $(vn);
+var jc = /* @__PURE__ */ se('<svg><path fill=currentColor d="M16 2a14 14 0 1 0 14 14A14 14 0 0 0 16 2Zm-2 19.59l-5-5L10.59 15L14 18.41L21.41 11l1.596 1.586Z"></svg>', !1, !0), Kc = /* @__PURE__ */ se('<svg><path fill=none d="m14 21.591l-5-5L10.591 15L14 18.409L21.41 11l1.595 1.585L14 21.591z"></svg>', !1, !0);
+const Sn = Ie({
   viewBox: "0 0 32 32",
-  path: () => [re(Mc, oe()), re(Oc, oe())]
+  path: () => [jc(), Kc()]
 });
-var Rc = ["<path", ' fill="currentColor" d="M16 2C8.3 2 2 8.3 2 16s6.3 14 14 14s14-6.3 14-14S23.7 2 16 2zm-1.1 6h2.2v11h-2.2V8zM16 25c-.8 0-1.5-.7-1.5-1.5S15.2 22 16 22s1.5.7 1.5 1.5S16.8 25 16 25z"></path>'];
-const co = $e({
+var Xc = /* @__PURE__ */ se('<svg><path fill=currentColor d="M16 2C8.3 2 2 8.3 2 16s6.3 14 14 14s14-6.3 14-14S23.7 2 16 2zm-1.1 6h2.2v11h-2.2V8zM16 25c-.8 0-1.5-.7-1.5-1.5S15.2 22 16 22s1.5.7 1.5 1.5S16.8 25 16 25z"></svg>', !1, !0);
+const xn = Ie({
   viewBox: "0 0 32 32",
-  path: () => re(Rc, oe())
+  path: () => Xc()
 });
-var Wc = ["<path", ' fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M29.4898 29.8706C29.3402 29.9548 29.1713 29.9991 28.9996 29.9993H2.99961C2.82787 29.9991 2.65905 29.9548 2.5094 29.8706C2.35976 29.7864 2.23433 29.665 2.14521 29.5182C2.05608 29.3713 2.00626 29.2041 2.00055 29.0325C1.99485 28.8608 2.03344 28.6907 2.1126 28.5382L15.1126 3.53821C15.1971 3.37598 15.3245 3.23999 15.4808 3.14514C15.6372 3.05017 15.8167 3 15.9996 3C16.1825 3 16.362 3.05017 16.5184 3.14514C16.6748 3.23999 16.8021 3.37598 16.8866 3.53821L29.8866 28.5382C29.9658 28.6907 30.0044 28.8608 29.9986 29.0325C29.9929 29.2041 29.9431 29.3713 29.854 29.5182C29.7649 29.665 29.6395 29.7864 29.4898 29.8706ZM16.0016 6.16919V6.17029H15.9976V6.16919H16.0016ZM15.9996 25.9993C15.7029 25.9993 15.4129 25.9113 15.1662 25.7465C14.9196 25.5817 14.7273 25.3474 14.6138 25.0734C14.5996 25.0391 14.5867 25.0044 14.5752 24.9694C14.4942 24.724 14.4778 24.4613 14.5284 24.2067C14.5863 23.9156 14.7292 23.6484 14.9389 23.4386C14.9652 23.4124 14.9923 23.3872 15.0202 23.3632C15.2159 23.1945 15.4524 23.0787 15.707 23.0281C15.7433 23.0209 15.7799 23.015 15.8165 23.0105C16.0723 22.979 16.3326 23.014 16.572 23.1129L16.5736 23.1135C16.8477 23.2271 17.082 23.4193 17.2468 23.6659C17.2674 23.6968 17.2868 23.7283 17.305 23.7604C17.4322 23.9852 17.4996 24.2397 17.4996 24.4993C17.4996 24.8971 17.3416 25.2787 17.0603 25.5599C16.7789 25.8413 16.3974 25.9993 15.9996 25.9993ZM17.1246 20.9993H14.8746V11.9993H17.1246V20.9993Z"></path>'];
-const uo = $e({
+var Uc = /* @__PURE__ */ se('<svg><path fill=currentColor fill-rule=evenodd clip-rule=evenodd d="M29.4898 29.8706C29.3402 29.9548 29.1713 29.9991 28.9996 29.9993H2.99961C2.82787 29.9991 2.65905 29.9548 2.5094 29.8706C2.35976 29.7864 2.23433 29.665 2.14521 29.5182C2.05608 29.3713 2.00626 29.2041 2.00055 29.0325C1.99485 28.8608 2.03344 28.6907 2.1126 28.5382L15.1126 3.53821C15.1971 3.37598 15.3245 3.23999 15.4808 3.14514C15.6372 3.05017 15.8167 3 15.9996 3C16.1825 3 16.362 3.05017 16.5184 3.14514C16.6748 3.23999 16.8021 3.37598 16.8866 3.53821L29.8866 28.5382C29.9658 28.6907 30.0044 28.8608 29.9986 29.0325C29.9929 29.2041 29.9431 29.3713 29.854 29.5182C29.7649 29.665 29.6395 29.7864 29.4898 29.8706ZM16.0016 6.16919V6.17029H15.9976V6.16919H16.0016ZM15.9996 25.9993C15.7029 25.9993 15.4129 25.9113 15.1662 25.7465C14.9196 25.5817 14.7273 25.3474 14.6138 25.0734C14.5996 25.0391 14.5867 25.0044 14.5752 24.9694C14.4942 24.724 14.4778 24.4613 14.5284 24.2067C14.5863 23.9156 14.7292 23.6484 14.9389 23.4386C14.9652 23.4124 14.9923 23.3872 15.0202 23.3632C15.2159 23.1945 15.4524 23.0787 15.707 23.0281C15.7433 23.0209 15.7799 23.015 15.8165 23.0105C16.0723 22.979 16.3326 23.014 16.572 23.1129L16.5736 23.1135C16.8477 23.2271 17.082 23.4193 17.2468 23.6659C17.2674 23.6968 17.2868 23.7283 17.305 23.7604C17.4322 23.9852 17.4996 24.2397 17.4996 24.4993C17.4996 24.8971 17.3416 25.2787 17.0603 25.5599C16.7789 25.8413 16.3974 25.9993 15.9996 25.9993ZM17.1246 20.9993H14.8746V11.9993H17.1246V20.9993Z"></svg>', !1, !0);
+const Cn = Ie({
   viewBox: "0 0 32 32",
-  path: () => re(Wc, oe())
+  path: () => Uc()
 });
-var Fc = ["<path", ' fill="none" d="M16 8a1.5 1.5 0 1 1-1.5 1.5A1.5 1.5 0 0 1 16 8Zm4 13.875h-2.875v-8H13v2.25h1.875v5.75H12v2.25h8Z"></path>'], Nc = ["<path", ' fill="currentColor" d="M16 2a14 14 0 1 0 14 14A14 14 0 0 0 16 2Zm0 6a1.5 1.5 0 1 1-1.5 1.5A1.5 1.5 0 0 1 16 8Zm4 16.125h-8v-2.25h2.875v-5.75H13v-2.25h4.125v8H20Z"></path>'];
-const go = $e({
+var Qc = /* @__PURE__ */ se('<svg><path fill=none d="M16 8a1.5 1.5 0 1 1-1.5 1.5A1.5 1.5 0 0 1 16 8Zm4 13.875h-2.875v-8H13v2.25h1.875v5.75H12v2.25h8Z"></svg>', !1, !0), Yc = /* @__PURE__ */ se('<svg><path fill=currentColor d="M16 2a14 14 0 1 0 14 14A14 14 0 0 0 16 2Zm0 6a1.5 1.5 0 1 1-1.5 1.5A1.5 1.5 0 0 1 16 8Zm4 16.125h-8v-2.25h2.875v-5.75H13v-2.25h4.125v8H20Z"></svg>', !1, !0);
+const yn = Ie({
   viewBox: "0 0 32 32",
-  path: () => [re(Fc, oe()), re(Nc, oe())]
-}), fo = "hope-alert__icon";
-function Vc(e) {
-  const t = y().Alert, {
+  path: () => [Qc(), Yc()]
+}), $n = "hope-alert__icon";
+function Zc(e) {
+  const t = w().Alert, {
     status: r
-  } = Ac(), a = q({
+  } = Vc(), a = N({
     boxSize: "$6"
-  }, e), [n, s] = b(a, ["as", "class"]), l = () => h(n.class, fo, ve()), c = () => {
-    if (n.as)
-      return n.as;
+  }, e), [o, s] = S(a, ["as", "class"]), l = () => m(o.class, $n, Ce()), c = () => {
+    if (o.as)
+      return o.as;
     switch (r()) {
       case "success":
-        return lo;
+        return Sn;
       case "info":
-        return go;
+        return yn;
       case "warning":
-        return uo;
+        return Cn;
       case "danger":
-        return co;
+        return xn;
     }
   };
-  return i(ot, p({
+  return i(at, p({
     get as() {
       return c();
     },
@@ -4098,27 +4004,27 @@ function Vc(e) {
       return l();
     },
     get __baseStyle() {
-      var d;
-      return (d = t == null ? void 0 : t.baseStyle) == null ? void 0 : d.icon;
+      var u;
+      return (u = t == null ? void 0 : t.baseStyle) == null ? void 0 : u.icon;
     }
   }, s));
 }
-Vc.toString = () => v(fo);
-const po = "hope-alert__title";
-function qc(e) {
-  const t = y().Alert, [r, o] = b(e, ["class"]), a = () => h(r.class, po, Bc());
-  return i(P, p({
+Zc.toString = () => $($n);
+const wn = "hope-alert__title";
+function Jc(e) {
+  const t = w().Alert, [r, n] = S(e, ["class"]), a = () => m(r.class, wn, Rc());
+  return i(B, p({
     get class() {
       return a();
     },
     get __baseStyle() {
-      var n;
-      return (n = t == null ? void 0 : t.baseStyle) == null ? void 0 : n.title;
+      var o;
+      return (o = t == null ? void 0 : t.baseStyle) == null ? void 0 : o.title;
     }
-  }, o));
+  }, n));
 }
-qc.toString = () => v(po);
-const jc = m({
+Jc.toString = () => $(wn);
+const Gc = C({
   position: "relative",
   outline: "none",
   backgroundColor: "transparent",
@@ -4131,9 +4037,9 @@ const jc = m({
   "&:focus": {
     boxShadow: "$outline"
   }
-}), ho = "hope-anchor";
-function Kc(e) {
-  const t = y().Anchor, [r, o] = b(e, ["class", "external"]), a = () => h(r.class, ho, jc());
+}), In = "hope-anchor";
+function ed(e) {
+  const t = w().Anchor, [r, n] = S(e, ["class", "external"]), a = () => m(r.class, In, Gc());
   return i(A.a, p({
     get class() {
       return a();
@@ -4147,10 +4053,10 @@ function Kc(e) {
     get rel() {
       return r.external ? "noopener noreferrer" : void 0;
     }
-  }, o));
+  }, n));
 }
-Kc.toString = () => v(ho);
-const Xc = m({
+ed.toString = () => $(In);
+const td = C({
   position: "relative",
   "&::before": {
     height: 0,
@@ -4173,14 +4079,14 @@ const Xc = m({
   "& > img, & > video": {
     objectFit: "cover"
   }
-}), bo = "hope-aspect-ratio";
-function Uc(e) {
-  const r = q({
+}), kn = "hope-aspect-ratio";
+function rd(e) {
+  const r = N({
     ratio: 1.3333333333333333
-  }, e), [o, a] = b(r, ["class", "ratio"]), n = () => h(o.class, bo, Xc()), s = () => ar(o.ratio, (l) => `${1 / l * 100}%`);
-  return i(P, p({
+  }, e), [n, a] = S(r, ["class", "ratio"]), o = () => m(n.class, kn, td()), s = () => ir(n.ratio, (l) => `${1 / l * 100}%`);
+  return i(B, p({
     get class() {
-      return n();
+      return o();
     },
     get _before() {
       return {
@@ -4189,12 +4095,12 @@ function Uc(e) {
     }
   }, a));
 }
-Uc.toString = () => v(bo);
-const Ot = "hope-icon-button", Qc = m({
+rd.toString = () => $(kn);
+const Nt = "hope-icon-button", nd = C({
   display: "inline-flex",
   alignSelf: "center",
   flexShrink: 0
-}), Yc = m({
+}), od = C({
   position: "absolute",
   display: "flex",
   alignItems: "center",
@@ -4208,34 +4114,34 @@ const Ot = "hope-icon-button", Qc = m({
       }
     }
   }
-}), Zc = m({
+}), ad = C({
   fontSize: "1.3em",
-  animation: `1s linear infinite ${At}`
+  animation: `1s linear infinite ${Rt}`
 });
-function ft(e) {
+function mt(e) {
   return {
     height: e.height,
     py: 0,
     px: e.paddingX,
     fontSize: e.fontSize,
-    [`&.${Ot}`]: {
+    [`&.${Nt}`]: {
       width: e.height,
       padding: "0"
     }
   };
 }
-function pt(e) {
+function vt(e) {
   return {
     height: e.height,
     py: 0,
     px: e.paddingX,
-    [`&.${Ot}`]: {
+    [`&.${Nt}`]: {
       width: e.height,
       padding: "0"
     }
   };
 }
-function Fe(e) {
+function Ve(e) {
   return {
     backgroundColor: e.bgColor,
     color: e.color,
@@ -4244,7 +4150,7 @@ function Fe(e) {
     }
   };
 }
-function Ne(e) {
+function qe(e) {
   return {
     backgroundColor: e.bgColor,
     color: e.color,
@@ -4256,7 +4162,7 @@ function Ne(e) {
     }
   };
 }
-function he(e) {
+function Se(e) {
   return {
     borderColor: e.borderColor,
     color: e.color,
@@ -4269,7 +4175,7 @@ function he(e) {
     }
   };
 }
-function Ve(e) {
+function je(e) {
   return {
     color: e.color,
     "&:hover": {
@@ -4280,7 +4186,7 @@ function Ve(e) {
     }
   };
 }
-const mo = m({
+const _n = C({
   appearance: "none",
   position: "relative",
   display: "inline-flex",
@@ -4350,27 +4256,27 @@ const mo = m({
       danger: {}
     },
     size: {
-      xs: ft({
+      xs: mt({
         height: "$6",
         paddingX: "$2",
         fontSize: "$xs"
       }),
-      sm: ft({
+      sm: mt({
         height: "$8",
         paddingX: "$3",
         fontSize: "$sm"
       }),
-      md: ft({
+      md: mt({
         height: "$10",
         paddingX: "$4",
         fontSize: "$base"
       }),
-      lg: ft({
+      lg: mt({
         height: "$12",
         paddingX: "$6",
         fontSize: "$lg"
       }),
-      xl: ft({
+      xl: mt({
         height: "$16",
         paddingX: "$10",
         fontSize: "$xl"
@@ -4406,7 +4312,7 @@ const mo = m({
     {
       variant: "solid",
       colorScheme: "primary",
-      css: Fe({
+      css: Ve({
         color: "white",
         bgColor: "$primary9",
         bgColorHover: "$primary10"
@@ -4415,7 +4321,7 @@ const mo = m({
     {
       variant: "solid",
       colorScheme: "accent",
-      css: Fe({
+      css: Ve({
         color: "white",
         bgColor: "$accent9",
         bgColorHover: "$accent10"
@@ -4424,7 +4330,7 @@ const mo = m({
     {
       variant: "solid",
       colorScheme: "neutral",
-      css: Fe({
+      css: Ve({
         color: "white",
         bgColor: "$neutral9",
         bgColorHover: "$neutral10"
@@ -4433,7 +4339,7 @@ const mo = m({
     {
       variant: "solid",
       colorScheme: "success",
-      css: Fe({
+      css: Ve({
         color: "white",
         bgColor: "$success9",
         bgColorHover: "$success10"
@@ -4442,7 +4348,7 @@ const mo = m({
     {
       variant: "solid",
       colorScheme: "info",
-      css: Fe({
+      css: Ve({
         color: "white",
         bgColor: "$info9",
         bgColorHover: "$info10"
@@ -4451,7 +4357,7 @@ const mo = m({
     {
       variant: "solid",
       colorScheme: "warning",
-      css: Fe({
+      css: Ve({
         color: "$blackAlpha12",
         bgColor: "$warning9",
         bgColorHover: "$warning10"
@@ -4460,7 +4366,7 @@ const mo = m({
     {
       variant: "solid",
       colorScheme: "danger",
-      css: Fe({
+      css: Ve({
         color: "white",
         bgColor: "$danger9",
         bgColorHover: "$danger10"
@@ -4472,7 +4378,7 @@ const mo = m({
     {
       variant: "subtle",
       colorScheme: "primary",
-      css: Ne({
+      css: qe({
         color: "$primary11",
         bgColor: "$primary4",
         bgColorHover: "$primary5",
@@ -4482,7 +4388,7 @@ const mo = m({
     {
       variant: "subtle",
       colorScheme: "accent",
-      css: Ne({
+      css: qe({
         color: "$accent11",
         bgColor: "$accent4",
         bgColorHover: "$accent5",
@@ -4492,7 +4398,7 @@ const mo = m({
     {
       variant: "subtle",
       colorScheme: "neutral",
-      css: Ne({
+      css: qe({
         color: "$neutral12",
         bgColor: "$neutral4",
         bgColorHover: "$neutral5",
@@ -4502,7 +4408,7 @@ const mo = m({
     {
       variant: "subtle",
       colorScheme: "success",
-      css: Ne({
+      css: qe({
         color: "$success11",
         bgColor: "$success4",
         bgColorHover: "$success5",
@@ -4512,7 +4418,7 @@ const mo = m({
     {
       variant: "subtle",
       colorScheme: "info",
-      css: Ne({
+      css: qe({
         color: "$info11",
         bgColor: "$info4",
         bgColorHover: "$info5",
@@ -4522,7 +4428,7 @@ const mo = m({
     {
       variant: "subtle",
       colorScheme: "warning",
-      css: Ne({
+      css: qe({
         color: "$warning11",
         bgColor: "$warning4",
         bgColorHover: "$warning5",
@@ -4532,7 +4438,7 @@ const mo = m({
     {
       variant: "subtle",
       colorScheme: "danger",
-      css: Ne({
+      css: qe({
         color: "$danger11",
         bgColor: "$danger4",
         bgColorHover: "$danger5",
@@ -4545,7 +4451,7 @@ const mo = m({
     {
       variant: "outline",
       colorScheme: "primary",
-      css: he({
+      css: Se({
         color: "$primary11",
         borderColor: "$primary7",
         borderColorHover: "$primary8",
@@ -4556,7 +4462,7 @@ const mo = m({
     {
       variant: "outline",
       colorScheme: "accent",
-      css: he({
+      css: Se({
         color: "$accent11",
         borderColor: "$accent7",
         borderColorHover: "$accent8",
@@ -4567,7 +4473,7 @@ const mo = m({
     {
       variant: "outline",
       colorScheme: "neutral",
-      css: he({
+      css: Se({
         color: "$neutral12",
         borderColor: "$neutral7",
         borderColorHover: "$neutral8",
@@ -4578,7 +4484,7 @@ const mo = m({
     {
       variant: "outline",
       colorScheme: "success",
-      css: he({
+      css: Se({
         color: "$success11",
         borderColor: "$success7",
         borderColorHover: "$success8",
@@ -4589,7 +4495,7 @@ const mo = m({
     {
       variant: "outline",
       colorScheme: "info",
-      css: he({
+      css: Se({
         color: "$info11",
         borderColor: "$info7",
         borderColorHover: "$info8",
@@ -4600,7 +4506,7 @@ const mo = m({
     {
       variant: "outline",
       colorScheme: "warning",
-      css: he({
+      css: Se({
         color: "$warning11",
         borderColor: "$warning7",
         borderColorHover: "$warning8",
@@ -4611,7 +4517,7 @@ const mo = m({
     {
       variant: "outline",
       colorScheme: "danger",
-      css: he({
+      css: Se({
         color: "$danger11",
         borderColor: "$danger7",
         borderColorHover: "$danger8",
@@ -4625,7 +4531,7 @@ const mo = m({
     {
       variant: "dashed",
       colorScheme: "primary",
-      css: he({
+      css: Se({
         color: "$primary11",
         borderColor: "$primary7",
         borderColorHover: "$primary8",
@@ -4636,7 +4542,7 @@ const mo = m({
     {
       variant: "dashed",
       colorScheme: "accent",
-      css: he({
+      css: Se({
         color: "$accent11",
         borderColor: "$accent7",
         borderColorHover: "$accent8",
@@ -4647,7 +4553,7 @@ const mo = m({
     {
       variant: "dashed",
       colorScheme: "neutral",
-      css: he({
+      css: Se({
         color: "$neutral12",
         borderColor: "$neutral7",
         borderColorHover: "$neutral8",
@@ -4658,7 +4564,7 @@ const mo = m({
     {
       variant: "dashed",
       colorScheme: "success",
-      css: he({
+      css: Se({
         color: "$success11",
         borderColor: "$success7",
         borderColorHover: "$success8",
@@ -4669,7 +4575,7 @@ const mo = m({
     {
       variant: "dashed",
       colorScheme: "info",
-      css: he({
+      css: Se({
         color: "$info11",
         borderColor: "$info7",
         borderColorHover: "$info8",
@@ -4680,7 +4586,7 @@ const mo = m({
     {
       variant: "dashed",
       colorScheme: "warning",
-      css: he({
+      css: Se({
         color: "$warning11",
         borderColor: "$warning7",
         borderColorHover: "$warning8",
@@ -4691,7 +4597,7 @@ const mo = m({
     {
       variant: "dashed",
       colorScheme: "danger",
-      css: he({
+      css: Se({
         color: "$danger11",
         borderColor: "$danger7",
         borderColorHover: "$danger8",
@@ -4705,7 +4611,7 @@ const mo = m({
     {
       variant: "ghost",
       colorScheme: "primary",
-      css: Ve({
+      css: je({
         color: "$primary11",
         bgColorHover: "$primary4",
         bgColorActive: "$primary5"
@@ -4714,7 +4620,7 @@ const mo = m({
     {
       variant: "ghost",
       colorScheme: "accent",
-      css: Ve({
+      css: je({
         color: "$accent11",
         bgColorHover: "$accent4",
         bgColorActive: "$accent5"
@@ -4723,7 +4629,7 @@ const mo = m({
     {
       variant: "ghost",
       colorScheme: "neutral",
-      css: Ve({
+      css: je({
         color: "$neutral12",
         bgColorHover: "$neutral4",
         bgColorActive: "$neutral5"
@@ -4732,7 +4638,7 @@ const mo = m({
     {
       variant: "ghost",
       colorScheme: "success",
-      css: Ve({
+      css: je({
         color: "$success11",
         bgColorHover: "$success4",
         bgColorActive: "$success5"
@@ -4741,7 +4647,7 @@ const mo = m({
     {
       variant: "ghost",
       colorScheme: "info",
-      css: Ve({
+      css: je({
         color: "$info11",
         bgColorHover: "$info4",
         bgColorActive: "$info5"
@@ -4750,7 +4656,7 @@ const mo = m({
     {
       variant: "ghost",
       colorScheme: "warning",
-      css: Ve({
+      css: je({
         color: "$warning11",
         bgColorHover: "$warning4",
         bgColorActive: "$warning5"
@@ -4759,7 +4665,7 @@ const mo = m({
     {
       variant: "ghost",
       colorScheme: "danger",
-      css: Ve({
+      css: je({
         color: "$danger11",
         bgColorHover: "$danger4",
         bgColorActive: "$danger5"
@@ -4771,58 +4677,58 @@ const mo = m({
     {
       size: "xs",
       compact: "true",
-      css: pt({ height: "$5", paddingX: "$1" })
+      css: vt({ height: "$5", paddingX: "$1" })
     },
     {
       size: "sm",
       compact: "true",
-      css: pt({ height: "$6", paddingX: "$1_5" })
+      css: vt({ height: "$6", paddingX: "$1_5" })
     },
     {
       size: "md",
       compact: "true",
-      css: pt({ height: "$7", paddingX: "$2" })
+      css: vt({ height: "$7", paddingX: "$2" })
     },
     {
       size: "lg",
       compact: "true",
-      css: pt({ height: "$8", paddingX: "$2_5" })
+      css: vt({ height: "$8", paddingX: "$2_5" })
     },
     {
       size: "xl",
       compact: "true",
-      css: pt({ height: "$10", paddingX: "$3_5" })
+      css: vt({ height: "$10", paddingX: "$3_5" })
     }
   ]
-}), Jc = m({
+}), sd = C({
   display: "inline-flex",
-  [`& .${mo}:focus`]: {
+  [`& .${_n}:focus`]: {
     zIndex: 1
   }
-}), vo = "hope-button__group", So = J();
-function Gc(e) {
-  var f, u, g, S;
-  const t = y().Button, [r] = te({
+}), Pn = "hope-button__group", Tn = te();
+function id(e) {
+  var f, d, g, y;
+  const t = w().Button, [r] = ae({
     get variant() {
-      var x, z;
-      return e.variant ?? ((z = (x = t == null ? void 0 : t.defaultProps) == null ? void 0 : x.group) == null ? void 0 : z.variant);
+      var b, P;
+      return e.variant ?? ((P = (b = t == null ? void 0 : t.defaultProps) == null ? void 0 : b.group) == null ? void 0 : P.variant);
     },
     get colorScheme() {
-      var x, z;
-      return e.colorScheme ?? ((z = (x = t == null ? void 0 : t.defaultProps) == null ? void 0 : x.group) == null ? void 0 : z.colorScheme);
+      var b, P;
+      return e.colorScheme ?? ((P = (b = t == null ? void 0 : t.defaultProps) == null ? void 0 : b.group) == null ? void 0 : P.colorScheme);
     },
     get size() {
-      var x, z;
-      return e.size ?? ((z = (x = t == null ? void 0 : t.defaultProps) == null ? void 0 : x.group) == null ? void 0 : z.size);
+      var b, P;
+      return e.size ?? ((P = (b = t == null ? void 0 : t.defaultProps) == null ? void 0 : b.group) == null ? void 0 : P.size);
     },
     get disabled() {
       return e.disabled;
     }
-  }), o = {
-    attached: ((u = (f = t == null ? void 0 : t.defaultProps) == null ? void 0 : f.group) == null ? void 0 : u.attached) ?? !1,
-    spacing: ((S = (g = t == null ? void 0 : t.defaultProps) == null ? void 0 : g.group) == null ? void 0 : S.spacing) ?? "0.5rem"
-  }, a = q(o, e), [n, s, l] = b(a, ["class", "attached", "spacing"], ["variant", "colorScheme", "size", "disabled"]), c = () => h(n.class, vo, Jc({
-    css: n.attached ? {
+  }), n = {
+    attached: ((d = (f = t == null ? void 0 : t.defaultProps) == null ? void 0 : f.group) == null ? void 0 : d.attached) ?? !1,
+    spacing: ((y = (g = t == null ? void 0 : t.defaultProps) == null ? void 0 : g.group) == null ? void 0 : y.spacing) ?? "0.5rem"
+  }, a = N(n, e), [o, s, l] = S(a, ["class", "attached", "spacing"], ["variant", "colorScheme", "size", "disabled"]), c = () => m(o.class, Pn, sd({
+    css: o.attached ? {
       "> *:first-of-type:not(:last-of-type)": {
         borderRightRadius: 0
       },
@@ -4834,38 +4740,38 @@ function Gc(e) {
       }
     } : {
       "& > *:not(style) ~ *:not(style)": {
-        marginStart: n.spacing
+        marginStart: o.spacing
       }
     }
-  })), d = {
+  })), u = {
     state: r
   };
-  return i(So.Provider, {
-    value: d,
+  return i(Tn.Provider, {
+    value: u,
     get children() {
-      return i(P, p({
+      return i(B, p({
         role: "group",
         get class() {
           return c();
         },
         get __baseStyle() {
-          var x;
-          return (x = t == null ? void 0 : t.baseStyle) == null ? void 0 : x.group;
+          var b;
+          return (b = t == null ? void 0 : t.baseStyle) == null ? void 0 : b.group;
         }
       }, l));
     }
   });
 }
-Gc.toString = () => v(vo);
-function xo() {
-  return Q(So);
+id.toString = () => $(Pn);
+function zn() {
+  return Z(Tn);
 }
-const Co = "hope-button__icon";
-function Yt(e) {
-  const [t, r] = b(e, ["class", "children"]), o = () => h(t.class, Co, Qc());
+const Bn = "hope-button__icon";
+function er(e) {
+  const [t, r] = S(e, ["class", "children"]), n = () => m(t.class, Bn, nd());
   return i(A.span, p({
     get class() {
-      return o();
+      return n();
     }
   }, r, {
     get children() {
@@ -4873,23 +4779,23 @@ function Yt(e) {
     }
   }));
 }
-Yt.toString = () => v(Co);
-var ed = ["<g", ' fill="none"><path opacity=".2" fill-rule="evenodd" clip-rule="evenodd" d="M12 19a7 7 0 1 0 0-14a7 7 0 0 0 0 14zm0 3c5.523 0 10-4.477 10-10S17.523 2 12 2S2 6.477 2 12s4.477 10 10 10z" fill="currentColor"></path><path d="M2 12C2 6.477 6.477 2 12 2v3a7 7 0 0 0-7 7H2z" fill="currentColor"></path></g>'];
-const yo = $e({
-  path: () => re(ed, oe())
-}), $o = "hope-button__loader";
-function Zt(e) {
+er.toString = () => $(Bn);
+var ld = /* @__PURE__ */ se('<svg><g fill=none><path opacity=.2 fill-rule=evenodd clip-rule=evenodd d="M12 19a7 7 0 1 0 0-14a7 7 0 0 0 0 14zm0 3c5.523 0 10-4.477 10-10S17.523 2 12 2S2 6.477 2 12s4.477 10 10 10z"fill=currentColor></path><path d="M2 12C2 6.477 6.477 2 12 2v3a7 7 0 0 0-7 7H2z"fill=currentColor></svg>', !1, !0);
+const Ln = Ie({
+  path: () => ld()
+}), Hn = "hope-button__loader";
+function tr(e) {
   const t = {
     spacing: "0.5rem",
-    children: i(yo, {
+    children: i(Ln, {
       get class() {
-        return Zc();
+        return ad();
       }
     })
-  }, r = q(t, e), [o, a] = b(r, ["class", "children", "withLoadingText", "placement", "spacing"]), n = () => o.placement === "start" ? "marginEnd" : "marginStart", s = () => ({
-    [n()]: o.withLoadingText ? o.spacing : 0
-  }), l = () => h(o.class, $o, Yc({
-    withLoadingText: o.withLoadingText
+  }, r = N(t, e), [n, a] = S(r, ["class", "children", "withLoadingText", "placement", "spacing"]), o = () => n.placement === "start" ? "marginEnd" : "marginStart", s = () => ({
+    [o()]: n.withLoadingText ? n.spacing : 0
+  }), l = () => m(n.class, Hn, od({
+    withLoadingText: n.withLoadingText
   }));
   return i(A.div, p({
     get class() {
@@ -4897,33 +4803,33 @@ function Zt(e) {
     }
   }, s, a, {
     get children() {
-      return o.children;
+      return n.children;
     }
   }));
 }
-Zt.toString = () => v($o);
-const lr = "hope-button";
-function cr(e) {
-  var f, u;
-  const t = y().Button, r = xo(), o = {
-    loaderPlacement: ((u = (f = t == null ? void 0 : t.defaultProps) == null ? void 0 : f.root) == null ? void 0 : u.loaderPlacement) ?? "start",
+tr.toString = () => $(Hn);
+const dr = "hope-button";
+function ur(e) {
+  var f, d;
+  const t = w().Button, r = zn(), n = {
+    loaderPlacement: ((d = (f = t == null ? void 0 : t.defaultProps) == null ? void 0 : f.root) == null ? void 0 : d.loaderPlacement) ?? "start",
     iconSpacing: "0.5rem",
     type: "button",
     role: "button"
-  }, a = q(o, e), [n, s, l] = b(a, ["class", "disabled", "loadingText", "loader", "loaderPlacement", "variant", "colorScheme", "size", "loading", "compact", "fullWidth"], ["children", "iconSpacing", "leftIcon", "rightIcon"]), c = () => n.disabled ?? (r == null ? void 0 : r.state.disabled), d = () => {
-    var g, S, x, z, C, $;
-    return h(n.class, lr, mo({
-      variant: n.variant ?? (r == null ? void 0 : r.state.variant) ?? ((S = (g = t == null ? void 0 : t.defaultProps) == null ? void 0 : g.root) == null ? void 0 : S.variant) ?? "solid",
-      colorScheme: n.colorScheme ?? (r == null ? void 0 : r.state.colorScheme) ?? ((z = (x = t == null ? void 0 : t.defaultProps) == null ? void 0 : x.root) == null ? void 0 : z.colorScheme) ?? "primary",
-      size: n.size ?? (r == null ? void 0 : r.state.size) ?? (($ = (C = t == null ? void 0 : t.defaultProps) == null ? void 0 : C.root) == null ? void 0 : $.size) ?? "md",
-      loading: n.loading,
-      compact: n.compact,
-      fullWidth: n.fullWidth
+  }, a = N(n, e), [o, s, l] = S(a, ["class", "disabled", "loadingText", "loader", "loaderPlacement", "variant", "colorScheme", "size", "loading", "compact", "fullWidth"], ["children", "iconSpacing", "leftIcon", "rightIcon"]), c = () => o.disabled ?? (r == null ? void 0 : r.state.disabled), u = () => {
+    var g, y, b, P, h, x;
+    return m(o.class, dr, _n({
+      variant: o.variant ?? (r == null ? void 0 : r.state.variant) ?? ((y = (g = t == null ? void 0 : t.defaultProps) == null ? void 0 : g.root) == null ? void 0 : y.variant) ?? "solid",
+      colorScheme: o.colorScheme ?? (r == null ? void 0 : r.state.colorScheme) ?? ((P = (b = t == null ? void 0 : t.defaultProps) == null ? void 0 : b.root) == null ? void 0 : P.colorScheme) ?? "primary",
+      size: o.size ?? (r == null ? void 0 : r.state.size) ?? ((x = (h = t == null ? void 0 : t.defaultProps) == null ? void 0 : h.root) == null ? void 0 : x.size) ?? "md",
+      loading: o.loading,
+      compact: o.compact,
+      fullWidth: o.fullWidth
     }));
   };
   return i(A.button, p({
     get class() {
-      return d();
+      return u();
     },
     get disabled() {
       return c();
@@ -4934,66 +4840,66 @@ function cr(e) {
     }
   }, l, {
     get children() {
-      return [i(D, {
+      return [i(H, {
         get when() {
-          return n.loading && n.loaderPlacement === "start";
+          return o.loading && o.loaderPlacement === "start";
         },
         get children() {
-          return i(Zt, {
+          return i(tr, {
             class: "hope-button__loader--start",
             get withLoadingText() {
-              return !!n.loadingText;
+              return !!o.loadingText;
             },
             placement: "start",
             get spacing() {
               return s.iconSpacing;
             },
             get children() {
-              return n.loader;
+              return o.loader;
             }
           });
         }
-      }), i(D, {
+      }), i(H, {
         get when() {
-          return n.loading;
+          return o.loading;
         },
         get fallback() {
-          return i(_r, s);
+          return i(zr, s);
         },
         get children() {
-          return i(D, {
+          return i(H, {
             get when() {
-              return n.loadingText;
+              return o.loadingText;
             },
             get fallback() {
               return i(A.span, {
                 opacity: 0,
                 get children() {
-                  return i(_r, s);
+                  return i(zr, s);
                 }
               });
             },
             get children() {
-              return n.loadingText;
+              return o.loadingText;
             }
           });
         }
-      }), i(D, {
+      }), i(H, {
         get when() {
-          return n.loading && n.loaderPlacement === "end";
+          return o.loading && o.loaderPlacement === "end";
         },
         get children() {
-          return i(Zt, {
+          return i(tr, {
             class: "hope-button__loader--end",
             get withLoadingText() {
-              return !!n.loadingText;
+              return !!o.loadingText;
             },
             placement: "end",
             get spacing() {
               return s.iconSpacing;
             },
             get children() {
-              return n.loader;
+              return o.loader;
             }
           });
         }
@@ -5001,14 +4907,14 @@ function cr(e) {
     }
   }));
 }
-cr.toString = () => v(lr);
-function _r(e) {
-  return [i(D, {
+ur.toString = () => $(dr);
+function zr(e) {
+  return [i(H, {
     get when() {
       return e.leftIcon;
     },
     get children() {
-      return i(Yt, {
+      return i(er, {
         get marginEnd() {
           return e.iconSpacing;
         },
@@ -5017,12 +4923,12 @@ function _r(e) {
         }
       });
     }
-  }), e.children, i(D, {
+  }), nt(() => e.children), i(H, {
     get when() {
       return e.rightIcon;
     },
     get children() {
-      return i(Yt, {
+      return i(er, {
         get marginStart() {
           return e.iconSpacing;
         },
@@ -5033,11 +4939,11 @@ function _r(e) {
     }
   })];
 }
-function td(e) {
-  const [t, r] = b(e, ["onClick"]), [o, a] = Z(!1);
-  return i(cr, p({
+function cd(e) {
+  const [t, r] = S(e, ["onClick"]), [n, a] = re(!1);
+  return i(ur, p({
     get loading() {
-      return o();
+      return n();
     }
   }, r, {
     onClick: (s) => {
@@ -5045,15 +4951,15 @@ function td(e) {
     }
   }));
 }
-td.toString = () => v(lr);
-function qe(e) {
+cd.toString = () => $(dr);
+function Ke(e) {
   return {
     boxSize: e,
     fontSize: `calc(${e} / 2.5)`,
     lineHeight: e
   };
 }
-const dr = m({
+const gr = C({
   position: "relative",
   display: "inline-flex",
   alignItems: "center",
@@ -5069,13 +4975,13 @@ const dr = m({
   verticalAlign: "top",
   variants: {
     size: {
-      "2xs": qe("$sizes$4"),
-      xs: qe("$sizes$6"),
-      sm: qe("$sizes$8"),
-      md: qe("$sizes$12"),
-      lg: qe("$sizes$16"),
-      xl: qe("$sizes$24"),
-      "2xl": qe("$sizes$32"),
+      "2xs": Ke("$sizes$4"),
+      xs: Ke("$sizes$6"),
+      sm: Ke("$sizes$8"),
+      md: Ke("$sizes$12"),
+      lg: Ke("$sizes$16"),
+      xl: Ke("$sizes$24"),
+      "2xl": Ke("$sizes$32"),
       full: {
         boxSize: "$full",
         fontSize: "calc($sizes$full / 2.5)"
@@ -5130,11 +5036,11 @@ const dr = m({
       css: { borderWidth: "2px" }
     }
   ]
-}), rd = m(dr), od = m({
+}), dd = C(gr), ud = C({
   boxSize: "$full",
   borderRadius: "$full",
   objectFit: "cover"
-}), nd = m({
+}), gd = C({
   position: "absolute",
   display: "flex",
   alignItems: "center",
@@ -5167,21 +5073,21 @@ const dr = m({
       }
     }
   }
-}), ad = m({
+}), fd = C({
   display: "flex",
   alignItems: "center",
   justifyContent: "flex-start",
   flexDirection: "row",
-  [`& .${dr}:first-child`]: {
+  [`& .${gr}:first-child`]: {
     marginStart: "0"
   }
 });
-var sd = ["<path", ' fill="currentColor" d="M103,102.1388 C93.094,111.92 79.3504,118 64.1638,118 C48.8056,118 34.9294,111.768 25,101.7892 L25,95.2 C25,86.8096 31.981,80 40.6,80 L87.4,80 C96.019,80 103,86.8096 103,95.2 L103,102.1388 Z"></path>'], id = ["<path", ' fill="currentColor" d="M63.9961647,24 C51.2938136,24 41,34.2938136 41,46.9961647 C41,59.7061864 51.2938136,70 63.9961647,70 C76.6985159,70 87,59.7061864 87,46.9961647 C87,34.2938136 76.6985159,24 63.9961647,24"></path>'];
-function ld(e) {
+var hd = /* @__PURE__ */ se('<svg><path fill=currentColor d="M103,102.1388 C93.094,111.92 79.3504,118 64.1638,118 C48.8056,118 34.9294,111.768 25,101.7892 L25,95.2 C25,86.8096 31.981,80 40.6,80 L87.4,80 C96.019,80 103,86.8096 103,95.2 L103,102.1388 Z"></svg>', !1, !0), pd = /* @__PURE__ */ se('<svg><path fill=currentColor d="M63.9961647,24 C51.2938136,24 41,34.2938136 41,46.9961647 C41,59.7061864 51.2938136,70 63.9961647,70 C76.6985159,70 87,59.7061864 87,46.9961647 C87,34.2938136 76.6985159,24 63.9961647,24"></svg>', !1, !0);
+function bd(e) {
   const [t, r] = e.split(" ");
   return t && r ? `${t.charAt(0)}${r.charAt(0)}` : t.charAt(0);
 }
-function cd(e) {
+function md(e) {
   return i(A.svg, p({
     viewBox: "0 0 128 128",
     class: "hope-avatar__svg",
@@ -5189,13 +5095,13 @@ function cd(e) {
     boxSize: "$full"
   }, e, {
     get children() {
-      return [re(sd, oe()), re(id, oe())];
+      return [hd(), pd()];
     }
   }));
 }
-const wo = J(), _o = "hope-avatar__group";
-function dd(e) {
-  const t = y().Avatar, [r] = te({
+const Dn = te(), En = "hope-avatar__group";
+function vd(e) {
+  const t = w().Avatar, [r] = ae({
     get size() {
       var l, c;
       return e.size ?? ((c = (l = t == null ? void 0 : t.defaultProps) == null ? void 0 : l.group) == null ? void 0 : c.size) ?? "md";
@@ -5216,16 +5122,16 @@ function dd(e) {
       var l, c;
       return e.avatarBorderWidth ?? ((c = (l = t == null ? void 0 : t.defaultProps) == null ? void 0 : l.group) == null ? void 0 : c.avatarBorderWidth);
     }
-  }), [o, a] = b(e, ["class", "size", "spacing", "avatarBorderRadius", "avatarBorderColor", "avatarBorderWidth"]), n = () => h(o.class, _o, ad()), s = {
+  }), [n, a] = S(e, ["class", "size", "spacing", "avatarBorderRadius", "avatarBorderColor", "avatarBorderWidth"]), o = () => m(n.class, En, fd()), s = {
     state: r
   };
-  return i(wo.Provider, {
+  return i(Dn.Provider, {
     value: s,
     get children() {
-      return i(P, p({
+      return i(B, p({
         role: "group",
         get class() {
-          return n();
+          return o();
         },
         get __baseStyle() {
           var l;
@@ -5235,41 +5141,41 @@ function dd(e) {
     }
   });
 }
-dd.toString = () => v(_o);
-function Io() {
-  return Q(wo);
+vd.toString = () => $(En);
+function An() {
+  return Z(Dn);
 }
-function ko(e) {
-  const [t, r] = Z("pending"), o = () => e.ignoreFallback ? "loaded" : t();
+function On(e) {
+  const [t, r] = re("pending"), n = () => e.ignoreFallback ? "loaded" : t();
   let a = null;
-  const n = () => {
+  const o = () => {
     a && (a.onload = null, a.onerror = null, a = null);
   }, s = () => {
     if (!e.src)
       return;
-    n();
+    o();
     const l = new Image();
     l.src = e.src, e.crossOrigin && (l.crossOrigin = e.crossOrigin), e.srcSet && (l.srcset = e.srcSet), e.sizes && (l.sizes = e.sizes), e.loading && (l.loading = e.loading), l.onload = (c) => {
-      n(), r("loaded"), ue(e.onLoad, c);
+      o(), r("loaded"), oe(e.onLoad, c);
     }, l.onerror = (c) => {
-      n(), r("failed"), ue(e.onError, c);
+      o(), r("failed"), oe(e.onError, c);
     }, a = l;
   };
-  return pe(() => {
+  return me(() => {
     r(e.src ? "loading" : "pending");
-  }), Ps(() => {
-    e.ignoreFallback || (t() === "loading" && s(), ge(() => {
-      n();
+  }), Ws(() => {
+    e.ignoreFallback || (t() === "loading" && s(), fe(() => {
+      o();
     }));
-  }), o;
+  }), n;
 }
-const Po = "hope-avatar__initials";
-function To(e) {
-  const t = y().Avatar, [r, o] = b(e, ["class", "getInitials", "name"]), a = () => h(r.class, Po), n = () => {
+const Mn = "hope-avatar__initials";
+function Rn(e) {
+  const t = w().Avatar, [r, n] = S(e, ["class", "getInitials", "name"]), a = () => m(r.class, Mn), o = () => {
     var s;
     return r.name && ((s = r.getInitials) == null ? void 0 : s.call(r, r.name));
   };
-  return i(P, p({
+  return i(B, p({
     role: "img",
     get "aria-label"() {
       return r.name;
@@ -5281,29 +5187,29 @@ function To(e) {
       var s;
       return (s = t == null ? void 0 : t.baseStyle) == null ? void 0 : s.initials;
     }
-  }, o, {
+  }, n, {
     get children() {
-      return n();
+      return o();
     }
   }));
 }
-To.toString = () => v(Po);
-const zo = "hope-avatar__image";
-function Bo(e) {
-  const t = y().Avatar, [r, o] = b(e, ["class", "src", "srcSet", "getInitials", "name", "loading", "iconLabel", "icon", "ignoreFallback", "onError"]), a = Se(() => ko({
+Rn.toString = () => $(Mn);
+const Wn = "hope-avatar__image";
+function Fn(e) {
+  const t = w().Avatar, [r, n] = S(e, ["class", "src", "srcSet", "getInitials", "name", "loading", "iconLabel", "icon", "ignoreFallback", "onError"]), a = ye(() => On({
     src: r.src,
     onError: r.onError,
     ignoreFallback: r.ignoreFallback
-  })), n = () => h(r.class, zo, od()), s = () => !!r.src && a()() === "loaded", l = () => ({
+  })), o = () => m(r.class, Wn, ud()), s = () => !!r.src && a()() === "loaded", l = () => ({
     role: "img",
     "aria-label": r.iconLabel ?? "avatar"
   });
-  return i(D, {
+  return i(H, {
     get when() {
       return s();
     },
     get fallback() {
-      return i(D, {
+      return i(H, {
         get when() {
           return r.name;
         },
@@ -5312,7 +5218,7 @@ function Bo(e) {
           return (c = r.icon) == null ? void 0 : c.call(r, l());
         },
         get children() {
-          return i(To, {
+          return i(Rn, {
             get getInitials() {
               return r.getInitials;
             },
@@ -5326,7 +5232,7 @@ function Bo(e) {
     get children() {
       return i(A.img, p({
         get class() {
-          return n();
+          return o();
         },
         get src() {
           return r.src;
@@ -5344,25 +5250,25 @@ function Bo(e) {
           var c;
           return (c = t == null ? void 0 : t.baseStyle) == null ? void 0 : c.image;
         }
-      }, o));
+      }, n));
     }
   });
 }
-Bo.toString = () => v(zo);
-const Lo = "hope-avatar";
-function ud(e) {
-  var c, d, f, u, g, S, x, z, C, $;
-  const t = y().Avatar, r = Io(), o = {
-    icon: ((d = (c = t == null ? void 0 : t.defaultProps) == null ? void 0 : c.root) == null ? void 0 : d.icon) ?? ((B) => i(cd, B)),
-    iconLabel: ((u = (f = t == null ? void 0 : t.defaultProps) == null ? void 0 : f.root) == null ? void 0 : u.iconLabel) ?? "avatar",
-    getInitials: ((S = (g = t == null ? void 0 : t.defaultProps) == null ? void 0 : g.root) == null ? void 0 : S.getInitials) ?? ld,
-    ignoreFallback: ((z = (x = t == null ? void 0 : t.defaultProps) == null ? void 0 : x.root) == null ? void 0 : z.ignoreFallback) ?? !1,
-    loading: ($ = (C = t == null ? void 0 : t.defaultProps) == null ? void 0 : C.root) == null ? void 0 : $.loading
-  }, a = q(o, e), [n, s] = b(a, ["class", "children", "size", "withBorder", "src", "srcSet", "name", "borderRadius", "onError", "getInitials", "icon", "iconLabel", "loading", "ignoreFallback", "imageProps"]), l = () => {
-    var B, w, E, M;
-    return h(n.class, Lo, dr({
-      size: n.size ?? (r == null ? void 0 : r.state.size) ?? ((w = (B = t == null ? void 0 : t.defaultProps) == null ? void 0 : B.root) == null ? void 0 : w.size) ?? "md",
-      withBorder: n.withBorder ?? !!r ?? ((M = (E = t == null ? void 0 : t.defaultProps) == null ? void 0 : E.root) == null ? void 0 : M.withBorder) ?? !1
+Fn.toString = () => $(Wn);
+const Nn = "hope-avatar";
+function Sd(e) {
+  var c, u, f, d, g, y, b, P, h, x;
+  const t = w().Avatar, r = An(), n = {
+    icon: ((u = (c = t == null ? void 0 : t.defaultProps) == null ? void 0 : c.root) == null ? void 0 : u.icon) ?? ((z) => i(md, z)),
+    iconLabel: ((d = (f = t == null ? void 0 : t.defaultProps) == null ? void 0 : f.root) == null ? void 0 : d.iconLabel) ?? "avatar",
+    getInitials: ((y = (g = t == null ? void 0 : t.defaultProps) == null ? void 0 : g.root) == null ? void 0 : y.getInitials) ?? bd,
+    ignoreFallback: ((P = (b = t == null ? void 0 : t.defaultProps) == null ? void 0 : b.root) == null ? void 0 : P.ignoreFallback) ?? !1,
+    loading: (x = (h = t == null ? void 0 : t.defaultProps) == null ? void 0 : h.root) == null ? void 0 : x.loading
+  }, a = N(n, e), [o, s] = S(a, ["class", "children", "size", "withBorder", "src", "srcSet", "name", "borderRadius", "onError", "getInitials", "icon", "iconLabel", "loading", "ignoreFallback", "imageProps"]), l = () => {
+    var z, v, D, _;
+    return m(o.class, Nn, gr({
+      size: o.size ?? (r == null ? void 0 : r.state.size) ?? ((v = (z = t == null ? void 0 : t.defaultProps) == null ? void 0 : z.root) == null ? void 0 : v.size) ?? "md",
+      withBorder: o.withBorder ?? !!r ?? ((_ = (D = t == null ? void 0 : t.defaultProps) == null ? void 0 : D.root) == null ? void 0 : _.withBorder) ?? !1
     }));
   };
   return i(A.span, p({
@@ -5370,11 +5276,11 @@ function ud(e) {
       return l();
     },
     get __baseStyle() {
-      var B;
-      return (B = t == null ? void 0 : t.baseStyle) == null ? void 0 : B.root;
+      var z;
+      return (z = t == null ? void 0 : t.baseStyle) == null ? void 0 : z.root;
     },
     get borderRadius() {
-      return n.borderRadius ?? (r == null ? void 0 : r.state.avatarBorderRadius);
+      return o.borderRadius ?? (r == null ? void 0 : r.state.avatarBorderRadius);
     },
     get borderColor() {
       return r == null ? void 0 : r.state.avatarBorderColor;
@@ -5387,70 +5293,70 @@ function ud(e) {
     }
   }, s, {
     get children() {
-      return [i(Bo, p({
+      return [i(Fn, p({
         get src() {
-          return n.src;
+          return o.src;
         },
         get srcSet() {
-          return n.srcSet;
+          return o.srcSet;
         },
         get loading() {
-          return n.loading;
+          return o.loading;
         },
         get getInitials() {
-          return n.getInitials;
+          return o.getInitials;
         },
         get name() {
-          return n.name;
+          return o.name;
         },
         get icon() {
-          return n.icon;
+          return o.icon;
         },
         get iconLabel() {
-          return n.iconLabel;
+          return o.iconLabel;
         },
         get ignoreFallback() {
-          return n.ignoreFallback;
+          return o.ignoreFallback;
         },
         get borderRadius() {
-          return n.borderRadius ?? (r == null ? void 0 : r.state.avatarBorderRadius);
+          return o.borderRadius ?? (r == null ? void 0 : r.state.avatarBorderRadius);
         },
         get onError() {
-          return n.onError;
+          return o.onError;
         }
-      }, () => n.imageProps)), n.children];
+      }, () => o.imageProps)), nt(() => o.children)];
     }
   }));
 }
-ud.toString = () => v(Lo);
-const Do = "hope-avatar__badge";
-function gd(e) {
-  const t = y().Avatar, [r, o] = b(e, ["class", "placement"]), a = () => h(r.class, Do, nd({
+Sd.toString = () => $(Nn);
+const Vn = "hope-avatar__badge";
+function xd(e) {
+  const t = w().Avatar, [r, n] = S(e, ["class", "placement"]), a = () => m(r.class, Vn, gd({
     placement: r.placement ?? "bottom-end"
   }));
-  return i(P, p({
+  return i(B, p({
     get class() {
       return a();
     },
     get __baseStyle() {
-      var n;
-      return (n = t == null ? void 0 : t.baseStyle) == null ? void 0 : n.badge;
+      var o;
+      return (o = t == null ? void 0 : t.baseStyle) == null ? void 0 : o.badge;
     }
-  }, o));
+  }, n));
 }
-gd.toString = () => v(Do);
-const Ho = "hope-avatar__excess";
-function fd(e) {
-  const t = y().Avatar, r = Io(), [o, a] = b(e, ["class", "size", "withBorder"]), n = () => {
-    var s, l, c, d;
-    return h(o.class, Ho, rd({
-      size: o.size ?? (r == null ? void 0 : r.state.size) ?? ((l = (s = t == null ? void 0 : t.defaultProps) == null ? void 0 : s.root) == null ? void 0 : l.size) ?? "md",
-      withBorder: o.withBorder ?? !!r ?? ((d = (c = t == null ? void 0 : t.defaultProps) == null ? void 0 : c.root) == null ? void 0 : d.withBorder) ?? !1
+xd.toString = () => $(Vn);
+const qn = "hope-avatar__excess";
+function Cd(e) {
+  const t = w().Avatar, r = An(), [n, a] = S(e, ["class", "size", "withBorder"]), o = () => {
+    var s, l, c, u;
+    return m(n.class, qn, dd({
+      size: n.size ?? (r == null ? void 0 : r.state.size) ?? ((l = (s = t == null ? void 0 : t.defaultProps) == null ? void 0 : s.root) == null ? void 0 : l.size) ?? "md",
+      withBorder: n.withBorder ?? !!r ?? ((u = (c = t == null ? void 0 : t.defaultProps) == null ? void 0 : c.root) == null ? void 0 : u.withBorder) ?? !1
     }));
   };
   return i(A.span, p({
     get class() {
-      return n();
+      return o();
     },
     get __baseStyle() {
       var s;
@@ -5470,8 +5376,8 @@ function fd(e) {
     }
   }, a));
 }
-fd.toString = () => v(Ho);
-const pd = m({
+Cd.toString = () => $(qn);
+const yd = C({
   display: "inline-block",
   borderRadius: "$sm",
   py: "$0_5",
@@ -5687,13 +5593,13 @@ const pd = m({
       }
     }
   ]
-}), Ao = "hope-badge";
-function hd(e) {
-  var c, d;
-  const t = y().Badge, r = {
+}), jn = "hope-badge";
+function $d(e) {
+  var c, u;
+  const t = w().Badge, r = {
     variant: ((c = t == null ? void 0 : t.defaultProps) == null ? void 0 : c.variant) ?? "subtle",
-    colorScheme: ((d = t == null ? void 0 : t.defaultProps) == null ? void 0 : d.colorScheme) ?? "neutral"
-  }, o = q(r, e), [a, n, s] = b(o, ["class"], ["variant", "colorScheme"]), l = () => h(a.class, Ao, pd(n));
+    colorScheme: ((u = t == null ? void 0 : t.defaultProps) == null ? void 0 : u.colorScheme) ?? "neutral"
+  }, n = N(r, e), [a, o, s] = S(n, ["class"], ["variant", "colorScheme"]), l = () => m(a.class, jn, yd(o));
   return i(A.span, p({
     get class() {
       return l();
@@ -5703,25 +5609,25 @@ function hd(e) {
     }
   }, s));
 }
-hd.toString = () => v(Ao);
-const bd = m({
+$d.toString = () => $(jn);
+const wd = C({
   display: "block",
   fontSize: "$base",
   lineHeight: "$6"
-}), md = m({
+}), Id = C({
   display: "flex",
   alignItems: "center",
   margin: 0,
   padding: 0,
   listStyle: "none"
-}), vd = m({
+}), kd = C({
   display: "inline-flex",
   alignItems: "center"
-}), Sd = m({
+}), _d = C({
   display: "inline-flex",
   alignItems: "center",
   justifyContent: "center"
-}), xd = m({
+}), Pd = C({
   position: "relative",
   display: "inline-flex",
   alignItems: "center",
@@ -5747,27 +5653,27 @@ const bd = m({
       }
     }
   }
-}), Eo = J(), Mo = "hope-breadcrumb", Cd = "hope-breadcrumb__list";
-function yd(e) {
-  const t = y().Breadcrumb, [r] = te({
+}), Kn = te(), Xn = "hope-breadcrumb", Td = "hope-breadcrumb__list";
+function zd(e) {
+  const t = w().Breadcrumb, [r] = ae({
     get spacing() {
-      var c, d;
-      return e.spacing ?? ((d = (c = t == null ? void 0 : t.defaultProps) == null ? void 0 : c.root) == null ? void 0 : d.spacing) ?? "0.5rem";
+      var c, u;
+      return e.spacing ?? ((u = (c = t == null ? void 0 : t.defaultProps) == null ? void 0 : c.root) == null ? void 0 : u.spacing) ?? "0.5rem";
     },
     get separator() {
-      var c, d;
-      return e.separator ?? ((d = (c = t == null ? void 0 : t.defaultProps) == null ? void 0 : c.root) == null ? void 0 : d.separator) ?? "/";
+      var c, u;
+      return e.separator ?? ((u = (c = t == null ? void 0 : t.defaultProps) == null ? void 0 : c.root) == null ? void 0 : u.separator) ?? "/";
     }
-  }), [o, a] = b(e, ["class", "children", "separator", "spacing"]), n = () => h(o.class, Mo, bd()), s = () => h(Cd, md()), l = {
+  }), [n, a] = S(e, ["class", "children", "separator", "spacing"]), o = () => m(n.class, Xn, wd()), s = () => m(Td, Id()), l = {
     state: r
   };
-  return i(Eo.Provider, {
+  return i(Kn.Provider, {
     value: l,
     get children() {
       return i(A.nav, p({
         "aria-label": "breadcrumb",
         get class() {
-          return n();
+          return o();
         },
         get __baseStyle() {
           var c;
@@ -5783,7 +5689,7 @@ function yd(e) {
               return r.spacing;
             },
             get children() {
-              return o.children;
+              return n.children;
             }
           });
         }
@@ -5791,19 +5697,19 @@ function yd(e) {
     }
   });
 }
-yd.toString = () => v(Mo);
-function Oo() {
-  const e = Q(Eo);
+zd.toString = () => $(Xn);
+function Un() {
+  const e = Z(Kn);
   if (!e)
     throw new Error("[Hope UI]: useBreadcrumbContext must be used within a `<Breadcrumb />` component");
   return e;
 }
-const Ro = "hope-breadcrumb__item";
-function $d(e) {
-  const t = y().Breadcrumb, r = Oo(), [o, a] = b(e, ["class"]), n = () => h(o.class, Ro, vd());
+const Qn = "hope-breadcrumb__item";
+function Bd(e) {
+  const t = w().Breadcrumb, r = Un(), [n, a] = S(e, ["class"]), o = () => m(n.class, Qn, kd());
   return i(A.li, p({
     get class() {
-      return n();
+      return o();
     },
     get __baseStyle() {
       var s;
@@ -5814,14 +5720,14 @@ function $d(e) {
     }
   }, a));
 }
-$d.toString = () => v(Ro);
-const Wo = "hope-breadcrumb__link";
-function wd(e) {
-  const t = y().Breadcrumb, [r, o] = b(e, ["class", "currentPage", "href"]), a = () => h(r.class, Wo, xd({
+Bd.toString = () => $(Qn);
+const Yn = "hope-breadcrumb__link";
+function Ld(e) {
+  const t = w().Breadcrumb, [r, n] = S(e, ["class", "currentPage", "href"]), a = () => m(r.class, Yn, Pd({
     currentPage: r.currentPage === !0
     // ensure a boolean is passed so the `true/false` values works correctly
   }));
-  return i(D, {
+  return i(H, {
     get when() {
       return r.currentPage;
     },
@@ -5834,10 +5740,10 @@ function wd(e) {
           return a();
         },
         get __baseStyle() {
-          var n;
-          return (n = t == null ? void 0 : t.baseStyle) == null ? void 0 : n.link;
+          var o;
+          return (o = t == null ? void 0 : t.baseStyle) == null ? void 0 : o.link;
         }
-      }, o));
+      }, n));
     },
     get children() {
       return i(A.span, p({
@@ -5846,21 +5752,21 @@ function wd(e) {
           return a();
         },
         get __baseStyle() {
-          var n;
-          return (n = t == null ? void 0 : t.baseStyle) == null ? void 0 : n.link;
+          var o;
+          return (o = t == null ? void 0 : t.baseStyle) == null ? void 0 : o.link;
         }
-      }, o));
+      }, n));
     }
   });
 }
-wd.toString = () => v(Wo);
-const Fo = "hope-breadcrumb__separator";
-function _d(e) {
-  const t = y().Breadcrumb, r = Oo(), [o, a] = b(e, ["class", "children"]), n = () => h(o.class, Fo, Sd());
+Ld.toString = () => $(Yn);
+const Zn = "hope-breadcrumb__separator";
+function Hd(e) {
+  const t = w().Breadcrumb, r = Un(), [n, a] = S(e, ["class", "children"]), o = () => m(n.class, Zn, _d());
   return i(A.span, p({
     role: "presentation",
     get class() {
-      return n();
+      return o();
     },
     get __baseStyle() {
       var s;
@@ -5868,36 +5774,36 @@ function _d(e) {
     }
   }, a, {
     get children() {
-      return i(D, {
+      return i(H, {
         get when() {
-          return o.children;
+          return n.children;
         },
         get fallback() {
           return r.state.separator;
         },
         get children() {
-          return o.children;
+          return n.children;
         }
       });
     }
   }));
 }
-_d.toString = () => v(Fo);
-const Id = m({
+Hd.toString = () => $(Zn);
+const Dd = C({
   display: "flex",
   justifyContent: "center",
   alignItems: "center"
-}), No = "hope-center";
-function kd(e) {
-  const [t, r] = b(e, ["class"]), o = () => h(t.class, No, Id());
-  return i(P, p({
+}), Jn = "hope-center";
+function Ed(e) {
+  const [t, r] = S(e, ["class"]), n = () => m(t.class, Jn, Dd());
+  return i(B, p({
     get class() {
-      return o();
+      return n();
     }
   }, r));
 }
-kd.toString = () => v(No);
-function je(e) {
+Ed.toString = () => $(Jn);
+function Xe(e) {
   return {
     color: e.color,
     "&[data-disabled]": {
@@ -5909,7 +5815,7 @@ function je(e) {
     }
   };
 }
-const ur = m({
+const fr = C({
   position: "relative",
   display: "inline-flex",
   alignItems: "center",
@@ -5936,14 +5842,14 @@ const ur = m({
       }
     }
   }
-}), gr = m({
+}), hr = C({
   cursor: "pointer",
   userSelect: "none",
   "&[data-disabled]": {
     opacity: "0.5",
     cursor: "not-allowed"
   }
-}), fr = m({
+}), pr = C({
   position: "relative",
   display: "inline-flex",
   alignItems: "center",
@@ -5984,37 +5890,37 @@ const ur = m({
       }
     },
     colorScheme: {
-      primary: je({
+      primary: Xe({
         color: "$primary9",
         boxShadowColorFocus: "$primary5",
         borderColorFocus: "$primary8"
       }),
-      accent: je({
+      accent: Xe({
         color: "$accent9",
         boxShadowColorFocus: "$accent5",
         borderColorFocus: "$accent8"
       }),
-      neutral: je({
+      neutral: Xe({
         color: "$neutral9",
         boxShadowColorFocus: "$neutral5",
         borderColorFocus: "$neutral8"
       }),
-      success: je({
+      success: Xe({
         color: "$success9",
         boxShadowColorFocus: "$success5",
         borderColorFocus: "$success8"
       }),
-      info: je({
+      info: Xe({
         color: "$info9",
         boxShadowColorFocus: "$info5",
         borderColorFocus: "$info8"
       }),
-      warning: je({
+      warning: Xe({
         color: "$warning9",
         boxShadowColorFocus: "$warning5",
         borderColorFocus: "$warning8"
       }),
-      danger: je({
+      danger: Xe({
         color: "$danger9",
         boxShadowColorFocus: "$danger5",
         borderColorFocus: "$danger8"
@@ -6032,7 +5938,7 @@ const ur = m({
       }
     }
   }
-}), Pd = m(ur, {
+}), Ad = C(fr, {
   variants: {
     labelPlacement: {
       start: {
@@ -6043,7 +5949,7 @@ const ur = m({
       }
     }
   }
-}), Td = m(gr), zd = m(fr, {
+}), Od = C(hr), Md = C(pr, {
   borderRadius: "$sm",
   "& svg": {
     color: "$loContrast"
@@ -6052,9 +5958,9 @@ const ur = m({
     borderColor: "transparent",
     backgroundColor: "currentColor"
   }
-}), Vo = "hope-checkbox__group";
-function Bd(e) {
-  const t = `hope-checkbox-group-${ne()}--checkbox`, r = y().Checkbox, [o, a] = te({
+}), Gn = "hope-checkbox__group";
+function Rd(e) {
+  const t = `hope-checkbox-group-${ue()}--checkbox`, r = w().Checkbox, [n, a] = ae({
     // eslint-disable-next-line solid/reactivity
     _value: e.defaultValue ?? [],
     get isControlled() {
@@ -6079,55 +5985,55 @@ function Bd(e) {
       return e.readOnly;
     },
     get variant() {
-      var u, g;
-      return e.variant ?? ((g = (u = r == null ? void 0 : r.defaultProps) == null ? void 0 : u.group) == null ? void 0 : g.variant);
+      var d, g;
+      return e.variant ?? ((g = (d = r == null ? void 0 : r.defaultProps) == null ? void 0 : d.group) == null ? void 0 : g.variant);
     },
     get colorScheme() {
-      var u, g;
-      return e.colorScheme ?? ((g = (u = r == null ? void 0 : r.defaultProps) == null ? void 0 : u.group) == null ? void 0 : g.colorScheme);
+      var d, g;
+      return e.colorScheme ?? ((g = (d = r == null ? void 0 : r.defaultProps) == null ? void 0 : d.group) == null ? void 0 : g.colorScheme);
     },
     get size() {
-      var u, g;
-      return e.size ?? ((g = (u = r == null ? void 0 : r.defaultProps) == null ? void 0 : u.group) == null ? void 0 : g.size);
+      var d, g;
+      return e.size ?? ((g = (d = r == null ? void 0 : r.defaultProps) == null ? void 0 : d.group) == null ? void 0 : g.size);
     },
     get labelPlacement() {
-      var u, g;
-      return e.labelPlacement ?? ((g = (u = r == null ? void 0 : r.defaultProps) == null ? void 0 : u.group) == null ? void 0 : g.labelPlacement);
+      var d, g;
+      return e.labelPlacement ?? ((g = (d = r == null ? void 0 : r.defaultProps) == null ? void 0 : d.group) == null ? void 0 : g.labelPlacement);
     }
-  }), [n, s, l] = b(e, ["class", "onChange"], ["value", "defaultValue", "name", "required", "disabled", "readOnly", "invalid"]), c = (u) => {
-    var x;
-    if (!o.value)
+  }), [o, s, l] = S(e, ["class", "onChange"], ["value", "defaultValue", "name", "required", "disabled", "readOnly", "invalid"]), c = (d) => {
+    var b;
+    if (!n.value)
       return;
-    const g = u.target, S = g.checked ? [...o.value, g.value] : o.value.filter((z) => String(z) !== String(g.value));
-    a("_value", S), (x = n.onChange) == null || x.call(n, S);
-  }, d = () => h(n.class, Vo), f = {
-    state: o,
+    const g = d.target, y = g.checked ? [...n.value, g.value] : n.value.filter((P) => String(P) !== String(g.value));
+    a("_value", y), (b = o.onChange) == null || b.call(o, y);
+  }, u = () => m(o.class, Gn), f = {
+    state: n,
     onChange: c
   };
-  return i(qo.Provider, {
+  return i(eo.Provider, {
     value: f,
     get children() {
-      return i(P, p({
+      return i(B, p({
         get class() {
-          return d();
+          return u();
         },
         get __baseStyle() {
-          var u;
-          return (u = r == null ? void 0 : r.baseStyle) == null ? void 0 : u.group;
+          var d;
+          return (d = r == null ? void 0 : r.baseStyle) == null ? void 0 : d.group;
         }
       }, l));
     }
   });
 }
-Bd.toString = () => v(Vo);
-const qo = J();
-function jo() {
-  return Q(qo);
+Rd.toString = () => $(Gn);
+const eo = te();
+function to() {
+  return Z(eo);
 }
-const Ld = m({
+const Wd = C({
   position: "relative",
   width: "$full"
-}), Dd = m({
+}), Fd = C({
   display: "inline-block",
   marginBottom: "$1",
   color: "$neutral12",
@@ -6140,11 +6046,11 @@ const Ld = m({
     opacity: 0.4,
     cursor: "not-allowed"
   }
-}), Hd = m({
+}), Nd = C({
   marginInlineStart: "$1",
   color: "$danger9",
   fontSize: "$base"
-}), Ad = m({
+}), Vd = C({
   display: "inline-block",
   marginTop: "$1",
   color: "$neutral11",
@@ -6157,7 +6063,7 @@ const Ld = m({
     opacity: 0.4,
     cursor: "not-allowed"
   }
-}), Ed = m({
+}), qd = C({
   display: "inline-block",
   marginTop: "$1",
   color: "$danger9",
@@ -6170,9 +6076,9 @@ const Ld = m({
     opacity: 0.4,
     cursor: "not-allowed"
   }
-}), Ko = J(), Xo = "hope-form-control";
-function Md(e) {
-  const t = `hope-field-${ne()}`, r = y().FormControl, [o, a] = te({
+}), ro = te(), no = "hope-form-control";
+function jd(e) {
+  const t = `hope-field-${ue()}`, r = w().FormControl, [n, a] = ae({
     get id() {
       return e.id ?? t;
     },
@@ -6212,37 +6118,37 @@ function Md(e) {
     hasHelperText: !1,
     hasErrorMessage: !1,
     isFocused: !1
-  }), [n, s] = b(e, ["id", "required", "disabled", "invalid", "readOnly", "class"]), l = (S) => a("hasHelperText", S), c = (S) => a("hasErrorMessage", S), d = () => a("isFocused", !0), f = () => a("isFocused", !1), u = () => ({
-    state: o,
+  }), [o, s] = S(e, ["id", "required", "disabled", "invalid", "readOnly", "class"]), l = (y) => a("hasHelperText", y), c = (y) => a("hasErrorMessage", y), u = () => a("isFocused", !0), f = () => a("isFocused", !1), d = () => ({
+    state: n,
     setHasHelperText: l,
     setHasErrorMessage: c,
-    onFocus: d,
+    onFocus: u,
     onBlur: f
-  }), g = () => h(n.class, Xo, Ld());
-  return i(Ko.Provider, {
+  }), g = () => m(o.class, no, Wd());
+  return i(ro.Provider, {
     get value() {
-      return u();
+      return d();
     },
     get children() {
-      return i(P, p({
+      return i(B, p({
         role: "group",
         get class() {
           return g();
         },
         get __baseStyle() {
-          var S;
-          return (S = r == null ? void 0 : r.baseStyle) == null ? void 0 : S.root;
+          var y;
+          return (y = r == null ? void 0 : r.baseStyle) == null ? void 0 : y.root;
         }
       }, s));
     }
   });
 }
-Md.toString = () => v(Xo);
-function dt() {
-  return Q(Ko);
+jd.toString = () => $(no);
+function ht() {
+  return Z(ro);
 }
-function ut(e) {
-  const t = dt(), r = Se(() => fe(t == null ? void 0 : t.onFocus, e.onFocus)), o = Se(() => fe(t == null ? void 0 : t.onBlur, e.onBlur)), [a] = te({
+function pt(e) {
+  const t = ht(), r = ye(() => he(t == null ? void 0 : t.onFocus, e.onFocus)), n = ye(() => he(t == null ? void 0 : t.onBlur, e.onBlur)), [a] = ae({
     get id() {
       return e.id ?? (t == null ? void 0 : t.state.id);
     },
@@ -6271,21 +6177,21 @@ function ut(e) {
       return this.readOnly ? !0 : void 0;
     },
     get "aria-describedby"() {
-      const n = e["aria-describedby"] ? [e["aria-describedby"]] : [];
-      return t != null && t.state.hasErrorMessage && (t != null && t.state.invalid) && n.push(t.state.errorMessageId), t != null && t.state.hasHelperText && n.push(t.state.helperTextId), n.join(" ") || void 0;
+      const o = e["aria-describedby"] ? [e["aria-describedby"]] : [];
+      return t != null && t.state.hasErrorMessage && (t != null && t.state.invalid) && o.push(t.state.errorMessageId), t != null && t.state.hasHelperText && o.push(t.state.helperTextId), o.join(" ") || void 0;
     },
     get onFocus() {
       return r;
     },
     get onBlur() {
-      return o;
+      return n;
     }
   });
   return a;
 }
-var Od = ["<input", ' type="checkbox"', "", "", "", ">"];
-function Rd(e) {
-  const t = `hope-checkbox-${ne()}`, r = dt(), o = jo(), a = ut(e), [n, s] = te({
+var Kd = /* @__PURE__ */ se("<input type=checkbox>");
+function Xd(e) {
+  const t = `hope-checkbox-${ue()}`, r = ht(), n = to(), a = pt(e), [o, s] = ae({
     // eslint-disable-next-line solid/reactivity
     _checked: !!e.defaultChecked,
     isFocused: !1,
@@ -6293,17 +6199,17 @@ function Rd(e) {
       return e.checked !== void 0;
     },
     get checked() {
-      if (o) {
-        const S = o.state.value;
-        return S != null ? S.some((x) => String(e.value) === String(x)) : !1;
+      if (n) {
+        const h = n.state.value;
+        return h != null ? h.some((x) => String(e.value) === String(x)) : !1;
       }
       return this.isControlled ? !!e.checked : this._checked;
     },
     get id() {
-      return r && !o ? a.id : e.id ?? t;
+      return r && !n ? a.id : e.id ?? t;
     },
     get name() {
-      return e.name ?? (o == null ? void 0 : o.state.name);
+      return e.name ?? (n == null ? void 0 : n.state.name);
     },
     get value() {
       return e.value;
@@ -6312,16 +6218,16 @@ function Rd(e) {
       return e.indeterminate;
     },
     get required() {
-      return a.required ?? (o == null ? void 0 : o.state.required);
+      return a.required ?? (n == null ? void 0 : n.state.required);
     },
     get disabled() {
-      return a.disabled ?? (o == null ? void 0 : o.state.disabled);
+      return a.disabled ?? (n == null ? void 0 : n.state.disabled);
     },
     get invalid() {
-      return a.invalid ?? (o == null ? void 0 : o.state.invalid);
+      return a.invalid ?? (n == null ? void 0 : n.state.invalid);
     },
     get readOnly() {
-      return a.readOnly ?? (o == null ? void 0 : o.state.readOnly);
+      return a.readOnly ?? (n == null ? void 0 : n.state.readOnly);
     },
     get "aria-required"() {
       return this.required ? !0 : void 0;
@@ -6365,51 +6271,88 @@ function Rd(e) {
     get "data-readonly"() {
       return this.readOnly ? "" : void 0;
     }
-  }), [l, c, d] = b(e, ["inputClass", "children", "ref", "tabIndex", "onChange"], ["id", "name", "value", "indeterminate", "checked", "defaultChecked", "required", "disabled", "invalid", "readOnly", "onFocus", "onBlur"]), f = () => h(l.inputClass, Et()), u = () => n, g = {
-    state: n
+  }), [l, c, u] = S(e, ["inputClass", "children", "ref", "tabIndex", "onChange"], ["id", "name", "value", "indeterminate", "checked", "defaultChecked", "required", "disabled", "invalid", "readOnly", "onFocus", "onBlur"]), f = (h) => {
+    if (o.readOnly || o.disabled) {
+      h.preventDefault();
+      return;
+    }
+    if (!o.isControlled) {
+      const x = h.target;
+      s("_checked", x.checked);
+    }
+    he(n == null ? void 0 : n.onChange, l.onChange)(h);
+  }, d = (h) => {
+    s("isFocused", !0), oe(a.onFocus, h);
+  }, g = (h) => {
+    s("isFocused", !1), oe(a.onBlur, h);
+  }, y = () => m(l.inputClass, Wt()), b = () => o, P = {
+    state: o
   };
-  return i(Uo.Provider, {
-    value: g,
+  return i(oo.Provider, {
+    value: P,
     get children() {
       return i(A.label, p({
         get for() {
-          return n.id;
+          return o.id;
         },
         "data-group": !0,
         get "data-indeterminate"() {
-          return n["data-indeterminate"];
+          return o["data-indeterminate"];
         },
         get "data-focus"() {
-          return n["data-focus"];
+          return o["data-focus"];
         },
         get "data-checked"() {
-          return n["data-checked"];
+          return o["data-checked"];
         },
         get "data-required"() {
-          return n["data-required"];
+          return o["data-required"];
         },
         get "data-disabled"() {
-          return n["data-disabled"];
+          return o["data-disabled"];
         },
         get "data-invalid"() {
-          return n["data-invalid"];
+          return o["data-invalid"];
         },
         get "data-readonly"() {
-          return n["data-readonly"];
+          return o["data-readonly"];
         }
-      }, d, {
+      }, u, {
         get children() {
-          return [re(Od, oe(), R("class", V(f(), !0), !1) + R("tabindex", V(l.tabIndex, !0), !1) + R("value", V(n.value, !0), !1) + R("id", V(n.id, !0), !1) + R("name", V(n.name, !0), !1), R("checked", n.checked, !0), R("required", n.required, !0), R("disabled", n.disabled, !0) + R("readonly", V(n.readOnly, !0), !1) + R("aria-required", V(n["aria-required"], !0), !1) + R("aria-disabled", V(n["aria-disabled"], !0), !1) + R("aria-invalid", V(n["aria-invalid"], !0), !1) + R("aria-readonly", V(n["aria-readonly"], !0), !1) + R("aria-label", V(n["aria-label"], !0), !1) + R("aria-labelledby", V(n["aria-labelledby"], !0), !1) + R("aria-describedby", V(n["aria-describedby"], !0), !1)), i(D, {
+          return [(() => {
+            var h = Kd();
+            h.addEventListener("blur", g), h.addEventListener("focus", d), h.addEventListener("change", f);
+            var x = l.ref;
+            return typeof x == "function" ? ar(x, h) : l.ref = h, _e((z) => {
+              var v = y(), D = l.tabIndex, _ = o.id, R = o.name, j = o.required, ee = o.disabled, I = o.readOnly, k = o["aria-required"], W = o["aria-disabled"], V = o["aria-invalid"], Q = o["aria-readonly"], J = o["aria-label"], Y = o["aria-labelledby"], K = o["aria-describedby"];
+              return v !== z.e && xt(h, z.e = v), D !== z.t && G(h, "tabindex", z.t = D), _ !== z.a && G(h, "id", z.a = _), R !== z.o && G(h, "name", z.o = R), j !== z.i && (h.required = z.i = j), ee !== z.n && (h.disabled = z.n = ee), I !== z.s && (h.readOnly = z.s = I), k !== z.h && G(h, "aria-required", z.h = k), W !== z.r && G(h, "aria-disabled", z.r = W), V !== z.d && G(h, "aria-invalid", z.d = V), Q !== z.l && G(h, "aria-readonly", z.l = Q), J !== z.u && G(h, "aria-label", z.u = J), Y !== z.c && G(h, "aria-labelledby", z.c = Y), K !== z.w && G(h, "aria-describedby", z.w = K), z;
+            }, {
+              e: void 0,
+              t: void 0,
+              a: void 0,
+              o: void 0,
+              i: void 0,
+              n: void 0,
+              s: void 0,
+              h: void 0,
+              r: void 0,
+              d: void 0,
+              l: void 0,
+              u: void 0,
+              c: void 0,
+              w: void 0
+            }), _e(() => h.value = o.value), _e(() => h.checked = o.checked), h;
+          })(), i(H, {
             get when() {
-              return Te(l.children);
+              return de(l.children);
             },
             get fallback() {
               return l.children;
             },
             get children() {
-              var S;
-              return (S = l.children) == null ? void 0 : S.call(l, {
-                state: u
+              var h;
+              return (h = l.children) == null ? void 0 : h.call(l, {
+                state: b
               });
             }
           })];
@@ -6418,106 +6361,106 @@ function Rd(e) {
     }
   });
 }
-const Uo = J();
-function Wd() {
-  const e = Q(Uo);
+const oo = te();
+function Ud() {
+  const e = Z(oo);
   if (!e)
     throw new Error("[Hope UI]: useCheckboxPrimitiveContext must be used within a `<CheckboxPrimitive />` component");
   return e;
 }
-var Fd = ["<path", ' d="M11.4669 3.72684C11.7558 3.91574 11.8369 4.30308 11.648 4.59198L7.39799 11.092C7.29783 11.2452 7.13556 11.3467 6.95402 11.3699C6.77247 11.3931 6.58989 11.3355 6.45446 11.2124L3.70446 8.71241C3.44905 8.48022 3.43023 8.08494 3.66242 7.82953C3.89461 7.57412 4.28989 7.55529 4.5453 7.78749L6.75292 9.79441L10.6018 3.90792C10.7907 3.61902 11.178 3.53795 11.4669 3.72684Z" fill="currentColor" stroke="currentColor" stroke-width="1" fill-rule="evenodd" clip-rule="evenodd"></path>'], Nd = ["<path", ' d="M2.25 7.5C2.25 7.22386 2.47386 7 2.75 7H12.25C12.5261 7 12.75 7.22386 12.75 7.5C12.75 7.77614 12.5261 8 12.25 8H2.75C2.47386 8 2.25 7.77614 2.25 7.5Z" fill="currentColor" stroke="currentColor" stroke-width="1" fill-rule="evenodd" clip-rule="evenodd"></path>'];
-const Qo = "hope-checkbox", Vd = "hope-checkbox__input", qd = "hope-checkbox__control", jd = "hope-checkbox__label";
-function Kd(e) {
-  var f, u, g, S, x, z, C, $, B, w, E, M;
-  const t = y().Checkbox, r = jo(), o = {
-    variant: ((f = r == null ? void 0 : r.state) == null ? void 0 : f.variant) ?? ((g = (u = t == null ? void 0 : t.defaultProps) == null ? void 0 : u.root) == null ? void 0 : g.variant) ?? "outline",
-    colorScheme: ((S = r == null ? void 0 : r.state) == null ? void 0 : S.colorScheme) ?? ((z = (x = t == null ? void 0 : t.defaultProps) == null ? void 0 : x.root) == null ? void 0 : z.colorScheme) ?? "primary",
-    size: ((C = r == null ? void 0 : r.state) == null ? void 0 : C.size) ?? ((B = ($ = t == null ? void 0 : t.defaultProps) == null ? void 0 : $.root) == null ? void 0 : B.size) ?? "md",
-    labelPlacement: ((w = r == null ? void 0 : r.state) == null ? void 0 : w.labelPlacement) ?? ((M = (E = t == null ? void 0 : t.defaultProps) == null ? void 0 : E.root) == null ? void 0 : M.labelPlacement) ?? "end"
-  }, a = q(o, e), [n, s] = b(a, ["children", "class", "variant", "colorScheme", "size", "labelPlacement", "iconChecked", "iconIndeterminate"]), l = () => h(n.class, Qo, Pd({
-    size: n.size,
-    labelPlacement: n.labelPlacement
-  })), c = () => h(qd, zd({
-    variant: n.variant,
-    colorScheme: n.colorScheme,
-    size: n.size
-  })), d = () => h(jd, Td());
-  return i(Rd, p({
+var Qd = /* @__PURE__ */ se('<svg><path d="M11.4669 3.72684C11.7558 3.91574 11.8369 4.30308 11.648 4.59198L7.39799 11.092C7.29783 11.2452 7.13556 11.3467 6.95402 11.3699C6.77247 11.3931 6.58989 11.3355 6.45446 11.2124L3.70446 8.71241C3.44905 8.48022 3.43023 8.08494 3.66242 7.82953C3.89461 7.57412 4.28989 7.55529 4.5453 7.78749L6.75292 9.79441L10.6018 3.90792C10.7907 3.61902 11.178 3.53795 11.4669 3.72684Z"fill=currentColor stroke=currentColor stroke-width=1 fill-rule=evenodd clip-rule=evenodd></svg>', !1, !0), Yd = /* @__PURE__ */ se('<svg><path d="M2.25 7.5C2.25 7.22386 2.47386 7 2.75 7H12.25C12.5261 7 12.75 7.22386 12.75 7.5C12.75 7.77614 12.5261 8 12.25 8H2.75C2.47386 8 2.25 7.77614 2.25 7.5Z"fill=currentColor stroke=currentColor stroke-width=1 fill-rule=evenodd clip-rule=evenodd></svg>', !1, !0);
+const ao = "hope-checkbox", Zd = "hope-checkbox__input", Jd = "hope-checkbox__control", Gd = "hope-checkbox__label";
+function eu(e) {
+  var f, d, g, y, b, P, h, x, z, v, D, _;
+  const t = w().Checkbox, r = to(), n = {
+    variant: ((f = r == null ? void 0 : r.state) == null ? void 0 : f.variant) ?? ((g = (d = t == null ? void 0 : t.defaultProps) == null ? void 0 : d.root) == null ? void 0 : g.variant) ?? "outline",
+    colorScheme: ((y = r == null ? void 0 : r.state) == null ? void 0 : y.colorScheme) ?? ((P = (b = t == null ? void 0 : t.defaultProps) == null ? void 0 : b.root) == null ? void 0 : P.colorScheme) ?? "primary",
+    size: ((h = r == null ? void 0 : r.state) == null ? void 0 : h.size) ?? ((z = (x = t == null ? void 0 : t.defaultProps) == null ? void 0 : x.root) == null ? void 0 : z.size) ?? "md",
+    labelPlacement: ((v = r == null ? void 0 : r.state) == null ? void 0 : v.labelPlacement) ?? ((_ = (D = t == null ? void 0 : t.defaultProps) == null ? void 0 : D.root) == null ? void 0 : _.labelPlacement) ?? "end"
+  }, a = N(n, e), [o, s] = S(a, ["children", "class", "variant", "colorScheme", "size", "labelPlacement", "iconChecked", "iconIndeterminate"]), l = () => m(o.class, ao, Ad({
+    size: o.size,
+    labelPlacement: o.labelPlacement
+  })), c = () => m(Jd, Md({
+    variant: o.variant,
+    colorScheme: o.colorScheme,
+    size: o.size
+  })), u = () => m(Gd, Od());
+  return i(Xd, p({
     get class() {
       return l();
     },
-    inputClass: Vd,
+    inputClass: Zd,
     get __baseStyle() {
-      var N;
-      return (N = t == null ? void 0 : t.baseStyle) == null ? void 0 : N.root;
+      var R;
+      return (R = t == null ? void 0 : t.baseStyle) == null ? void 0 : R.root;
     }
   }, s, {
     children: ({
-      state: N
+      state: R
     }) => [i(A.span, {
       "aria-hidden": !0,
       get class() {
         return c();
       },
       get __baseStyle() {
-        var L;
-        return (L = t == null ? void 0 : t.baseStyle) == null ? void 0 : L.control;
+        var j;
+        return (j = t == null ? void 0 : t.baseStyle) == null ? void 0 : j.control;
       },
       get "data-indeterminate"() {
-        return N()["data-indeterminate"];
+        return R()["data-indeterminate"];
       },
       get "data-focus"() {
-        return N()["data-focus"];
+        return R()["data-focus"];
       },
       get "data-checked"() {
-        return N()["data-checked"];
+        return R()["data-checked"];
       },
       get "data-required"() {
-        return N()["data-required"];
+        return R()["data-required"];
       },
       get "data-disabled"() {
-        return N()["data-disabled"];
+        return R()["data-disabled"];
       },
       get "data-invalid"() {
-        return N()["data-invalid"];
+        return R()["data-invalid"];
       },
       get "data-readonly"() {
-        return N()["data-readonly"];
+        return R()["data-readonly"];
       },
       get children() {
-        return i(Lr, {
+        return i(Rr, {
           get children() {
-            return [i(bt, {
+            return [i(St, {
               get when() {
-                return N().indeterminate;
+                return R().indeterminate;
               },
               get children() {
-                return i(D, {
+                return i(H, {
                   get when() {
-                    return n.iconIndeterminate;
+                    return o.iconIndeterminate;
                   },
                   get fallback() {
-                    return i(Ud, {});
+                    return i(ru, {});
                   },
                   get children() {
-                    return n.iconIndeterminate;
+                    return o.iconIndeterminate;
                   }
                 });
               }
-            }), i(bt, {
+            }), i(St, {
               get when() {
-                return N().checked && !N().indeterminate;
+                return nt(() => !!R().checked)() && !R().indeterminate;
               },
               get children() {
-                return i(D, {
+                return i(H, {
                   get when() {
-                    return n.iconChecked;
+                    return o.iconChecked;
                   },
                   get fallback() {
-                    return i(Xd, {});
+                    return i(tu, {});
                   },
                   get children() {
-                    return n.iconChecked;
+                    return o.iconChecked;
                   }
                 });
               }
@@ -6527,50 +6470,50 @@ function Kd(e) {
       }
     }), i(A.span, {
       get class() {
-        return d();
+        return u();
       },
       get __baseStyle() {
-        var L;
-        return (L = t == null ? void 0 : t.baseStyle) == null ? void 0 : L.label;
+        var j;
+        return (j = t == null ? void 0 : t.baseStyle) == null ? void 0 : j.label;
       },
       get "data-indeterminate"() {
-        return N()["data-indeterminate"];
+        return R()["data-indeterminate"];
       },
       get "data-focus"() {
-        return N()["data-focus"];
+        return R()["data-focus"];
       },
       get "data-checked"() {
-        return N()["data-checked"];
+        return R()["data-checked"];
       },
       get "data-required"() {
-        return N()["data-required"];
+        return R()["data-required"];
       },
       get "data-disabled"() {
-        return N()["data-disabled"];
+        return R()["data-disabled"];
       },
       get "data-invalid"() {
-        return N()["data-invalid"];
+        return R()["data-invalid"];
       },
       get "data-readonly"() {
-        return N()["data-readonly"];
+        return R()["data-readonly"];
       },
       get children() {
-        return n.children;
+        return o.children;
       }
     })]
   }));
 }
-Kd.toString = () => v(Qo);
-const Xd = $e({
+eu.toString = () => $(ao);
+const tu = Ie({
   viewBox: "0 0 15 15",
-  path: () => re(Fd, oe())
-}), Ud = $e({
+  path: () => Qd()
+}), ru = Ie({
   viewBox: "0 0 15 15",
-  path: () => re(Nd, oe())
+  path: () => Yd()
 });
-function Pp(e) {
-  const t = Wd();
-  return i(D, {
+function Eh(e) {
+  const t = Ud();
+  return i(H, {
     get when() {
       return t.state.checked || t.state.indeterminate;
     },
@@ -6602,7 +6545,7 @@ function Pp(e) {
     }
   });
 }
-const Qd = ct({
+const nu = ft({
   "0%": {
     strokeDasharray: "1, 400",
     strokeDashoffset: "0"
@@ -6615,27 +6558,27 @@ const Qd = ct({
     strokeDasharray: "400, 400",
     strokeDashoffset: "-260"
   }
-}), Yd = m({
+}), ou = C({
   position: "relative",
   display: "inline-flex",
   alignItems: "center",
   justifyContent: "center",
   verticalAlign: "middle"
-}), Zd = m({
+}), au = C({
   fill: "transparent",
   stroke: "currentColor"
-}), Jd = m({
+}), su = C({
   position: "absolute",
   top: 0,
   left: 0,
   variants: {
     spin: {
       true: {
-        animation: `${At} 2s linear infinite`
+        animation: `${Rt} 2s linear infinite`
       }
     }
   }
-}), Gd = m({
+}), iu = C({
   fill: "transparent",
   stroke: "currentColor",
   opacity: 1,
@@ -6650,7 +6593,7 @@ const Qd = ct({
     },
     indeterminate: {
       true: {
-        animation: `${Qd} 2s linear infinite`
+        animation: `${nu} 2s linear infinite`
       },
       false: {
         strokeDashoffset: 66,
@@ -6660,7 +6603,7 @@ const Qd = ct({
       }
     }
   }
-}), eu = m({
+}), lu = C({
   position: "absolute",
   top: "50%",
   left: "50%",
@@ -6671,17 +6614,17 @@ const Qd = ct({
   fontWeight: "$bold",
   textAlign: "center",
   transform: "translate(-50%, -50%)"
-}), Yo = J(), Zo = "hope-circular-progress", tu = "hope-circular-progress__track";
-function ru(e) {
-  var u, g, S, x, z, C;
-  const t = y().CircularProgress, [r] = te({
+}), so = te(), io = "hope-circular-progress", cu = "hope-circular-progress__track";
+function du(e) {
+  var d, g, y, b, P, h;
+  const t = w().CircularProgress, [r] = ae({
     get size() {
-      var $, B;
-      return e.size ?? ((B = ($ = t == null ? void 0 : t.defaultProps) == null ? void 0 : $.root) == null ? void 0 : B.size) ?? "$12";
+      var x, z;
+      return e.size ?? ((z = (x = t == null ? void 0 : t.defaultProps) == null ? void 0 : x.root) == null ? void 0 : z.size) ?? "$12";
     },
     get thickness() {
-      var $, B;
-      return e.thickness ?? ((B = ($ = t == null ? void 0 : t.defaultProps) == null ? void 0 : $.root) == null ? void 0 : B.thickness) ?? "$2_5";
+      var x, z;
+      return e.thickness ?? ((z = (x = t == null ? void 0 : t.defaultProps) == null ? void 0 : x.root) == null ? void 0 : z.thickness) ?? "$2_5";
     },
     get min() {
       return e.min ?? 0;
@@ -6693,14 +6636,14 @@ function ru(e) {
       return e.value ?? 0;
     },
     get percent() {
-      return jr(this.value, this.min, this.max);
+      return tn(this.value, this.min, this.max);
     },
     get indeterminate() {
       return e.indeterminate ?? !1;
     },
     get ariaValueText() {
       if (!this.indeterminate)
-        return Te(this.getValueText) ? this.getValueText(this.value, this.percent) : e.valueText ?? `${this.percent}%`;
+        return de(this.getValueText) ? this.getValueText(this.value, this.percent) : e.valueText ?? `${this.percent}%`;
     },
     get getValueText() {
       return e.getValueText;
@@ -6708,22 +6651,22 @@ function ru(e) {
     get isIndicatorVisible() {
       return !!(this.value > 0 || this.indeterminate);
     }
-  }), o = {
-    size: ((g = (u = t == null ? void 0 : t.defaultProps) == null ? void 0 : u.root) == null ? void 0 : g.size) ?? "$12",
-    thickness: ((x = (S = t == null ? void 0 : t.defaultProps) == null ? void 0 : S.root) == null ? void 0 : x.thickness) ?? "$2_5",
-    trackColor: ((C = (z = t == null ? void 0 : t.defaultProps) == null ? void 0 : z.root) == null ? void 0 : C.trackColor) ?? "$neutral4"
-  }, a = q(o, e), [n, s, l] = b(a, ["class", "children", "trackColor"], ["size", "thickness", "min", "max", "getValueText"]), c = () => h(n.class, Zo, Yd()), d = () => h(tu, Zd({
+  }), n = {
+    size: ((g = (d = t == null ? void 0 : t.defaultProps) == null ? void 0 : d.root) == null ? void 0 : g.size) ?? "$12",
+    thickness: ((b = (y = t == null ? void 0 : t.defaultProps) == null ? void 0 : y.root) == null ? void 0 : b.thickness) ?? "$2_5",
+    trackColor: ((h = (P = t == null ? void 0 : t.defaultProps) == null ? void 0 : P.root) == null ? void 0 : h.trackColor) ?? "$neutral4"
+  }, a = N(n, e), [o, s, l] = S(a, ["class", "children", "trackColor"], ["size", "thickness", "min", "max", "getValueText"]), c = () => m(o.class, io, ou()), u = () => m(cu, au({
     css: {
-      color: n.trackColor,
+      color: o.trackColor,
       strokeWidth: r.thickness
     }
   })), f = {
     state: r
   };
-  return i(Yo.Provider, {
+  return i(so.Provider, {
     value: f,
     get children() {
-      return i(P, p({
+      return i(B, p({
         role: "progressbar",
         get "data-indeterminate"() {
           return r.indeterminate ? "" : void 0;
@@ -6744,8 +6687,8 @@ function ru(e) {
           return c();
         },
         get __baseStyle() {
-          var $;
-          return ($ = t == null ? void 0 : t.baseStyle) == null ? void 0 : $.root;
+          var x;
+          return (x = t == null ? void 0 : t.baseStyle) == null ? void 0 : x.root;
         }
       }, l, {
         get children() {
@@ -6760,47 +6703,47 @@ function ru(e) {
                 cy: 50,
                 r: 42,
                 get class() {
-                  return d();
+                  return u();
                 },
                 get __baseStyle() {
-                  var $;
-                  return ($ = t == null ? void 0 : t.baseStyle) == null ? void 0 : $.track;
+                  var x;
+                  return (x = t == null ? void 0 : t.baseStyle) == null ? void 0 : x.track;
                 }
               });
             }
-          }), n.children];
+          }), nt(() => o.children)];
         }
       }));
     }
   });
 }
-ru.toString = () => v(Zo);
-function Jo() {
-  const e = Q(Yo);
+du.toString = () => $(io);
+function lo() {
+  const e = Z(so);
   if (!e)
     throw new Error("[Hope UI]: useCircularProgressContext must be used within a `<CircularProgress />` component");
   return e;
 }
-const Go = "hope-circular-progress__indicator";
-function ou(e) {
-  var f, u, g, S;
-  const t = y().CircularProgress, r = Jo(), o = {
-    color: ((u = (f = t == null ? void 0 : t.defaultProps) == null ? void 0 : f.indicator) == null ? void 0 : u.color) ?? "$primary9",
-    withRoundCaps: ((S = (g = t == null ? void 0 : t.defaultProps) == null ? void 0 : g.indicator) == null ? void 0 : S.withRoundCaps) ?? !1
-  }, a = q(o, e), [n, s] = b(a, ["class", "children", "color", "withRoundCaps"]), l = () => {
+const co = "hope-circular-progress__indicator";
+function uu(e) {
+  var f, d, g, y;
+  const t = w().CircularProgress, r = lo(), n = {
+    color: ((d = (f = t == null ? void 0 : t.defaultProps) == null ? void 0 : f.indicator) == null ? void 0 : d.color) ?? "$primary9",
+    withRoundCaps: ((y = (g = t == null ? void 0 : t.defaultProps) == null ? void 0 : g.indicator) == null ? void 0 : y.withRoundCaps) ?? !1
+  }, a = N(n, e), [o, s] = S(a, ["class", "children", "color", "withRoundCaps"]), l = () => {
     if (r.state.indeterminate)
       return;
-    const x = r.state.percent * 2.64;
-    return `${x} ${264 - x}`;
-  }, c = () => h(n.class, Go, Jd({
+    const b = r.state.percent * 2.64;
+    return `${b} ${264 - b}`;
+  }, c = () => m(o.class, co, su({
     spin: r.state.indeterminate
-  })), d = () => Gd({
+  })), u = () => iu({
     hidden: !r.state.isIndicatorVisible,
     indeterminate: r.state.indeterminate === !0,
     // ensure a boolean is passed so the `true/false` values works correctly
-    withRoundCaps: n.withRoundCaps,
+    withRoundCaps: o.withRoundCaps,
     css: {
-      color: n.color,
+      color: o.color,
       strokeWidth: r.state.thickness,
       strokeDasharray: l()
     }
@@ -6820,23 +6763,23 @@ function ou(e) {
         cy: 50,
         r: 42,
         get class() {
-          return d();
+          return u();
         },
         get __baseStyle() {
-          var x;
-          return (x = t == null ? void 0 : t.baseStyle) == null ? void 0 : x.indicator;
+          var b;
+          return (b = t == null ? void 0 : t.baseStyle) == null ? void 0 : b.indicator;
         }
       });
     }
   }));
 }
-ou.toString = () => v(Go);
-const en = "hope-circular-progress__label";
-function nu(e) {
-  const t = y().CircularProgress, r = Jo(), [o, a] = b(e, ["class", "children"]), n = () => h(o.class, en, eu());
-  return i(P, p({
+uu.toString = () => $(co);
+const uo = "hope-circular-progress__label";
+function gu(e) {
+  const t = w().CircularProgress, r = lo(), [n, a] = S(e, ["class", "children"]), o = () => m(n.class, uo, lu());
+  return i(B, p({
     get class() {
-      return n();
+      return o();
     },
     get __baseStyle() {
       var s;
@@ -6844,26 +6787,26 @@ function nu(e) {
     }
   }, a, {
     get children() {
-      return i(D, {
+      return i(H, {
         get when() {
-          return o.children;
+          return n.children;
         },
         get fallback() {
           return r.state.ariaValueText;
         },
         get children() {
-          return o.children;
+          return n.children;
         }
       });
     }
   }));
 }
-nu.toString = () => v(en);
-var au = ["<path", ' fill="currentColor" d="M2.64 1.27L7.5 6.13l4.84-4.84A.92.92 0 0 1 13 1a1 1 0 0 1 1 1a.9.9 0 0 1-.27.66L8.84 7.5l4.89 4.89A.9.9 0 0 1 14 13a1 1 0 0 1-1 1a.92.92 0 0 1-.69-.27L7.5 8.87l-4.85 4.85A.92.92 0 0 1 2 14a1 1 0 0 1-1-1a.9.9 0 0 1 .27-.66L6.16 7.5L1.27 2.61A.9.9 0 0 1 1 2a1 1 0 0 1 1-1c.24.003.47.1.64.27z"></path>'];
-const su = $e({
+gu.toString = () => $(uo);
+var fu = /* @__PURE__ */ se('<svg><path fill=currentColor d="M2.64 1.27L7.5 6.13l4.84-4.84A.92.92 0 0 1 13 1a1 1 0 0 1 1 1a.9.9 0 0 1-.27.66L8.84 7.5l4.89 4.89A.9.9 0 0 1 14 13a1 1 0 0 1-1 1a.92.92 0 0 1-.69-.27L7.5 8.87l-4.85 4.85A.92.92 0 0 1 2 14a1 1 0 0 1-1-1a.9.9 0 0 1 .27-.66L6.16 7.5L1.27 2.61A.9.9 0 0 1 1 2a1 1 0 0 1 1-1c.24.003.47.1.64.27z"></svg>', !1, !0);
+const hu = Ie({
   viewBox: "0 0 15 15",
-  path: () => re(au, oe())
-}), iu = m({
+  path: () => fu()
+}), pu = C({
   appearance: "none",
   display: "flex",
   alignItems: "center",
@@ -6909,14 +6852,14 @@ const su = $e({
       }
     }
   }
-}), tn = "hope-close-button";
-function Rt(e) {
-  var l, c, d;
-  const t = y().CloseButton, r = {
+}), go = "hope-close-button";
+function Vt(e) {
+  var l, c, u;
+  const t = w().CloseButton, r = {
     "aria-label": ((l = t == null ? void 0 : t.defaultProps) == null ? void 0 : l["aria-label"]) ?? "Close",
-    icon: ((c = t == null ? void 0 : t.defaultProps) == null ? void 0 : c.icon) ?? i(su, {}),
-    size: ((d = t == null ? void 0 : t.defaultProps) == null ? void 0 : d.size) ?? "md"
-  }, o = q(r, e), [a, n] = b(o, ["class", "children", "size", "icon"]), s = () => h(a.class, tn, iu({
+    icon: ((c = t == null ? void 0 : t.defaultProps) == null ? void 0 : c.icon) ?? i(hu, {}),
+    size: ((u = t == null ? void 0 : t.defaultProps) == null ? void 0 : u.size) ?? "md"
+  }, n = N(r, e), [a, o] = S(n, ["class", "children", "size", "icon"]), s = () => m(a.class, go, pu({
     size: a.size
   }));
   return i(A.button, p({
@@ -6927,9 +6870,9 @@ function Rt(e) {
     get __baseStyle() {
       return t == null ? void 0 : t.baseStyle;
     }
-  }, n, {
+  }, o, {
     get children() {
-      return i(D, {
+      return i(H, {
         get when() {
           return a.children;
         },
@@ -6943,8 +6886,8 @@ function Rt(e) {
     }
   }));
 }
-Rt.toString = () => v(tn);
-const lu = m({
+Vt.toString = () => $(go);
+const bu = C({
   width: "100%",
   "@desktop_s": { maxWidth: "$containerDesktopS" },
   "@mobile_s": { maxWidth: "$containerMobileS" },
@@ -6975,20 +6918,20 @@ const lu = m({
       }
     }
   }
-}), rn = "hope-container";
-function cu(e) {
-  const r = q({
+}), fo = "hope-container";
+function mu(e) {
+  const r = N({
     centered: !0,
     centerContent: !1
-  }, e), [o, a, n] = b(r, ["class"], ["centered", "centerContent"]), s = () => h(o.class, rn, lu(a));
-  return i(P, p({
+  }, e), [n, a, o] = S(r, ["class"], ["centered", "centerContent"]), s = () => m(n.class, fo, bu(a));
+  return i(B, p({
     get class() {
       return s();
     }
-  }, n));
+  }, o));
 }
-cu.toString = () => v(rn);
-const du = m({
+mu.toString = () => $(fo);
+const vu = C({
   border: 0,
   borderColor: "currentColor",
   variants: {
@@ -7012,31 +6955,31 @@ const du = m({
       }
     }
   }
-}), on = "hope-divider";
-function uu(e) {
-  const r = q({
+}), ho = "hope-divider";
+function Su(e) {
+  const r = N({
     as: "div",
     variant: "solid",
     orientation: "horizontal",
     color: "$neutral6",
     thickness: "1px"
-  }, e), [o, a] = b(r, ["class", "variant", "orientation", "thickness"]), n = () => h(o.class, on, du({
-    variant: o.variant,
-    orientation: o.orientation,
+  }, e), [n, a] = S(r, ["class", "variant", "orientation", "thickness"]), o = () => m(n.class, ho, vu({
+    variant: n.variant,
+    orientation: n.orientation,
     css: {
-      borderLeftWidth: o.orientation === "vertical" ? o.thickness : 0,
-      borderBottomWidth: o.orientation === "horizontal" ? o.thickness : 0
+      borderLeftWidth: n.orientation === "vertical" ? n.thickness : 0,
+      borderBottomWidth: n.orientation === "horizontal" ? n.thickness : 0
     }
   }));
-  return i(P, p({
+  return i(B, p({
     get class() {
-      return n();
+      return o();
     }
   }, a));
 }
-uu.toString = () => v(on);
-function gu(e) {
-  const t = `hope-modal-${ne()}`, r = y().Modal, [o, a] = te({
+Su.toString = () => $(ho);
+function xu(e) {
+  const t = `hope-modal-${ue()}`, r = w().Modal, [n, a] = ae({
     headerMounted: !1,
     bodyMounted: !1,
     get opened() {
@@ -7055,74 +6998,74 @@ function gu(e) {
       return e.initialFocus;
     },
     get motionPreset() {
-      var C, $;
-      return e.motionPreset ?? (($ = (C = r == null ? void 0 : r.defaultProps) == null ? void 0 : C.root) == null ? void 0 : $.motionPreset) ?? "scale";
+      var h, x;
+      return e.motionPreset ?? ((x = (h = r == null ? void 0 : r.defaultProps) == null ? void 0 : h.root) == null ? void 0 : x.motionPreset) ?? "scale";
     },
     get size() {
-      var C, $;
-      return e.size ?? (($ = (C = r == null ? void 0 : r.defaultProps) == null ? void 0 : C.root) == null ? void 0 : $.size) ?? "md";
+      var h, x;
+      return e.size ?? ((x = (h = r == null ? void 0 : r.defaultProps) == null ? void 0 : h.root) == null ? void 0 : x.size) ?? "md";
     },
     get centered() {
-      var C, $;
-      return e.centered ?? (($ = (C = r == null ? void 0 : r.defaultProps) == null ? void 0 : C.root) == null ? void 0 : $.centered) ?? !1;
+      var h, x;
+      return e.centered ?? ((x = (h = r == null ? void 0 : r.defaultProps) == null ? void 0 : h.root) == null ? void 0 : x.centered) ?? !1;
     },
     get scrollBehavior() {
-      var C, $;
-      return e.scrollBehavior ?? (($ = (C = r == null ? void 0 : r.defaultProps) == null ? void 0 : C.root) == null ? void 0 : $.scrollBehavior) ?? "outside";
+      var h, x;
+      return e.scrollBehavior ?? ((x = (h = r == null ? void 0 : r.defaultProps) == null ? void 0 : h.root) == null ? void 0 : x.scrollBehavior) ?? "outside";
     },
     get closeOnOverlayClick() {
-      var C, $;
-      return e.closeOnOverlayClick ?? (($ = (C = r == null ? void 0 : r.defaultProps) == null ? void 0 : C.root) == null ? void 0 : $.closeOnOverlayClick) ?? !0;
+      var h, x;
+      return e.closeOnOverlayClick ?? ((x = (h = r == null ? void 0 : r.defaultProps) == null ? void 0 : h.root) == null ? void 0 : x.closeOnOverlayClick) ?? !0;
     },
     get closeOnEsc() {
-      var C, $;
-      return e.closeOnEsc ?? (($ = (C = r == null ? void 0 : r.defaultProps) == null ? void 0 : C.root) == null ? void 0 : $.closeOnEsc) ?? !0;
+      var h, x;
+      return e.closeOnEsc ?? ((x = (h = r == null ? void 0 : r.defaultProps) == null ? void 0 : h.root) == null ? void 0 : x.closeOnEsc) ?? !0;
     },
     get trapFocus() {
-      var C, $;
-      return e.trapFocus ?? (($ = (C = r == null ? void 0 : r.defaultProps) == null ? void 0 : C.root) == null ? void 0 : $.trapFocus) ?? !0;
+      var h, x;
+      return e.trapFocus ?? ((x = (h = r == null ? void 0 : r.defaultProps) == null ? void 0 : h.root) == null ? void 0 : x.trapFocus) ?? !0;
     },
     get blockScrollOnMount() {
-      var C, $;
-      return e.blockScrollOnMount ?? (($ = (C = r == null ? void 0 : r.defaultProps) == null ? void 0 : C.root) == null ? void 0 : $.blockScrollOnMount) ?? !0;
+      var h, x;
+      return e.blockScrollOnMount ?? ((x = (h = r == null ? void 0 : r.defaultProps) == null ? void 0 : h.root) == null ? void 0 : x.blockScrollOnMount) ?? !0;
     },
     get preserveScrollBarGap() {
-      var C, $;
-      return e.preserveScrollBarGap ?? (($ = (C = r == null ? void 0 : r.defaultProps) == null ? void 0 : C.root) == null ? void 0 : $.preserveScrollBarGap) ?? !1;
+      var h, x;
+      return e.preserveScrollBarGap ?? ((x = (h = r == null ? void 0 : r.defaultProps) == null ? void 0 : h.root) == null ? void 0 : x.preserveScrollBarGap) ?? !1;
     }
-  }), [n, s] = Z(!1);
-  pe(() => {
-    o.opened ? s(!0) : o.motionPreset === "none" && s(!1);
+  }), [o, s] = re(!1);
+  me(() => {
+    n.opened ? s(!0) : n.motionPreset === "none" && s(!1);
   });
-  const l = () => s(!1), c = () => e.onClose(), d = (C) => a("headerMounted", C), f = (C) => a("bodyMounted", C);
-  let u = null;
-  const z = {
-    state: o,
+  const l = () => s(!1), c = () => e.onClose(), u = (h) => a("headerMounted", h), f = (h) => a("bodyMounted", h);
+  let d = null;
+  const P = {
+    state: n,
     unmountPortal: l,
     onClose: c,
-    onMouseDown: (C) => {
-      u = C.target;
+    onMouseDown: (h) => {
+      d = h.target;
     },
-    onKeyDown: (C) => {
-      var $;
-      C.key === "Escape" && (C.stopPropagation(), o.closeOnEsc && c(), ($ = e.onEsc) == null || $.call(e));
+    onKeyDown: (h) => {
+      var x;
+      h.key === "Escape" && (h.stopPropagation(), n.closeOnEsc && c(), (x = e.onEsc) == null || x.call(e));
     },
-    onOverlayClick: (C) => {
-      var $;
-      C.stopPropagation(), u === C.target && (o.closeOnOverlayClick && c(), ($ = e.onOverlayClick) == null || $.call(e));
+    onOverlayClick: (h) => {
+      var x;
+      h.stopPropagation(), d === h.target && (n.closeOnOverlayClick && c(), (x = e.onOverlayClick) == null || x.call(e));
     },
-    setHeaderMounted: d,
+    setHeaderMounted: u,
     setBodyMounted: f
   };
-  return i(D, {
+  return i(H, {
     get when() {
-      return n();
+      return o();
     },
     get children() {
-      return i(nn.Provider, {
-        value: z,
+      return i(po.Provider, {
+        value: P,
         get children() {
-          return i(tt, {
+          return i(gt, {
             get children() {
               return e.children;
             }
@@ -7132,21 +7075,21 @@ function gu(e) {
     }
   });
 }
-const nn = J();
-function Oe() {
-  const e = Q(nn);
+const po = te();
+function Fe() {
+  const e = Z(po);
   if (!e)
     throw new Error("[Hope UI]: useModalContext must be used within a `<Modal />` component");
   return e;
 }
-const an = "hope-modal__body";
-function sn(e) {
-  const t = y().Modal, r = Oe(), [o, a] = b(e, ["class"]), n = () => h(o.class, an, ji({
+const bo = "hope-modal__body";
+function mo(e) {
+  const t = w().Modal, r = Fe(), [n, a] = S(e, ["class"]), o = () => m(n.class, bo, Gi({
     scrollBehavior: r.state.scrollBehavior
   }));
-  return ae(() => r.setBodyMounted(!0)), ge(() => r.setBodyMounted(!1)), i(P, p({
+  return ge(() => r.setBodyMounted(!0)), fe(() => r.setBodyMounted(!1)), i(B, p({
     get class() {
-      return n();
+      return o();
     },
     get id() {
       return r.state.bodyId;
@@ -7157,51 +7100,51 @@ function sn(e) {
     }
   }, a));
 }
-sn.toString = () => v(an);
-const ln = "hope-modal__close-button";
-function cn(e) {
-  var d, f, u, g, S, x;
-  const t = y().Modal, r = Oe(), o = {
-    "aria-label": ((f = (d = t == null ? void 0 : t.defaultProps) == null ? void 0 : d.closeButton) == null ? void 0 : f["aria-label"]) ?? "Close modal",
-    size: ((g = (u = t == null ? void 0 : t.defaultProps) == null ? void 0 : u.closeButton) == null ? void 0 : g.size) ?? "md",
-    icon: (x = (S = t == null ? void 0 : t.defaultProps) == null ? void 0 : S.closeButton) == null ? void 0 : x.icon
-  }, a = q(o, e), [n, s] = b(a, ["class", "onClick"]), l = () => h(n.class, ln, Xi());
-  return i(Rt, p({
+mo.toString = () => $(bo);
+const vo = "hope-modal__close-button";
+function So(e) {
+  var u, f, d, g, y, b;
+  const t = w().Modal, r = Fe(), n = {
+    "aria-label": ((f = (u = t == null ? void 0 : t.defaultProps) == null ? void 0 : u.closeButton) == null ? void 0 : f["aria-label"]) ?? "Close modal",
+    size: ((g = (d = t == null ? void 0 : t.defaultProps) == null ? void 0 : d.closeButton) == null ? void 0 : g.size) ?? "md",
+    icon: (b = (y = t == null ? void 0 : t.defaultProps) == null ? void 0 : y.closeButton) == null ? void 0 : b.icon
+  }, a = N(n, e), [o, s] = S(a, ["class", "onClick"]), l = () => m(o.class, vo, tl());
+  return i(Vt, p({
     get class() {
       return l();
     },
     get __baseStyle() {
-      var z;
-      return (z = t == null ? void 0 : t.baseStyle) == null ? void 0 : z.closeButton;
+      var P;
+      return (P = t == null ? void 0 : t.baseStyle) == null ? void 0 : P.closeButton;
     },
-    onClick: (z) => {
-      fe(n.onClick, (C) => {
-        C.stopPropagation(), r.onClose();
-      })(z);
+    onClick: (P) => {
+      he(o.onClick, (h) => {
+        h.stopPropagation(), r.onClose();
+      })(P);
     }
   }, s));
 }
-cn.toString = () => v(ln);
-const dn = "hope-modal__footer";
-function un(e) {
-  const t = y().Modal, [r, o] = b(e, ["class"]), a = () => h(r.class, dn, Ki());
-  return i(P, p({
+So.toString = () => $(vo);
+const xo = "hope-modal__footer";
+function Co(e) {
+  const t = w().Modal, [r, n] = S(e, ["class"]), a = () => m(r.class, xo, el());
+  return i(B, p({
     get class() {
       return a();
     },
     get __baseStyle() {
-      var n;
-      return (n = t == null ? void 0 : t.baseStyle) == null ? void 0 : n.footer;
+      var o;
+      return (o = t == null ? void 0 : t.baseStyle) == null ? void 0 : o.footer;
     }
-  }, o));
+  }, n));
 }
-un.toString = () => v(dn);
-const gn = "hope-modal__header";
-function fn(e) {
-  const t = y().Modal, r = Oe(), [o, a] = b(e, ["class"]), n = () => h(o.class, gn, qi());
-  return ae(() => r.setHeaderMounted(!0)), ge(() => r.setHeaderMounted(!1)), i(P, p({
+Co.toString = () => $(xo);
+const yo = "hope-modal__header";
+function $o(e) {
+  const t = w().Modal, r = Fe(), [n, a] = S(e, ["class"]), o = () => m(n.class, yo, Ji());
+  return ge(() => r.setHeaderMounted(!0)), fe(() => r.setHeaderMounted(!1)), i(B, p({
     get class() {
-      return n();
+      return o();
     },
     get id() {
       return r.state.headerId;
@@ -7212,51 +7155,51 @@ function fn(e) {
     }
   }, a));
 }
-fn.toString = () => v(gn);
-const pn = J();
-function Tp(e) {
-  const t = y().Drawer, [, r] = b(e, ["opened", "onClose", "placement", "size", "fullHeight", "disableMotion"]), [o] = te({
+$o.toString = () => $(yo);
+const wo = te();
+function Ah(e) {
+  const t = w().Drawer, [, r] = S(e, ["opened", "onClose", "placement", "size", "fullHeight", "disableMotion"]), [n] = ae({
     get placement() {
-      var a, n;
-      return e.placement ?? ((n = (a = t == null ? void 0 : t.defaultProps) == null ? void 0 : a.root) == null ? void 0 : n.placement) ?? "right";
+      var a, o;
+      return e.placement ?? ((o = (a = t == null ? void 0 : t.defaultProps) == null ? void 0 : a.root) == null ? void 0 : o.placement) ?? "right";
     },
     get size() {
-      var a, n;
-      return e.size ?? ((n = (a = t == null ? void 0 : t.defaultProps) == null ? void 0 : a.root) == null ? void 0 : n.size) ?? "xs";
+      var a, o;
+      return e.size ?? ((o = (a = t == null ? void 0 : t.defaultProps) == null ? void 0 : a.root) == null ? void 0 : o.size) ?? "xs";
     },
     get fullHeight() {
-      var a, n;
-      return e.fullHeight ?? ((n = (a = t == null ? void 0 : t.defaultProps) == null ? void 0 : a.root) == null ? void 0 : n.fullHeight) ?? !1;
+      var a, o;
+      return e.fullHeight ?? ((o = (a = t == null ? void 0 : t.defaultProps) == null ? void 0 : a.root) == null ? void 0 : o.fullHeight) ?? !1;
     },
     get disableMotion() {
-      var a, n;
-      return e.disableMotion ?? ((n = (a = t == null ? void 0 : t.defaultProps) == null ? void 0 : a.root) == null ? void 0 : n.disableMotion) ?? !1;
+      var a, o;
+      return e.disableMotion ?? ((o = (a = t == null ? void 0 : t.defaultProps) == null ? void 0 : a.root) == null ? void 0 : o.disableMotion) ?? !1;
     }
   });
-  return i(pn.Provider, {
-    value: o,
+  return i(wo.Provider, {
+    value: n,
     get children() {
-      return i(gu, p({
+      return i(xu, p({
         scrollBehavior: "inside",
         get blockScrollOnMount() {
-          var a, n;
-          return (n = (a = t == null ? void 0 : t.defaultProps) == null ? void 0 : a.root) == null ? void 0 : n.blockScrollOnMount;
+          var a, o;
+          return (o = (a = t == null ? void 0 : t.defaultProps) == null ? void 0 : a.root) == null ? void 0 : o.blockScrollOnMount;
         },
         get closeOnEsc() {
-          var a, n;
-          return (n = (a = t == null ? void 0 : t.defaultProps) == null ? void 0 : a.root) == null ? void 0 : n.closeOnEsc;
+          var a, o;
+          return (o = (a = t == null ? void 0 : t.defaultProps) == null ? void 0 : a.root) == null ? void 0 : o.closeOnEsc;
         },
         get closeOnOverlayClick() {
-          var a, n;
-          return (n = (a = t == null ? void 0 : t.defaultProps) == null ? void 0 : a.root) == null ? void 0 : n.closeOnOverlayClick;
+          var a, o;
+          return (o = (a = t == null ? void 0 : t.defaultProps) == null ? void 0 : a.root) == null ? void 0 : o.closeOnOverlayClick;
         },
         get preserveScrollBarGap() {
-          var a, n;
-          return (n = (a = t == null ? void 0 : t.defaultProps) == null ? void 0 : a.root) == null ? void 0 : n.preserveScrollBarGap;
+          var a, o;
+          return (o = (a = t == null ? void 0 : t.defaultProps) == null ? void 0 : a.root) == null ? void 0 : o.preserveScrollBarGap;
         },
         get trapFocus() {
-          var a, n;
-          return (n = (a = t == null ? void 0 : t.defaultProps) == null ? void 0 : a.root) == null ? void 0 : n.trapFocus;
+          var a, o;
+          return (o = (a = t == null ? void 0 : t.defaultProps) == null ? void 0 : a.root) == null ? void 0 : o.trapFocus;
         },
         get opened() {
           return e.opened;
@@ -7268,125 +7211,127 @@ function Tp(e) {
     }
   });
 }
-function hn() {
-  const e = Q(pn);
+function Io() {
+  const e = Z(wo);
   if (!e)
     throw new Error("[Hope UI]: useDrawerContext must be used within a `<Drawer />` component");
   return e;
 }
-function zp(e) {
-  var a, n, s, l, c, d;
-  const t = y().Drawer, r = {
-    "aria-label": ((n = (a = t == null ? void 0 : t.defaultProps) == null ? void 0 : a.closeButton) == null ? void 0 : n["aria-label"]) ?? "Close drawer",
+function Oh(e) {
+  var a, o, s, l, c, u;
+  const t = w().Drawer, r = {
+    "aria-label": ((o = (a = t == null ? void 0 : t.defaultProps) == null ? void 0 : a.closeButton) == null ? void 0 : o["aria-label"]) ?? "Close drawer",
     size: ((l = (s = t == null ? void 0 : t.defaultProps) == null ? void 0 : s.closeButton) == null ? void 0 : l.size) ?? "md",
-    icon: (d = (c = t == null ? void 0 : t.defaultProps) == null ? void 0 : c.closeButton) == null ? void 0 : d.icon
-  }, o = q(r, e);
-  return i(cn, p({
+    icon: (u = (c = t == null ? void 0 : t.defaultProps) == null ? void 0 : c.closeButton) == null ? void 0 : u.icon
+  }, n = N(r, e);
+  return i(So, p({
     get __baseStyle() {
       var f;
       return (f = t == null ? void 0 : t.baseStyle) == null ? void 0 : f.closeButton;
     }
-  }, o));
+  }, n));
 }
-function Bp(e) {
-  const t = y().Drawer;
-  return i(sn, p({
+function Mh(e) {
+  const t = w().Drawer;
+  return i(mo, p({
     get __baseStyle() {
       var r;
       return (r = t == null ? void 0 : t.baseStyle) == null ? void 0 : r.body;
     }
   }, e));
 }
-function Lp(e) {
-  const t = y().Drawer;
-  return i(fn, p({
+function Rh(e) {
+  const t = w().Drawer;
+  return i($o, p({
     get __baseStyle() {
       var r;
       return (r = t == null ? void 0 : t.baseStyle) == null ? void 0 : r.header;
     }
   }, e));
 }
-function Dp(e) {
-  const t = y().Drawer;
-  return i(un, p({
+function Wh(e) {
+  const t = w().Drawer;
+  return i(Co, p({
     get __baseStyle() {
       var r;
       return (r = t == null ? void 0 : t.baseStyle) == null ? void 0 : r.footer;
     }
   }, e));
 }
-function bn(e) {
-  const t = Oe();
-  let r, o;
-  const a = (u) => {
-    r = u;
-  }, n = () => t.state.headerMounted ? t.state.headerId : void 0, s = () => t.state.bodyMounted ? t.state.bodyId : void 0, l = (u) => {
-    fe(e.onClick, (g) => g.stopPropagation())(u);
-  }, c = () => `[id='${t.state.dialogId}']`, d = () => {
-    r && (t.state.trapFocus && (o = Hr(r, {
+function ko(e) {
+  const t = Fe();
+  let r, n;
+  const a = (d) => {
+    r = d;
+  }, o = () => t.state.headerMounted ? t.state.headerId : void 0, s = () => t.state.bodyMounted ? t.state.bodyId : void 0, l = (d) => {
+    he(e.onClick, (g) => g.stopPropagation())(d);
+  }, c = () => `[id='${t.state.dialogId}']`, u = () => {
+    r && (t.state.trapFocus && (n = Fr(r, {
       initialFocus: t.state.initialFocus,
       fallbackFocus: c(),
       allowOutsideClick: !0
-    }), o.activate()), t.state.blockScrollOnMount);
+    }), n.activate()), t.state.blockScrollOnMount);
   }, f = () => {
-    o == null || o.deactivate();
+    n == null || n.deactivate();
   };
-  return ae(() => {
-    d();
-  }), ge(() => {
+  return ge(() => {
+    u();
+  }), fe(() => {
     f();
   }), {
     assignContainerRef: a,
-    ariaLabelledBy: n,
+    ariaLabelledBy: o,
     ariaDescribedBy: s,
     onDialogClick: l
   };
 }
-const fu = "hope-modal__content-container", mn = "hope-modal__content";
-function pu(e) {
-  const t = y().Modal, r = Oe(), [o, a] = b(e, ["ref", "class", "role", "aria-labelledby", "aria-describedby", "onClick"]), {
-    ariaLabelledBy: n,
-    ariaDescribedBy: s,
-    onDialogClick: l
-  } = bn(o), c = () => {
-    const u = Ni({
+const Cu = "hope-modal__content-container", _o = "hope-modal__content";
+function yu(e) {
+  const t = w().Modal, r = Fe(), [n, a] = S(e, ["ref", "class", "role", "aria-labelledby", "aria-describedby", "onClick"]), {
+    assignContainerRef: o,
+    ariaLabelledBy: s,
+    ariaDescribedBy: l,
+    onDialogClick: c
+  } = ko(n), u = () => {
+    const g = Yi({
       centered: r.state.centered,
       scrollBehavior: r.state.scrollBehavior
     });
-    return h(fu, u);
-  }, d = () => {
-    const u = Vi({
+    return m(Cu, g);
+  }, f = () => {
+    const g = Zi({
       size: r.state.size,
       scrollBehavior: r.state.scrollBehavior
     });
-    return h(o.class, mn, u);
-  }, f = () => {
+    return m(n.class, _o, g);
+  }, d = () => {
     switch (r.state.motionPreset) {
       case "fade-in-bottom":
-        return ce.fadeInBottom;
+        return le.fadeInBottom;
       case "scale":
-        return ce.scale;
+        return le.scale;
       case "none":
         return "hope-none";
     }
   };
-  return i(De, {
+  return i(Ee, {
     get name() {
-      return f();
+      return d();
     },
     appear: !0,
     get onAfterExit() {
       return r.unmountPortal;
     },
     get children() {
-      return i(D, {
+      return i(H, {
         get when() {
           return r.state.opened;
         },
         get children() {
-          return i(P, {
+          return i(B, {
+            ref: o,
             get class() {
-              return c();
+              return u();
             },
             tabIndex: -1,
             get onMouseDown() {
@@ -7401,27 +7346,27 @@ function pu(e) {
             get children() {
               return i(A.section, p({
                 get class() {
-                  return d();
+                  return f();
                 },
                 get __baseStyle() {
-                  var u;
-                  return (u = t == null ? void 0 : t.baseStyle) == null ? void 0 : u.content;
+                  var g;
+                  return (g = t == null ? void 0 : t.baseStyle) == null ? void 0 : g.content;
                 },
                 get id() {
                   return r.state.dialogId;
                 },
                 get role() {
-                  return o.role ?? "dialog";
+                  return n.role ?? "dialog";
                 },
                 tabIndex: -1,
                 "aria-modal": !0,
                 get "aria-labelledby"() {
-                  return n();
-                },
-                get "aria-describedby"() {
                   return s();
                 },
-                onClick: l
+                get "aria-describedby"() {
+                  return l();
+                },
+                onClick: c
               }, a));
             }
           });
@@ -7430,24 +7375,24 @@ function pu(e) {
     }
   });
 }
-pu.toString = () => v(mn);
-const vn = "hope-modal__overlay";
-function hu(e) {
-  const t = y().Modal, r = Oe(), [o, a] = b(e, ["class"]), n = () => h(o.class, vn, Fr()), s = () => r.state.motionPreset === "none" ? "hope-none" : ce.fade;
-  return i(De, {
+yu.toString = () => $(_o);
+const Po = "hope-modal__overlay";
+function $u(e) {
+  const t = w().Modal, r = Fe(), [n, a] = S(e, ["class"]), o = () => m(n.class, Po, Zr()), s = () => r.state.motionPreset === "none" ? "hope-none" : le.fade;
+  return i(Ee, {
     get name() {
       return s();
     },
     appear: !0,
     get children() {
-      return i(D, {
+      return i(H, {
         get when() {
           return r.state.opened;
         },
         get children() {
-          return i(P, p({
+          return i(B, p({
             get class() {
-              return n();
+              return o();
             },
             get __baseStyle() {
               var l;
@@ -7459,75 +7404,77 @@ function hu(e) {
     }
   });
 }
-hu.toString = () => v(vn);
-const bu = "hope-drawer__content-container", Sn = "hope-drawer__content";
-function mu(e) {
-  const t = y().Drawer, r = hn(), o = Oe(), [a, n] = b(e, ["ref", "class", "role", "aria-labelledby", "aria-describedby", "onClick"]), {
-    ariaLabelledBy: s,
-    ariaDescribedBy: l,
-    onDialogClick: c
-  } = bn(a), d = () => h(bu, Qi({
+$u.toString = () => $(Po);
+const wu = "hope-drawer__content-container", To = "hope-drawer__content";
+function Iu(e) {
+  const t = w().Drawer, r = Io(), n = Fe(), [a, o] = S(e, ["ref", "class", "role", "aria-labelledby", "aria-describedby", "onClick"]), {
+    assignContainerRef: s,
+    ariaLabelledBy: l,
+    ariaDescribedBy: c,
+    onDialogClick: u
+  } = ko(a), f = () => m(wu, nl({
     placement: r.placement
-  })), f = () => {
-    const g = Yi({
+  })), d = () => {
+    const y = ol({
       size: r.size,
       placement: r.placement,
       fullHeight: r.fullHeight
     });
-    return h(a.class, Sn, g);
-  }, u = () => {
+    return m(a.class, To, y);
+  }, g = () => {
     if (r.disableMotion)
       return "hope-none";
     switch (r.placement) {
       case "top":
-        return j.slideInTop;
+        return q.slideInTop;
       case "right":
-        return j.slideInRight;
+        return q.slideInRight;
       case "bottom":
-        return j.slideInBottom;
+        return q.slideInBottom;
       case "left":
-        return j.slideInLeft;
+        return q.slideInLeft;
     }
   };
-  return i(De, {
+  return i(Ee, {
     get name() {
-      return u();
+      return g();
     },
     appear: !0,
     get onAfterExit() {
-      return o.unmountPortal;
+      return n.unmountPortal;
     },
     get children() {
-      return i(D, {
+      return i(H, {
         get when() {
-          return o.state.opened;
+          return n.state.opened;
         },
         get children() {
-          return i(P, {
+          return i(B, {
+            ref: s,
             get class() {
-              return d();
+              return f();
             },
             tabIndex: -1,
             get onMouseDown() {
-              return o.onMouseDown;
+              return n.onMouseDown;
             },
             get onKeyDown() {
-              return o.onKeyDown;
+              return n.onKeyDown;
             },
             get onClick() {
-              return o.onOverlayClick;
+              return n.onOverlayClick;
             },
             get children() {
               return i(A.section, p({
                 get class() {
-                  return f();
+                  return d();
                 },
                 get __baseStyle() {
-                  var g;
-                  return (g = t == null ? void 0 : t.baseStyle) == null ? void 0 : g.content;
+                  var y;
+                  return (y = t == null ? void 0 : t.baseStyle) == null ? void 0 : y.content;
                 },
                 get id() {
-                  return o.state.dialogId;
+                  return n.state.dialogId;
                 },
                 get role() {
                   return a.role ?? "dialog";
@@ -7535,13 +7482,13 @@ function mu(e) {
                 tabIndex: -1,
                 "aria-modal": !0,
                 get "aria-labelledby"() {
-                  return s();
-                },
-                get "aria-describedby"() {
                   return l();
                 },
-                onClick: c
-              }, n));
+                get "aria-describedby"() {
+                  return c();
+                },
+                onClick: u
+              }, o));
             }
           });
         }
@@ -7549,22 +7496,22 @@ function mu(e) {
     }
   });
 }
-mu.toString = () => v(Sn);
-const xn = "hope-drawer__overlay";
-function vu(e) {
-  const t = y().Drawer, r = hn(), o = Oe(), [a, n] = b(e, ["class"]), s = () => h(a.class, xn, Fr()), l = () => r.disableMotion ? "hope-none" : j.fade;
-  return i(De, {
+Iu.toString = () => $(To);
+const zo = "hope-drawer__overlay";
+function ku(e) {
+  const t = w().Drawer, r = Io(), n = Fe(), [a, o] = S(e, ["class"]), s = () => m(a.class, zo, Zr()), l = () => r.disableMotion ? "hope-none" : q.fade;
+  return i(Ee, {
     get name() {
       return l();
     },
     appear: !0,
     get children() {
-      return i(D, {
+      return i(H, {
         get when() {
-          return o.state.opened;
+          return n.state.opened;
         },
         get children() {
-          return i(P, p({
+          return i(B, p({
             get class() {
               return s();
             },
@@ -7572,19 +7519,19 @@ function vu(e) {
               var c;
               return (c = t == null ? void 0 : t.baseStyle) == null ? void 0 : c.overlay;
             }
-          }, n));
+          }, o));
         }
       });
     }
   });
 }
-vu.toString = () => v(xn);
-const Cn = "hope-flex";
-function yn(e) {
-  const [t, r] = b(e, ["class", "direction", "wrap"]), o = () => h(t.class, Cn);
-  return i(P, p({
+ku.toString = () => $(zo);
+const Bo = "hope-flex";
+function Lo(e) {
+  const [t, r] = S(e, ["class", "direction", "wrap"]), n = () => m(t.class, Bo);
+  return i(B, p({
     get class() {
-      return o();
+      return n();
     },
     display: "flex",
     get flexDirection() {
@@ -7595,19 +7542,19 @@ function yn(e) {
     }
   }, r));
 }
-yn.toString = () => v(Cn);
-const $n = "hope-form-error-message";
-function Su(e) {
-  const t = y().FormControl, r = dt(), [o, a] = b(e, ["ref", "id", "class"]), n = () => o.id ?? (r == null ? void 0 : r.state.errorMessageId), s = () => h(o.class, $n, Ed());
-  return ae(() => r == null ? void 0 : r.setHasErrorMessage(!0)), ge(() => r == null ? void 0 : r.setHasErrorMessage(!1)), i(D, {
+Lo.toString = () => $(Bo);
+const Ho = "hope-form-error-message";
+function _u(e) {
+  const t = w().FormControl, r = ht(), [n, a] = S(e, ["ref", "id", "class"]), o = () => n.id ?? (r == null ? void 0 : r.state.errorMessageId), s = () => m(n.class, Ho, qd());
+  return ge(() => r == null ? void 0 : r.setHasErrorMessage(!0)), fe(() => r == null ? void 0 : r.setHasErrorMessage(!1)), i(H, {
     get when() {
       return r == null ? void 0 : r.state.invalid;
     },
     get children() {
-      return i(P, p({
+      return i(B, p({
         "aria-live": "polite",
         get id() {
-          return n();
+          return o();
         },
         get class() {
           return s();
@@ -7626,13 +7573,13 @@ function Su(e) {
     }
   });
 }
-Su.toString = () => v($n);
-const wn = "hope-form-helper-text";
-function xu(e) {
-  const t = y().FormControl, r = dt(), [o, a] = b(e, ["ref", "id", "class"]), n = () => o.id ?? (r == null ? void 0 : r.state.helperTextId), s = () => h(o.class, wn, Ad());
-  return ae(() => r == null ? void 0 : r.setHasHelperText(!0)), ge(() => r == null ? void 0 : r.setHasHelperText(!1)), i(P, p({
+_u.toString = () => $(Ho);
+const Do = "hope-form-helper-text";
+function Pu(e) {
+  const t = w().FormControl, r = ht(), [n, a] = S(e, ["ref", "id", "class"]), o = () => n.id ?? (r == null ? void 0 : r.state.helperTextId), s = () => m(n.class, Do, Vd());
+  return ge(() => r == null ? void 0 : r.setHasHelperText(!0)), fe(() => r == null ? void 0 : r.setHasHelperText(!1)), i(B, p({
     get id() {
-      return n();
+      return o();
     },
     get class() {
       return s();
@@ -7649,14 +7596,14 @@ function xu(e) {
     }
   }, a));
 }
-xu.toString = () => v(wn);
-var Cu = ["<span", ' role="presentation" aria-hidden="true">*</span>'];
-const _n = "hope-form-label";
-function yu(e) {
-  var f, u;
-  const t = y().FormControl, r = dt(), o = {
-    withRequiredIndicator: ((u = (f = t == null ? void 0 : t.defaultProps) == null ? void 0 : f.label) == null ? void 0 : u.withRequiredIndicator) ?? !0
-  }, a = q(o, e), [n, s] = b(a, ["id", "for", "class", "children", "withRequiredIndicator"]), l = () => n.id ?? (r == null ? void 0 : r.state.labelId), c = () => n.for ?? (r == null ? void 0 : r.state.id), d = () => h(n.class, _n, Dd());
+Pu.toString = () => $(Do);
+var Tu = /* @__PURE__ */ se("<span role=presentation aria-hidden=true>*");
+const Eo = "hope-form-label";
+function zu(e) {
+  var f, d;
+  const t = w().FormControl, r = ht(), n = {
+    withRequiredIndicator: ((d = (f = t == null ? void 0 : t.defaultProps) == null ? void 0 : f.label) == null ? void 0 : d.withRequiredIndicator) ?? !0
+  }, a = N(n, e), [o, s] = S(a, ["id", "for", "class", "children", "withRequiredIndicator"]), l = () => o.id ?? (r == null ? void 0 : r.state.labelId), c = () => o.for ?? (r == null ? void 0 : r.state.id), u = () => m(o.class, Eo, Fd());
   return i(A.label, p({
     get id() {
       return l();
@@ -7665,7 +7612,7 @@ function yu(e) {
       return c();
     },
     get class() {
-      return d();
+      return u();
     },
     get __baseStyle() {
       var g;
@@ -7685,24 +7632,25 @@ function yu(e) {
     }
   }, s, {
     get children() {
-      return [n.children, i(D, {
+      return [nt(() => o.children), i(H, {
         get when() {
-          return (r == null ? void 0 : r.state.required) && n.withRequiredIndicator;
+          return (r == null ? void 0 : r.state.required) && o.withRequiredIndicator;
         },
         get children() {
-          return re(Cu, oe() + R("class", V(Hd(), !0), !1));
+          var g = Tu();
+          return _e(() => xt(g, Nd())), g;
         }
       })];
     }
   }));
 }
-yu.toString = () => v(_n);
-const In = "hope-grid";
-function kn(e) {
-  const [t, r] = b(e, ["class", "autoFlow", "autoColumns", "autoRows", "templateAreas", "templateColumns", "templateRows"]), o = () => h(t.class, In);
-  return i(P, p({
+zu.toString = () => $(Eo);
+const Ao = "hope-grid";
+function Oo(e) {
+  const [t, r] = S(e, ["class", "autoFlow", "autoColumns", "autoRows", "templateAreas", "templateColumns", "templateRows"]), n = () => m(t.class, Ao);
+  return i(B, p({
     get class() {
-      return o();
+      return n();
     },
     display: "grid",
     get gridAutoFlow() {
@@ -7725,10 +7673,10 @@ function kn(e) {
     }
   }, r));
 }
-kn.toString = () => v(In);
-function Ir(e) {
+Oo.toString = () => $(Ao);
+function Br(e) {
   if (e != null)
-    return Ws(e, (t) => {
+    return Us(e, (t) => {
       switch (t) {
         case "auto":
           return "auto";
@@ -7739,21 +7687,21 @@ function Ir(e) {
       }
     });
 }
-const Pn = "hope-grid-item";
-function $u(e) {
-  const [t, r] = b(e, ["class", "area", "colSpan", "colStart", "colEnd", "rowSpan", "rowStart", "rowEnd"]), o = () => h(t.class, Pn);
-  return i(P, p({
+const Mo = "hope-grid-item";
+function Bu(e) {
+  const [t, r] = S(e, ["class", "area", "colSpan", "colStart", "colEnd", "rowSpan", "rowStart", "rowEnd"]), n = () => m(t.class, Mo);
+  return i(B, p({
     get class() {
-      return o();
+      return n();
     },
     get gridArea() {
       return t.area;
     },
     get gridColumn() {
-      return Ir(t.colSpan);
+      return Br(t.colSpan);
     },
     get gridRow() {
-      return Ir(t.rowSpan);
+      return Br(t.rowSpan);
     },
     get gridColumnStart() {
       return t.colStart;
@@ -7769,30 +7717,30 @@ function $u(e) {
     }
   }, r));
 }
-$u.toString = () => v(Pn);
-const Tn = "hope-simple-grid";
-function wu(e) {
-  return Os(e) ? `${e}px` : e;
+Bu.toString = () => $(Mo);
+const Ro = "hope-simple-grid";
+function Lu(e) {
+  return Ks(e) ? `${e}px` : e;
 }
-function _u(e) {
-  return ar(e, (t) => Er(t) ? null : `repeat(auto-fit, minmax(${wu(t)}, 1fr))`);
+function Hu(e) {
+  return ir(e, (t) => Kr(t) ? null : `repeat(auto-fit, minmax(${Lu(t)}, 1fr))`);
 }
-function Iu(e) {
-  return ar(e, (t) => Er(t) ? null : `repeat(${t}, minmax(0, 1fr))`);
+function Du(e) {
+  return ir(e, (t) => Kr(t) ? null : `repeat(${t}, minmax(0, 1fr))`);
 }
-function ku(e) {
-  const [t, r] = b(e, ["class", "minChildWidth", "columns"]), o = () => h(t.class, Tn), a = () => t.minChildWidth ? _u(t.minChildWidth) : Iu(t.columns);
-  return i(kn, p({
+function Eu(e) {
+  const [t, r] = S(e, ["class", "minChildWidth", "columns"]), n = () => m(t.class, Ro), a = () => t.minChildWidth ? Hu(t.minChildWidth) : Du(t.columns);
+  return i(Oo, p({
     get class() {
-      return o();
+      return n();
     },
     get templateColumns() {
       return a();
     }
   }, r));
 }
-ku.toString = () => v(Tn);
-const zn = m({
+Eu.toString = () => $(Ro);
+const Wo = C({
   variants: {
     size: {
       xs: {
@@ -7849,19 +7797,19 @@ const zn = m({
       }
     }
   }
-}), Pu = m(zn, {
+}), Au = C(Wo, {
   fontWeight: "$semibold"
-}), Bn = "hope-heading";
-function Tu(e) {
-  var c, d;
-  const t = y().Heading, r = {
+}), Fo = "hope-heading";
+function Ou(e) {
+  var c, u;
+  const t = w().Heading, r = {
     as: "h2",
     level: (c = t == null ? void 0 : t.defaultProps) == null ? void 0 : c.level,
-    size: (d = t == null ? void 0 : t.defaultProps) == null ? void 0 : d.size
-  }, o = q(r, e), [a, n] = b(o, ["class", "as", "level", "size"]), s = () => h(a.class, Bn, Pu({
+    size: (u = t == null ? void 0 : t.defaultProps) == null ? void 0 : u.size
+  }, n = N(r, e), [a, o] = S(n, ["class", "as", "level", "size"]), s = () => m(a.class, Fo, Au({
     size: a.size
   })), l = () => a.level ? `h${a.level}` : a.as;
-  return i(P, p({
+  return i(B, p({
     get as() {
       return l();
     },
@@ -7871,29 +7819,29 @@ function Tu(e) {
     get __baseStyle() {
       return t == null ? void 0 : t.baseStyle;
     }
-  }, n));
+  }, o));
 }
-Tu.toString = () => v(Bn);
-function zu(e) {
-  const t = y().IconButton, r = xo(), [o, a] = b(e, ["class", "className", "children", "icon", "variant", "colorScheme", "size", "disabled"]), n = () => {
+Ou.toString = () => $(Fo);
+function Mu(e) {
+  const t = w().IconButton, r = zn(), [n, a] = S(e, ["class", "className", "children", "icon", "variant", "colorScheme", "size", "disabled"]), o = () => {
     var f;
-    return o.variant ?? (r == null ? void 0 : r.state.variant) ?? ((f = t == null ? void 0 : t.defaultProps) == null ? void 0 : f.variant) ?? "solid";
+    return n.variant ?? (r == null ? void 0 : r.state.variant) ?? ((f = t == null ? void 0 : t.defaultProps) == null ? void 0 : f.variant) ?? "solid";
   }, s = () => {
     var f;
-    return o.colorScheme ?? (r == null ? void 0 : r.state.colorScheme) ?? ((f = t == null ? void 0 : t.defaultProps) == null ? void 0 : f.colorScheme) ?? "primary";
+    return n.colorScheme ?? (r == null ? void 0 : r.state.colorScheme) ?? ((f = t == null ? void 0 : t.defaultProps) == null ? void 0 : f.colorScheme) ?? "primary";
   }, l = () => {
     var f;
-    return o.size ?? (r == null ? void 0 : r.state.size) ?? ((f = t == null ? void 0 : t.defaultProps) == null ? void 0 : f.size) ?? "md";
-  }, c = () => o.disabled ?? (r == null ? void 0 : r.state.disabled), d = () => h(o.class, Ot);
-  return i(cr, p({
+    return n.size ?? (r == null ? void 0 : r.state.size) ?? ((f = t == null ? void 0 : t.defaultProps) == null ? void 0 : f.size) ?? "md";
+  }, c = () => n.disabled ?? (r == null ? void 0 : r.state.disabled), u = () => m(n.class, Nt);
+  return i(ur, p({
     get class() {
-      return d();
+      return u();
     },
     get __baseStyle() {
       return t == null ? void 0 : t.baseStyle;
     },
     get variant() {
-      return n();
+      return o();
     },
     get colorScheme() {
       return s();
@@ -7906,25 +7854,25 @@ function zu(e) {
     }
   }, a, {
     get children() {
-      return i(D, {
+      return i(H, {
         get when() {
-          return o.icon;
+          return n.icon;
         },
         get fallback() {
-          return o.children;
+          return n.children;
         },
         get children() {
-          return o.icon;
+          return n.icon;
         }
       });
     }
   }));
 }
-zu.toString = () => v(Ot);
-const Ln = "hope-image";
-function Bu(e) {
-  const [t, r, o] = b(e, ["class", "htmlWidth", "htmlHeight", "fallbackSrc", "fallback", "src", "srcSet", "align", "fit", "loading", "ignoreFallback", "crossOrigin"], ["onError", "onLoad"]), a = () => t.loading != null || // Defer to native `img` tag if `loading` prop is passed.
-  t.ignoreFallback || t.fallbackSrc === void 0 && t.fallback === void 0, n = Se(() => ko({
+Mu.toString = () => $(Nt);
+const No = "hope-image";
+function Ru(e) {
+  const [t, r, n] = S(e, ["class", "htmlWidth", "htmlHeight", "fallbackSrc", "fallback", "src", "srcSet", "align", "fit", "loading", "ignoreFallback", "crossOrigin"], ["onError", "onLoad"]), a = () => t.loading != null || // Defer to native `img` tag if `loading` prop is passed.
+  t.ignoreFallback || t.fallbackSrc === void 0 && t.fallback === void 0, o = ye(() => On({
     ...e,
     ignoreFallback: a()
   })), s = () => ({
@@ -7933,19 +7881,19 @@ function Bu(e) {
     width: t.htmlWidth,
     height: t.htmlHeight,
     ...a() ? r : {},
-    ...o
-  }), l = () => h(t.class, Ln);
-  return i(D, {
+    ...n
+  }), l = () => m(t.class, No);
+  return i(H, {
     get when() {
-      return n()() === "loaded";
+      return o()() === "loaded";
     },
     get fallback() {
-      return i(D, {
+      return i(H, {
         get when() {
           return t.fallback;
         },
         get fallback() {
-          return i(P, p({
+          return i(B, p({
             as: "img",
             get src() {
               return t.fallbackSrc;
@@ -7959,7 +7907,7 @@ function Bu(e) {
       });
     },
     get children() {
-      return i(P, p({
+      return i(B, p({
         as: "img",
         get src() {
           return t.src;
@@ -7980,37 +7928,37 @@ function Bu(e) {
     }
   });
 }
-Bu.toString = () => v(Ln);
-const Dn = J();
-function vt() {
-  return Q(Dn);
+Ru.toString = () => $(No);
+const Vo = te();
+function yt() {
+  return Z(Vo);
 }
-const Hn = "hope-input-group";
-function Lu(e) {
-  const t = y().Input, [r, o] = te({
+const qo = "hope-input-group";
+function Wu(e) {
+  const t = w().Input, [r, n] = ae({
     get variant() {
-      var g, S;
-      return e.variant ?? ((S = (g = t == null ? void 0 : t.defaultProps) == null ? void 0 : g.group) == null ? void 0 : S.variant) ?? "outline";
+      var g, y;
+      return e.variant ?? ((y = (g = t == null ? void 0 : t.defaultProps) == null ? void 0 : g.group) == null ? void 0 : y.variant) ?? "outline";
     },
     get size() {
-      var g, S;
-      return e.size ?? ((S = (g = t == null ? void 0 : t.defaultProps) == null ? void 0 : g.group) == null ? void 0 : S.size) ?? "md";
+      var g, y;
+      return e.size ?? ((y = (g = t == null ? void 0 : t.defaultProps) == null ? void 0 : g.group) == null ? void 0 : y.size) ?? "md";
     },
     hasLeftElement: !1,
     hasRightElement: !1,
     hasLeftAddon: !1,
     hasRightAddon: !1
-  }), [a, n] = b(e, ["variant", "size", "class"]), s = () => h(a.class, Hn, yl()), u = {
+  }), [a, o] = S(e, ["variant", "size", "class"]), s = () => m(a.class, qo, zl()), d = {
     state: r,
-    setHasLeftElement: (g) => o("hasLeftElement", g),
-    setHasRightElement: (g) => o("hasRightElement", g),
-    setHasLeftAddon: (g) => o("hasLeftAddon", g),
-    setHasRightAddon: (g) => o("hasRightAddon", g)
+    setHasLeftElement: (g) => n("hasLeftElement", g),
+    setHasRightElement: (g) => n("hasRightElement", g),
+    setHasLeftAddon: (g) => n("hasLeftAddon", g),
+    setHasRightAddon: (g) => n("hasRightAddon", g)
   };
-  return i(Dn.Provider, {
-    value: u,
+  return i(Vo.Provider, {
+    value: d,
     get children() {
-      return i(P, p({
+      return i(B, p({
         get class() {
           return s();
         },
@@ -8018,18 +7966,18 @@ function Lu(e) {
           var g;
           return (g = t == null ? void 0 : t.baseStyle) == null ? void 0 : g.group;
         }
-      }, n));
+      }, o));
     }
   });
 }
-Lu.toString = () => v(Hn);
-const An = "hope-input";
-function Du(e) {
-  const t = y().Input, r = vt(), o = ut(e), [a, n] = b(e, ["class", "htmlSize", "variant", "size"]), s = () => {
-    var l, c, d, f;
-    return h(a.class, An, Cl({
+Wu.toString = () => $(qo);
+const jo = "hope-input";
+function Fu(e) {
+  const t = w().Input, r = yt(), n = pt(e), [a, o] = S(e, ["class", "htmlSize", "variant", "size"]), s = () => {
+    var l, c, u, f;
+    return m(a.class, jo, Tl({
       variant: a.variant ?? (r == null ? void 0 : r.state.variant) ?? ((c = (l = t == null ? void 0 : t.defaultProps) == null ? void 0 : l.input) == null ? void 0 : c.variant) ?? "outline",
-      size: a.size ?? (r == null ? void 0 : r.state.size) ?? ((f = (d = t == null ? void 0 : t.defaultProps) == null ? void 0 : d.input) == null ? void 0 : f.size) ?? "md",
+      size: a.size ?? (r == null ? void 0 : r.state.size) ?? ((f = (u = t == null ? void 0 : t.defaultProps) == null ? void 0 : u.input) == null ? void 0 : f.size) ?? "md",
       withLeftElement: (r == null ? void 0 : r.state.hasLeftElement) ?? !1,
       withRightElement: (r == null ? void 0 : r.state.hasRightElement) ?? !1,
       withLeftAddon: (r == null ? void 0 : r.state.hasLeftAddon) ?? !1,
@@ -8048,14 +7996,14 @@ function Du(e) {
       var l;
       return (l = t == null ? void 0 : t.baseStyle) == null ? void 0 : l.input;
     }
-  }, o, n));
+  }, n, o));
 }
-Du.toString = () => v(An);
-function En(e) {
-  const t = y().Input, [r, o, a] = b(e, ["class"], ["placement", "variant", "size"]), n = () => h(r.class, wl(o));
-  return i(P, p({
+Fu.toString = () => $(jo);
+function Ko(e) {
+  const t = w().Input, [r, n, a] = S(e, ["class"], ["placement", "variant", "size"]), o = () => m(r.class, Ll(n));
+  return i(B, p({
     get class() {
-      return n();
+      return o();
     },
     get __baseStyle() {
       var s;
@@ -8063,10 +8011,10 @@ function En(e) {
     }
   }, a));
 }
-const Mn = "hope-input-left-addon";
-function Hu(e) {
-  const t = vt(), [r, o] = b(e, ["class"]), a = () => h(r.class, Mn);
-  return ae(() => t == null ? void 0 : t.setHasLeftAddon(!0)), ge(() => t == null ? void 0 : t.setHasLeftAddon(!1)), i(En, p({
+const Xo = "hope-input-left-addon";
+function Nu(e) {
+  const t = yt(), [r, n] = S(e, ["class"]), a = () => m(r.class, Xo);
+  return ge(() => t == null ? void 0 : t.setHasLeftAddon(!0)), fe(() => t == null ? void 0 : t.setHasLeftAddon(!1)), i(Ko, p({
     get class() {
       return a();
     },
@@ -8077,13 +8025,13 @@ function Hu(e) {
     get size() {
       return (t == null ? void 0 : t.state.size) ?? "md";
     }
-  }, o));
+  }, n));
 }
-Hu.toString = () => v(Mn);
-const On = "hope-input-right-addon";
-function Au(e) {
-  const t = vt(), [r, o] = b(e, ["class"]), a = () => h(r.class, On);
-  return ae(() => t == null ? void 0 : t.setHasRightAddon(!0)), ge(() => t == null ? void 0 : t.setHasRightAddon(!1)), i(En, p({
+Nu.toString = () => $(Xo);
+const Uo = "hope-input-right-addon";
+function Vu(e) {
+  const t = yt(), [r, n] = S(e, ["class"]), a = () => m(r.class, Uo);
+  return ge(() => t == null ? void 0 : t.setHasRightAddon(!0)), fe(() => t == null ? void 0 : t.setHasRightAddon(!1)), i(Ko, p({
     get class() {
       return a();
     },
@@ -8094,14 +8042,14 @@ function Au(e) {
     get size() {
       return (t == null ? void 0 : t.state.size) ?? "md";
     }
-  }, o));
+  }, n));
 }
-Au.toString = () => v(On);
-function Rn(e) {
-  const t = y().Input, [r, o, a] = b(e, ["class"], ["placement", "size"]), n = () => h(r.class, $l(o));
-  return i(P, p({
+Vu.toString = () => $(Uo);
+function Qo(e) {
+  const t = w().Input, [r, n, a] = S(e, ["class"], ["placement", "size"]), o = () => m(r.class, Bl(n));
+  return i(B, p({
     get class() {
-      return n();
+      return o();
     },
     get __baseStyle() {
       var s;
@@ -8109,10 +8057,10 @@ function Rn(e) {
     }
   }, a));
 }
-const Wn = "hope-input-left-element";
-function Eu(e) {
-  const t = vt(), [r, o] = b(e, ["class"]), a = () => h(r.class, Wn);
-  return ae(() => t == null ? void 0 : t.setHasLeftElement(!0)), ge(() => t == null ? void 0 : t.setHasLeftElement(!1)), i(Rn, p({
+const Yo = "hope-input-left-element";
+function qu(e) {
+  const t = yt(), [r, n] = S(e, ["class"]), a = () => m(r.class, Yo);
+  return ge(() => t == null ? void 0 : t.setHasLeftElement(!0)), fe(() => t == null ? void 0 : t.setHasLeftElement(!1)), i(Qo, p({
     get class() {
       return a();
     },
@@ -8120,13 +8068,13 @@ function Eu(e) {
     get size() {
       return (t == null ? void 0 : t.state.size) ?? "md";
     }
-  }, o));
+  }, n));
 }
-Eu.toString = () => v(Wn);
-const Fn = "hope-input-right-element";
-function Mu(e) {
-  const t = vt(), [r, o] = b(e, ["class"]), a = () => h(r.class, Fn);
-  return ae(() => t == null ? void 0 : t.setHasRightElement(!0)), ge(() => t == null ? void 0 : t.setHasRightElement(!1)), i(Rn, p({
+qu.toString = () => $(Yo);
+const Zo = "hope-input-right-element";
+function ju(e) {
+  const t = yt(), [r, n] = S(e, ["class"]), a = () => m(r.class, Zo);
+  return ge(() => t == null ? void 0 : t.setHasRightElement(!0)), fe(() => t == null ? void 0 : t.setHasRightElement(!1)), i(Qo, p({
     get class() {
       return a();
     },
@@ -8134,10 +8082,10 @@ function Mu(e) {
     get size() {
       return (t == null ? void 0 : t.state.size) ?? "md";
     }
-  }, o));
+  }, n));
 }
-Mu.toString = () => v(Fn);
-const Ou = m({
+ju.toString = () => $(Zo);
+const Ku = C({
   borderRadius: "$md",
   borderColor: "$neutral7",
   borderWidth: "1px",
@@ -8149,9 +8097,9 @@ const Ou = m({
   fontWeight: "$bold",
   lineHeight: "$normal",
   whiteSpace: "nowrap"
-}), Nn = "hope-kbd";
-function Ru(e) {
-  const t = y().Kbd, [r, o] = b(e, ["class"]), a = () => h(r.class, Nn, Ou());
+}), Jo = "hope-kbd";
+function Xu(e) {
+  const t = w().Kbd, [r, n] = S(e, ["class"]), a = () => m(r.class, Jo, Ku());
   return i(A.kbd, p({
     get class() {
       return a();
@@ -8159,24 +8107,24 @@ function Ru(e) {
     get __baseStyle() {
       return t == null ? void 0 : t.baseStyle;
     }
-  }, o));
+  }, n));
 }
-Ru.toString = () => v(Nn);
-const Wu = m({
+Xu.toString = () => $(Jo);
+const Uu = C({
   listStyleType: "none"
-}), Fu = m({
+}), Qu = C({
   marginEnd: "0.5rem"
-}), Vn = "hope-list", Nu = "& > *:not(style) ~ *:not(style)";
-function pr(e) {
-  const [t, r] = b(e, ["class", "styleType", "stylePosition", "spacing"]), o = () => t.spacing ? {
-    [Nu]: {
+}), Go = "hope-list", Yu = "& > *:not(style) ~ *:not(style)";
+function br(e) {
+  const [t, r] = S(e, ["class", "styleType", "stylePosition", "spacing"]), n = () => t.spacing ? {
+    [Yu]: {
       mt: t.spacing
     }
-  } : {}, a = () => h(t.class, Vn, Wu({
+  } : {}, a = () => m(t.class, Go, Uu({
     css: {
       listStyleType: t.styleType,
       listStylePosition: t.stylePosition,
-      ...o()
+      ...n()
     }
   }));
   return i(A.ul, p({
@@ -8186,71 +8134,71 @@ function pr(e) {
     }
   }, r));
 }
-pr.toString = () => v(Vn);
-const qn = "hope-ordered-list";
-function Vu(e) {
-  const [t, r] = b(e, ["class"]), o = () => h(t.class, qn);
-  return i(pr, p({
+br.toString = () => $(Go);
+const ea = "hope-ordered-list";
+function Zu(e) {
+  const [t, r] = S(e, ["class"]), n = () => m(t.class, ea);
+  return i(br, p({
     as: "ol",
     get class() {
-      return o();
+      return n();
     },
     styleType: "decimal",
     marginStart: "1em"
   }, r));
 }
-Vu.toString = () => v(qn);
-const jn = "hope-unordered-list";
-function qu(e) {
-  const [t, r] = b(e, ["class"]), o = () => h(t.class, jn);
-  return i(pr, p({
+Zu.toString = () => $(ea);
+const ta = "hope-unordered-list";
+function Ju(e) {
+  const [t, r] = S(e, ["class"]), n = () => m(t.class, ta);
+  return i(br, p({
     as: "ul",
     get class() {
-      return o();
+      return n();
     },
     styleType: "initial",
     marginStart: "1em"
   }, r));
 }
-qu.toString = () => v(jn);
-const Kn = "hope-list__icon";
-function ju(e) {
-  const [t, r] = b(e, ["class"]), o = () => h(t.class, Kn, Fu());
-  return i(ot, p({
+Ju.toString = () => $(ta);
+const ra = "hope-list__icon";
+function Gu(e) {
+  const [t, r] = S(e, ["class"]), n = () => m(t.class, ra, Qu());
+  return i(at, p({
     role: "presentation",
     get class() {
-      return o();
+      return n();
     },
     verticalAlign: "text-bottom"
   }, r));
 }
-ju.toString = () => v(Kn);
-const Xn = "hope-list__item";
-function Ku(e) {
-  const [t, r] = b(e, ["class"]), o = () => h(t.class, Xn);
+Gu.toString = () => $(ra);
+const na = "hope-list__item";
+function eg(e) {
+  const [t, r] = S(e, ["class"]), n = () => m(t.class, na);
   return i(A.li, p({
     get class() {
-      return o();
+      return n();
     }
   }, r));
 }
-Ku.toString = () => v(Xn);
-var ke = /* @__PURE__ */ ((e) => (e[e.Close = 0] = "Close", e[e.SelectAndClose = 1] = "SelectAndClose", e[e.First = 2] = "First", e[e.Last = 3] = "Last", e[e.Next = 4] = "Next", e[e.Open = 5] = "Open", e[e.OpenAndFocusLast = 6] = "OpenAndFocusLast", e[e.Previous = 7] = "Previous", e[e.Select = 8] = "Select", e[e.Type = 9] = "Type", e))(ke || {});
-function kr(e = [], t, r = []) {
-  return e.filter((o) => o.disabled ? !1 : o.textValue.toLowerCase().indexOf(t.toLowerCase()) === 0 && r.indexOf(o.textValue) < 0);
+eg.toString = () => $(na);
+var Be = /* @__PURE__ */ ((e) => (e[e.Close = 0] = "Close", e[e.SelectAndClose = 1] = "SelectAndClose", e[e.First = 2] = "First", e[e.Last = 3] = "Last", e[e.Next = 4] = "Next", e[e.Open = 5] = "Open", e[e.OpenAndFocusLast = 6] = "OpenAndFocusLast", e[e.Previous = 7] = "Previous", e[e.Select = 8] = "Select", e[e.Type = 9] = "Type", e))(Be || {});
+function Lr(e = [], t, r = []) {
+  return e.filter((n) => n.disabled ? !1 : n.textValue.toLowerCase().indexOf(t.toLowerCase()) === 0 && r.indexOf(n.textValue) < 0);
 }
-function Xu(e, t, r = 0) {
-  const o = [...e.slice(r), ...e.slice(0, r)], a = kr(o, t)[0], n = (s) => s.every((l) => l === s[0]);
+function tg(e, t, r = 0) {
+  const n = [...e.slice(r), ...e.slice(0, r)], a = Lr(n, t)[0], o = (s) => s.every((l) => l === s[0]);
   if (a)
     return e.indexOf(a);
-  if (n(t.split(""))) {
-    const s = kr(o, t[0]);
+  if (o(t.split(""))) {
+    const s = Lr(n, t[0]);
     return e.indexOf(s[0]);
   } else
     return -1;
 }
-function Uu(e, t) {
-  const { key: r, altKey: o, ctrlKey: a, metaKey: n } = e;
+function rg(e, t) {
+  const { key: r, altKey: n, ctrlKey: a, metaKey: o } = e;
   if (!t && ["ArrowDown", "Enter", " "].includes(r))
     return 5;
   if (!t && r === "ArrowUp")
@@ -8259,7 +8207,7 @@ function Uu(e, t) {
     return 2;
   if (r === "End")
     return 3;
-  if (r === "Backspace" || r === "Clear" || r.length === 1 && r !== " " && !o && !a && !n)
+  if (r === "Backspace" || r === "Clear" || r.length === 1 && r !== " " && !n && !a && !o)
     return 9;
   if (t) {
     if (r === "ArrowDown")
@@ -8272,7 +8220,7 @@ function Uu(e, t) {
       return 1;
   }
 }
-function Pr(e, t, r) {
+function Hr(e, t, r) {
   switch (r) {
     case 2:
       return 0;
@@ -8286,26 +8234,26 @@ function Pr(e, t, r) {
       return e;
   }
 }
-function Qu(e) {
-  const { currentIndex: t, maxIndex: r, initialAction: o, isItemDisabled: a } = e;
-  let n = Pr(t, r, o);
-  for (; a(n); ) {
-    let s = o;
-    const l = n === 0, c = n === r;
-    if (o === 2 && (s = 4), o === 3 && (s = 7), o === 7 && l) {
-      n = t;
+function ng(e) {
+  const { currentIndex: t, maxIndex: r, initialAction: n, isItemDisabled: a } = e;
+  let o = Hr(t, r, n);
+  for (; a(o); ) {
+    let s = n;
+    const l = o === 0, c = o === r;
+    if (n === 2 && (s = 4), n === 3 && (s = 7), n === 7 && l) {
+      o = t;
       break;
     }
-    if (o === 4 && c) {
-      n = t;
+    if (n === 4 && c) {
+      o = t;
       break;
     }
-    n = Pr(n, r, s);
+    o = Hr(o, r, s);
   }
-  return n;
+  return o;
 }
-function Hp(e) {
-  const t = `hope-menu-${ne()}`, r = y().Menu, [o, a] = Z([]), [n, s] = te({
+function Fh(e) {
+  const t = `hope-menu-${ue()}`, r = w().Menu, [n, a] = re([]), [o, s] = ae({
     get triggerId() {
       return e.id ?? `${t}-trigger`;
     },
@@ -8322,15 +8270,15 @@ function Hp(e) {
       return this.opened ? `${this.itemIdPrefix}-${this.activeIndex}` : void 0;
     },
     get closeOnSelect() {
-      var H, Y;
-      return e.closeOnSelect ?? ((Y = (H = r == null ? void 0 : r.defaultProps) == null ? void 0 : H.root) == null ? void 0 : Y.closeOnSelect) ?? !0;
+      var E, X;
+      return e.closeOnSelect ?? ((X = (E = r == null ? void 0 : r.defaultProps) == null ? void 0 : E.root) == null ? void 0 : X.closeOnSelect) ?? !0;
     },
     get motionPreset() {
-      var H, Y, X, I, W;
-      return e.motionPreset ? e.motionPreset : (Y = (H = r == null ? void 0 : r.defaultProps) == null ? void 0 : H.root) != null && Y.motionPreset ? (I = (X = r == null ? void 0 : r.defaultProps) == null ? void 0 : X.root) == null ? void 0 : I.motionPreset : (W = e.placement) != null && W.startsWith("top") ? "scale-bottom-left" : "scale-top-left";
+      var E, X, U, T, M;
+      return e.motionPreset ? e.motionPreset : (X = (E = r == null ? void 0 : r.defaultProps) == null ? void 0 : E.root) != null && X.motionPreset ? (T = (U = r == null ? void 0 : r.defaultProps) == null ? void 0 : U.root) == null ? void 0 : T.motionPreset : (M = e.placement) != null && M.startsWith("top") ? "scale-bottom-left" : "scale-top-left";
     },
     get items() {
-      return o();
+      return n();
     },
     opened: !1,
     activeIndex: 0,
@@ -8338,225 +8286,228 @@ function Hp(e) {
     searchString: "",
     searchTimeoutId: void 0
   });
-  let l, c, d;
+  let l, c, u;
   const f = async () => {
-    var X, I, W, be;
+    var U, T, M, xe;
     if (!l || !c)
       return;
     const {
-      x: H,
-      y: Y
-    } = await or(l, c, {
-      placement: e.placement ?? ((I = (X = r == null ? void 0 : r.defaultProps) == null ? void 0 : X.root) == null ? void 0 : I.placement) ?? "bottom-start",
-      middleware: [Bt(e.offset ?? ((be = (W = r == null ? void 0 : r.defaultProps) == null ? void 0 : W.root) == null ? void 0 : be.offset) ?? 5), Lt(), Dt()]
+      x: E,
+      y: X
+    } = await Dt(l, c, {
+      placement: e.placement ?? ((T = (U = r == null ? void 0 : r.defaultProps) == null ? void 0 : U.root) == null ? void 0 : T.placement) ?? "bottom-start",
+      middleware: [Et(e.offset ?? ((xe = (M = r == null ? void 0 : r.defaultProps) == null ? void 0 : M.root) == null ? void 0 : xe.offset) ?? 5), At(), Ot()]
     });
     c && Object.assign(c.style, {
-      left: `${Math.round(H)}px`,
-      top: `${Math.round(Y)}px`
+      left: `${Math.round(E)}px`,
+      top: `${Math.round(X)}px`
     });
-  }, u = (H) => {
-    n.searchTimeoutId && window.clearTimeout(n.searchTimeoutId);
-    const Y = window.setTimeout(() => {
+  }, d = (E) => {
+    o.searchTimeoutId && window.clearTimeout(o.searchTimeoutId);
+    const X = window.setTimeout(() => {
       s("searchString", "");
     }, 500);
-    return s("searchTimeoutId", Y), s("searchString", (X) => X += H), n.searchString;
-  }, g = (H) => {
-    s("activeIndex", H);
-  }, S = (H) => n.items[H].disabled, x = (H) => {
-    var X;
-    g(H);
-    const Y = n.items[H];
-    (X = Y.onSelect) == null || X.call(Y), Y.closeOnSelect ? O(!1) : z();
-  }, z = () => {
+    return s("searchTimeoutId", X), s("searchString", (U) => U += E), o.searchString;
+  }, g = (E) => {
+    s("activeIndex", E);
+  }, y = (E) => o.items[E].disabled, b = (E) => {
+    var U;
+    g(E);
+    const X = o.items[E];
+    (U = X.onSelect) == null || U.call(X), X.closeOnSelect ? ee(!1) : P();
+  }, P = () => {
     l == null || l.focus();
-  }, C = (H) => {
-    if (!Ge(l, Tt(H))) {
-      if (n.ignoreBlur) {
+  }, h = (E) => {
+    if (!tt(l, zt(E))) {
+      if (o.ignoreBlur) {
         s("ignoreBlur", !1);
         return;
       }
-      n.opened && O(!1, !1);
+      o.opened && ee(!1, !1);
     }
-  }, $ = () => {
-    O(!n.opened, !1);
-  }, B = (H) => {
+  }, x = () => {
+    ee(!o.opened, !1);
+  }, z = (E) => {
     const {
-      key: Y
-    } = H, X = n.items.length - 1, I = Uu(H, n.opened);
-    switch (I) {
-      case ke.Last:
-      case ke.First:
-      case ke.Next:
-      case ke.Previous:
-        return H.preventDefault(), g(Qu({
-          currentIndex: n.activeIndex,
-          maxIndex: X,
-          initialAction: I,
-          isItemDisabled: S
+      key: X
+    } = E, U = o.items.length - 1, T = rg(E, o.opened);
+    switch (T) {
+      case Be.Last:
+      case Be.First:
+      case Be.Next:
+      case Be.Previous:
+        return E.preventDefault(), g(ng({
+          currentIndex: o.activeIndex,
+          maxIndex: U,
+          initialAction: T,
+          isItemDisabled: y
         }));
-      case ke.SelectAndClose:
-        H.preventDefault(), x(n.activeIndex);
+      case Be.SelectAndClose:
+        E.preventDefault(), b(o.activeIndex);
         return;
-      case ke.Close:
-        return H.preventDefault(), O(!1);
-      case ke.Type:
-        return w(Y);
-      case ke.Open:
-        return H.preventDefault(), O(!0);
-      case ke.OpenAndFocusLast:
-        return H.preventDefault(), O(!0, !0, !0);
+      case Be.Close:
+        return E.preventDefault(), ee(!1);
+      case Be.Type:
+        return v(X);
+      case Be.Open:
+        return E.preventDefault(), ee(!0);
+      case Be.OpenAndFocusLast:
+        return E.preventDefault(), ee(!0, !0, !0);
     }
-  }, w = (H) => {
-    O(!0);
-    const Y = u(H), X = Xu(n.items, Y, n.activeIndex + 1);
-    X >= 0 ? g(X) : (window.clearTimeout(n.searchTimeoutId), s("searchString", ""));
-  }, E = (H) => {
-    if (n.items[H].disabled) {
-      z();
+  }, v = (E) => {
+    ee(!0);
+    const X = d(E), U = tg(o.items, X, o.activeIndex + 1);
+    U >= 0 ? g(U) : (window.clearTimeout(o.searchTimeoutId), s("searchString", ""));
+  }, D = (E) => {
+    if (o.items[E].disabled) {
+      P();
       return;
     }
-    x(H);
-  }, M = (H) => {
-    n.activeIndex !== H && g(H);
-  }, N = () => {
+    b(E);
+  }, _ = (E) => {
+    o.activeIndex !== E && g(E);
+  }, R = () => {
     s("ignoreBlur", !0);
-  }, L = () => {
-    n.opened ? (f(), l && c && (d = rr(l, c, f))) : d == null || d();
-  }, O = (H, Y = !0, X = !1) => {
-    n.opened !== H && (s("opened", H), s("activeIndex", X ? n.items.length - 1 : 0), L(), Y && z());
-  }, _ = () => {
+  }, j = () => {
+    o.opened ? (f(), l && c && (u = Ht(l, c, f))) : u == null || u();
+  }, ee = (E, X = !0, U = !1) => {
+    o.opened !== E && (s("opened", E), s("activeIndex", U ? o.items.length - 1 : 0), j(), X && P());
+  }, I = () => {
     g(-1);
-  }, k = (H) => {
-    Ge(l, H) || O(!1, !1);
-  }, K = (H) => H === n.activeIndex, se = (H) => {
-    l = H;
-  }, ee = (H) => {
-    c = H;
-  }, G = (H) => {
-    c && Yr(c) && Zr(H, c);
-  }, xe = (H) => {
-    const Y = n.items.findIndex((I) => I.key === H.key);
-    return Y != -1 ? Y : a((I) => [...I, H]).length - 1;
-  }, ze = () => n.opened, Ae = {
-    state: n,
-    isItemActiveDescendant: K,
-    assignTriggerRef: se,
-    assignContentRef: ee,
-    registerItem: xe,
-    scrollToItem: G,
-    onTriggerBlur: C,
-    onTriggerClick: $,
-    onTriggerKeyDown: B,
-    onContentMouseLeave: _,
+  }, k = (E) => {
+    tt(l, E) || ee(!1, !1);
+  }, W = (E) => E === o.activeIndex, V = (E) => {
+    l = E;
+  }, Q = (E) => {
+    c = E;
+  }, J = (E) => {
+    c && sn(c) && ln(E, c);
+  }, Y = (E) => {
+    const X = o.items.findIndex((T) => T.key === E.key);
+    return X != -1 ? X : a((T) => [...T, E]).length - 1;
+  }, K = () => o.opened, ve = {
+    state: o,
+    isItemActiveDescendant: W,
+    assignTriggerRef: V,
+    assignContentRef: Q,
+    registerItem: Y,
+    scrollToItem: J,
+    onTriggerBlur: h,
+    onTriggerClick: x,
+    onTriggerKeyDown: z,
+    onContentMouseLeave: I,
     onContentClickOutside: k,
-    onItemClick: E,
-    onItemMouseMove: M,
-    onItemMouseDown: N
+    onItemClick: D,
+    onItemMouseMove: _,
+    onItemMouseDown: R
   };
-  return i(Un.Provider, {
-    value: Ae,
+  return i(oa.Provider, {
+    value: ve,
     get children() {
-      return i(D, {
+      return i(H, {
         get when() {
-          return mt(e);
+          return Ct(e);
         },
         get fallback() {
           return e.children;
         },
         get children() {
-          var H;
-          return (H = e.children) == null ? void 0 : H.call(e, {
-            opened: ze
+          var E;
+          return (E = e.children) == null ? void 0 : E.call(e, {
+            opened: K
           });
         }
       });
     }
   });
 }
-const Un = J();
-function Wt() {
-  const e = Q(Un);
+const oa = te();
+function qt() {
+  const e = Z(oa);
   if (!e)
     throw new Error("[Hope UI]: useMenuContext must be used within a `<Menu />` component");
   return e;
 }
-function Yu(e) {
-  const [t, r] = te({
+function og(e) {
+  const [t, r] = ae({
     isPointerDown: !1,
     ignoreEmulatedMouseEvents: !1
-  }), o = (s) => {
-    Kt(s, e.element()) && r("isPointerDown", !0);
+  }), n = (s) => {
+    Yt(s, e.element()) && r("isPointerDown", !0);
   }, a = (s) => {
     if (t.ignoreEmulatedMouseEvents) {
       r("ignoreEmulatedMouseEvents", !1);
       return;
     }
-    t.isPointerDown && e.handler && Kt(s, e.element()) && (r("isPointerDown", !1), e.handler(s));
-  }, n = (s) => {
-    r("ignoreEmulatedMouseEvents", !0), e.handler && t.isPointerDown && Kt(s, e.element()) && (r("isPointerDown", !1), e.handler(s));
+    t.isPointerDown && e.handler && Yt(s, e.element()) && (r("isPointerDown", !1), e.handler(s));
+  }, o = (s) => {
+    r("ignoreEmulatedMouseEvents", !0), e.handler && t.isPointerDown && Yt(s, e.element()) && (r("isPointerDown", !1), e.handler(s));
   };
-  ae(() => {
-    const s = Pt(e.element());
-    s.addEventListener("mousedown", o, !0), s.addEventListener("mouseup", a, !0), s.addEventListener("touchstart", o, !0), s.addEventListener("touchend", n, !0);
-  }), ge(() => {
-    const s = Pt(e.element());
-    s.removeEventListener("mousedown", o, !0), s.removeEventListener("mouseup", a, !0), s.removeEventListener("touchstart", o, !0), s.removeEventListener("touchend", n, !0);
+  ge(() => {
+    const s = Tt(e.element());
+    s.addEventListener("mousedown", n, !0), s.addEventListener("mouseup", a, !0), s.addEventListener("touchstart", n, !0), s.addEventListener("touchend", o, !0);
+  }), fe(() => {
+    const s = Tt(e.element());
+    s.removeEventListener("mousedown", n, !0), s.removeEventListener("mouseup", a, !0), s.removeEventListener("touchstart", n, !0), s.removeEventListener("touchend", o, !0);
   });
 }
-function Qn(e) {
-  const t = rt(() => e.children);
-  return Yu({
+function aa(e) {
+  const t = ot(() => e.children);
+  return og({
     element: () => t(),
     handler: (r) => e.onClickOutside(r)
   }), t;
 }
-const Yn = "hope-menu__content";
-function Zu(e) {
-  const t = y().Menu, r = Wt(), [o, a] = b(e, ["ref", "class", "children"]), [n, s] = Z(!1);
-  pe(st(() => r.state.opened, () => {
+const sa = "hope-menu__content";
+function ag(e) {
+  const t = w().Menu, r = qt(), [n, a] = S(e, ["ref", "class", "children"]), [o, s] = re(!1);
+  me(ct(() => r.state.opened, () => {
     r.state.opened ? s(!0) : r.state.motionPreset === "none" && s(!1);
   }));
-  const l = () => s(!1), c = rt(() => o.children), d = (g) => {
-    r.onContentClickOutside(g.target);
-  }, f = () => h(o.class, Yn, Gi()), u = () => {
+  const l = () => s(!1), c = ot(() => n.children), u = (y) => {
+    r.assignContentRef(y), de(n.ref) ? n.ref(y) : n.ref = y;
+  }, f = (y) => {
+    r.onContentClickOutside(y.target);
+  }, d = () => m(n.class, sa, il()), g = () => {
     switch (r.state.motionPreset) {
       case "scale-top-left":
-        return Ee.scaleTopLeft;
+        return Re.scaleTopLeft;
       case "scale-top-right":
-        return Ee.scaleTopRight;
+        return Re.scaleTopRight;
       case "scale-bottom-left":
-        return Ee.scaleBottomLeft;
+        return Re.scaleBottomLeft;
       case "scale-bottom-right":
-        return Ee.scaleBottomRight;
+        return Re.scaleBottomRight;
       case "none":
         return "hope-none";
     }
   };
-  return i(D, {
+  return i(H, {
     get when() {
-      return n();
+      return o();
     },
     get children() {
-      return i(tt, {
+      return i(gt, {
         get children() {
-          return i(De, {
+          return i(Ee, {
             get name() {
-              return u();
+              return g();
             },
             appear: !0,
             onAfterExit: l,
             get children() {
-              return i(D, {
+              return i(H, {
                 get when() {
                   return r.state.opened;
                 },
                 get children() {
-                  return i(Qn, {
-                    onClickOutside: d,
+                  return i(aa, {
+                    onClickOutside: f,
                     get children() {
-                      return i(P, p({
+                      return i(B, p({
                         role: "menu",
                         tabindex: "-1",
+                        ref: u,
                         get id() {
                           return r.state.menuContentId;
                         },
@@ -8568,11 +8519,11 @@ function Zu(e) {
                         },
                         "aria-orientation": "vertical",
                         get class() {
-                          return f();
+                          return d();
                         },
                         get __baseStyle() {
-                          var g;
-                          return (g = t == null ? void 0 : t.baseStyle) == null ? void 0 : g.content;
+                          var y;
+                          return (y = t == null ? void 0 : t.baseStyle) == null ? void 0 : y.content;
                         },
                         get onMouseLeave() {
                           return r.onContentMouseLeave;
@@ -8593,16 +8544,16 @@ function Zu(e) {
     }
   });
 }
-Zu.toString = () => v(Yn);
-const Zn = J(), Jn = "hope-menu__group";
-function Ju(e) {
-  const t = y().Menu, [r, o] = Z(), [a, n] = b(e, ["class", "children"]), s = () => h(a.class, Jn, el()), l = {
-    setAriaLabelledBy: o
+ag.toString = () => $(sa);
+const ia = te(), la = "hope-menu__group";
+function sg(e) {
+  const t = w().Menu, [r, n] = re(), [a, o] = S(e, ["class", "children"]), s = () => m(a.class, la, ll()), l = {
+    setAriaLabelledBy: n
   };
-  return i(Zn.Provider, {
+  return i(ia.Provider, {
     value: l,
     get children() {
-      return i(P, p({
+      return i(B, p({
         role: "group",
         get "aria-labelledby"() {
           return r();
@@ -8614,7 +8565,7 @@ function Ju(e) {
           var c;
           return (c = t == null ? void 0 : t.baseStyle) == null ? void 0 : c.group;
         }
-      }, n, {
+      }, o, {
         get children() {
           return a.children;
         }
@@ -8622,62 +8573,65 @@ function Ju(e) {
     }
   });
 }
-Ju.toString = () => v(Jn);
-function Gu() {
-  return Q(Zn);
+sg.toString = () => $(la);
+function ig() {
+  return Z(ia);
 }
-const Gn = "hope-menu__item", eg = "hope-menu__item__icon-wrapper", tg = "hope-menu__item__text", rg = "hope-menu__item__command";
-function og(e) {
-  const t = ne(), r = y().Menu, o = Wt(), [a, n] = Z(-1);
+const ca = "hope-menu__item", lg = "hope-menu__item__icon-wrapper", cg = "hope-menu__item__text", dg = "hope-menu__item__command";
+function ug(e) {
+  const t = ue(), r = w().Menu, n = qt(), [a, o] = re(-1);
   let s;
-  const [l, c] = b(e, ["ref", "class", "children", "colorScheme", "icon", "iconSpacing", "command", "commandSpacing", "textValue", "disabled", "closeOnSelect", "onSelect", "onClick"]), d = () => ({
+  const [l, c] = S(e, ["ref", "class", "children", "colorScheme", "icon", "iconSpacing", "command", "commandSpacing", "textValue", "disabled", "closeOnSelect", "onSelect", "onClick"]), u = () => ({
     key: t,
     textValue: l.textValue ?? (s == null ? void 0 : s.textContent) ?? "",
     disabled: !!l.disabled,
-    closeOnSelect: l.closeOnSelect != null ? !!l.closeOnSelect : o.state.closeOnSelect,
+    closeOnSelect: l.closeOnSelect != null ? !!l.closeOnSelect : n.state.closeOnSelect,
     onSelect: l.onSelect
-  }), f = () => `${o.state.itemIdPrefix}-${a()}`, u = () => o.isItemActiveDescendant(a()), g = (B) => {
-    B.stopPropagation(), o.onItemClick(a());
-  }, S = (B) => {
-    if (l.disabled && o.onItemMouseMove(-1), u() || l.disabled) {
-      B.preventDefault(), B.stopPropagation();
+  }), f = () => `${n.state.itemIdPrefix}-${a()}`, d = () => n.isItemActiveDescendant(a()), g = (v) => {
+    s = v, de(l.ref) ? l.ref(v) : l.ref = v;
+  }, y = (v) => {
+    v.stopPropagation(), n.onItemClick(a());
+  }, b = (v) => {
+    if (l.disabled && n.onItemMouseMove(-1), d() || l.disabled) {
+      v.preventDefault(), v.stopPropagation();
       return;
     }
-    o.onItemMouseMove(a());
-  }, x = () => h(l.class, Gn, rl({
+    n.onItemMouseMove(a());
+  }, P = () => m(l.class, ca, dl({
     colorScheme: l.colorScheme
-  })), z = () => h(eg, ol()), C = () => h(tg, nl()), $ = () => h(rg, al());
-  return ae(() => {
-    n(o.registerItem(d()));
-  }), pe(() => {
-    u();
-  }), i(P, p({
+  })), h = () => m(lg, ul()), x = () => m(cg, gl()), z = () => m(dg, fl());
+  return ge(() => {
+    o(n.registerItem(u()));
+  }), me(() => {
+    d() && s && n.scrollToItem(s);
+  }), i(B, p({
+    ref: g,
     role: "menuitem",
     get id() {
       return f();
     },
     get "data-active"() {
-      return u() ? "" : void 0;
+      return d() ? "" : void 0;
     },
     get "data-disabled"() {
       return l.disabled ? "" : void 0;
     },
     "data-group": !0,
     get class() {
-      return x();
+      return P();
     },
     get __baseStyle() {
-      var B;
-      return (B = r == null ? void 0 : r.baseStyle) == null ? void 0 : B.item;
+      var v;
+      return (v = r == null ? void 0 : r.baseStyle) == null ? void 0 : v.item;
     },
-    onClick: g,
-    onMouseMove: S,
+    onClick: y,
+    onMouseMove: b,
     get onMouseDown() {
-      return o.onItemMouseDown;
+      return n.onItemMouseDown;
     }
   }, c, {
     get children() {
-      return [i(D, {
+      return [i(H, {
         get when() {
           return l.icon;
         },
@@ -8685,11 +8639,11 @@ function og(e) {
           return i(A.span, {
             "aria-hidden": "true",
             get class() {
-              return z();
+              return h();
             },
             get __baseStyle() {
-              var B;
-              return (B = r == null ? void 0 : r.baseStyle) == null ? void 0 : B.itemIconWrapper;
+              var v;
+              return (v = r == null ? void 0 : r.baseStyle) == null ? void 0 : v.itemIconWrapper;
             },
             get mr() {
               return l.iconSpacing ?? "0.5rem";
@@ -8699,36 +8653,36 @@ function og(e) {
             }
           });
         }
-      }), i(D, {
+      }), i(H, {
         get when() {
           return l.children;
         },
         get children() {
           return i(A.span, {
             get class() {
-              return C();
+              return x();
             },
             get __baseStyle() {
-              var B;
-              return (B = r == null ? void 0 : r.baseStyle) == null ? void 0 : B.itemText;
+              var v;
+              return (v = r == null ? void 0 : r.baseStyle) == null ? void 0 : v.itemText;
             },
             get children() {
               return l.children;
             }
           });
         }
-      }), i(D, {
+      }), i(H, {
         get when() {
           return l.command;
         },
         get children() {
           return i(A.span, {
             get class() {
-              return $();
+              return z();
             },
             get __baseStyle() {
-              var B;
-              return (B = r == null ? void 0 : r.baseStyle) == null ? void 0 : B.itemCommand;
+              var v;
+              return (v = r == null ? void 0 : r.baseStyle) == null ? void 0 : v.itemCommand;
             },
             get ml() {
               return l.commandSpacing ?? "0.5rem";
@@ -8742,13 +8696,13 @@ function og(e) {
     }
   }));
 }
-og.toString = () => v(Gn);
-const ea = "hope-menu__label";
-function ng(e) {
-  const t = ne(), r = y().Menu, o = Wt(), a = Gu(), [n, s] = b(e, ["class", "id"]), l = () => n.id ?? `${o.state.labelIdPrefix}-${t}`, c = () => h(n.class, ea, tl());
-  return ae(() => {
+ug.toString = () => $(ca);
+const da = "hope-menu__label";
+function gg(e) {
+  const t = ue(), r = w().Menu, n = qt(), a = ig(), [o, s] = S(e, ["class", "id"]), l = () => o.id ?? `${n.state.labelIdPrefix}-${t}`, c = () => m(o.class, da, cl());
+  return ge(() => {
     a == null || a.setAriaLabelledBy(l());
-  }), i(P, p({
+  }), i(B, p({
     get id() {
       return l();
     },
@@ -8756,22 +8710,25 @@ function ng(e) {
       return c();
     },
     get __baseStyle() {
-      var d;
-      return (d = r == null ? void 0 : r.baseStyle) == null ? void 0 : d.label;
+      var u;
+      return (u = r == null ? void 0 : r.baseStyle) == null ? void 0 : u.label;
     }
   }, s));
 }
-ng.toString = () => v(ea);
-const ta = "hope-menu__trigger";
-function ag(e) {
-  const t = y().Menu, r = Wt(), [o, a] = b(e, ["ref", "class", "onClick", "onKeyDown", "onBlur"]), n = (d) => {
-    fe(r.onTriggerClick, o.onClick)(d);
-  }, s = (d) => {
-    fe(r.onTriggerKeyDown, o.onKeyDown)(d);
-  }, l = (d) => {
-    fe(r.onTriggerBlur, o.onBlur)(d);
-  }, c = () => h(o.class, ta, Ji());
+gg.toString = () => $(da);
+const ua = "hope-menu__trigger";
+function fg(e) {
+  const t = w().Menu, r = qt(), [n, a] = S(e, ["ref", "class", "onClick", "onKeyDown", "onBlur"]), o = (f) => {
+    r.assignTriggerRef(f), de(n.ref) ? n.ref(f) : n.ref = f;
+  }, s = (f) => {
+    he(r.onTriggerClick, n.onClick)(f);
+  }, l = (f) => {
+    he(r.onTriggerKeyDown, n.onKeyDown)(f);
+  }, c = (f) => {
+    he(r.onTriggerBlur, n.onBlur)(f);
+  }, u = () => m(n.class, ua, sl());
   return i(A.button, p({
+    ref: o,
     get id() {
       return r.state.triggerId;
     },
@@ -8784,50 +8741,50 @@ function ag(e) {
       return r.state.opened;
     },
     get class() {
-      return c();
+      return u();
     },
     get __baseStyle() {
-      var d;
-      return (d = t == null ? void 0 : t.baseStyle) == null ? void 0 : d.trigger;
+      var f;
+      return (f = t == null ? void 0 : t.baseStyle) == null ? void 0 : f.trigger;
     },
-    onClick: n,
-    onKeyDown: s,
-    onBlur: l
+    onClick: s,
+    onKeyDown: l,
+    onBlur: c
   }, a));
 }
-ag.toString = () => v(ta);
-const ra = "hope-notification";
-function oa(e) {
-  const t = y().Notification, o = q({}, e), [a, n] = b(o, ["class", "status"]), s = () => h(a.class, ra, cl({
+fg.toString = () => $(ua);
+const ga = "hope-notification";
+function fa(e) {
+  const t = w().Notification, n = N({}, e), [a, o] = S(n, ["class", "status"]), s = () => m(a.class, ga, ml({
     status: a.status
   })), c = {
     status: () => a.status
   };
-  return i(na.Provider, {
+  return i(ha.Provider, {
     value: c,
     get children() {
-      return i(P, p({
+      return i(B, p({
         role: "alert",
         get class() {
           return s();
         },
         get __baseStyle() {
-          var d;
-          return (d = t == null ? void 0 : t.baseStyle) == null ? void 0 : d.root;
+          var u;
+          return (u = t == null ? void 0 : t.baseStyle) == null ? void 0 : u.root;
         }
-      }, n));
+      }, o));
     }
   });
 }
-oa.toString = () => v(ra);
-const na = J();
-function sg() {
-  const e = Q(na);
+fa.toString = () => $(ga);
+const ha = te();
+function hg() {
+  const e = Z(ha);
   if (!e)
     throw new Error("[Hope UI]: useNotificationContext must be used within an `<Notification />` component");
   return e;
 }
-const de = {
+const ce = {
   show: "hope-ui:show-notification",
   update: "hope-ui:update-notification",
   hide: "hope-ui:hide-notification",
@@ -8836,75 +8793,75 @@ const de = {
   addToNotificationQueue: "hope-ui:add-to-notification-queue",
   setDebugMode: "hope-ui:set-debug-mode"
 };
-function nt(e, t) {
+function st(e, t) {
   return new CustomEvent(e, { detail: t });
 }
-function ig(e) {
-  window.dispatchEvent(nt(de.show, e));
+function pg(e) {
+  window.dispatchEvent(st(ce.show, e));
 }
-function lg(e) {
-  window.dispatchEvent(nt(de.update, e));
+function bg(e) {
+  window.dispatchEvent(st(ce.update, e));
 }
-function cg(e) {
-  window.dispatchEvent(nt(de.hide, e));
+function mg(e) {
+  window.dispatchEvent(st(ce.hide, e));
 }
-function dg() {
-  window.dispatchEvent(nt(de.clear));
+function vg() {
+  window.dispatchEvent(st(ce.clear));
 }
-function ug() {
-  window.dispatchEvent(nt(de.clearQueue));
+function Sg() {
+  window.dispatchEvent(st(ce.clearQueue));
 }
-function gg(e) {
-  window.dispatchEvent(nt(de.addToNotificationQueue, e));
+function xg(e) {
+  window.dispatchEvent(st(ce.addToNotificationQueue, e));
 }
-function fg(e) {
-  window.dispatchEvent(nt(de.setDebugMode, e));
+function Cg(e) {
+  window.dispatchEvent(st(ce.setDebugMode, e));
 }
-const Ap = {
-  show: ig,
-  update: lg,
-  hide: cg,
-  clear: dg,
-  clearQueue: ug,
-  addToNotificationQueue: gg,
-  setDebugMode: fg
-}, aa = "hope-notification__description";
-function Jt(e) {
-  const t = y().Notification, [r, o] = b(e, ["class"]), a = () => h(r.class, aa, fl());
-  return i(P, p({
+const Nh = {
+  show: pg,
+  update: bg,
+  hide: mg,
+  clear: vg,
+  clearQueue: Sg,
+  addToNotificationQueue: xg,
+  setDebugMode: Cg
+}, pa = "hope-notification__description";
+function rr(e) {
+  const t = w().Notification, [r, n] = S(e, ["class"]), a = () => m(r.class, pa, Cl());
+  return i(B, p({
     get class() {
       return a();
     },
     get __baseStyle() {
-      var n;
-      return (n = t == null ? void 0 : t.baseStyle) == null ? void 0 : n.description;
+      var o;
+      return (o = t == null ? void 0 : t.baseStyle) == null ? void 0 : o.description;
     }
-  }, o));
+  }, n));
 }
-Jt.toString = () => v(aa);
-const sa = "hope-notification__icon";
-function ia(e) {
-  const t = y().Notification, {
+rr.toString = () => $(pa);
+const ba = "hope-notification__icon";
+function ma(e) {
+  const t = w().Notification, {
     status: r
-  } = sg(), a = q({
+  } = hg(), a = N({
     boxSize: "$7"
-  }, e), [n, s] = b(a, ["as", "class"]), l = () => h(n.class, sa, ul({
+  }, e), [o, s] = S(a, ["as", "class"]), l = () => m(o.class, ba, Sl({
     status: r()
   })), c = () => {
-    if (n.as)
-      return n.as;
+    if (o.as)
+      return o.as;
     switch (r()) {
       case "success":
-        return lo;
+        return Sn;
       case "info":
-        return go;
+        return yn;
       case "warning":
-        return uo;
+        return Cn;
       case "danger":
-        return co;
+        return xn;
     }
   };
-  return i(ot, p({
+  return i(at, p({
     get as() {
       return c();
     },
@@ -8912,58 +8869,58 @@ function ia(e) {
       return l();
     },
     get __baseStyle() {
-      var d;
-      return (d = t == null ? void 0 : t.baseStyle) == null ? void 0 : d.icon;
+      var u;
+      return (u = t == null ? void 0 : t.baseStyle) == null ? void 0 : u.icon;
     }
   }, s));
 }
-ia.toString = () => v(sa);
-const la = "hope-notification__title";
-function Gt(e) {
-  const t = y().Notification, [r, o] = b(e, ["class"]), a = () => h(r.class, la, gl());
-  return i(P, p({
+ma.toString = () => $(ba);
+const va = "hope-notification__title";
+function nr(e) {
+  const t = w().Notification, [r, n] = S(e, ["class"]), a = () => m(r.class, va, xl());
+  return i(B, p({
     get class() {
       return a();
     },
     get __baseStyle() {
-      var n;
-      return (n = t == null ? void 0 : t.baseStyle) == null ? void 0 : n.title;
+      var o;
+      return (o = t == null ? void 0 : t.baseStyle) == null ? void 0 : o.title;
     }
-  }, o));
+  }, n));
 }
-Gt.toString = () => v(la);
-function pg(e) {
-  var f, u;
-  const [t, r] = Z(
+nr.toString = () => $(va);
+function yg(e) {
+  var f, d;
+  const [t, r] = re(
     ((f = e.initialValues) == null ? void 0 : f.slice(0, e.limit)) ?? []
-  ), [o, a] = Z(((u = e.initialValues) == null ? void 0 : u.slice(e.limit)) ?? []), n = () => e.limit;
+  ), [n, a] = re(((d = e.initialValues) == null ? void 0 : d.slice(e.limit)) ?? []), o = () => e.limit;
   return {
     state: {
       current: t,
-      queue: o,
-      limit: n
+      queue: n,
+      limit: o
     },
     add: (...g) => {
-      const S = [...t(), ...o(), ...g];
-      r(S.slice(0, n())), a(S.slice(n()));
+      const y = [...t(), ...n(), ...g];
+      r(y.slice(0, o())), a(y.slice(o()));
     },
     update: (g) => {
-      const S = g([...t(), ...o()]);
-      r(S.slice(0, n())), a(S.slice(n()));
+      const y = g([...t(), ...n()]);
+      r(y.slice(0, o())), a(y.slice(o()));
     },
     clearQueue: () => {
       a([]);
     }
   };
 }
-const hg = m({
+const $g = C({
   display: "flex"
-}), Ft = "hope-stack";
-function hr(e) {
-  const [t, r] = b(e, ["class", "direction", "wrap", "spacing"]), o = () => h(t.class, Ft, hg());
-  return i(P, p({
+}), jt = "hope-stack";
+function mr(e) {
+  const [t, r] = S(e, ["class", "direction", "wrap", "spacing"]), n = () => m(t.class, jt, $g());
+  return i(B, p({
     get class() {
-      return o();
+      return n();
     },
     get flexDirection() {
       return t.direction;
@@ -8976,10 +8933,10 @@ function hr(e) {
     }
   }, r));
 }
-hr.toString = () => v(Ft);
-function bg(e) {
-  const [t, r] = b(e, ["spacing"]);
-  return i(hr, p({
+mr.toString = () => $(jt);
+function wg(e) {
+  const [t, r] = S(e, ["spacing"]);
+  return i(mr, p({
     direction: "row",
     alignItems: "center",
     get columnGap() {
@@ -8987,10 +8944,10 @@ function bg(e) {
     }
   }, r));
 }
-bg.toString = () => v(Ft);
-function ca(e) {
-  const [t, r] = b(e, ["spacing"]);
-  return i(hr, p({
+wg.toString = () => $(jt);
+function Sa(e) {
+  const [t, r] = S(e, ["spacing"]);
+  return i(mr, p({
     direction: "column",
     alignItems: "center",
     get rowGap() {
@@ -8998,115 +8955,123 @@ function ca(e) {
     }
   }, r));
 }
-ca.toString = () => v(Ft);
-const da = J();
-function mg() {
-  const e = Q(da);
+Sa.toString = () => $(jt);
+const xa = te();
+function Ig() {
+  const e = Z(xa);
   if (!e)
     throw new Error(
       "[Hope UI]: useNotificationsProviderContext must be used within a `<NotificationsProvider />` component"
     );
   return e;
 }
-function vg(e) {
-  const t = mg(), [r] = b(e, ["render", "id", "status", "title", "description", "duration", "persistent", "closable", "loading", "onMouseEnter", "onMouseLeave", "queuedNotificationUpdates"]);
-  let o;
+function kg(e) {
+  const t = Ig(), [r] = S(e, ["render", "id", "status", "title", "description", "duration", "persistent", "closable", "loading", "onMouseEnter", "onMouseLeave", "queuedNotificationUpdates"]);
+  let n;
   const a = () => {
-    window.clearTimeout(o), o = void 0;
-  }, n = (f = !1) => {
-    var u;
-    !f && (((u = r.queuedNotificationUpdates) == null ? void 0 : u.length) ?? 0) > 0 || o && (t.debugMode() && console.log("NotificationContainer: clearTimeout called.", o, r.id, {
+    window.clearTimeout(n), n = void 0;
+  }, o = (d = !1) => {
+    var g;
+    !d && (((g = r.queuedNotificationUpdates) == null ? void 0 : g.length) ?? 0) > 0 || n && (t.debugMode() && console.log("NotificationContainer: clearTimeout called.", n, r.id, {
       ...r
     }), a());
   }, s = () => {
-    var f;
+    var d;
     a(), t.debugMode() && console.log("NotificationContainer: [_closeNotification]", r.id, {
       ...r
-    }), t.hideNotification(r.id), (f = e.onClose) == null || f.call(e, r.id);
-  }, l = (f) => {
-    var g;
-    let u = r.queuedNotificationUpdates;
-    if (u && u.length > 0) {
-      let S = u[0], x = t.updateNotification(f ?? r.id, S);
-      if (!x) {
-        t.debugMode() && console.error("NotificationContainer: Failed to update queued notification", f ?? r.id, S, u), s();
+    }), t.hideNotification(r.id), (d = e.onClose) == null || d.call(e, r.id);
+  }, l = (d) => {
+    var y;
+    let g = r.queuedNotificationUpdates;
+    if (g && g.length > 0) {
+      let b = g[0], P = t.updateNotification(d ?? r.id, b);
+      if (!P) {
+        t.debugMode() && console.error("NotificationContainer: Failed to update queued notification", d ?? r.id, b, g), s();
         return;
       }
-      a(), (g = e.onCloseWithNotificationQueued) == null || g.call(e, S), t.debugMode() && console.log("NotificationContainer: Update queued notifications", x, S, u), c();
+      a(), (y = e.onCloseWithNotificationQueued) == null || y.call(e, b), t.debugMode() && console.log("NotificationContainer: Update queued notifications", P, b, g), c();
     } else
       s();
   }, c = () => {
-    var f;
-    if (r.persistent && (((f = r.queuedNotificationUpdates) == null ? void 0 : f.length) ?? 0) > 0 || r.duration == null) {
+    var d;
+    if (r.persistent && (((d = r.queuedNotificationUpdates) == null ? void 0 : d.length) ?? 0) > 0 || r.duration == null) {
       t.debugMode() && console.log("NotificationContainer: Persistent notification - setTimeout not called.", r.id, {
         ...r
       });
       return;
     }
-    o = window.setTimeout(() => l(r.id), r.duration), t.debugMode() && console.log("NotificationContainer: [closeWithDelay] setTimeout called.", o, r.duration, r.id, {
+    if (document.hidden) {
+      t.debugMode() && console.log("NotificationContainer: tab hidden - deferring dismiss timer.", r.id, {
+        ...r
+      });
+      return;
+    }
+    n = window.setTimeout(() => l(r.id), r.duration), t.debugMode() && console.log("NotificationContainer: [closeWithDelay] setTimeout called.", n, r.duration, r.id, {
       ...r
     });
-  }, d = () => r.status && !r.loading;
-  return ae(() => {
+  }, u = () => {
+    document.hidden ? o(!0) : c();
+  }, f = () => r.status && !r.loading;
+  return ge(() => {
     t.debugMode() && console.log("NotificationContainer: onMount", r.id, {
       ...r
-    }), c();
-  }), ge(() => {
-    a();
-  }), i(D, {
+    }), c(), document.addEventListener("visibilitychange", u);
+  }), fe(() => {
+    a(), document.removeEventListener("visibilitychange", u);
+  }), i(H, {
     get when() {
       return r.render;
     },
     get fallback() {
-      return i(oa, {
+      return i(fa, {
         get status() {
           return r.status;
         },
         get pr() {
           return r.closable ? "$9" : "$3";
         },
-        onMouseEnter: () => n(),
+        onMouseEnter: () => o(),
         onMouseLeave: c,
         get children() {
-          return [i(D, {
+          return [i(H, {
             get when() {
-              return d();
+              return f();
             },
             get children() {
-              return i(ia, {
+              return i(ma, {
                 mr: "$2_5"
               });
             }
-          }), i(D, {
+          }), i(H, {
             get when() {
               return r.loading;
             },
             get children() {
-              return i(yo, {
+              return i(Ln, {
                 color: "$primary10",
                 boxSize: "$8",
                 mr: "$2_5",
                 get class() {
-                  return dl();
+                  return vl();
                 }
               });
             }
-          }), i(Lr, {
+          }), i(Rr, {
             get children() {
-              return [i(bt, {
+              return [i(St, {
                 get when() {
                   return r.title && r.description;
                 },
                 get children() {
-                  return i(ca, {
+                  return i(Sa, {
                     alignItems: "flex-start",
                     spacing: "$1",
                     get children() {
-                      return [i(Gt, {
+                      return [i(nr, {
                         get children() {
                           return r.title;
                         }
-                      }), i(Jt, {
+                      }), i(rr, {
                         get children() {
                           return r.description;
                         }
@@ -9114,23 +9079,23 @@ function vg(e) {
                     }
                   });
                 }
-              }), i(bt, {
+              }), i(St, {
                 get when() {
                   return r.title;
                 },
                 get children() {
-                  return i(Gt, {
+                  return i(nr, {
                     get children() {
                       return r.title;
                     }
                   });
                 }
-              }), i(bt, {
+              }), i(St, {
                 get when() {
                   return r.description;
                 },
                 get children() {
-                  return i(Jt, {
+                  return i(rr, {
                     get children() {
                       return r.description;
                     }
@@ -9138,12 +9103,12 @@ function vg(e) {
                 }
               })];
             }
-          }), i(D, {
+          }), i(H, {
             get when() {
               return r.closable;
             },
             get children() {
-              return i(Rt, {
+              return i(Vt, {
                 size: "sm",
                 position: "absolute",
                 top: "$1_5",
@@ -9156,14 +9121,14 @@ function vg(e) {
       });
     },
     get children() {
-      return i(yn, {
+      return i(Lo, {
         w: "$full",
         justifyContent: "flex-end",
-        onMouseEnter: () => n(),
+        onMouseEnter: () => o(),
         onMouseLeave: c,
         get children() {
-          var f;
-          return (f = r.render) == null ? void 0 : f.call(r, {
+          var d;
+          return (d = r.render) == null ? void 0 : d.call(r, {
             id: r.id,
             close: l
           });
@@ -9172,171 +9137,172 @@ function vg(e) {
     }
   });
 }
-const Sg = "hope-notification__list", xg = 5e3;
-function Ep(e) {
-  const [t, r] = Z(e.debugMode ?? !1), [o] = b(e, ["children", "placement", "duration", "persistent", "closable", "limit", "zIndex"]), a = Se(() => pg({
+const _g = "hope-notification__list", Pg = 5e3;
+function Vh(e) {
+  const [t, r] = re(e.debugMode ?? !1), [n] = S(e, ["children", "placement", "duration", "persistent", "closable", "limit", "zIndex"]), a = ye(() => yg({
     initialValues: [],
-    limit: o.limit ?? 10
-  })), n = () => o.placement ?? "top-end", s = () => a().state.current(), l = () => a().state.queue(), c = (L) => {
-    const O = L.id ?? `hope-notification-${ne()}`, _ = L.persistent ?? o.persistent ?? !1, k = L.duration ?? o.duration ?? xg, K = L.closable ?? o.closable ?? !0, se = L.queuedNotificationUpdates ?? [];
-    return a().update((ee) => {
-      const G = {
-        ...L,
-        queuedNotificationUpdates: se,
-        id: O,
-        persistent: _,
-        duration: k,
-        closable: K
+    limit: n.limit ?? 10
+  })), o = () => n.placement ?? "top-end", s = () => a().state.current(), l = () => s().map(([I]) => I), c = () => a().state.queue().map(([I]) => I), u = (I) => {
+    const k = I.id ?? `hope-notification-${ue()}`, W = I.persistent ?? n.persistent ?? !1, V = I.duration ?? n.duration ?? Pg, Q = I.closable ?? n.closable ?? !0, J = I.queuedNotificationUpdates ?? [];
+    return a().update((Y) => {
+      const K = {
+        ...I,
+        queuedNotificationUpdates: J,
+        id: k,
+        persistent: W,
+        duration: V,
+        closable: Q
       };
-      return G.id && ee.some((xe) => xe[0].id === G.id) ? (t() && console.log("[showNotification] Notification with the same id already exists, adding to queue", G.id, {
-        ...G
-      }), u(G.id, G), ee) : (t() && console.log("[showNotification] Adding to list and showing notification.", {
-        ...G
-      }), [...ee, te(G)]);
-    }), O;
-  }, d = (L, O) => {
-    let _ = !1;
-    return a().update((k) => {
-      const K = k.findIndex((xe) => xe[0].id === L);
-      if (K === -1)
-        return k;
-      const se = [...k];
-      let ee = se[K][0], G = se[K][1];
-      return G("description", O.description ?? ee.description), G("title", O.title ?? ee.title), G("status", O.status ?? ee.status), G("loading", O.loading ?? ee.loading), G("persistent", O.persistent ?? ee.persistent), G("duration", O.duration ?? ee.duration), G("closable", O.closable ?? ee.closable), G("onClose", O.onClose ?? ee.onClose), G("render", O.render ?? ee.render), t() && console.log("[updateNotification] Notification found in list, updating", L, O), _ = !0, se;
-    }), _;
-  }, f = (L) => {
-    let O = !1;
-    a().update((_) => _.filter((k) => {
-      var K, se;
-      return k[0].id === L ? (t() && console.log("[hideNotification] Hiding notification.", L, {
-        ...k[0]
-      }), k[1]("queuedNotificationUpdates", []), (se = (K = k[0]).onClose) == null || se.call(K, k[0].id), !1) : (!O && t() && (console.warn("[hideNotification] Keeping notification since it was not found in list.", L, {
-        ...k[0]
-      }), O = !0), !0);
+      return K.id && Y.some((ve) => ve[0].id === K.id) ? (t() && console.log("[showNotification] Notification with the same id already exists, adding to queue", K.id, {
+        ...K
+      }), g(K.id, K), Y) : (t() && console.log("[showNotification] Adding to list and showing notification.", {
+        ...K
+      }), [...Y, ae(K)]);
+    }), k;
+  }, f = (I, k) => {
+    let W = !1;
+    return a().update((V) => {
+      const Q = V.findIndex((ve) => ve[0].id === I);
+      if (Q === -1)
+        return V;
+      const J = [...V];
+      let Y = J[Q][0], K = J[Q][1];
+      return K("description", k.description ?? Y.description), K("title", k.title ?? Y.title), K("status", k.status ?? Y.status), K("loading", k.loading ?? Y.loading), K("persistent", k.persistent ?? Y.persistent), K("duration", k.duration ?? Y.duration), K("closable", k.closable ?? Y.closable), K("onClose", k.onClose ?? Y.onClose), K("render", k.render ?? Y.render), t() && console.log("[updateNotification] Notification found in list, updating", I, k), W = !0, J;
+    }), W;
+  }, d = (I) => {
+    let k = !1;
+    a().update((W) => W.filter((V) => {
+      var Q, J;
+      return V[0].id === I ? (t() && console.log("[hideNotification] Hiding notification.", I, {
+        ...V[0]
+      }), V[1]("queuedNotificationUpdates", []), (J = (Q = V[0]).onClose) == null || J.call(Q, V[0].id), !1) : (!k && t() && (console.warn("[hideNotification] Keeping notification since it was not found in list.", I, {
+        ...V[0]
+      }), k = !0), !0);
     }));
-  }, u = (L, O) => {
-    !L || !O || a().update((_) => {
-      const k = _.findIndex((ee) => ee[0].id === L);
-      if (k === -1)
-        return t() && console.log("[addToNotificationQueue] Notification not found in list.", L, O), _;
-      let K = _[k], se = K[1];
-      return se("queuedNotificationUpdates", [...K[0].queuedNotificationUpdates ?? [], O]), t() && console.log("[addToNotificationQueue] Notification found in list, updating", L, O), [..._];
+  }, g = (I, k) => {
+    !I || !k || a().update((W) => {
+      const V = W.findIndex((Y) => Y[0].id === I);
+      if (V === -1)
+        return t() && console.log("[addToNotificationQueue] Notification not found in list.", I, k), W;
+      let Q = W[V], J = Q[1];
+      return J("queuedNotificationUpdates", [...Q[0].queuedNotificationUpdates ?? [], k]), t() && console.log("[addToNotificationQueue] Notification found in list, updating", I, k), [...W];
     });
-  }, g = (L) => {
-    a().update((O) => {
-      var se;
-      const _ = O.findIndex((ee) => ee[0].id === L);
-      if (_ === -1)
-        return t() && console.log("[removeNotificationFromQueue] Notification not found in list.", L), O;
-      let k = O[_], K = k[1];
-      return K("queuedNotificationUpdates", (se = k[0].queuedNotificationUpdates) == null ? void 0 : se.slice(1)), t() && console.log("[removeNotificationFromQueue] Queued Notification found in list, removing...", L), [...O];
+  }, y = (I) => {
+    a().update((k) => {
+      var J;
+      const W = k.findIndex((Y) => Y[0].id === I);
+      if (W === -1)
+        return t() && console.log("[removeNotificationFromQueue] Notification not found in list.", I), k;
+      let V = k[W], Q = V[1];
+      return Q("queuedNotificationUpdates", (J = V[0].queuedNotificationUpdates) == null ? void 0 : J.slice(1)), t() && console.log("[removeNotificationFromQueue] Queued Notification found in list, removing...", I), [...k];
     });
-  }, S = () => a().update(() => []), x = () => a().clearQueue(), z = () => h(Sg, ll({
-    placement: n()
-  })), C = () => {
-    switch (n()) {
+  }, b = () => a().update(() => []), P = () => a().clearQueue(), h = () => m(_g, bl({
+    placement: o()
+  })), x = () => {
+    switch (o()) {
       case "top-start":
-        return we.slideInLeft;
+        return ke.slideInLeft;
       case "top":
-        return we.slideInTop;
+        return ke.slideInTop;
       case "top-end":
-        return we.slideInRight;
+        return ke.slideInRight;
       case "bottom-start":
-        return we.slideInLeft;
+        return ke.slideInLeft;
       case "bottom":
-        return we.slideInBottom;
+        return ke.slideInBottom;
       case "bottom-end":
-        return we.slideInRight;
+        return ke.slideInRight;
       default:
-        return we.slideInRight;
+        return ke.slideInRight;
     }
-  }, $ = {
-    //@ts-ignore
-    notifications: s,
-    //@ts-ignore
-    queue: l,
-    showNotification: c,
-    updateNotification: d,
-    hideNotification: f,
-    clear: S,
-    clearQueue: x,
-    addToNotificationQueue: u,
+  }, z = {
+    notifications: l,
+    queue: c,
+    showNotification: u,
+    updateNotification: f,
+    hideNotification: d,
+    clear: b,
+    clearQueue: P,
+    addToNotificationQueue: g,
     debugMode: t
-  }, B = (L) => c(L.detail), w = (L) => d(L.detail.id, L.detail), E = (L) => f(L.detail), M = (L) => u(L.detail.id, L.detail), N = (L) => {
-    r(L.detail ?? !1);
+  }, v = (I) => I.detail, D = (I) => u(v(I)), _ = (I) => {
+    const k = v(I);
+    f(k.id, k);
+  }, R = (I) => d(v(I)), j = (I) => {
+    const k = v(I);
+    g(k.id, k);
+  }, ee = (I) => {
+    r(v(I) ?? !1);
   };
-  return ae(() => {
-    window.addEventListener(de.show, B), window.addEventListener(de.update, w), window.addEventListener(de.hide, E), window.addEventListener(de.clear, S), window.addEventListener(de.clearQueue, x), window.addEventListener(de.addToNotificationQueue, M), window.addEventListener(de.setDebugMode, N);
-  }), ge(() => {
-    window.removeEventListener(de.show, B), window.removeEventListener(de.update, w), window.removeEventListener(de.hide, E), window.removeEventListener(de.clear, S), window.removeEventListener(de.clearQueue, x), window.removeEventListener(de.addToNotificationQueue, M), window.removeEventListener(de.setDebugMode, N);
-  }), i(da.Provider, {
-    value: $,
+  return ge(() => {
+    window.addEventListener(ce.show, D), window.addEventListener(ce.update, _), window.addEventListener(ce.hide, R), window.addEventListener(ce.clear, b), window.addEventListener(ce.clearQueue, P), window.addEventListener(ce.addToNotificationQueue, j), window.addEventListener(ce.setDebugMode, ee);
+  }), fe(() => {
+    window.removeEventListener(ce.show, D), window.removeEventListener(ce.update, _), window.removeEventListener(ce.hide, R), window.removeEventListener(ce.clear, b), window.removeEventListener(ce.clearQueue, P), window.removeEventListener(ce.addToNotificationQueue, j), window.removeEventListener(ce.setDebugMode, ee);
+  }), i(xa.Provider, {
+    value: z,
     get children() {
-      return [i(tt, {
+      return [i(gt, {
         get children() {
-          return i(P, {
+          return i(B, {
             get class() {
-              return z();
+              return h();
             },
             get zIndex() {
-              return o.zIndex;
+              return n.zIndex;
             },
             get children() {
-              return i(Ms, {
+              return i(qs, {
                 get name() {
-                  return C();
+                  return x();
                 },
                 get children() {
-                  return i(Dr, {
+                  return i(Wr, {
                     get each() {
-                      return $.notifications();
+                      return s();
                     },
-                    children: (L) => (
-                      // @ts-ignore
-                      i(vg, p(() => L[0], {
-                        onCloseWithNotificationQueued: (O) => {
-                          g(O.id);
-                        },
-                        onClose: (O) => {
-                        }
-                      }))
-                    )
+                    children: (I) => i(kg, p(() => I[0], {
+                      onCloseWithNotificationQueued: (k) => {
+                        y(k.id);
+                      },
+                      onClose: () => {
+                      }
+                    }))
                   });
                 }
               });
             }
           });
         }
-      }), o.children];
+      }), nt(() => n.children)];
     }
   });
 }
-const Cg = (e) => e.hasAttribute("tabindex");
-function ua(e) {
-  return e.parentElement && ua(e.parentElement) ? !0 : e.hidden;
+const Tg = (e) => e.hasAttribute("tabindex");
+function Ca(e) {
+  return e.parentElement && Ca(e.parentElement) ? !0 : e.hidden;
 }
-function yg(e) {
+function zg(e) {
   return !!e.getAttribute("disabled") || !!e.getAttribute("aria-disabled");
 }
-function $g(e) {
+function Bg(e) {
   const t = e.getAttribute("contenteditable");
   return t !== "false" && t != null;
 }
-function wg(e) {
-  if (!xc(e) || ua(e) || yg(e))
+function Lg(e) {
+  if (!Pc(e) || Ca(e) || zg(e))
     return !1;
   const { localName: t } = e;
   if (["input", "select", "textarea", "button"].indexOf(t) >= 0)
     return !0;
-  const o = {
+  const n = {
     a: () => e.hasAttribute("href"),
     audio: () => e.hasAttribute("controls"),
     video: () => e.hasAttribute("controls")
   };
-  return t in o ? o[t]() : $g(e) ? !0 : Cg(e);
+  return t in n ? n[t]() : Bg(e) ? !0 : Tg(e);
 }
-function Mp(e) {
-  const t = `hope-popover-${ne()}`, r = y().Popover, [o, a] = te({
+function qh(e) {
+  const t = `hope-popover-${ue()}`, r = w().Popover, [n, a] = ae({
     // eslint-disable-next-line solid/reactivity
     _opened: !!e.defaultOpened,
     isHovering: !1,
@@ -9377,202 +9343,208 @@ function Mp(e) {
       return e.inline ?? !1;
     },
     get initialPlacement() {
-      var I, W;
-      return e.placement ?? ((W = (I = r == null ? void 0 : r.defaultProps) == null ? void 0 : I.root) == null ? void 0 : W.placement) ?? "bottom";
+      var T, M;
+      return e.placement ?? ((M = (T = r == null ? void 0 : r.defaultProps) == null ? void 0 : T.root) == null ? void 0 : M.placement) ?? "bottom";
     },
     get offset() {
-      var I, W;
-      return e.offset ?? ((W = (I = r == null ? void 0 : r.defaultProps) == null ? void 0 : I.root) == null ? void 0 : W.offset) ?? 8;
+      var T, M;
+      return e.offset ?? ((M = (T = r == null ? void 0 : r.defaultProps) == null ? void 0 : T.root) == null ? void 0 : M.offset) ?? 8;
     },
     get arrowPadding() {
-      var I, W;
-      return e.arrowPadding ?? ((W = (I = r == null ? void 0 : r.defaultProps) == null ? void 0 : I.root) == null ? void 0 : W.arrowPadding) ?? 8;
+      var T, M;
+      return e.arrowPadding ?? ((M = (T = r == null ? void 0 : r.defaultProps) == null ? void 0 : T.root) == null ? void 0 : M.arrowPadding) ?? 8;
     },
     get openDelay() {
-      var I, W;
-      return e.openDelay ?? ((W = (I = r == null ? void 0 : r.defaultProps) == null ? void 0 : I.root) == null ? void 0 : W.openDelay) ?? 0;
+      var T, M;
+      return e.openDelay ?? ((M = (T = r == null ? void 0 : r.defaultProps) == null ? void 0 : T.root) == null ? void 0 : M.openDelay) ?? 0;
     },
     get closeDelay() {
-      var I, W;
-      return e.closeDelay ?? ((W = (I = r == null ? void 0 : r.defaultProps) == null ? void 0 : I.root) == null ? void 0 : W.closeDelay) ?? 100;
+      var T, M;
+      return e.closeDelay ?? ((M = (T = r == null ? void 0 : r.defaultProps) == null ? void 0 : T.root) == null ? void 0 : M.closeDelay) ?? 100;
     },
     get motionPreset() {
-      var I, W;
-      return e.motionPreset ?? ((W = (I = r == null ? void 0 : r.defaultProps) == null ? void 0 : I.root) == null ? void 0 : W.motionPreset) ?? "scale";
+      var T, M;
+      return e.motionPreset ?? ((M = (T = r == null ? void 0 : r.defaultProps) == null ? void 0 : T.root) == null ? void 0 : M.motionPreset) ?? "scale";
     },
     get closeOnBlur() {
-      var I, W;
-      return e.closeOnBlur ?? ((W = (I = r == null ? void 0 : r.defaultProps) == null ? void 0 : I.root) == null ? void 0 : W.closeOnBlur) ?? !0;
+      var T, M;
+      return e.closeOnBlur ?? ((M = (T = r == null ? void 0 : r.defaultProps) == null ? void 0 : T.root) == null ? void 0 : M.closeOnBlur) ?? !0;
     },
     get closeOnEsc() {
-      var I, W;
-      return e.closeOnEsc ?? ((W = (I = r == null ? void 0 : r.defaultProps) == null ? void 0 : I.root) == null ? void 0 : W.closeOnEsc) ?? !0;
+      var T, M;
+      return e.closeOnEsc ?? ((M = (T = r == null ? void 0 : r.defaultProps) == null ? void 0 : T.root) == null ? void 0 : M.closeOnEsc) ?? !0;
     },
     get trapFocus() {
-      var I, W;
-      return e.trapFocus ?? ((W = (I = r == null ? void 0 : r.defaultProps) == null ? void 0 : I.root) == null ? void 0 : W.trapFocus) ?? !1;
+      var T, M;
+      return e.trapFocus ?? ((M = (T = r == null ? void 0 : r.defaultProps) == null ? void 0 : T.root) == null ? void 0 : M.trapFocus) ?? !1;
     }
   });
-  let n, s, l, c, d, f, u, g;
-  const S = () => `[id='${o.contentId}']`, x = (I) => {
-    n = I;
-  }, z = (I) => {
-    s = I;
-  }, C = (I) => {
-    l = I;
-  }, $ = (I) => {
-    c = I;
+  let o, s, l, c, u, f, d, g;
+  const y = () => `[id='${n.contentId}']`, b = (T) => {
+    o = T;
+  }, P = (T) => {
+    s = T;
+  }, h = (T) => {
+    l = T;
+  }, x = (T) => {
+    c = T;
   };
-  async function B() {
-    var ie, me, mr;
-    const I = n ?? s;
-    if (!I || !l)
+  async function z() {
+    var ne, be, bt;
+    const T = o ?? s;
+    if (!T || !l)
       return;
-    const W = [Bt(o.offset)];
-    o.inline && W.push(Ls()), W.push(Lt()), W.push(Dt({
+    const M = [Et(n.offset)];
+    n.inline && M.push(Nr()), M.push(At()), M.push(Ot({
       padding: e.shiftPadding
-    })), c && W.push(Ds({
+    })), c && M.push(Vr({
       element: c,
-      padding: o.arrowPadding
-    })), W.push(Hs());
+      padding: n.arrowPadding
+    })), M.push(qr());
     const {
-      x: be,
-      y: U,
-      placement: Re,
-      middlewareData: gt
-    } = await or(I, l, {
-      placement: o.initialPlacement,
-      middleware: W
+      x: xe,
+      y: Oe,
+      placement: Pe,
+      middlewareData: Me
+    } = await Dt(T, l, {
+      placement: n.initialPlacement,
+      middleware: M
     });
-    if (Re !== o.finalPlacement && a("finalPlacement", Re), !l)
+    if (Pe !== n.finalPlacement && a("finalPlacement", Pe), !l)
       return;
-    const St = (ie = gt.hide) == null ? void 0 : ie.referenceHidden;
+    const F = (ne = Me.hide) == null ? void 0 : ne.referenceHidden;
     if (Object.assign(l.style, {
-      left: `${Math.round(be)}px`,
-      top: `${Math.round(U)}px`,
-      visibility: St ? "hidden" : "visible"
+      left: `${Math.round(xe)}px`,
+      top: `${Math.round(Oe)}px`,
+      visibility: F ? "hidden" : "visible"
     }), !c)
       return;
-    const xt = (me = gt.arrow) == null ? void 0 : me.x, Ct = (mr = gt.arrow) == null ? void 0 : mr.y, T = {
+    const pe = (be = Me.arrow) == null ? void 0 : be.x, lt = (bt = Me.arrow) == null ? void 0 : bt.y, L = {
       top: "bottom",
       right: "left",
       bottom: "top",
       left: "right"
-    }[Re.split("-")[0]], F = `${(Math.round(c.clientWidth / 2) + 1) * -1}px`;
+    }[Pe.split("-")[0]], O = `${(Math.round(c.clientWidth / 2) + 1) * -1}px`;
     Object.assign(c.style, {
-      left: xt != null ? `${Math.round(xt)}px` : "",
-      top: Ct != null ? `${Math.round(Ct)}px` : "",
+      left: pe != null ? `${Math.round(pe)}px` : "",
+      top: lt != null ? `${Math.round(lt)}px` : "",
       right: "",
       bottom: "",
-      [T]: F
+      [L]: O
     });
   }
-  const w = () => {
-    var I;
-    o.isControlled || a("_opened", !0), (I = e.onOpen) == null || I.call(e), B();
-  }, E = () => {
-    var I;
-    o.isControlled || a("_opened", !1), (I = e.onClose) == null || I.call(e);
-  }, M = () => {
-    !o.isHovering && E();
-  }, N = () => {
-    f = window.setTimeout(w, o.openDelay);
-  }, L = () => {
-    f && window.clearTimeout(f), u = window.setTimeout(E, o.closeDelay);
-  }, O = () => {
-    if (tr)
-      return;
-    const I = n ?? s;
-    !I || !l || (g = rr(I, l, B));
+  const v = () => {
+    var T;
+    n.isControlled || a("_opened", !0), (T = e.onOpen) == null || T.call(e), z();
+  }, D = () => {
+    var T;
+    n.isControlled || a("_opened", !1), (T = e.onClose) == null || T.call(e);
   }, _ = () => {
-    if (!o.initialFocus) {
+    !n.isHovering && D();
+  }, R = () => {
+    f = window.setTimeout(v, n.openDelay);
+  }, j = () => {
+    f && window.clearTimeout(f), d = window.setTimeout(D, n.closeDelay);
+  }, ee = () => {
+    if (Lt)
+      return;
+    const T = o ?? s;
+    !T || !l || (g = Ht(T, l, z));
+  }, I = () => {
+    if (!n.initialFocus) {
       l == null || l.focus();
       return;
     }
-    const I = document.querySelector(o.initialFocus);
-    I && wg(I) && (I == null || I.focus());
-  }, k = (I) => {
-    const W = Tt(I), be = !Ge(l, W);
-    o.opened && o.closeOnBlur && be && L();
-  }, K = () => {
-    ze(!1), f && window.clearTimeout(f), u = window.setTimeout(M, o.closeDelay);
-  }, se = (I) => {
-    const W = Tt(I), be = Ge(l, W), U = Ge(s, W), Re = !be && !U;
-    o.opened && o.closeOnBlur && Re && L();
-  }, ee = K, G = () => {
-    O(), o.trapFocus && l ? (d = Hr(l, {
-      initialFocus: o.initialFocus,
-      fallbackFocus: S(),
+    const T = document.querySelector(n.initialFocus);
+    T && Lg(T) && (T == null || T.focus());
+  }, k = (T) => {
+    const M = zt(T), xe = !tt(l, M);
+    n.opened && n.closeOnBlur && xe && j();
+  }, W = () => {
+    K(!1), f && window.clearTimeout(f), d = window.setTimeout(_, n.closeDelay);
+  }, V = (T) => {
+    const M = zt(T), xe = tt(l, M), Oe = tt(s, M), Pe = !xe && !Oe;
+    n.opened && n.closeOnBlur && Pe && j();
+  }, Q = W, J = () => {
+    ee(), n.trapFocus && l ? (u = Fr(l, {
+      initialFocus: n.initialFocus,
+      fallbackFocus: y(),
       allowOutsideClick: !1
-    }), d.activate()) : _();
-  }, xe = () => {
-    d == null || d.deactivate(), g == null || g();
-  }, ze = (I) => a("isHovering", I), Ae = (I) => a("headerMounted", I), H = (I) => a("bodyMounted", I), Y = () => o.opened;
-  ge(() => {
-    window.clearTimeout(f), window.clearTimeout(u);
+    }), u.activate()) : I();
+  }, Y = () => {
+    u == null || u.deactivate(), g == null || g();
+  }, K = (T) => a("isHovering", T), ve = (T) => a("headerMounted", T), E = (T) => a("bodyMounted", T), X = () => n.opened;
+  fe(() => {
+    window.clearTimeout(f), window.clearTimeout(d);
   });
-  const X = {
-    state: o,
-    assignAnchorRef: x,
-    assignTriggerRef: z,
-    assignPopoverRef: C,
-    assignArrowRef: $,
-    openWithDelay: N,
-    closeWithDelay: L,
+  const U = {
+    state: n,
+    assignAnchorRef: b,
+    assignTriggerRef: P,
+    assignPopoverRef: h,
+    assignArrowRef: x,
+    openWithDelay: R,
+    closeWithDelay: j,
     onTriggerBlur: k,
-    onTriggerMouseLeave: K,
-    onPopoverFocusOut: se,
-    onPopoverMouseLeave: ee,
-    updatePopoverPosition: B,
-    afterPopoverOpen: G,
-    afterPopoverClose: xe,
-    setIsHovering: ze,
-    setHeaderMounted: Ae,
-    setBodyMounted: H
+    onTriggerMouseLeave: W,
+    onPopoverFocusOut: V,
+    onPopoverMouseLeave: Q,
+    updatePopoverPosition: z,
+    afterPopoverOpen: J,
+    afterPopoverClose: Y,
+    setIsHovering: K,
+    setHeaderMounted: ve,
+    setBodyMounted: E
   };
-  return i(ga.Provider, {
-    value: X,
+  return i(ya.Provider, {
+    value: U,
     get children() {
-      return i(D, {
+      return i(H, {
         get when() {
-          return mt(e);
+          return Ct(e);
         },
         get fallback() {
           return e.children;
         },
         get children() {
-          var I;
-          return (I = e.children) == null ? void 0 : I.call(e, {
-            opened: Y,
-            onClose: L
+          var T;
+          return (T = e.children) == null ? void 0 : T.call(e, {
+            opened: X,
+            onClose: j
           });
         }
       });
     }
   });
 }
-const ga = J();
-function at() {
-  const e = Q(ga);
+const ya = te();
+function it() {
+  const e = Z(ya);
   if (!e)
     throw new Error("[Hope UI]: usePopoverContext must be used within a `<Popover />` component");
   return e;
 }
-function Op(e) {
-  at();
-  const [t, r] = b(e, ["ref", "as"]);
-  return i(ht, p({
+function jh(e) {
+  const t = it(), [r, n] = S(e, ["ref", "as"]);
+  return i(Or, p({
     get component() {
-      return t.as;
+      return r.as;
+    },
+    ref: (o) => {
+      t.assignAnchorRef(o), de(r.ref) ? r.ref(o) : r.ref = o;
     }
-  }, r));
+  }, n));
 }
-const fa = "hope-popover__arrow";
-function _g(e) {
-  const t = y().Popover, r = at(), [o, a] = b(e, ["class"]), n = Se(() => r.state.finalPlacement.split("-")[0]), s = () => h(o.class, fa, xl({
-    popoverPlacement: n()
+const $a = "hope-popover__arrow";
+function Hg(e) {
+  const t = w().Popover, r = it(), [n, a] = S(e, ["class"]), o = ye(() => r.state.finalPlacement.split("-")[0]), s = () => m(n.class, $a, Pl({
+    popoverPlacement: o()
   }));
-  return i(P, p({
+  return i(B, p({
+    ref(l) {
+      var c = r.assignArrowRef;
+      typeof c == "function" ? c(l) : r.assignArrowRef = l;
+    },
     get class() {
       return s();
     },
@@ -9582,13 +9554,13 @@ function _g(e) {
     }
   }, a));
 }
-_g.toString = () => v(fa);
-const pa = "hope-popover__body";
-function Ig(e) {
-  const t = y().Popover, r = at(), [o, a] = b(e, ["class"]), n = () => h(o.class, pa, ml());
-  return ae(() => r.setBodyMounted(!0)), ge(() => r.setBodyMounted(!1)), i(P, p({
+Hg.toString = () => $($a);
+const wa = "hope-popover__body";
+function Dg(e) {
+  const t = w().Popover, r = it(), [n, a] = S(e, ["class"]), o = () => m(n.class, wa, Il());
+  return ge(() => r.setBodyMounted(!0)), fe(() => r.setBodyMounted(!1)), i(B, p({
     get class() {
-      return n();
+      return o();
     },
     get id() {
       return r.state.bodyId;
@@ -9599,81 +9571,84 @@ function Ig(e) {
     }
   }, a));
 }
-Ig.toString = () => v(pa);
-const ha = "hope-popover__close-button";
-function kg(e) {
-  var d, f, u, g, S, x;
-  const t = y().Popover, r = at(), o = {
-    "aria-label": ((f = (d = t == null ? void 0 : t.defaultProps) == null ? void 0 : d.closeButton) == null ? void 0 : f["aria-label"]) ?? "Close popover",
-    size: ((g = (u = t == null ? void 0 : t.defaultProps) == null ? void 0 : u.closeButton) == null ? void 0 : g.size) ?? "sm",
-    icon: (x = (S = t == null ? void 0 : t.defaultProps) == null ? void 0 : S.closeButton) == null ? void 0 : x.icon
-  }, a = q(o, e), [n, s] = b(a, ["class", "onClick"]), l = () => h(n.class, ha, Sl());
-  return i(Rt, p({
+Dg.toString = () => $(wa);
+const Ia = "hope-popover__close-button";
+function Eg(e) {
+  var u, f, d, g, y, b;
+  const t = w().Popover, r = it(), n = {
+    "aria-label": ((f = (u = t == null ? void 0 : t.defaultProps) == null ? void 0 : u.closeButton) == null ? void 0 : f["aria-label"]) ?? "Close popover",
+    size: ((g = (d = t == null ? void 0 : t.defaultProps) == null ? void 0 : d.closeButton) == null ? void 0 : g.size) ?? "sm",
+    icon: (b = (y = t == null ? void 0 : t.defaultProps) == null ? void 0 : y.closeButton) == null ? void 0 : b.icon
+  }, a = N(n, e), [o, s] = S(a, ["class", "onClick"]), l = () => m(o.class, Ia, _l());
+  return i(Vt, p({
     get class() {
       return l();
     },
     get __baseStyle() {
-      var z;
-      return (z = t == null ? void 0 : t.baseStyle) == null ? void 0 : z.closeButton;
+      var P;
+      return (P = t == null ? void 0 : t.baseStyle) == null ? void 0 : P.closeButton;
     },
-    onClick: (z) => {
-      fe(n.onClick, (C) => {
-        C.stopPropagation(), r.closeWithDelay();
-      })(z);
+    onClick: (P) => {
+      he(o.onClick, (h) => {
+        h.stopPropagation(), r.closeWithDelay();
+      })(P);
     }
   }, s));
 }
-kg.toString = () => v(ha);
-const ba = "hope-popover__content";
-function Pg(e) {
-  const t = y().Popover, r = at(), [o, a] = Z(!1), [n, s] = b(e, ["ref", "class", "onKeyDown", "onFocusOut", "onMouseEnter", "onMouseLeave"]), l = (C) => {
-    r.state.closeOnEsc && C.key === "Escape" && r.closeWithDelay();
-  }, c = (C) => {
-    fe(n.onKeyDown, l)(C);
-  }, d = (C) => {
-    fe(n.onFocusOut, r.onPopoverFocusOut)(C);
-  }, f = (C) => {
-    ue(n.onMouseEnter, C), r.setIsHovering(!0);
-  }, u = (C) => {
-    ue(n.onMouseLeave, C), r.onPopoverMouseLeave();
-  }, g = () => {
-    tr || (document.addEventListener("keydown", l), r.afterPopoverOpen());
-  }, S = () => {
-    document.removeEventListener("keydown", l), r.afterPopoverClose(), a(!1);
-  }, x = () => h(n.class, ba, hl()), z = () => {
+Eg.toString = () => $(Ia);
+const ka = "hope-popover__content";
+function Ag(e) {
+  const t = w().Popover, r = it(), [n, a] = re(!1), [o, s] = S(e, ["ref", "class", "onKeyDown", "onFocusOut", "onMouseEnter", "onMouseLeave"]), l = (x) => {
+    r.assignPopoverRef(x), de(o.ref) ? o.ref(x) : o.ref = x;
+  }, c = (x) => {
+    r.state.closeOnEsc && x.key === "Escape" && r.closeWithDelay();
+  }, u = (x) => {
+    he(o.onKeyDown, c)(x);
+  }, f = (x) => {
+    he(o.onFocusOut, r.onPopoverFocusOut)(x);
+  }, d = (x) => {
+    oe(o.onMouseEnter, x), r.setIsHovering(!0);
+  }, g = (x) => {
+    oe(o.onMouseLeave, x), r.onPopoverMouseLeave();
+  }, y = () => {
+    Lt || (document.addEventListener("keydown", c), r.afterPopoverOpen());
+  }, b = () => {
+    document.removeEventListener("keydown", c), r.afterPopoverClose(), a(!1);
+  }, P = () => m(o.class, ka, $l()), h = () => {
     switch (r.state.motionPreset) {
       case "scale":
-        return Ye.scale;
+        return Je.scale;
       case "none":
         return "hope-none";
     }
   };
-  return pe(() => {
+  return me(() => {
     r.state.opened ? a(!0) : r.state.motionPreset === "none" && a(!1);
-  }), i(D, {
+  }), i(H, {
     get when() {
-      return o();
+      return n();
     },
     get children() {
-      return i(tt, {
+      return i(gt, {
         get children() {
-          return i(De, {
+          return i(Ee, {
             get name() {
-              return z();
+              return h();
             },
             appear: !0,
             get onBeforeEnter() {
               return r.updatePopoverPosition;
             },
-            onAfterEnter: g,
-            onAfterExit: S,
+            onAfterEnter: y,
+            onAfterExit: b,
             get children() {
-              return i(D, {
+              return i(H, {
                 get when() {
                   return r.state.opened;
                 },
                 get children() {
                   return i(A.section, p({
+                    ref: l,
                     tabIndex: -1,
                     get id() {
                       return r.state.contentId;
@@ -9688,19 +9663,19 @@ function Pg(e) {
                       return r.state.bodyMounted ? r.state.bodyId : void 0;
                     },
                     get class() {
-                      return x();
+                      return P();
                     },
                     get __baseStyle() {
-                      var C;
-                      return (C = t == null ? void 0 : t.baseStyle) == null ? void 0 : C.content;
+                      var x;
+                      return (x = t == null ? void 0 : t.baseStyle) == null ? void 0 : x.content;
                     },
-                    onKeyDown: c,
-                    onFocusOut: d,
+                    onKeyDown: u,
+                    onFocusOut: f,
                     get onMouseEnter() {
-                      return r.state.triggerOnHover ? f : void 0;
+                      return r.state.triggerOnHover ? d : void 0;
                     },
                     get onMouseLeave() {
-                      return r.state.triggerOnHover ? u : void 0;
+                      return r.state.triggerOnHover ? g : void 0;
                     }
                   }, s));
                 }
@@ -9712,27 +9687,27 @@ function Pg(e) {
     }
   });
 }
-Pg.toString = () => v(ba);
-const ma = "hope-popover__footer";
-function Tg(e) {
-  const t = y().Popover, [r, o] = b(e, ["class"]), a = () => h(r.class, ma, vl());
-  return i(P, p({
+Ag.toString = () => $(ka);
+const _a = "hope-popover__footer";
+function Og(e) {
+  const t = w().Popover, [r, n] = S(e, ["class"]), a = () => m(r.class, _a, kl());
+  return i(B, p({
     get class() {
       return a();
     },
     get __baseStyle() {
-      var n;
-      return (n = t == null ? void 0 : t.baseStyle) == null ? void 0 : n.footer;
+      var o;
+      return (o = t == null ? void 0 : t.baseStyle) == null ? void 0 : o.footer;
     }
-  }, o));
+  }, n));
 }
-Tg.toString = () => v(ma);
-const va = "hope-popover__header";
-function zg(e) {
-  const t = y().Popover, r = at(), [o, a] = b(e, ["class"]), n = () => h(o.class, va, bl());
-  return ae(() => r.setHeaderMounted(!0)), ge(() => r.setHeaderMounted(!1)), i(P, p({
+Og.toString = () => $(_a);
+const Pa = "hope-popover__header";
+function Mg(e) {
+  const t = w().Popover, r = it(), [n, a] = S(e, ["class"]), o = () => m(n.class, Pa, wl());
+  return ge(() => r.setHeaderMounted(!0)), fe(() => r.setHeaderMounted(!1)), i(B, p({
     get class() {
-      return n();
+      return o();
     },
     get id() {
       return r.state.headerId;
@@ -9743,22 +9718,25 @@ function zg(e) {
     }
   }, a));
 }
-zg.toString = () => v(va);
-function Rp(e) {
-  const t = at(), [r, o] = b(e, ["ref", "onClick", "onKeyDown", "onFocus", "onBlur", "onMouseEnter", "onMouseLeave"]), a = (f) => {
-    ue(r.onClick, f), t.state.opened ? t.closeWithDelay() : t.openWithDelay();
-  }, n = (f) => {
-    ue(r.onKeyDown, f), f.key === "Escape" && t.closeWithDelay();
-  }, s = (f) => {
-    ue(r.onFocus, f), t.openWithDelay();
-  }, l = (f) => {
-    fe(r.onBlur, t.onTriggerBlur)(f);
-  }, c = (f) => {
-    ue(r.onMouseEnter, f), t.setIsHovering(!0), t.openWithDelay();
-  }, d = (f) => {
-    ue(r.onMouseLeave, f), t.onTriggerMouseLeave();
+Mg.toString = () => $(Pa);
+function Kh(e) {
+  const t = it(), [r, n] = S(e, ["ref", "onClick", "onKeyDown", "onFocus", "onBlur", "onMouseEnter", "onMouseLeave"]), a = (d) => {
+    t.assignTriggerRef(d), de(r.ref) ? r.ref(d) : r.ref = d;
+  }, o = (d) => {
+    oe(r.onClick, d), t.state.opened ? t.closeWithDelay() : t.openWithDelay();
+  }, s = (d) => {
+    oe(r.onKeyDown, d), d.key === "Escape" && t.closeWithDelay();
+  }, l = (d) => {
+    oe(r.onFocus, d), t.openWithDelay();
+  }, c = (d) => {
+    he(r.onBlur, t.onTriggerBlur)(d);
+  }, u = (d) => {
+    oe(r.onMouseEnter, d), t.setIsHovering(!0), t.openWithDelay();
+  }, f = (d) => {
+    oe(r.onMouseLeave, d), t.onTriggerMouseLeave();
   };
   return i(A.button, p({
+    ref: a,
     get id() {
       return t.state.triggerId;
     },
@@ -9771,32 +9749,32 @@ function Rp(e) {
       return t.state.opened;
     },
     get onClick() {
-      return t.state.triggerOnClick ? a : void 0;
+      return t.state.triggerOnClick ? o : void 0;
     },
     get onKeyDown() {
-      return t.state.triggerOnHover ? n : void 0;
-    },
-    get onFocus() {
       return t.state.triggerOnHover ? s : void 0;
     },
-    get onBlur() {
+    get onFocus() {
       return t.state.triggerOnHover ? l : void 0;
     },
-    get onMouseEnter() {
+    get onBlur() {
       return t.state.triggerOnHover ? c : void 0;
     },
+    get onMouseEnter() {
+      return t.state.triggerOnHover ? u : void 0;
+    },
     get onMouseLeave() {
-      return t.state.triggerOnHover ? d : void 0;
+      return t.state.triggerOnHover ? f : void 0;
     }
-  }, o));
+  }, n));
 }
-const Bg = ct({
+const Rg = ft({
   "0%": { left: "-40%" },
   "100%": { left: "100%" }
-}), Lg = ct({
+}), Wg = ft({
   from: { backgroundPosition: "1rem 0" },
   to: { backgroundPosition: "0 0" }
-}), Dg = m({
+}), Fg = C({
   position: "relative",
   overflow: "hidden",
   variants: {
@@ -9819,7 +9797,7 @@ const Bg = ct({
       }
     }
   }
-}), Hg = m({
+}), Ng = C({
   position: "relative",
   height: "100%",
   transition: "width 600ms ease",
@@ -9835,7 +9813,7 @@ const Bg = ct({
         position: "absolute",
         willChange: "left",
         minWidth: "50%",
-        animation: `${Bg} 1200ms ease infinite normal none running`
+        animation: `${Rg} 1200ms ease infinite normal none running`
       }
     }
   },
@@ -9853,11 +9831,11 @@ const Bg = ct({
       striped: !0,
       animated: !0,
       css: {
-        animation: `${Lg} 750ms linear infinite`
+        animation: `${Wg} 750ms linear infinite`
       }
     }
   ]
-}), Ag = m({
+}), Vg = C({
   position: "absolute",
   top: "50%",
   left: "50%",
@@ -9867,10 +9845,10 @@ const Bg = ct({
   fontWeight: "$bold",
   textAlign: "center",
   transform: "translate(-50%, -50%)"
-}), Sa = J(), xa = "hope-progress";
-function Eg(e) {
-  var f, u, g, S;
-  const t = y().Progress, [r] = te({
+}), Ta = te(), za = "hope-progress";
+function qg(e) {
+  var f, d, g, y;
+  const t = w().Progress, [r] = ae({
     get min() {
       return e.min ?? 0;
     },
@@ -9881,30 +9859,30 @@ function Eg(e) {
       return e.value ?? 0;
     },
     get percent() {
-      return jr(this.value, this.min, this.max);
+      return tn(this.value, this.min, this.max);
     },
     get indeterminate() {
       return e.indeterminate ?? !1;
     },
     get ariaValueText() {
       if (!this.indeterminate)
-        return Te(this.getValueText) ? this.getValueText(this.value, this.percent) : e.valueText ?? `${this.percent}%`;
+        return de(this.getValueText) ? this.getValueText(this.value, this.percent) : e.valueText ?? `${this.percent}%`;
     },
     get getValueText() {
       return e.getValueText;
     }
-  }), o = {
-    size: ((u = (f = t == null ? void 0 : t.defaultProps) == null ? void 0 : f.root) == null ? void 0 : u.size) ?? "md",
-    trackColor: ((S = (g = t == null ? void 0 : t.defaultProps) == null ? void 0 : g.root) == null ? void 0 : S.trackColor) ?? "$neutral4"
-  }, a = q(o, e), [n, s, l] = b(a, ["class", "size", "trackColor"], ["min", "max", "value", "indeterminate", "valueText", "getValueText"]), c = () => h(n.class, xa, Dg({
-    size: n.size
-  })), d = {
+  }), n = {
+    size: ((d = (f = t == null ? void 0 : t.defaultProps) == null ? void 0 : f.root) == null ? void 0 : d.size) ?? "md",
+    trackColor: ((y = (g = t == null ? void 0 : t.defaultProps) == null ? void 0 : g.root) == null ? void 0 : y.trackColor) ?? "$neutral4"
+  }, a = N(n, e), [o, s, l] = S(a, ["class", "size", "trackColor"], ["min", "max", "value", "indeterminate", "valueText", "getValueText"]), c = () => m(o.class, za, Fg({
+    size: o.size
+  })), u = {
     state: r
   };
-  return i(Sa.Provider, {
-    value: d,
+  return i(Ta.Provider, {
+    value: u,
     get children() {
-      return i(P, p({
+      return i(B, p({
         role: "progressbar",
         get "data-indeterminate"() {
           return r.indeterminate ? "" : void 0;
@@ -9925,34 +9903,34 @@ function Eg(e) {
           return c();
         },
         get __baseStyle() {
-          var x;
-          return (x = t == null ? void 0 : t.baseStyle) == null ? void 0 : x.root;
+          var b;
+          return (b = t == null ? void 0 : t.baseStyle) == null ? void 0 : b.root;
         },
         get backgroundColor() {
-          return n.trackColor;
+          return o.trackColor;
         }
       }, l));
     }
   });
 }
-Eg.toString = () => v(xa);
-function Ca() {
-  const e = Q(Sa);
+qg.toString = () => $(za);
+function Ba() {
+  const e = Z(Ta);
   if (!e)
     throw new Error("[Hope UI]: useProgressContext must be used within a `<Progress />` component");
   return e;
 }
-const ya = "hope-progress__indicator";
-function Mg(e) {
-  const t = y().Progress, r = Ca(), a = q({
+const La = "hope-progress__indicator";
+function jg(e) {
+  const t = w().Progress, r = Ba(), a = N({
     color: "$primary9"
-  }, e), [n, s] = b(a, ["class", "color", "striped", "animated"]), l = () => r.state.indeterminate ? {
-    backgroundImage: `linear-gradient(to right, transparent 0%, ${n.color} 50%, transparent 100%)`
+  }, e), [o, s] = S(a, ["class", "color", "striped", "animated"]), l = () => r.state.indeterminate ? {
+    backgroundImage: `linear-gradient(to right, transparent 0%, ${o.color} 50%, transparent 100%)`
   } : {
-    backgroundColor: n.color
-  }, c = () => h(n.class, ya, Hg({
-    striped: n.striped,
-    animated: n.animated,
+    backgroundColor: o.color
+  }, c = () => m(o.class, La, Ng({
+    striped: o.striped,
+    animated: o.animated,
     indeterminate: r.state.indeterminate === !0,
     // ensure a boolean is passed so compound variants works correctly
     css: {
@@ -9960,23 +9938,23 @@ function Mg(e) {
       width: `${r.state.percent}%`
     }
   }));
-  return i(P, p({
+  return i(B, p({
     get class() {
       return c();
     },
     get __baseStyle() {
-      var d;
-      return (d = t == null ? void 0 : t.baseStyle) == null ? void 0 : d.indicator;
+      var u;
+      return (u = t == null ? void 0 : t.baseStyle) == null ? void 0 : u.indicator;
     }
   }, s));
 }
-Mg.toString = () => v(ya);
-const $a = "hope-progress__label";
-function Og(e) {
-  const t = y().Progress, r = Ca(), [o, a] = b(e, ["class", "children"]), n = () => h(o.class, $a, Ag());
-  return i(P, p({
+jg.toString = () => $(La);
+const Ha = "hope-progress__label";
+function Kg(e) {
+  const t = w().Progress, r = Ba(), [n, a] = S(e, ["class", "children"]), o = () => m(n.class, Ha, Vg());
+  return i(B, p({
     get class() {
-      return n();
+      return o();
     },
     get __baseStyle() {
       var s;
@@ -9984,22 +9962,22 @@ function Og(e) {
     }
   }, a, {
     get children() {
-      return i(D, {
+      return i(H, {
         get when() {
-          return o.children;
+          return n.children;
         },
         get fallback() {
           return r.state.ariaValueText;
         },
         get children() {
-          return o.children;
+          return n.children;
         }
       });
     }
   }));
 }
-Og.toString = () => v($a);
-const Rg = m(ur, {
+Kg.toString = () => $(Ha);
+const Xg = C(fr, {
   variants: {
     labelPlacement: {
       start: {
@@ -10010,7 +9988,7 @@ const Rg = m(ur, {
       }
     }
   }
-}), Wg = m(gr), Fg = m(fr, {
+}), Ug = C(hr), Qg = C(pr, {
   borderRadius: "$full",
   "&[data-checked]::before": {
     content: "",
@@ -10021,9 +9999,9 @@ const Rg = m(ur, {
     borderRadius: "$full",
     backgroundColor: "$loContrast"
   }
-}), wa = "hope-radio-group";
-function Ng(e) {
-  const t = `hope-radio-group-${ne()}--radio`, r = y().Radio, [o, a] = te({
+}), Da = "hope-radio-group";
+function Yg(e) {
+  const t = `hope-radio-group-${ue()}--radio`, r = w().Radio, [n, a] = ae({
     // eslint-disable-next-line solid/reactivity
     _value: e.defaultValue,
     get isControlled() {
@@ -10048,50 +10026,50 @@ function Ng(e) {
       return e.readOnly;
     },
     get variant() {
-      var u, g;
-      return e.variant ?? ((g = (u = r == null ? void 0 : r.defaultProps) == null ? void 0 : u.group) == null ? void 0 : g.variant);
+      var d, g;
+      return e.variant ?? ((g = (d = r == null ? void 0 : r.defaultProps) == null ? void 0 : d.group) == null ? void 0 : g.variant);
     },
     get colorScheme() {
-      var u, g;
-      return e.colorScheme ?? ((g = (u = r == null ? void 0 : r.defaultProps) == null ? void 0 : u.group) == null ? void 0 : g.colorScheme);
+      var d, g;
+      return e.colorScheme ?? ((g = (d = r == null ? void 0 : r.defaultProps) == null ? void 0 : d.group) == null ? void 0 : g.colorScheme);
     },
     get size() {
-      var u, g;
-      return e.size ?? ((g = (u = r == null ? void 0 : r.defaultProps) == null ? void 0 : u.group) == null ? void 0 : g.size);
+      var d, g;
+      return e.size ?? ((g = (d = r == null ? void 0 : r.defaultProps) == null ? void 0 : d.group) == null ? void 0 : g.size);
     }
-  }), [n, s, l] = b(e, ["class", "onChange"], ["value", "defaultValue", "name", "required", "disabled", "readOnly", "invalid"]), c = (u) => {
-    var S;
-    const g = u.target.value;
-    a("_value", g), (S = n.onChange) == null || S.call(n, String(g));
-  }, d = () => h(n.class, wa), f = {
-    state: o,
+  }), [o, s, l] = S(e, ["class", "onChange"], ["value", "defaultValue", "name", "required", "disabled", "readOnly", "invalid"]), c = (d) => {
+    var y;
+    const g = d.target.value;
+    a("_value", g), (y = o.onChange) == null || y.call(o, String(g));
+  }, u = () => m(o.class, Da), f = {
+    state: n,
     onChange: c
   };
-  return i(_a.Provider, {
+  return i(Ea.Provider, {
     value: f,
     get children() {
-      return i(P, p({
+      return i(B, p({
         role: "radiogroup",
         get class() {
-          return d();
+          return u();
         },
         get __baseStyle() {
-          var u;
-          return (u = r == null ? void 0 : r.baseStyle) == null ? void 0 : u.group;
+          var d;
+          return (d = r == null ? void 0 : r.baseStyle) == null ? void 0 : d.group;
         }
       }, l));
     }
   });
 }
-Ng.toString = () => v(wa);
-const _a = J();
-function Vg() {
-  return Q(_a);
+Yg.toString = () => $(Da);
+const Ea = te();
+function Zg() {
+  return Z(Ea);
 }
-var qg = ["<input", ' type="radio"', "", "", "", ">"];
-const Ia = "hope-radio", jg = "hope-radio__input", Kg = "hope-radio__control", Xg = "hope-radio__label";
-function Ug(e) {
-  const t = `hope-radio-${ne()}`, r = y().Radio, o = dt(), a = Vg(), n = ut(e), [s, l] = te({
+var Jg = /* @__PURE__ */ se("<input type=radio>");
+const Aa = "hope-radio", Gg = "hope-radio__input", ef = "hope-radio__control", tf = "hope-radio__label";
+function rf(e) {
+  const t = `hope-radio-${ue()}`, r = w().Radio, n = ht(), a = Zg(), o = pt(e), [s, l] = ae({
     // eslint-disable-next-line solid/reactivity
     _checked: !!e.defaultChecked,
     isFocused: !1,
@@ -10100,29 +10078,29 @@ function Ug(e) {
     },
     get checked() {
       if (a) {
-        const w = a.state.value;
-        return w != null ? String(e.value) === String(w) : !1;
+        const v = a.state.value;
+        return v != null ? String(e.value) === String(v) : !1;
       }
       return this.isControlled ? !!e.checked : this._checked;
     },
     get variant() {
-      var w, E, M;
-      return e.variant ?? ((w = a == null ? void 0 : a.state) == null ? void 0 : w.variant) ?? ((M = (E = r == null ? void 0 : r.defaultProps) == null ? void 0 : E.root) == null ? void 0 : M.variant) ?? "outline";
+      var v, D, _;
+      return e.variant ?? ((v = a == null ? void 0 : a.state) == null ? void 0 : v.variant) ?? ((_ = (D = r == null ? void 0 : r.defaultProps) == null ? void 0 : D.root) == null ? void 0 : _.variant) ?? "outline";
     },
     get colorScheme() {
-      var w, E, M;
-      return e.colorScheme ?? ((w = a == null ? void 0 : a.state) == null ? void 0 : w.colorScheme) ?? ((M = (E = r == null ? void 0 : r.defaultProps) == null ? void 0 : E.root) == null ? void 0 : M.colorScheme) ?? "primary";
+      var v, D, _;
+      return e.colorScheme ?? ((v = a == null ? void 0 : a.state) == null ? void 0 : v.colorScheme) ?? ((_ = (D = r == null ? void 0 : r.defaultProps) == null ? void 0 : D.root) == null ? void 0 : _.colorScheme) ?? "primary";
     },
     get size() {
-      var w, E, M;
-      return e.size ?? ((w = a == null ? void 0 : a.state) == null ? void 0 : w.size) ?? ((M = (E = r == null ? void 0 : r.defaultProps) == null ? void 0 : E.root) == null ? void 0 : M.size) ?? "md";
+      var v, D, _;
+      return e.size ?? ((v = a == null ? void 0 : a.state) == null ? void 0 : v.size) ?? ((_ = (D = r == null ? void 0 : r.defaultProps) == null ? void 0 : D.root) == null ? void 0 : _.size) ?? "md";
     },
     get labelPlacement() {
-      var w, E, M;
-      return e.labelPlacement ?? ((w = a == null ? void 0 : a.state) == null ? void 0 : w.labelPlacement) ?? ((M = (E = r == null ? void 0 : r.defaultProps) == null ? void 0 : E.root) == null ? void 0 : M.labelPlacement) ?? "end";
+      var v, D, _;
+      return e.labelPlacement ?? ((v = a == null ? void 0 : a.state) == null ? void 0 : v.labelPlacement) ?? ((_ = (D = r == null ? void 0 : r.defaultProps) == null ? void 0 : D.root) == null ? void 0 : _.labelPlacement) ?? "end";
     },
     get id() {
-      return o && !a ? n.id : e.id ?? t;
+      return n && !a ? o.id : e.id ?? t;
     },
     get name() {
       return e.name ?? (a == null ? void 0 : a.state.name);
@@ -10131,16 +10109,16 @@ function Ug(e) {
       return e.value;
     },
     get required() {
-      return n.required ?? (a == null ? void 0 : a.state.required);
+      return o.required ?? (a == null ? void 0 : a.state.required);
     },
     get disabled() {
-      return n.disabled ?? (a == null ? void 0 : a.state.disabled);
+      return o.disabled ?? (a == null ? void 0 : a.state.disabled);
     },
     get invalid() {
-      return n.invalid ?? (a == null ? void 0 : a.state.invalid);
+      return o.invalid ?? (a == null ? void 0 : a.state.invalid);
     },
     get readOnly() {
-      return n.readOnly ?? (a == null ? void 0 : a.state.readOnly);
+      return o.readOnly ?? (a == null ? void 0 : a.state.readOnly);
     },
     get "aria-required"() {
       return this.required ? !0 : void 0;
@@ -10181,43 +10159,43 @@ function Ug(e) {
     get "data-readonly"() {
       return this.readOnly ? "" : void 0;
     }
-  }), [c, d, f] = b(e, ["class", "children", "ref", "tabIndex", "onChange"], ["variant", "colorScheme", "size", "labelPlacement", "id", "name", "value", "checked", "defaultChecked", "required", "disabled", "invalid", "readOnly", "onFocus", "onBlur"]), u = (w) => {
+  }), [c, u, f] = S(e, ["class", "children", "ref", "tabIndex", "onChange"], ["variant", "colorScheme", "size", "labelPlacement", "id", "name", "value", "checked", "defaultChecked", "required", "disabled", "invalid", "readOnly", "onFocus", "onBlur"]), d = (v) => {
     if (s.readOnly || s.disabled) {
-      w.preventDefault();
+      v.preventDefault();
       return;
     }
     if (!s.isControlled) {
-      const E = w.target;
-      l("_checked", E.checked);
+      const D = v.target;
+      l("_checked", D.checked);
     }
-    fe(a == null ? void 0 : a.onChange, c.onChange)(w);
-  }, g = (w) => {
-    l("isFocused", !0), ue(n.onFocus, w);
-  }, S = (w) => {
-    l("isFocused", !1), ue(n.onBlur, w);
-  }, x = () => h(c.class, Ia, Rg({
+    he(a == null ? void 0 : a.onChange, c.onChange)(v);
+  }, g = (v) => {
+    l("isFocused", !0), oe(o.onFocus, v);
+  }, y = (v) => {
+    l("isFocused", !1), oe(o.onBlur, v);
+  }, b = () => m(c.class, Aa, Xg({
     size: s.size,
     labelPlacement: s.labelPlacement
-  })), z = () => h(jg, Et()), C = () => h(Kg, Fg({
+  })), P = () => m(Gg, Wt()), h = () => m(ef, Qg({
     variant: s.variant,
     colorScheme: s.colorScheme,
     size: s.size
-  })), $ = () => h(Xg, Wg()), B = {
+  })), x = () => m(tf, Ug()), z = {
     state: s,
-    onChange: u,
+    onChange: d,
     onFocus: g,
-    onBlur: S
+    onBlur: y
   };
-  return i(ka.Provider, {
-    value: B,
+  return i(Oa.Provider, {
+    value: z,
     get children() {
       return i(A.label, p({
         get class() {
-          return x();
+          return b();
         },
         get __baseStyle() {
-          var w;
-          return (w = r == null ? void 0 : r.baseStyle) == null ? void 0 : w.root;
+          var v;
+          return (v = r == null ? void 0 : r.baseStyle) == null ? void 0 : v.root;
         },
         get for() {
           return s.id;
@@ -10243,14 +10221,37 @@ function Ug(e) {
         }
       }, f, {
         get children() {
-          return [re(qg, oe(), R("class", V(z(), !0), !1) + R("tabindex", V(c.tabIndex, !0), !1) + R("value", V(s.value, !0), !1) + R("id", V(s.id, !0), !1) + R("name", V(s.name, !0), !1), R("checked", s.checked, !0), R("required", s.required, !0), R("disabled", s.disabled, !0) + R("readonly", V(s.readOnly, !0), !1) + R("aria-required", V(s["aria-required"], !0), !1) + R("aria-disabled", V(s["aria-disabled"], !0), !1) + R("aria-invalid", V(s["aria-invalid"], !0), !1) + R("aria-readonly", V(s["aria-readonly"], !0), !1) + R("aria-label", V(s["aria-label"], !0), !1) + R("aria-labelledby", V(s["aria-labelledby"], !0), !1) + R("aria-describedby", V(s["aria-describedby"], !0), !1)), i(A.span, p({
+          return [(() => {
+            var v = Jg();
+            v.addEventListener("blur", y), v.addEventListener("focus", g), v.addEventListener("change", d);
+            var D = c.ref;
+            return typeof D == "function" ? ar(D, v) : c.ref = v, _e((_) => {
+              var R = P(), j = c.tabIndex, ee = s.id, I = s.name, k = s.required, W = s.disabled, V = s.readOnly, Q = s["aria-required"], J = s["aria-disabled"], Y = s["aria-invalid"], K = s["aria-readonly"], ve = s["aria-label"], E = s["aria-labelledby"], X = s["aria-describedby"];
+              return R !== _.e && xt(v, _.e = R), j !== _.t && G(v, "tabindex", _.t = j), ee !== _.a && G(v, "id", _.a = ee), I !== _.o && G(v, "name", _.o = I), k !== _.i && (v.required = _.i = k), W !== _.n && (v.disabled = _.n = W), V !== _.s && (v.readOnly = _.s = V), Q !== _.h && G(v, "aria-required", _.h = Q), J !== _.r && G(v, "aria-disabled", _.r = J), Y !== _.d && G(v, "aria-invalid", _.d = Y), K !== _.l && G(v, "aria-readonly", _.l = K), ve !== _.u && G(v, "aria-label", _.u = ve), E !== _.c && G(v, "aria-labelledby", _.c = E), X !== _.w && G(v, "aria-describedby", _.w = X), _;
+            }, {
+              e: void 0,
+              t: void 0,
+              a: void 0,
+              o: void 0,
+              i: void 0,
+              n: void 0,
+              s: void 0,
+              h: void 0,
+              r: void 0,
+              d: void 0,
+              l: void 0,
+              u: void 0,
+              c: void 0,
+              w: void 0
+            }), _e(() => v.value = s.value), _e(() => v.checked = s.checked), v;
+          })(), i(A.span, p({
             "aria-hidden": !0,
             get class() {
-              return C();
+              return h();
             },
             get __baseStyle() {
-              var w;
-              return (w = r == null ? void 0 : r.baseStyle) == null ? void 0 : w.control;
+              var v;
+              return (v = r == null ? void 0 : r.baseStyle) == null ? void 0 : v.control;
             },
             get "data-focus"() {
               return s["data-focus"];
@@ -10272,11 +10273,11 @@ function Ug(e) {
             }
           }, f)), i(A.span, {
             get class() {
-              return $();
+              return x();
             },
             get __baseStyle() {
-              var w;
-              return (w = r == null ? void 0 : r.baseStyle) == null ? void 0 : w.label;
+              var v;
+              return (v = r == null ? void 0 : r.baseStyle) == null ? void 0 : v.label;
             },
             get "data-focus"() {
               return s["data-focus"];
@@ -10297,16 +10298,16 @@ function Ug(e) {
               return s["data-readonly"];
             },
             get children() {
-              return i(D, {
+              return i(H, {
                 get when() {
-                  return mt(c);
+                  return Ct(c);
                 },
                 get fallback() {
                   return c.children;
                 },
                 get children() {
-                  var w;
-                  return (w = c.children) == null ? void 0 : w.call(c, {
+                  var v;
+                  return (v = c.children) == null ? void 0 : v.call(c, {
                     checked: s.checked
                   });
                 }
@@ -10318,42 +10319,42 @@ function Ug(e) {
     }
   });
 }
-Ug.toString = () => v(Ia);
-const ka = J();
-function Wp() {
-  const e = Q(ka);
+rf.toString = () => $(Aa);
+const Oa = te();
+function Xh() {
+  const e = Z(Oa);
   if (!e)
     throw new Error("[Hope UI]: useRadioContext must be used within a `<Radio />` component");
   return e;
 }
-var Le = /* @__PURE__ */ ((e) => (e[e.Close = 0] = "Close", e[e.SelectAndClose = 1] = "SelectAndClose", e[e.First = 2] = "First", e[e.Last = 3] = "Last", e[e.Next = 4] = "Next", e[e.Open = 5] = "Open", e[e.Previous = 6] = "Previous", e[e.Select = 7] = "Select", e[e.Type = 8] = "Type", e))(Le || {});
-function Tr(e = [], t, r = []) {
-  return e.filter((o) => o.disabled ? !1 : o.textValue.toLowerCase().indexOf(t.toLowerCase()) === 0 && r.indexOf(o.textValue) < 0);
+var De = /* @__PURE__ */ ((e) => (e[e.Close = 0] = "Close", e[e.SelectAndClose = 1] = "SelectAndClose", e[e.First = 2] = "First", e[e.Last = 3] = "Last", e[e.Next = 4] = "Next", e[e.Open = 5] = "Open", e[e.Previous = 6] = "Previous", e[e.Select = 7] = "Select", e[e.Type = 8] = "Type", e))(De || {});
+function Dr(e = [], t, r = []) {
+  return e.filter((n) => n.disabled ? !1 : n.textValue.toLowerCase().indexOf(t.toLowerCase()) === 0 && r.indexOf(n.textValue) < 0);
 }
-function Qg(e, t, r = 0) {
-  const o = [...e.slice(r), ...e.slice(0, r)], a = Tr(o, t)[0], n = (s) => s.every((l) => l === s[0]);
+function nf(e, t, r = 0) {
+  const n = [...e.slice(r), ...e.slice(0, r)], a = Dr(n, t)[0], o = (s) => s.every((l) => l === s[0]);
   if (a)
     return e.indexOf(a);
-  if (n(t.split(""))) {
-    const s = Tr(o, t[0]);
+  if (o(t.split(""))) {
+    const s = Dr(n, t[0]);
     return e.indexOf(s[0]);
   } else
     return -1;
 }
-function Yg(e, t) {
-  const { key: r, altKey: o, ctrlKey: a, metaKey: n } = e;
+function of(e, t) {
+  const { key: r, altKey: n, ctrlKey: a, metaKey: o } = e;
   if (!t && ["ArrowDown", "ArrowUp", "Enter", " "].includes(r))
     return 5;
   if (r === "Home" || r === "PageUp")
     return 2;
   if (r === "End" || r === "PageDown")
     return 3;
-  if (r === "Backspace" || r === "Clear" || r.length === 1 && r !== " " && !o && !a && !n)
+  if (r === "Backspace" || r === "Clear" || r.length === 1 && r !== " " && !n && !a && !o)
     return 8;
   if (t) {
-    if (r === "ArrowUp" && o)
+    if (r === "ArrowUp" && n)
       return 1;
-    if (r === "ArrowDown" && !o)
+    if (r === "ArrowDown" && !n)
       return 4;
     if (r === "ArrowUp")
       return 6;
@@ -10363,7 +10364,7 @@ function Yg(e, t) {
       return 1;
   }
 }
-function zr(e, t, r) {
+function Er(e, t, r) {
   switch (r) {
     case 2:
       return 0;
@@ -10377,40 +10378,40 @@ function zr(e, t, r) {
       return e;
   }
 }
-function Zg(e) {
-  const { currentIndex: t, maxIndex: r, initialAction: o, isOptionDisabled: a } = e;
-  let n = zr(t, r, o);
-  for (; a(n); ) {
-    let s = o;
-    const l = n === 0, c = n === r;
-    if (o === 2 && (s = 4), o === 3 && (s = 6), o === 6 && l) {
-      n = t;
+function af(e) {
+  const { currentIndex: t, maxIndex: r, initialAction: n, isOptionDisabled: a } = e;
+  let o = Er(t, r, n);
+  for (; a(o); ) {
+    let s = n;
+    const l = o === 0, c = o === r;
+    if (n === 2 && (s = 4), n === 3 && (s = 6), n === 6 && l) {
+      o = t;
       break;
     }
-    if (o === 4 && c) {
-      n = t;
+    if (n === 4 && c) {
+      o = t;
       break;
     }
-    n = zr(n, r, s);
+    o = Er(o, r, s);
   }
-  return n;
+  return o;
 }
-function _t(e, t) {
+function kt(e, t) {
   return String(e.value) === String(t.value);
 }
-function Jg(e) {
-  const t = `hope-select-${ne()}`, r = y().Select, o = ut(e), [a, n] = Z(!1), [s, l] = Z([]), [c, d] = te({
+function sf(e) {
+  const t = `hope-select-${ue()}`, r = w().Select, n = pt(e), [a, o] = re(!1), [s, l] = re([]), [c, u] = ae({
     get isControlled() {
       return e.value !== void 0;
     },
     get value() {
-      return this.isControlled ? e.value : this.multiple ? this.selectedOptions.map((T) => T.value) : this.selectedOptions[0].value ?? void 0;
+      return this.isControlled ? e.value : this.multiple ? this.selectedOptions.map((L) => L.value) : this.selectedOptions[0].value ?? void 0;
     },
     get multiple() {
       return e.multiple;
     },
     get baseId() {
-      return e.id ?? o.id ?? t;
+      return e.id ?? n.id ?? t;
     },
     get triggerId() {
       return `${this.baseId}-trigger`;
@@ -10425,22 +10426,22 @@ function Jg(e) {
       return `${this.baseId}-option`;
     },
     get disabled() {
-      return e.disabled ?? o.disabled;
+      return e.disabled ?? n.disabled;
     },
     get invalid() {
-      return e.invalid ?? o.invalid;
+      return e.invalid ?? n.invalid;
     },
     get variant() {
-      var T, F;
-      return e.variant ?? ((F = (T = r == null ? void 0 : r.defaultProps) == null ? void 0 : T.root) == null ? void 0 : F.variant) ?? "outline";
+      var L, O;
+      return e.variant ?? ((O = (L = r == null ? void 0 : r.defaultProps) == null ? void 0 : L.root) == null ? void 0 : O.variant) ?? "outline";
     },
     get size() {
-      var T, F;
-      return e.size ?? ((F = (T = r == null ? void 0 : r.defaultProps) == null ? void 0 : T.root) == null ? void 0 : F.size) ?? "md";
+      var L, O;
+      return e.size ?? ((O = (L = r == null ? void 0 : r.defaultProps) == null ? void 0 : L.root) == null ? void 0 : O.size) ?? "md";
     },
     get motionPreset() {
-      var T, F;
-      return e.motionPreset ?? ((F = (T = r == null ? void 0 : r.defaultProps) == null ? void 0 : T.root) == null ? void 0 : F.motionPreset) ?? "fade-in-top";
+      var L, O;
+      return e.motionPreset ?? ((O = (L = r == null ? void 0 : r.defaultProps) == null ? void 0 : L.root) == null ? void 0 : O.motionPreset) ?? "fade-in-top";
     },
     get activeDescendantId() {
       return this.opened ? `${this.optionIdPrefix}-${this.activeIndex}` : void 0;
@@ -10458,235 +10459,236 @@ function Jg(e) {
     searchString: "",
     searchTimeoutId: void 0
   });
-  let f, u, g, S;
-  const x = async () => {
-    var F, ie;
-    if (!f || !u)
+  let f, d, g, y;
+  const b = async () => {
+    var O, ne;
+    if (!f || !d)
       return;
-    const T = await or(f, u, {
+    const L = await Dt(f, d, {
       placement: "bottom",
-      middleware: [Bt(e.offset ?? ((ie = (F = r == null ? void 0 : r.defaultProps) == null ? void 0 : F.root) == null ? void 0 : ie.offset) ?? 5), Lt(), Dt(), As({
-        apply(me) {
-          u && Object.assign(u.style, {
-            width: `${me.rects.reference.width}px`
+      middleware: [Et(e.offset ?? ((ne = (O = r == null ? void 0 : r.defaultProps) == null ? void 0 : O.root) == null ? void 0 : ne.offset) ?? 5), At(), Ot(), js({
+        apply(be) {
+          d && Object.assign(d.style, {
+            width: `${be.rects.reference.width}px`
           });
         }
       })]
     });
-    u && Object.assign(u.style, {
-      left: `${Math.round(T.x)}px`,
-      top: `${Math.round(T.y)}px`
+    d && Object.assign(d.style, {
+      left: `${Math.round(L.x)}px`,
+      top: `${Math.round(L.y)}px`
     });
-  }, z = (T) => {
+  }, P = (L) => {
     c.searchTimeoutId && window.clearTimeout(c.searchTimeoutId);
-    const F = window.setTimeout(() => {
-      d("searchString", "");
+    const O = window.setTimeout(() => {
+      u("searchString", "");
     }, 500);
-    return d("searchTimeoutId", F), d("searchString", (ie) => ie += T), c.searchString;
-  }, C = () => {
+    return u("searchTimeoutId", O), u("searchString", (ne) => ne += L), c.searchString;
+  }, h = () => {
     f == null || f.focus();
-  }, $ = () => c.isControlled ? e.value == null ? [] : it(e.value) ? e.value : [e.value] : e.defaultValue == null ? [] : it(e.defaultValue) ? e.defaultValue : [e.defaultValue], B = () => {
+  }, x = () => c.isControlled ? e.value == null ? [] : dt(e.value) ? e.value : [e.value] : e.defaultValue == null ? [] : dt(e.defaultValue) ? e.defaultValue : [e.defaultValue], z = () => {
     if (a())
       return;
-    const T = $().map((F) => c.options.find((ie) => ie.value === F)).filter(Boolean);
-    d("selectedOptions", (F) => [...F, ...T]), n(!0);
-  }, w = (T) => {
-    d("activeIndex", T);
-  }, E = (T) => c.selectedOptions.length <= 0 ? !1 : c.multiple ? !!c.selectedOptions.find((F) => _t(T, F)) : _t(T, c.selectedOptions[0]), M = (T) => {
-    d("selectedOptions", (F) => F.filter((ie) => !_t(T, ie)));
-  }, N = (T) => {
-    const F = c.options[T];
-    c.multiple ? E(F) ? M(F) : d("selectedOptions", (ie) => [...ie, F]) : d("selectedOptions", [F]);
-  }, L = () => c.multiple ? c.selectedOptions.map((T) => T.value) : c.selectedOptions[0].value ?? void 0, O = (T) => {
-    var F;
-    w(T), N(T), (F = e.onChange) == null || F.call(e, L());
-  }, _ = (T) => {
-    var F;
-    M(T), (F = e.onChange) == null || F.call(e, L()), C();
-  }, k = (T) => c.options[T].disabled, K = (T) => {
-    if (!Ge(f, Tt(T))) {
+    const L = x().map((O) => c.options.find((ne) => ne.value === O)).filter(Boolean);
+    u("selectedOptions", (O) => [...O, ...L]), o(!0);
+  }, v = (L) => {
+    u("activeIndex", L);
+  }, D = (L) => c.selectedOptions.length <= 0 ? !1 : c.multiple ? !!c.selectedOptions.find((O) => kt(L, O)) : kt(L, c.selectedOptions[0]), _ = (L) => {
+    u("selectedOptions", (O) => O.filter((ne) => !kt(L, ne)));
+  }, R = (L) => {
+    const O = c.options[L];
+    c.multiple ? D(O) ? _(O) : u("selectedOptions", (ne) => [...ne, O]) : u("selectedOptions", [O]);
+  }, j = () => c.multiple ? c.selectedOptions.map((L) => L.value) : c.selectedOptions[0].value ?? void 0, ee = (L) => {
+    var O;
+    v(L), R(L), (O = e.onChange) == null || O.call(e, j());
+  }, I = (L) => {
+    var O;
+    _(L), (O = e.onChange) == null || O.call(e, j()), h();
+  }, k = (L) => c.options[L].disabled, W = (L) => {
+    if (!tt(f, zt(L))) {
       if (c.ignoreBlur) {
-        d("ignoreBlur", !1);
+        u("ignoreBlur", !1);
         return;
       }
-      c.opened && X(!1, !1);
+      c.opened && U(!1, !1);
     }
-  }, se = () => {
-    o.readOnly || X(!c.opened, !1);
-  }, ee = (T) => {
-    if (o.readOnly)
+  }, V = () => {
+    n.readOnly || U(!c.opened, !1);
+  }, Q = (L) => {
+    if (n.readOnly)
       return;
     const {
-      key: F
-    } = T;
-    if (c.hasSelectedOptions && c.multiple && F === "Backspace") {
-      _(c.selectedOptions[c.selectedOptions.length - 1]);
+      key: O
+    } = L;
+    if (c.hasSelectedOptions && c.multiple && O === "Backspace") {
+      I(c.selectedOptions[c.selectedOptions.length - 1]);
       return;
     }
-    const ie = c.options.length - 1, me = Yg(T, c.opened);
-    switch (me) {
-      case Le.Last:
-      case Le.First:
-        X(!0);
-      case Le.Next:
-      case Le.Previous:
-        return T.preventDefault(), w(Zg({
+    const ne = c.options.length - 1, be = of(L, c.opened);
+    switch (be) {
+      case De.Last:
+      case De.First:
+        U(!0);
+      case De.Next:
+      case De.Previous:
+        return L.preventDefault(), v(af({
           currentIndex: c.activeIndex,
-          maxIndex: ie,
-          initialAction: me,
+          maxIndex: ne,
+          initialAction: be,
           isOptionDisabled: k
         }));
-      case Le.SelectAndClose:
-        return T.preventDefault(), O(c.activeIndex), c.multiple ? void 0 : X(!1);
-      case Le.Close:
-        return T.preventDefault(), X(!1);
-      case Le.Type:
-        return G(F);
-      case Le.Open:
-        return T.preventDefault(), X(!0);
+      case De.SelectAndClose:
+        return L.preventDefault(), ee(c.activeIndex), c.multiple ? void 0 : U(!1);
+      case De.Close:
+        return L.preventDefault(), U(!1);
+      case De.Type:
+        return J(O);
+      case De.Open:
+        return L.preventDefault(), U(!0);
     }
-  }, G = (T) => {
-    if (o.readOnly)
+  }, J = (L) => {
+    if (n.readOnly)
       return;
-    X(!0);
-    const F = z(T), ie = Qg(c.options, F, c.activeIndex + 1);
-    ie >= 0 ? w(ie) : (window.clearTimeout(c.searchTimeoutId), d("searchString", ""));
-  }, xe = (T) => {
-    if (c.options[T].disabled) {
-      C();
+    U(!0);
+    const O = P(L), ne = nf(c.options, O, c.activeIndex + 1);
+    ne >= 0 ? v(ne) : (window.clearTimeout(c.searchTimeoutId), u("searchString", ""));
+  }, Y = (L) => {
+    if (c.options[L].disabled) {
+      h();
       return;
     }
-    O(T), c.multiple ? C() : X(!1);
-  }, ze = (T) => {
-    c.activeIndex !== T && w(T);
-  }, Ae = () => {
-    d("ignoreBlur", !0);
-  }, H = () => {
-    c.selectedOptions.length > 0 ? d("activeIndex", c.options.findIndex((T) => E(T))) : d("activeIndex", 0);
-  }, Y = () => {
-    c.opened ? (x(), f && u && (S = rr(f, u, x))) : S == null || S();
-  }, X = (T, F = !0) => {
-    c.opened !== T && (d("opened", T), H(), Y(), F && C());
-  }, I = () => {
-    w(-1);
-  }, W = (T) => {
-    Ge(f, T) || X(!1, !1);
-  }, be = (T) => T === c.activeIndex, U = (T) => {
-    f = T;
-  }, Re = (T) => {
-    u = T;
-  }, gt = (T) => {
-    g = T;
-  }, St = (T) => {
-    g && Yr(g) && Zr(T, g);
-  }, xt = (T) => {
-    const F = c.options.findIndex((me) => _t(me, T));
-    return F != -1 ? F : l((me) => [...me, T]).length - 1;
+    ee(L), c.multiple ? h() : U(!1);
+  }, K = (L) => {
+    c.activeIndex !== L && v(L);
+  }, ve = () => {
+    u("ignoreBlur", !0);
+  }, E = () => {
+    c.selectedOptions.length > 0 ? u("activeIndex", c.options.findIndex((L) => D(L))) : u("activeIndex", 0);
+  }, X = () => {
+    c.opened ? (b(), f && d && (y = Ht(f, d, b))) : y == null || y();
+  }, U = (L, O = !0) => {
+    c.opened !== L && (u("opened", L), E(), X(), O && h());
+  }, T = () => {
+    v(-1);
+  }, M = (L) => {
+    tt(f, L) || U(!1, !1);
+  }, xe = (L) => L === c.activeIndex, Oe = (L) => {
+    f = L;
+  }, Pe = (L) => {
+    d = L;
+  }, Me = (L) => {
+    g = L;
+  }, F = (L) => {
+    g && sn(g) && ln(L, g);
+  }, pe = (L) => {
+    const O = c.options.findIndex((be) => kt(be, L));
+    return O != -1 ? O : l((be) => [...be, L]).length - 1;
   };
-  pe(st(() => c.options, () => B(), {
+  me(ct(() => c.options, () => z(), {
     defer: !0
-  })), pe(st(() => e.value, () => {
+  })), me(ct(() => e.value, () => {
     if (!c.isControlled)
       return;
-    const F = (it(e.value) ? e.value : [e.value]).map((ie) => c.options.find((me) => me.value === ie)).filter(Boolean);
-    d("selectedOptions", F);
+    const O = (dt(e.value) ? e.value : [e.value]).map((ne) => c.options.find((be) => be.value === ne)).filter(Boolean);
+    u("selectedOptions", O);
   }, {
     defer: !0
-  })), pe(st(() => c.opened, (T) => {
-    T && setTimeout(() => {
-      const F = g == null ? void 0 : g.querySelector("[role='option'][aria-selected='true']");
-      F && St(F);
+  })), me(ct(() => c.opened, (L) => {
+    L && setTimeout(() => {
+      const O = g == null ? void 0 : g.querySelector("[role='option'][aria-selected='true']");
+      O && F(O);
     }, 0);
   }));
-  const Ct = {
+  const lt = {
     state: c,
-    isOptionSelected: E,
-    unselectOption: _,
-    isOptionActiveDescendant: be,
-    formControlProps: o,
-    assignTriggerRef: U,
-    assignContentRef: Re,
-    assignListboxRef: gt,
-    registerOption: xt,
-    scrollToOption: St,
-    onContentClickOutside: W,
-    onTriggerBlur: K,
-    onTriggerClick: se,
-    onTriggerKeyDown: ee,
-    onOptionClick: xe,
-    onOptionMouseMove: ze,
-    onOptionMouseDown: Ae,
-    onListboxMouseLeave: I
+    isOptionSelected: D,
+    unselectOption: I,
+    isOptionActiveDescendant: xe,
+    formControlProps: n,
+    assignTriggerRef: Oe,
+    assignContentRef: Pe,
+    assignListboxRef: Me,
+    registerOption: pe,
+    scrollToOption: F,
+    onContentClickOutside: M,
+    onTriggerBlur: W,
+    onTriggerClick: V,
+    onTriggerKeyDown: Q,
+    onOptionClick: Y,
+    onOptionMouseMove: K,
+    onOptionMouseDown: ve,
+    onListboxMouseLeave: T
   };
-  return i(Pa.Provider, {
-    value: Ct,
+  return i(Ma.Provider, {
+    value: lt,
     get children() {
       return e.children;
     }
   });
 }
-const Pa = J();
-function He() {
-  const e = Q(Pa);
+const Ma = te();
+function Ae() {
+  const e = Z(Ma);
   if (!e)
     throw new Error("[Hope UI]: useSelectContext must be used within a `<Select />` component");
   return e;
 }
-const Ta = "hope-select__content";
-function za(e) {
-  let t = ne();
-  const r = y().Select, o = He(), [a, n] = b(e, ["ref", "class", "children"]), [s, l] = Z(!1);
-  pe(st(() => o.state.opened, () => {
-    o.state.opened ? l(!0) : o.state.motionPreset === "none" && l(!1);
+const Ra = "hope-select__content";
+function Wa(e) {
+  let t = ue();
+  const r = w().Select, n = Ae(), [a, o] = S(e, ["ref", "class", "children"]), [s, l] = re(!1);
+  me(ct(() => n.state.opened, () => {
+    n.state.opened ? l(!0) : n.state.motionPreset === "none" && l(!1);
   }));
-  const c = () => l(!1), d = () => h(a.class, Ta, Ll()), f = rt(() => a.children), u = (x) => {
-    x && (o.assignContentRef(x), Te(a.ref) ? a.ref(x) : a.ref = x);
+  const c = () => l(!1), u = () => m(a.class, Ra, Wl()), f = ot(() => a.children), d = (b) => {
+    b && (n.assignContentRef(b), de(a.ref) ? a.ref(b) : a.ref = b);
   };
-  pe(() => {
-    s() && u(document.querySelector(`[unique-id="${t}"]`));
+  me(() => {
+    s() && d(document.querySelector(`[unique-id="${t}"]`));
   });
-  const g = (x) => {
-    o.onContentClickOutside(x.target);
-  }, S = () => {
-    switch (o.state.motionPreset) {
+  const g = (b) => {
+    n.onContentClickOutside(b.target);
+  }, y = () => {
+    switch (n.state.motionPreset) {
       case "fade-in-top":
-        return Ze.fadeInTop;
+        return Ge.fadeInTop;
       case "none":
         return "hope-none";
     }
   };
-  return i(D, {
+  return i(H, {
     get when() {
       return s();
     },
     get children() {
-      return i(tt, {
+      return i(gt, {
         get children() {
-          return i(De, {
+          return i(Ee, {
             get name() {
-              return S();
+              return y();
             },
             appear: !0,
             onAfterExit: c,
             get children() {
-              return i(D, {
+              return i(H, {
                 get when() {
-                  return o.state.opened;
+                  return n.state.opened;
                 },
                 get children() {
-                  return i(Qn, {
+                  return i(aa, {
                     onClickOutside: g,
                     get children() {
-                      return i(P, p({
+                      return i(B, p({
+                        ref: d,
                         get class() {
-                          return d();
+                          return u();
                         },
                         get __baseStyle() {
-                          var x;
-                          return (x = r == null ? void 0 : r.baseStyle) == null ? void 0 : x.content;
+                          var b;
+                          return (b = r == null ? void 0 : r.baseStyle) == null ? void 0 : b.content;
                         },
                         "unique-id": t
-                      }, n, {
+                      }, o, {
                         get children() {
                           return f();
                         }
@@ -10702,20 +10704,20 @@ function za(e) {
     }
   });
 }
-za.toString = () => v(Ta);
-var Gg = ["<path", ' d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>'];
-const ef = $e({
+Wa.toString = () => $(Ra);
+var lf = /* @__PURE__ */ se('<svg><path d="M4.93179 5.43179C4.75605 5.60753 4.75605 5.89245 4.93179 6.06819C5.10753 6.24392 5.39245 6.24392 5.56819 6.06819L7.49999 4.13638L9.43179 6.06819C9.60753 6.24392 9.89245 6.24392 10.0682 6.06819C10.2439 5.89245 10.2439 5.60753 10.0682 5.43179L7.81819 3.18179C7.73379 3.0974 7.61933 3.04999 7.49999 3.04999C7.38064 3.04999 7.26618 3.0974 7.18179 3.18179L4.93179 5.43179ZM10.0682 9.56819C10.2439 9.39245 10.2439 9.10753 10.0682 8.93179C9.89245 8.75606 9.60753 8.75606 9.43179 8.93179L7.49999 10.8636L5.56819 8.93179C5.39245 8.75606 5.10753 8.75606 4.93179 8.93179C4.75605 9.10753 4.75605 9.39245 4.93179 9.56819L7.18179 11.8182C7.35753 11.9939 7.64245 11.9939 7.81819 11.8182L10.0682 9.56819Z"fill=currentColor fill-rule=evenodd clip-rule=evenodd></svg>', !1, !0);
+const cf = Ie({
   viewBox: "0 0 15 15",
-  path: () => re(Gg, oe())
-}), Ba = "hope-select__icon";
-function La(e) {
-  const t = y().Select, r = He(), [o, a] = b(e, ["class", "rotateOnOpen"]), n = () => h(o.class, Ba, Bl(o.rotateOnOpen ? {
+  path: () => lf()
+}), Fa = "hope-select__icon";
+function Na(e) {
+  const t = w().Select, r = Ae(), [n, a] = S(e, ["class", "rotateOnOpen"]), o = () => m(n.class, Fa, Rl(n.rotateOnOpen ? {
     opened: r.state.opened
   } : void 0));
-  return i(ef, p({
+  return i(cf, p({
     "aria-hidden": !0,
     get class() {
-      return n();
+      return o();
     },
     get __baseStyle() {
       var s;
@@ -10723,16 +10725,16 @@ function La(e) {
     }
   }, a));
 }
-La.toString = () => v(Ba);
-const Da = J(), Ha = "hope-select__optgroup";
-function tf(e) {
-  const t = y().Select, [r, o] = Z(), [a, n] = b(e, ["class", "children"]), s = () => h(a.class, Ha, Hl()), l = {
-    setAriaLabelledBy: o
+Na.toString = () => $(Fa);
+const Va = te(), qa = "hope-select__optgroup";
+function df(e) {
+  const t = w().Select, [r, n] = re(), [a, o] = S(e, ["class", "children"]), s = () => m(a.class, qa, Nl()), l = {
+    setAriaLabelledBy: n
   };
-  return i(Da.Provider, {
+  return i(Va.Provider, {
     value: l,
     get children() {
-      return i(P, p({
+      return i(B, p({
         role: "group",
         get "aria-labelledby"() {
           return r();
@@ -10744,7 +10746,7 @@ function tf(e) {
           var c;
           return (c = t == null ? void 0 : t.baseStyle) == null ? void 0 : c.optgroup;
         }
-      }, n, {
+      }, o, {
         get children() {
           return a.children;
         }
@@ -10752,16 +10754,16 @@ function tf(e) {
     }
   });
 }
-tf.toString = () => v(Ha);
-function rf() {
-  return Q(Da);
+df.toString = () => $(qa);
+function uf() {
+  return Z(Va);
 }
-const Aa = "hope-select__label";
-function of(e) {
-  const t = ne(), r = y().Select, o = He(), a = rf(), [n, s] = b(e, ["class", "id"]), l = () => n.id ?? `${o.state.labelIdPrefix}-${t}`, c = () => h(n.class, Aa, Al());
-  return ae(() => {
+const ja = "hope-select__label";
+function gf(e) {
+  const t = ue(), r = w().Select, n = Ae(), a = uf(), [o, s] = S(e, ["class", "id"]), l = () => o.id ?? `${n.state.labelIdPrefix}-${t}`, c = () => m(o.class, ja, Vl());
+  return ge(() => {
     a == null || a.setAriaLabelledBy(l());
-  }), i(P, p({
+  }), i(B, p({
     get id() {
       return l();
     },
@@ -10769,73 +10771,79 @@ function of(e) {
       return c();
     },
     get __baseStyle() {
-      var d;
-      return (d = r == null ? void 0 : r.baseStyle) == null ? void 0 : d.label;
+      var u;
+      return (u = r == null ? void 0 : r.baseStyle) == null ? void 0 : u.label;
     }
   }, s));
 }
-of.toString = () => v(Aa);
-const Ea = "hope-select__listbox";
-function Ma(e) {
-  const t = y().Select, r = He(), [o, a] = b(e, ["ref", "class"]), n = () => h(o.class, Ea, Dl());
-  return i(P, p({
+gf.toString = () => $(ja);
+const Ka = "hope-select__listbox";
+function Xa(e) {
+  const t = w().Select, r = Ae(), [n, a] = S(e, ["ref", "class"]), o = () => m(n.class, Ka, Fl());
+  return i(B, p({
+    ref: (c) => {
+      r.assignListboxRef(c), de(n.ref) ? n.ref(c) : n.ref = c;
+    },
     role: "listbox",
     tabindex: "-1",
     get id() {
       return r.state.listboxId;
     },
     get class() {
-      return n();
+      return o();
     },
     get __baseStyle() {
-      var l;
-      return (l = t == null ? void 0 : t.baseStyle) == null ? void 0 : l.listbox;
+      var c;
+      return (c = t == null ? void 0 : t.baseStyle) == null ? void 0 : c.listbox;
     },
     get onMouseLeave() {
       return r.onListboxMouseLeave;
     },
-    onMouseDown: (l) => {
-      l.preventDefault();
+    onMouseDown: (c) => {
+      c.preventDefault();
     }
   }, a));
 }
-Ma.toString = () => v(Ea);
-const Oa = J(), Ra = "hope-select__option";
-function Wa(e) {
-  const t = y().Select, r = He(), [o, a] = Z(-1);
-  let n;
-  const [s, l] = b(e, ["ref", "class", "value", "textValue", "disabled"]), c = () => ({
+Xa.toString = () => $(Ka);
+const Ua = te(), Qa = "hope-select__option";
+function Ya(e) {
+  const t = w().Select, r = Ae(), [n, a] = re(-1);
+  let o;
+  const [s, l] = S(e, ["ref", "class", "value", "textValue", "disabled"]), c = () => ({
     value: s.value,
-    textValue: s.textValue ?? (n == null ? void 0 : n.textContent) ?? String(s.value),
+    textValue: s.textValue ?? (o == null ? void 0 : o.textContent) ?? String(s.value),
     disabled: !!s.disabled
-  }), d = () => `${r.state.optionIdPrefix}-${o()}`, f = () => r.isOptionSelected(c()), u = () => r.isOptionActiveDescendant(o()), g = () => h(s.class, Ra, El()), S = (C) => {
-    C.stopPropagation(), r.onOptionClick(o());
-  }, x = (C) => {
-    if (s.disabled && r.onOptionMouseMove(-1), u() || s.disabled) {
-      C.preventDefault(), C.stopPropagation();
+  }), u = () => `${r.state.optionIdPrefix}-${n()}`, f = () => r.isOptionSelected(c()), d = () => r.isOptionActiveDescendant(n()), g = () => m(s.class, Qa, ql()), y = (x) => {
+    o = x, de(s.ref) ? s.ref(x) : s.ref = x;
+  }, b = (x) => {
+    x.stopPropagation(), r.onOptionClick(n());
+  }, P = (x) => {
+    if (s.disabled && r.onOptionMouseMove(-1), d() || s.disabled) {
+      x.preventDefault(), x.stopPropagation();
       return;
     }
-    r.onOptionMouseMove(o());
-  }, z = {
+    r.onOptionMouseMove(n());
+  }, h = {
     selected: f
   };
-  return ae(() => {
+  return ge(() => {
     a(r.registerOption(c()));
-  }), pe(() => {
-    u();
-  }), i(Oa.Provider, {
-    value: z,
+  }), me(() => {
+    d() && o && r.scrollToOption(o);
+  }), i(Ua.Provider, {
+    value: h,
     get children() {
-      return i(P, p({
+      return i(B, p({
+        ref: y,
         role: "option",
         get id() {
-          return d();
+          return u();
         },
         get "aria-selected"() {
           return f();
         },
         get "data-active"() {
-          return u() ? "" : void 0;
+          return d() ? "" : void 0;
         },
         get "data-disabled"() {
           return s.disabled ? "" : void 0;
@@ -10845,11 +10853,11 @@ function Wa(e) {
           return g();
         },
         get __baseStyle() {
-          var C;
-          return (C = t == null ? void 0 : t.baseStyle) == null ? void 0 : C.option;
+          var x;
+          return (x = t == null ? void 0 : t.baseStyle) == null ? void 0 : x.option;
         },
-        onClick: S,
-        onMouseMove: x,
+        onClick: b,
+        onMouseMove: P,
         get onMouseDown() {
           return r.onOptionMouseDown;
         }
@@ -10857,28 +10865,28 @@ function Wa(e) {
     }
   });
 }
-Wa.toString = () => v(Ra);
-function nf() {
-  const e = Q(Oa);
+Ya.toString = () => $(Qa);
+function ff() {
+  const e = Z(Ua);
   if (!e)
     throw new Error("[Hope UI]: useSelectOptionContext must be used within a `<Select.Option />` component");
   return e;
 }
-var af = ["<g", ' fill="none"><path d="M11.4669 3.72684C11.7558 3.91574 11.8369 4.30308 11.648 4.59198L7.39799 11.092C7.29783 11.2452 7.13556 11.3467 6.95402 11.3699C6.77247 11.3931 6.58989 11.3355 6.45446 11.2124L3.70446 8.71241C3.44905 8.48022 3.43023 8.08494 3.66242 7.82953C3.89461 7.57412 4.28989 7.55529 4.5453 7.78749L6.75292 9.79441L10.6018 3.90792C10.7907 3.61902 11.178 3.53795 11.4669 3.72684Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></g>'];
-const sf = $e({
+var hf = /* @__PURE__ */ se('<svg><g fill=none><path d="M11.4669 3.72684C11.7558 3.91574 11.8369 4.30308 11.648 4.59198L7.39799 11.092C7.29783 11.2452 7.13556 11.3467 6.95402 11.3699C6.77247 11.3931 6.58989 11.3355 6.45446 11.2124L3.70446 8.71241C3.44905 8.48022 3.43023 8.08494 3.66242 7.82953C3.89461 7.57412 4.28989 7.55529 4.5453 7.78749L6.75292 9.79441L10.6018 3.90792C10.7907 3.61902 11.178 3.53795 11.4669 3.72684Z"fill=currentColor fill-rule=evenodd clip-rule=evenodd></svg>', !1, !0);
+const pf = Ie({
   viewBox: "0 0 15 15",
-  path: () => re(af, oe())
-}), Fa = "hope-select__option-indicator";
-function Na(e) {
-  const t = y().Select, r = nf(), [o, a] = b(e, ["class", "children"]), n = () => h(o.class, Fa, Ol());
-  return i(D, {
+  path: () => hf()
+}), Za = "hope-select__option-indicator";
+function Ja(e) {
+  const t = w().Select, r = ff(), [n, a] = S(e, ["class", "children"]), o = () => m(n.class, Za, Kl());
+  return i(H, {
     get when() {
       return r.selected();
     },
     get children() {
       return i(A.span, p({
         get class() {
-          return n();
+          return o();
         },
         get __baseStyle() {
           var s;
@@ -10886,18 +10894,18 @@ function Na(e) {
         }
       }, a, {
         get children() {
-          return i(D, {
+          return i(H, {
             get when() {
-              return o.children;
+              return n.children;
             },
             get fallback() {
-              return i(sf, {
+              return i(pf, {
                 "aria-hidden": "true",
                 boxSize: "$5"
               });
             },
             get children() {
-              return o.children;
+              return n.children;
             }
           });
         }
@@ -10905,32 +10913,32 @@ function Na(e) {
     }
   });
 }
-Na.toString = () => v(Fa);
-const Va = "hope-select__option-text";
-function qa(e) {
-  const t = y().Select, [r, o] = b(e, ["class"]), a = () => h(r.class, Va, Ml());
+Ja.toString = () => $(Za);
+const Ga = "hope-select__option-text";
+function es(e) {
+  const t = w().Select, [r, n] = S(e, ["class"]), a = () => m(r.class, Ga, jl());
   return i(A.span, p({
     get class() {
       return a();
     },
     get __baseStyle() {
-      var n;
-      return (n = t == null ? void 0 : t.baseStyle) == null ? void 0 : n.optionText;
+      var o;
+      return (o = t == null ? void 0 : t.baseStyle) == null ? void 0 : o.optionText;
     }
-  }, o));
+  }, n));
 }
-qa.toString = () => v(Va);
-const ja = "hope-select__placeholder";
-function Ka(e) {
-  const t = y().Select, r = He(), [o, a] = b(e, ["class"]), n = () => h(o.class, ja, zl());
-  return i(D, {
+es.toString = () => $(Ga);
+const ts = "hope-select__placeholder";
+function rs(e) {
+  const t = w().Select, r = Ae(), [n, a] = S(e, ["class"]), o = () => m(n.class, ts, Ml());
+  return i(H, {
     get when() {
       return !r.state.hasSelectedOptions;
     },
     get children() {
       return i(A.span, p({
         get class() {
-          return n();
+          return o();
         },
         get __baseStyle() {
           var s;
@@ -10940,16 +10948,16 @@ function Ka(e) {
     }
   });
 }
-Ka.toString = () => v(ja);
-const Xa = "hope-select__tag";
-function Ua(e) {
-  const t = y().Select, r = He(), [o, a] = b(e, ["class", "size", "variant"]), n = () => h(o.class, Xa, Pl({
-    size: o.size ?? r.state.size ?? "md",
-    variant: o.variant ?? r.state.variant === "filled" ? "outline" : "subtle"
+rs.toString = () => $(ts);
+const ns = "hope-select__tag";
+function os(e) {
+  const t = w().Select, r = Ae(), [n, a] = S(e, ["class", "size", "variant"]), o = () => m(n.class, ns, Al({
+    size: n.size ?? r.state.size ?? "md",
+    variant: n.variant ?? r.state.variant === "filled" ? "outline" : "subtle"
   }));
   return i(A.span, p({
     get class() {
-      return n();
+      return o();
     },
     get __baseStyle() {
       var s;
@@ -10957,14 +10965,14 @@ function Ua(e) {
     }
   }, a));
 }
-Ua.toString = () => v(Xa);
-var lf = ["<g", ' fill="none"><path d="M11.7816 4.03157C12.0062 3.80702 12.0062 3.44295 11.7816 3.2184C11.5571 2.99385 11.193 2.99385 10.9685 3.2184L7.50005 6.68682L4.03164 3.2184C3.80708 2.99385 3.44301 2.99385 3.21846 3.2184C2.99391 3.44295 2.99391 3.80702 3.21846 4.03157L6.68688 7.49999L3.21846 10.9684C2.99391 11.193 2.99391 11.557 3.21846 11.7816C3.44301 12.0061 3.80708 12.0061 4.03164 11.7816L7.50005 8.31316L10.9685 11.7816C11.193 12.0061 11.5571 12.0061 11.7816 11.7816C12.0062 11.557 12.0062 11.193 11.7816 10.9684L8.31322 7.49999L11.7816 4.03157Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></g>'];
-const Qa = $e({
+os.toString = () => $(ns);
+var bf = /* @__PURE__ */ se('<svg><g fill=none><path d="M11.7816 4.03157C12.0062 3.80702 12.0062 3.44295 11.7816 3.2184C11.5571 2.99385 11.193 2.99385 10.9685 3.2184L7.50005 6.68682L4.03164 3.2184C3.80708 2.99385 3.44301 2.99385 3.21846 3.2184C2.99391 3.44295 2.99391 3.80702 3.21846 4.03157L6.68688 7.49999L3.21846 10.9684C2.99391 11.193 2.99391 11.557 3.21846 11.7816C3.44301 12.0061 3.80708 12.0061 4.03164 11.7816L7.50005 8.31316L10.9685 11.7816C11.193 12.0061 11.5571 12.0061 11.7816 11.7816C12.0062 11.557 12.0062 11.193 11.7816 10.9684L8.31322 7.49999L11.7816 4.03157Z"fill=currentColor fill-rule=evenodd clip-rule=evenodd></svg>', !1, !0);
+const as = Ie({
   viewBox: "0 0 15 15",
-  path: () => re(lf, oe())
-}), Ya = "hope-select__tag-close-button";
-function Za(e) {
-  const t = y().Select, [r, o] = b(e, ["class", "children"]), a = () => h(r.class, Ya, Tl());
+  path: () => bf()
+}), ss = "hope-select__tag-close-button";
+function is(e) {
+  const t = w().Select, [r, n] = S(e, ["class", "children"]), a = () => m(r.class, ss, Ol());
   return i(A.button, p({
     role: "button",
     type: "button",
@@ -10974,17 +10982,17 @@ function Za(e) {
       return a();
     },
     get __baseStyle() {
-      var n;
-      return (n = t == null ? void 0 : t.baseStyle) == null ? void 0 : n.tagCloseButton;
+      var o;
+      return (o = t == null ? void 0 : t.baseStyle) == null ? void 0 : o.tagCloseButton;
     }
-  }, o, {
+  }, n, {
     get children() {
-      return i(D, {
+      return i(H, {
         get when() {
           return r.children;
         },
         get fallback() {
-          return i(Qa, {});
+          return i(as, {});
         },
         get children() {
           return r.children;
@@ -10993,60 +11001,61 @@ function Za(e) {
     }
   }));
 }
-Za.toString = () => v(Ya);
-const Ja = "hope-select__trigger";
-function Ga(e) {
-  let t = ne();
-  const r = y().Select, o = He(), [a, n] = b(e, ["ref", "class", "onClick", "onKeyDown", "onFocus", "onBlur"]), s = () => h(a.class, Ja, Il({
-    variant: o.state.variant,
-    size: o.state.size
+is.toString = () => $(ss);
+const ls = "hope-select__trigger";
+function cs(e) {
+  let t = ue();
+  const r = w().Select, n = Ae(), [a, o] = S(e, ["ref", "class", "onClick", "onKeyDown", "onFocus", "onBlur"]), s = () => m(a.class, ls, Dl({
+    variant: n.state.variant,
+    size: n.state.size
   })), l = (g) => {
-    g && (o.assignTriggerRef(g), Te(a.ref) ? a.ref(g) : a.ref = g);
+    g && (n.assignTriggerRef(g), de(a.ref) ? a.ref(g) : a.ref = g);
   };
-  ae(() => {
+  ge(() => {
     l(document.querySelector(`[unique-id="${t}"]`));
   });
   const c = (g) => {
-    fe(o.onTriggerClick, a.onClick)(g);
-  }, d = (g) => {
-    fe(o.onTriggerKeyDown, a.onKeyDown)(g);
-  }, f = (g) => {
-    fe(o.formControlProps.onFocus, a.onFocus)(g);
+    he(n.onTriggerClick, a.onClick)(g);
   }, u = (g) => {
-    fe(o.onTriggerBlur, o.formControlProps.onBlur, a.onBlur)(g);
+    he(n.onTriggerKeyDown, a.onKeyDown)(g);
+  }, f = (g) => {
+    he(n.formControlProps.onFocus, a.onFocus)(g);
+  }, d = (g) => {
+    he(n.onTriggerBlur, n.formControlProps.onBlur, a.onBlur)(g);
   };
   return i(A.button, p({
+    ref: l,
     get id() {
-      return o.state.triggerId;
+      return n.state.triggerId;
     },
     "unique-id": t,
     get disabled() {
-      return o.state.disabled;
+      return n.state.disabled;
     },
     role: "combobox",
     type: "button",
     tabindex: "0",
     "aria-haspopup": "listbox",
     get "aria-activedescendant"() {
-      return o.state.activeDescendantId;
+      return n.state.activeDescendantId;
     },
     get "aria-controls"() {
-      return o.state.listboxId;
+      return n.state.listboxId;
     },
     get "aria-expanded"() {
-      return o.state.opened;
+      return n.state.opened;
     },
     get "aria-required"() {
-      return o.formControlProps["aria-required"];
+      return n.formControlProps["aria-required"];
     },
     get "aria-invalid"() {
-      return o.formControlProps["aria-invalid"];
+      return n.formControlProps["aria-invalid"];
     },
     get "aria-readonly"() {
-      return o.formControlProps["aria-readonly"];
+      return n.formControlProps["aria-readonly"];
     },
     get "aria-describedby"() {
-      return o.formControlProps["aria-describedby"];
+      return n.formControlProps["aria-describedby"];
     },
     get class() {
       return s();
@@ -11056,31 +11065,31 @@ function Ga(e) {
       return (g = r == null ? void 0 : r.baseStyle) == null ? void 0 : g.trigger;
     },
     onClick: c,
-    onKeyDown: d,
+    onKeyDown: u,
     onFocus: f,
-    onBlur: u
-  }, n));
+    onBlur: d
+  }, o));
 }
-Ga.toString = () => v(Ja);
-var cf = ["<span", ">", "</span>"];
-const er = "hope-select__value";
-function es(e) {
-  const t = y().Select, r = He(), [o, a] = b(e, ["class", "children"]), n = () => h(o.class, er, qr()), s = () => h(o.class, er, kl({
+cs.toString = () => $(ls);
+var mf = /* @__PURE__ */ se("<span>");
+const or = "hope-select__value";
+function ds(e) {
+  const t = w().Select, r = Ae(), [n, a] = S(e, ["class", "children"]), o = () => m(n.class, or, en()), s = () => m(n.class, or, El({
     size: r.state.size
-  })), l = (d, f) => {
-    d.preventDefault(), d.stopPropagation(), r.unselectOption(f);
-  }, c = rt(() => {
-    var d;
-    return mt(o) ? (d = o.children) == null ? void 0 : d.call(o, {
+  })), l = (u, f) => {
+    u.preventDefault(), u.stopPropagation(), r.unselectOption(f);
+  }, c = ot(() => {
+    var u;
+    return Ct(n) ? (u = n.children) == null ? void 0 : u.call(n, {
       selectedOptions: r.state.selectedOptions
-    }) : o.children;
+    }) : n.children;
   });
-  return i(D, {
+  return i(H, {
     get when() {
       return r.state.hasSelectedOptions;
     },
     get children() {
-      return i(D, {
+      return i(H, {
         get when() {
           return !c();
         },
@@ -11088,18 +11097,18 @@ function es(e) {
           return c();
         },
         get children() {
-          return i(D, {
+          return i(H, {
             get when() {
               return r.state.multiple;
             },
             get fallback() {
-              return i(P, p({
+              return i(B, p({
                 get class() {
-                  return n();
+                  return o();
                 },
                 get __baseStyle() {
-                  var d;
-                  return (d = t == null ? void 0 : t.baseStyle) == null ? void 0 : d.singleValue;
+                  var u;
+                  return (u = t == null ? void 0 : t.baseStyle) == null ? void 0 : u.singleValue;
                 }
               }, a, {
                 get children() {
@@ -11108,24 +11117,27 @@ function es(e) {
               }));
             },
             get children() {
-              return i(P, p({
+              return i(B, p({
                 get class() {
                   return s();
                 },
                 get __baseStyle() {
-                  var d;
-                  return (d = t == null ? void 0 : t.baseStyle) == null ? void 0 : d.multiValue;
+                  var u;
+                  return (u = t == null ? void 0 : t.baseStyle) == null ? void 0 : u.multiValue;
                 }
               }, a, {
                 get children() {
-                  return i(Dr, {
+                  return i(Wr, {
                     get each() {
                       return r.state.selectedOptions;
                     },
-                    children: (d) => i(Ua, {
+                    children: (u) => i(os, {
                       get children() {
-                        return [re(cf, oe(), V(d.textValue)), i(Za, {
-                          onClick: (f) => l(f, d)
+                        return [(() => {
+                          var f = mf();
+                          return Mr(f, () => u.textValue), f;
+                        })(), i(is, {
+                          onClick: (f) => l(f, u)
                         })];
                       }
                     })
@@ -11139,45 +11151,45 @@ function es(e) {
     }
   });
 }
-es.toString = () => v(er);
-function Fp(e) {
-  const [t, r] = b(e, ["children", "value"]);
-  return i(Wa, p({
+ds.toString = () => $(or);
+function Uh(e) {
+  const [t, r] = S(e, ["children", "value"]);
+  return i(Ya, p({
     get value() {
       return t.value;
     }
   }, r, {
     get children() {
-      return [i(qa, {
+      return [i(es, {
         get children() {
           return t.children;
         }
-      }), i(Na, {})];
+      }), i(Ja, {})];
     }
   }));
 }
-function Np(e) {
-  const [t, r, o] = b(e, ["children", "placeholder"], ["variant", "size", "offset", "id", "multiple", "value", "defaultValue", "required", "disabled", "invalid", "readOnly", "onChange", "onFocus", "onBlur"]);
-  return i(Jg, p(r, {
+function Qh(e) {
+  const [t, r, n] = S(e, ["children", "placeholder"], ["variant", "size", "offset", "id", "multiple", "value", "defaultValue", "required", "disabled", "invalid", "readOnly", "onChange", "onFocus", "onBlur"]);
+  return i(sf, p(r, {
     get children() {
-      return [i(Ga, p(o, {
+      return [i(cs, p(n, {
         get children() {
-          return [i(D, {
+          return [i(H, {
             get when() {
               return t.placeholder;
             },
             get children() {
-              return i(Ka, {
+              return i(rs, {
                 get children() {
                   return t.placeholder;
                 }
               });
             }
-          }), i(es, {}), i(La, {})];
+          }), i(ds, {}), i(Na, {})];
         }
-      })), i(za, {
+      })), i(Wa, {
         get children() {
-          return i(Ma, {
+          return i(Xa, {
             get children() {
               return t.children;
             }
@@ -11187,7 +11199,7 @@ function Np(e) {
     }
   }));
 }
-const df = ct({
+const vf = ft({
   from: {
     borderColor: "$$startColor",
     background: "$$startColor"
@@ -11196,7 +11208,7 @@ const df = ct({
     borderColor: "$$endColor",
     background: "$$endColor"
   }
-}), uf = m({
+}), Sf = C({
   $$startColor: "$colors$neutral2",
   $$endColor: "$colors$neutral8",
   opacity: "0.7",
@@ -11212,37 +11224,37 @@ const df = ct({
   animationTimingFunction: "linear",
   animationIterationCount: "infinite",
   animationDirection: "alternate",
-  animationName: `${df()}`,
+  animationName: `${vf()}`,
   "&::before, &::after, *": {
     visibility: "hidden"
   }
-}), Nt = "hope-skeleton";
-function zt(e) {
-  const [t, r] = Z("none"), a = q({
+}), Kt = "hope-skeleton";
+function Bt(e) {
+  const [t, r] = re("none"), a = N({
     speed: "800ms",
     fadeDuration: "400ms"
-  }, e), [n, s] = b(a, ["class", "startColor", "endColor", "loaded", "speed", "fadeDuration"]), l = () => h(n.class, Nt, n.loaded ? void 0 : uf({
+  }, e), [o, s] = S(a, ["class", "startColor", "endColor", "loaded", "speed", "fadeDuration"]), l = () => m(o.class, Kt, o.loaded ? void 0 : Sf({
     css: {
-      $$startColor: $r(n.startColor ?? "$neutral2"),
-      $$endColor: $r(n.endColor ?? "$neutral8"),
-      animationDuration: n.speed
+      $$startColor: Pr(o.startColor ?? "$neutral2"),
+      $$endColor: Pr(o.endColor ?? "$neutral8"),
+      animationDuration: o.speed
     }
   }));
-  return pe(st(() => n.loaded, (c, d) => r(d === !0 ? "none" : `${sl()} ${n.fadeDuration}`), {
+  return me(ct(() => o.loaded, (c, u) => r(u === !0 ? "none" : `${hl()} ${o.fadeDuration}`), {
     defer: !0
-  })), i(D, {
+  })), i(H, {
     get when() {
-      return n.loaded;
+      return o.loaded;
     },
     get fallback() {
-      return i(P, p({
+      return i(B, p({
         get class() {
           return l();
         }
       }, s));
     },
     get children() {
-      return i(P, p({
+      return i(B, p({
         get class() {
           return l();
         },
@@ -11253,48 +11265,48 @@ function zt(e) {
     }
   });
 }
-zt.toString = () => v(Nt);
-function gf(e) {
-  return i(zt, p({
+Bt.toString = () => $(Kt);
+function xf(e) {
+  return i(Bt, p({
     borderRadius: "$full",
     get boxSize() {
       return e.size ?? "2rem";
     }
   }, e));
 }
-gf.toString = () => v(Nt);
-function ff(e) {
-  const r = q({
+xf.toString = () => $(Kt);
+function Cf(e) {
+  const r = N({
     noOfLines: 3,
     spacing: "0.5rem",
     skeletonHeight: "0.5rem"
-  }, e), [o, a, n] = b(r, ["class", "children", "noOfLines", "spacing", "skeletonHeight"], ["startColor", "endColor", "loaded", "speed", "fadeDuration", "borderRadius", "rounded"]), s = () => o.noOfLines ?? 3, l = Se(() => Fs(s())), c = (f) => s() > 1 && f === l().length - 1 ? "80%" : "100%", d = () => h(o.class, "hope-skeleton__group");
-  return i(D, {
+  }, e), [n, a, o] = S(r, ["class", "children", "noOfLines", "spacing", "skeletonHeight"], ["startColor", "endColor", "loaded", "speed", "fadeDuration", "borderRadius", "rounded"]), s = () => n.noOfLines ?? 3, l = ye(() => Qs(s())), c = (f) => s() > 1 && f === l().length - 1 ? "80%" : "100%", u = () => m(n.class, "hope-skeleton__group");
+  return i(H, {
     get when() {
       return a.loaded;
     },
     get fallback() {
-      return i(P, p({
+      return i(B, p({
         get class() {
-          return d();
+          return u();
         },
         d: "flex",
         flexDirection: "column",
         get gap() {
-          return o.spacing;
+          return n.spacing;
         }
-      }, n, {
+      }, o, {
         get children() {
-          return i(Ts, {
+          return i(Fs, {
             get each() {
               return l();
             },
-            children: (f, u) => i(zt, p({
+            children: (f, d) => i(Bt, p({
               get width() {
-                return c(u);
+                return c(d);
               },
               get height() {
-                return o.skeletonHeight;
+                return n.skeletonHeight;
               }
             }, a))
           });
@@ -11302,34 +11314,34 @@ function ff(e) {
       }));
     },
     get children() {
-      return i(zt, p({
+      return i(Bt, p({
         get class() {
-          return o.class;
+          return n.class;
         }
-      }, a, n, {
+      }, a, o, {
         get children() {
-          return o.children;
+          return n.children;
         }
       }));
     }
   });
 }
-ff.toString = () => v(Nt);
-const pf = m({
+Cf.toString = () => $(Kt);
+const yf = C({
   flex: 1,
   justifySelf: "stretch",
   alignSelf: "stretch"
-}), ts = "hope-spacer";
-function hf(e) {
-  const [t, r] = b(e, ["class"]), o = () => h(t.class, ts, pf());
-  return i(P, p({
+}), us = "hope-spacer";
+function $f(e) {
+  const [t, r] = S(e, ["class"]), n = () => m(t.class, us, yf());
+  return i(B, p({
     get class() {
-      return o();
+      return n();
     }
   }, r));
 }
-hf.toString = () => v(ts);
-const bf = m({
+$f.toString = () => $(us);
+const wf = C({
   display: "inline-block",
   borderColor: "currentColor",
   borderStyle: "solid",
@@ -11337,7 +11349,7 @@ const bf = m({
   borderWidth: "2px",
   borderBottomColor: "transparent",
   borderLeftColor: "transparent",
-  animationName: `${At}`,
+  animationName: `${Rt}`,
   animationDuration: "0.45s",
   animationTimingFunction: "linear",
   animationIterationCount: "infinite",
@@ -11361,18 +11373,18 @@ const bf = m({
     }
   }
 });
-var mf = ["<span", ">", "</span>"];
-const rs = "hope-spinner";
-function vf(e) {
-  var l, c, d, f, u, g;
-  const t = y().Spinner, r = {
+var If = /* @__PURE__ */ se("<span>");
+const gs = "hope-spinner";
+function kf(e) {
+  var l, c, u, f, d, g;
+  const t = w().Spinner, r = {
     label: ((l = t == null ? void 0 : t.defaultProps) == null ? void 0 : l.label) ?? "Loading...",
     size: ((c = t == null ? void 0 : t.defaultProps) == null ? void 0 : c.size) ?? "md",
-    emptyColor: (d = t == null ? void 0 : t.defaultProps) == null ? void 0 : d.emptyColor,
+    emptyColor: (u = t == null ? void 0 : t.defaultProps) == null ? void 0 : u.emptyColor,
     color: (f = t == null ? void 0 : t.defaultProps) == null ? void 0 : f.color,
-    thickness: (u = t == null ? void 0 : t.defaultProps) == null ? void 0 : u.thickness,
+    thickness: (d = t == null ? void 0 : t.defaultProps) == null ? void 0 : d.thickness,
     speed: (g = t == null ? void 0 : t.defaultProps) == null ? void 0 : g.speed
-  }, o = q(r, e), [a, n] = b(o, ["class", "children", "label", "size", "emptyColor", "color", "thickness", "speed"]), s = () => h(a.class, rs, bf({
+  }, n = N(r, e), [a, o] = S(n, ["class", "children", "label", "size", "emptyColor", "color", "thickness", "speed"]), s = () => m(a.class, gs, wf({
     size: a.size,
     css: {
       color: a.color,
@@ -11382,25 +11394,26 @@ function vf(e) {
       animationDuration: a.speed
     }
   }));
-  return i(P, p({
+  return i(B, p({
     get class() {
       return s();
     }
-  }, n, {
+  }, o, {
     get children() {
-      return i(D, {
+      return i(H, {
         get when() {
           return a.label;
         },
         get children() {
-          return re(mf, oe() + R("class", V(Et(), !0), !1), V(a.label));
+          var y = If();
+          return Mr(y, () => a.label), _e(() => xt(y, Wt())), y;
         }
       });
     }
   }));
 }
-vf.toString = () => v(rs);
-const Sf = m(ur, {
+kf.toString = () => $(gs);
+const _f = C(fr, {
   variants: {
     labelPlacement: {
       start: {
@@ -11411,7 +11424,7 @@ const Sf = m(ur, {
       }
     }
   }
-}), xf = m(gr), Cf = m(fr, {
+}), Pf = C(hr), Tf = C(pr, {
   borderRadius: "$full",
   transition: "background-color 250ms, border-color 250ms, box-shadow 250ms",
   // Switch trackball
@@ -11477,9 +11490,9 @@ const Sf = m(ur, {
     }
   }
 });
-var yf = ["<input", ' type="checkbox" role="switch"', "", "", "", ">"];
-function $f(e) {
-  const t = `hope-switch-${ne()}`, r = ut(e), [o, a] = te({
+var zf = /* @__PURE__ */ se("<input type=checkbox role=switch>");
+function Bf(e) {
+  const t = `hope-switch-${ue()}`, r = pt(e), [n, a] = ae({
     // eslint-disable-next-line solid/reactivity
     _checked: !!e.defaultChecked,
     isFocused: !1,
@@ -11540,48 +11553,85 @@ function $f(e) {
     get "data-readonly"() {
       return this.readOnly ? "" : void 0;
     }
-  }), [n, s, l] = b(e, ["inputClass", "children", "ref", "tabIndex", "aria-label", "aria-labelledby", "aria-describedby", "onChange"], ["id", "name", "value", "checked", "defaultChecked", "required", "disabled", "invalid", "readOnly", "onFocus", "onBlur"]), c = () => h(n.inputClass, Et()), d = () => o, f = {
-    state: o
+  }), [o, s, l] = S(e, ["inputClass", "children", "ref", "tabIndex", "aria-label", "aria-labelledby", "aria-describedby", "onChange"], ["id", "name", "value", "checked", "defaultChecked", "required", "disabled", "invalid", "readOnly", "onFocus", "onBlur"]), c = (b) => {
+    if (n.readOnly || n.disabled) {
+      b.preventDefault();
+      return;
+    }
+    if (!n.isControlled) {
+      const P = b.target;
+      a("_checked", P.checked);
+    }
+    oe(o.onChange, b);
+  }, u = (b) => {
+    a("isFocused", !0), oe(r.onFocus, b);
+  }, f = (b) => {
+    a("isFocused", !1), oe(r.onBlur, b);
+  }, d = () => m(o.inputClass, Wt()), g = () => n, y = {
+    state: n
   };
-  return i(os.Provider, {
-    value: f,
+  return i(fs.Provider, {
+    value: y,
     get children() {
       return i(A.label, p({
         get for() {
-          return o.id;
+          return n.id;
         },
         "data-group": !0,
         get "data-focus"() {
-          return o["data-focus"];
+          return n["data-focus"];
         },
         get "data-checked"() {
-          return o["data-checked"];
+          return n["data-checked"];
         },
         get "data-required"() {
-          return o["data-required"];
+          return n["data-required"];
         },
         get "data-disabled"() {
-          return o["data-disabled"];
+          return n["data-disabled"];
         },
         get "data-invalid"() {
-          return o["data-invalid"];
+          return n["data-invalid"];
         },
         get "data-readonly"() {
-          return o["data-readonly"];
+          return n["data-readonly"];
         }
       }, l, {
         get children() {
-          return [re(yf, oe(), R("class", V(c(), !0), !1) + R("tabindex", V(n.tabIndex, !0), !1) + R("value", V(o.value, !0), !1) + R("id", V(o.id, !0), !1) + R("name", V(o.name, !0), !1), R("checked", o.checked, !0), R("required", o.required, !0), R("disabled", o.disabled, !0) + R("readonly", V(o.readOnly, !0), !1) + R("aria-required", V(o["aria-required"], !0), !1) + R("aria-disabled", V(o["aria-disabled"], !0), !1) + R("aria-invalid", V(o["aria-invalid"], !0), !1) + R("aria-readonly", V(o["aria-readonly"], !0), !1) + R("aria-label", V(n["aria-label"], !0), !1) + R("aria-labelledby", V(n["aria-labelledby"], !0), !1) + R("aria-describedby", V(n["aria-describedby"], !0), !1)), i(D, {
+          return [(() => {
+            var b = zf();
+            b.addEventListener("blur", f), b.addEventListener("focus", u), b.addEventListener("change", c);
+            var P = o.ref;
+            return typeof P == "function" ? ar(P, b) : o.ref = b, _e((h) => {
+              var x = d(), z = o.tabIndex, v = n.id, D = n.name, _ = n.required, R = n.disabled, j = n.readOnly, ee = n["aria-required"], I = n["aria-disabled"], k = n["aria-invalid"], W = n["aria-readonly"], V = o["aria-label"], Q = o["aria-labelledby"], J = o["aria-describedby"];
+              return x !== h.e && xt(b, h.e = x), z !== h.t && G(b, "tabindex", h.t = z), v !== h.a && G(b, "id", h.a = v), D !== h.o && G(b, "name", h.o = D), _ !== h.i && (b.required = h.i = _), R !== h.n && (b.disabled = h.n = R), j !== h.s && (b.readOnly = h.s = j), ee !== h.h && G(b, "aria-required", h.h = ee), I !== h.r && G(b, "aria-disabled", h.r = I), k !== h.d && G(b, "aria-invalid", h.d = k), W !== h.l && G(b, "aria-readonly", h.l = W), V !== h.u && G(b, "aria-label", h.u = V), Q !== h.c && G(b, "aria-labelledby", h.c = Q), J !== h.w && G(b, "aria-describedby", h.w = J), h;
+            }, {
+              e: void 0,
+              t: void 0,
+              a: void 0,
+              o: void 0,
+              i: void 0,
+              n: void 0,
+              s: void 0,
+              h: void 0,
+              r: void 0,
+              d: void 0,
+              l: void 0,
+              u: void 0,
+              c: void 0,
+              w: void 0
+            }), _e(() => b.value = n.value), _e(() => b.checked = n.checked), b;
+          })(), i(H, {
             get when() {
-              return Te(n.children);
+              return de(o.children);
             },
             get fallback() {
-              return n.children;
+              return o.children;
             },
             get children() {
-              var u;
-              return (u = n.children) == null ? void 0 : u.call(n, {
-                state: d
+              var b;
+              return (b = o.children) == null ? void 0 : b.call(o, {
+                state: g
               });
             }
           })];
@@ -11590,66 +11640,66 @@ function $f(e) {
     }
   });
 }
-const os = J();
-function wf() {
-  const e = Q(os);
+const fs = te();
+function Lf() {
+  const e = Z(fs);
   if (!e)
     throw new Error("[Hope UI]: useSwitchPrimitivehContext must be used within a `<SwitchPrimitive />` component");
   return e;
 }
-const ns = "hope-switch", _f = "hope-checkbox__input", If = "hope-switch__control", kf = "hope-switch__label";
-function Pf(e) {
-  var d, f, u, g, S, x, z, C;
-  const t = y().Switch, r = {
-    variant: ((f = (d = t == null ? void 0 : t.defaultProps) == null ? void 0 : d.root) == null ? void 0 : f.variant) ?? "filled",
-    colorScheme: ((g = (u = t == null ? void 0 : t.defaultProps) == null ? void 0 : u.root) == null ? void 0 : g.colorScheme) ?? "primary",
-    size: ((x = (S = t == null ? void 0 : t.defaultProps) == null ? void 0 : S.root) == null ? void 0 : x.size) ?? "md",
-    labelPlacement: ((C = (z = t == null ? void 0 : t.defaultProps) == null ? void 0 : z.root) == null ? void 0 : C.labelPlacement) ?? "start"
-  }, o = q(r, e), [a, n] = b(o, ["children", "class", "variant", "colorScheme", "size", "labelPlacement"]), s = () => h(a.class, ns, Sf({
+const hs = "hope-switch", Hf = "hope-checkbox__input", Df = "hope-switch__control", Ef = "hope-switch__label";
+function Af(e) {
+  var u, f, d, g, y, b, P, h;
+  const t = w().Switch, r = {
+    variant: ((f = (u = t == null ? void 0 : t.defaultProps) == null ? void 0 : u.root) == null ? void 0 : f.variant) ?? "filled",
+    colorScheme: ((g = (d = t == null ? void 0 : t.defaultProps) == null ? void 0 : d.root) == null ? void 0 : g.colorScheme) ?? "primary",
+    size: ((b = (y = t == null ? void 0 : t.defaultProps) == null ? void 0 : y.root) == null ? void 0 : b.size) ?? "md",
+    labelPlacement: ((h = (P = t == null ? void 0 : t.defaultProps) == null ? void 0 : P.root) == null ? void 0 : h.labelPlacement) ?? "start"
+  }, n = N(r, e), [a, o] = S(n, ["children", "class", "variant", "colorScheme", "size", "labelPlacement"]), s = () => m(a.class, hs, _f({
     size: a.size,
     labelPlacement: a.labelPlacement
-  })), l = () => h(If, Cf({
+  })), l = () => m(Df, Tf({
     variant: a.variant,
     colorScheme: a.colorScheme,
     size: a.size
-  })), c = () => h(kf, xf());
-  return i($f, p({
+  })), c = () => m(Ef, Pf());
+  return i(Bf, p({
     get class() {
       return s();
     },
-    inputClass: _f,
+    inputClass: Hf,
     get __baseStyle() {
-      var $;
-      return ($ = t == null ? void 0 : t.baseStyle) == null ? void 0 : $.root;
+      var x;
+      return (x = t == null ? void 0 : t.baseStyle) == null ? void 0 : x.root;
     }
-  }, n, {
+  }, o, {
     children: ({
-      state: $
+      state: x
     }) => [i(A.span, {
       get class() {
         return c();
       },
       get __baseStyle() {
-        var B;
-        return (B = t == null ? void 0 : t.baseStyle) == null ? void 0 : B.label;
+        var z;
+        return (z = t == null ? void 0 : t.baseStyle) == null ? void 0 : z.label;
       },
       get "data-focus"() {
-        return $()["data-focus"];
+        return x()["data-focus"];
       },
       get "data-checked"() {
-        return $()["data-checked"];
+        return x()["data-checked"];
       },
       get "data-required"() {
-        return $()["data-required"];
+        return x()["data-required"];
       },
       get "data-disabled"() {
-        return $()["data-disabled"];
+        return x()["data-disabled"];
       },
       get "data-invalid"() {
-        return $()["data-invalid"];
+        return x()["data-invalid"];
       },
       get "data-readonly"() {
-        return $()["data-readonly"];
+        return x()["data-readonly"];
       },
       get children() {
         return a.children;
@@ -11660,33 +11710,33 @@ function Pf(e) {
         return l();
       },
       get __baseStyle() {
-        var B;
-        return (B = t == null ? void 0 : t.baseStyle) == null ? void 0 : B.control;
+        var z;
+        return (z = t == null ? void 0 : t.baseStyle) == null ? void 0 : z.control;
       },
       get "data-focus"() {
-        return $()["data-focus"];
+        return x()["data-focus"];
       },
       get "data-checked"() {
-        return $()["data-checked"];
+        return x()["data-checked"];
       },
       get "data-required"() {
-        return $()["data-required"];
+        return x()["data-required"];
       },
       get "data-disabled"() {
-        return $()["data-disabled"];
+        return x()["data-disabled"];
       },
       get "data-invalid"() {
-        return $()["data-invalid"];
+        return x()["data-invalid"];
       },
       get "data-readonly"() {
-        return $()["data-readonly"];
+        return x()["data-readonly"];
       }
     })]
   }));
 }
-Pf.toString = () => v(ns);
-function Vp(e) {
-  const t = wf();
+Af.toString = () => $(hs);
+function Yh(e) {
+  const t = Lf();
   return i(A.span, p({
     "aria-hidden": !0,
     get "data-focus"() {
@@ -11709,11 +11759,11 @@ function Vp(e) {
     }
   }, e));
 }
-const Tf = m({
+const Of = C({
   width: "100%",
   borderCollapse: "collapse",
   fontVariantNumeric: "lining-nums tabular-nums"
-}), zf = m({
+}), Mf = C({
   px: "$6",
   py: "$4",
   color: "$neutral11",
@@ -11740,7 +11790,7 @@ const Tf = m({
     }
   }
 });
-function Br(e) {
+function Ar(e) {
   return {
     "& td": {
       borderBottomWidth: 0
@@ -11753,11 +11803,11 @@ function Br(e) {
     }
   };
 }
-const Bf = m({
+const Rf = C({
   variants: {
     striped: {
-      odd: Br("odd"),
-      even: Br("even")
+      odd: Ar("odd"),
+      even: Ar("even")
     },
     highlightOnHover: {
       true: {
@@ -11787,11 +11837,11 @@ const Bf = m({
       }
     }
   ]
-}), Lf = m({
+}), Wf = C({
   "& tr:last-of-type th": {
     borderBottomWidth: 0
   }
-}), Df = m({
+}), Ff = C({
   borderBottom: "1px solid $colors$neutral6",
   px: "$6",
   py: "$3",
@@ -11814,7 +11864,7 @@ const Bf = m({
       }
     }
   }
-}), Hf = m({
+}), Nf = C({
   borderBottom: "1px solid $colors$neutral6",
   px: "$6",
   py: "$4",
@@ -11837,9 +11887,9 @@ const Bf = m({
       }
     }
   }
-}), as = J(), ss = "hope-table";
-function Af(e) {
-  const t = y().Table, [r] = te({
+}), ps = te(), bs = "hope-table";
+function Vf(e) {
+  const t = w().Table, [r] = ae({
     get striped() {
       var s, l;
       return e.striped ?? ((l = (s = t == null ? void 0 : t.defaultProps) == null ? void 0 : s.root) == null ? void 0 : l.striped);
@@ -11852,15 +11902,15 @@ function Af(e) {
       var s, l;
       return e.highlightOnHover ?? ((l = (s = t == null ? void 0 : t.defaultProps) == null ? void 0 : s.root) == null ? void 0 : l.highlightOnHover) ?? !1;
     }
-  }), [o, a] = b(e, ["class", "striped", "dense", "highlightOnHover"]), n = () => h(o.class, ss, Tf(r));
-  return i(as.Provider, {
+  }), [n, a] = S(e, ["class", "striped", "dense", "highlightOnHover"]), o = () => m(n.class, bs, Of(r));
+  return i(ps.Provider, {
     value: r,
     get children() {
-      return i(P, p({
+      return i(B, p({
         as: "table",
         role: "table",
         get class() {
-          return n();
+          return o();
         },
         get __baseStyle() {
           var s;
@@ -11870,21 +11920,21 @@ function Af(e) {
     }
   });
 }
-Af.toString = () => v(ss);
-function Vt() {
-  const e = Q(as);
+Vf.toString = () => $(bs);
+function Xt() {
+  const e = Z(ps);
   if (!e)
     throw new Error("[Hope UI]: useTableContext must be used within a `<Table/>` component");
   return e;
 }
-const is = "hope-table-caption";
-function Ef(e) {
-  var c, d;
-  const t = y().Table, r = Vt(), o = {
-    placement: ((d = (c = t == null ? void 0 : t.defaultProps) == null ? void 0 : c.caption) == null ? void 0 : d.placement) ?? "bottom"
-  }, a = q(o, e), [n, s] = b(a, ["class", "placement"]), l = () => h(n.class, is, zf({
+const ms = "hope-table-caption";
+function qf(e) {
+  var c, u;
+  const t = w().Table, r = Xt(), n = {
+    placement: ((u = (c = t == null ? void 0 : t.defaultProps) == null ? void 0 : c.caption) == null ? void 0 : u.placement) ?? "bottom"
+  }, a = N(n, e), [o, s] = S(a, ["class", "placement"]), l = () => m(o.class, ms, Mf({
     dense: r.dense,
-    placement: n.placement
+    placement: o.placement
   }));
   return i(A.caption, p({
     get class() {
@@ -11896,18 +11946,18 @@ function Ef(e) {
     }
   }, s));
 }
-Ef.toString = () => v(is);
-const ls = "hope-tbody";
-function Mf(e) {
-  const t = y().Table, r = Vt(), [o, a] = b(e, ["class"]), n = () => h(o.class, ls, Bf({
+qf.toString = () => $(ms);
+const vs = "hope-tbody";
+function jf(e) {
+  const t = w().Table, r = Xt(), [n, a] = S(e, ["class"]), o = () => m(n.class, vs, Rf({
     striped: r.striped,
     highlightOnHover: r.highlightOnHover
   }));
-  return i(P, p({
+  return i(B, p({
     as: "tbody",
     role: "rowgroup",
     get class() {
-      return n();
+      return o();
     },
     get __baseStyle() {
       var s;
@@ -11915,18 +11965,18 @@ function Mf(e) {
     }
   }, a));
 }
-Mf.toString = () => v(ls);
-const cs = "hope-td";
-function Of(e) {
-  const t = y().Table, r = Vt(), [o, a] = b(e, ["class", "numeric"]), n = () => h(o.class, cs, Hf({
+jf.toString = () => $(vs);
+const Ss = "hope-td";
+function Kf(e) {
+  const t = w().Table, r = Xt(), [n, a] = S(e, ["class", "numeric"]), o = () => m(n.class, Ss, Nf({
     dense: r.dense,
-    numeric: o.numeric
+    numeric: n.numeric
   }));
-  return i(P, p({
+  return i(B, p({
     as: "td",
     role: "cell",
     get class() {
-      return n();
+      return o();
     },
     get __baseStyle() {
       var s;
@@ -11934,34 +11984,34 @@ function Of(e) {
     }
   }, a));
 }
-Of.toString = () => v(cs);
-const ds = "hope-tfoot";
-function Rf(e) {
-  const t = y().Table, [r, o] = b(e, ["class"]), a = () => h(r.class, ds, Lf());
-  return i(P, p({
+Kf.toString = () => $(Ss);
+const xs = "hope-tfoot";
+function Xf(e) {
+  const t = w().Table, [r, n] = S(e, ["class"]), a = () => m(r.class, xs, Wf());
+  return i(B, p({
     as: "tfoot",
     role: "rowgroup",
     get class() {
       return a();
     },
     get __baseStyle() {
-      var n;
-      return (n = t == null ? void 0 : t.baseStyle) == null ? void 0 : n.tfoot;
+      var o;
+      return (o = t == null ? void 0 : t.baseStyle) == null ? void 0 : o.tfoot;
     }
-  }, o));
+  }, n));
 }
-Rf.toString = () => v(ds);
-const us = "hope-th";
-function Wf(e) {
-  const t = y().Table, r = Vt(), [o, a] = b(e, ["class", "numeric"]), n = () => h(o.class, us, Df({
+Xf.toString = () => $(xs);
+const Cs = "hope-th";
+function Uf(e) {
+  const t = w().Table, r = Xt(), [n, a] = S(e, ["class", "numeric"]), o = () => m(n.class, Cs, Ff({
     dense: r.dense,
-    numeric: o.numeric
+    numeric: n.numeric
   }));
-  return i(P, p({
+  return i(B, p({
     as: "th",
     role: "columnheader",
     get class() {
-      return n();
+      return o();
     },
     get __baseStyle() {
       var s;
@@ -11969,40 +12019,40 @@ function Wf(e) {
     }
   }, a));
 }
-Wf.toString = () => v(us);
-const gs = "hope-thead";
-function Ff(e) {
-  const t = y().Table, [r, o] = b(e, ["class"]), a = () => h(r.class, gs);
-  return i(P, p({
+Uf.toString = () => $(Cs);
+const ys = "hope-thead";
+function Qf(e) {
+  const t = w().Table, [r, n] = S(e, ["class"]), a = () => m(r.class, ys);
+  return i(B, p({
     as: "thead",
     role: "rowgroup",
     get class() {
       return a();
     },
     get __baseStyle() {
-      var n;
-      return (n = t == null ? void 0 : t.baseStyle) == null ? void 0 : n.thead;
+      var o;
+      return (o = t == null ? void 0 : t.baseStyle) == null ? void 0 : o.thead;
     }
-  }, o));
+  }, n));
 }
-Ff.toString = () => v(gs);
-const fs = "hope-tr";
-function Nf(e) {
-  const t = y().Table, [r, o] = b(e, ["class"]), a = () => h(r.class, fs);
-  return i(P, p({
+Qf.toString = () => $(ys);
+const $s = "hope-tr";
+function Yf(e) {
+  const t = w().Table, [r, n] = S(e, ["class"]), a = () => m(r.class, $s);
+  return i(B, p({
     as: "tr",
     role: "row",
     get class() {
       return a();
     },
     get __baseStyle() {
-      var n;
-      return (n = t == null ? void 0 : t.baseStyle) == null ? void 0 : n.tr;
+      var o;
+      return (o = t == null ? void 0 : t.baseStyle) == null ? void 0 : o.tr;
     }
-  }, o));
+  }, n));
 }
-Nf.toString = () => v(fs);
-const Vf = m({
+Yf.toString = () => $($s);
+const Zf = C({
   variants: {
     orientation: {
       horizontal: {
@@ -12013,7 +12063,7 @@ const Vf = m({
       }
     }
   }
-}), qf = m({
+}), Jf = C({
   display: "flex",
   color: "$neutral11",
   fontWeight: "$normal",
@@ -12117,14 +12167,14 @@ const Vf = m({
     }
   ]
 });
-function le(e) {
+function ie(e) {
   return {
     "&[aria-selected='true']": {
       color: e
     }
   };
 }
-function Ke(e) {
+function Ue(e) {
   return {
     "&[aria-selected='true']": {
       color: e.color,
@@ -12135,7 +12185,7 @@ function Ke(e) {
     }
   };
 }
-const jf = m({
+const Gf = C({
   appearance: "none",
   display: "flex",
   alignItems: "center",
@@ -12239,37 +12289,37 @@ const jf = m({
     {
       variant: "underline",
       colorScheme: "primary",
-      css: le("$primary11")
+      css: ie("$primary11")
     },
     {
       variant: "underline",
       colorScheme: "accent",
-      css: le("$accent11")
+      css: ie("$accent11")
     },
     {
       variant: "underline",
       colorScheme: "neutral",
-      css: le("$neutral12")
+      css: ie("$neutral12")
     },
     {
       variant: "underline",
       colorScheme: "success",
-      css: le("$success11")
+      css: ie("$success11")
     },
     {
       variant: "underline",
       colorScheme: "info",
-      css: le("$info11")
+      css: ie("$info11")
     },
     {
       variant: "underline",
       colorScheme: "warning",
-      css: le("$warning11")
+      css: ie("$warning11")
     },
     {
       variant: "underline",
       colorScheme: "danger",
-      css: le("$danger11")
+      css: ie("$danger11")
     },
     /* -------------------------------------------------------------------------------------------------
      * Variant - outline + colorScheme
@@ -12277,37 +12327,37 @@ const jf = m({
     {
       variant: "outline",
       colorScheme: "primary",
-      css: le("$primary11")
+      css: ie("$primary11")
     },
     {
       variant: "outline",
       colorScheme: "accent",
-      css: le("$accent11")
+      css: ie("$accent11")
     },
     {
       variant: "outline",
       colorScheme: "neutral",
-      css: le("$neutral12")
+      css: ie("$neutral12")
     },
     {
       variant: "outline",
       colorScheme: "success",
-      css: le("$success11")
+      css: ie("$success11")
     },
     {
       variant: "outline",
       colorScheme: "info",
-      css: le("$info11")
+      css: ie("$info11")
     },
     {
       variant: "outline",
       colorScheme: "warning",
-      css: le("$warning11")
+      css: ie("$warning11")
     },
     {
       variant: "outline",
       colorScheme: "danger",
-      css: le("$danger11")
+      css: ie("$danger11")
     },
     /* -------------------------------------------------------------------------------------------------
      * Variant - cards + colorScheme
@@ -12315,37 +12365,37 @@ const jf = m({
     {
       variant: "cards",
       colorScheme: "primary",
-      css: le("$primary11")
+      css: ie("$primary11")
     },
     {
       variant: "cards",
       colorScheme: "accent",
-      css: le("$accent11")
+      css: ie("$accent11")
     },
     {
       variant: "cards",
       colorScheme: "neutral",
-      css: le("$neutral12")
+      css: ie("$neutral12")
     },
     {
       variant: "cards",
       colorScheme: "success",
-      css: le("$success11")
+      css: ie("$success11")
     },
     {
       variant: "cards",
       colorScheme: "info",
-      css: le("$info11")
+      css: ie("$info11")
     },
     {
       variant: "cards",
       colorScheme: "warning",
-      css: le("$warning11")
+      css: ie("$warning11")
     },
     {
       variant: "cards",
       colorScheme: "danger",
-      css: le("$danger11")
+      css: ie("$danger11")
     },
     /* -------------------------------------------------------------------------------------------------
      * Variant - pills + colorScheme
@@ -12353,7 +12403,7 @@ const jf = m({
     {
       variant: "pills",
       colorScheme: "primary",
-      css: Ke({
+      css: Ue({
         color: "$primary11",
         bgColor: "$primary3",
         bgColorHover: "$primary4"
@@ -12362,7 +12412,7 @@ const jf = m({
     {
       variant: "pills",
       colorScheme: "accent",
-      css: Ke({
+      css: Ue({
         color: "$accent11",
         bgColor: "$accent3",
         bgColorHover: "$accent4"
@@ -12371,7 +12421,7 @@ const jf = m({
     {
       variant: "pills",
       colorScheme: "neutral",
-      css: Ke({
+      css: Ue({
         color: "$neutral12",
         bgColor: "$neutral3",
         bgColorHover: "$neutral4"
@@ -12380,7 +12430,7 @@ const jf = m({
     {
       variant: "pills",
       colorScheme: "success",
-      css: Ke({
+      css: Ue({
         color: "$success11",
         bgColor: "$success3",
         bgColorHover: "$success4"
@@ -12389,7 +12439,7 @@ const jf = m({
     {
       variant: "pills",
       colorScheme: "info",
-      css: Ke({
+      css: Ue({
         color: "$info11",
         bgColor: "$info3",
         bgColorHover: "$info4"
@@ -12398,7 +12448,7 @@ const jf = m({
     {
       variant: "pills",
       colorScheme: "warning",
-      css: Ke({
+      css: Ue({
         color: "$warning11",
         bgColor: "$warning3",
         bgColorHover: "$warning4"
@@ -12407,7 +12457,7 @@ const jf = m({
     {
       variant: "pills",
       colorScheme: "danger",
-      css: Ke({
+      css: Ue({
         color: "$danger11",
         bgColor: "$danger3",
         bgColorHover: "$danger4"
@@ -12491,12 +12541,12 @@ const jf = m({
       }
     }
   ]
-}), Kf = m({
+}), eh = C({
   outline: "none",
   padding: "$4"
-}), ps = "hope-tabs";
-function Xf(e) {
-  const t = `hope-tabs-${ne()}`, r = y().Tabs, [o, a] = Z([]), [n, s] = Z([]), [l, c] = te({
+}), ws = "hope-tabs";
+function th(e) {
+  const t = `hope-tabs-${ue()}`, r = w().Tabs, [n, a] = re([]), [o, s] = re([]), [l, c] = ae({
     // eslint-disable-next-line solid/reactivity
     _selectedIndex: e.defaultIndex ?? 0,
     //tabs: [],
@@ -12514,95 +12564,97 @@ function Xf(e) {
       return e.orientation ?? "horizontal";
     },
     get keepAlive() {
-      var _, k;
-      return e.keepAlive ?? ((k = (_ = r == null ? void 0 : r.defaultProps) == null ? void 0 : _.root) == null ? void 0 : k.keepAlive) ?? !1;
+      var I, k;
+      return e.keepAlive ?? ((k = (I = r == null ? void 0 : r.defaultProps) == null ? void 0 : I.root) == null ? void 0 : k.keepAlive) ?? !1;
     },
     get alignment() {
-      var _, k;
-      return e.alignment ?? ((k = (_ = r == null ? void 0 : r.defaultProps) == null ? void 0 : _.root) == null ? void 0 : k.alignment) ?? "start";
+      var I, k;
+      return e.alignment ?? ((k = (I = r == null ? void 0 : r.defaultProps) == null ? void 0 : I.root) == null ? void 0 : k.alignment) ?? "start";
     },
     get variant() {
-      var _, k;
-      return e.variant ?? ((k = (_ = r == null ? void 0 : r.defaultProps) == null ? void 0 : _.root) == null ? void 0 : k.variant) ?? "underline";
+      var I, k;
+      return e.variant ?? ((k = (I = r == null ? void 0 : r.defaultProps) == null ? void 0 : I.root) == null ? void 0 : k.variant) ?? "underline";
     },
     get colorScheme() {
-      var _, k;
-      return e.colorScheme ?? ((k = (_ = r == null ? void 0 : r.defaultProps) == null ? void 0 : _.root) == null ? void 0 : k.colorScheme) ?? "primary";
+      var I, k;
+      return e.colorScheme ?? ((k = (I = r == null ? void 0 : r.defaultProps) == null ? void 0 : I.root) == null ? void 0 : k.colorScheme) ?? "primary";
     },
     get size() {
-      var _, k;
-      return e.size ?? ((k = (_ = r == null ? void 0 : r.defaultProps) == null ? void 0 : _.root) == null ? void 0 : k.size) ?? "md";
+      var I, k;
+      return e.size ?? ((k = (I = r == null ? void 0 : r.defaultProps) == null ? void 0 : I.root) == null ? void 0 : k.size) ?? "md";
     },
     get fitted() {
-      var _, k;
-      return e.fitted ?? ((k = (_ = r == null ? void 0 : r.defaultProps) == null ? void 0 : _.root) == null ? void 0 : k.fitted) ?? !1;
+      var I, k;
+      return e.fitted ?? ((k = (I = r == null ? void 0 : r.defaultProps) == null ? void 0 : I.root) == null ? void 0 : k.fitted) ?? !1;
     }
-  }), [d, f, u] = b(e, ["class", "onChange"], ["index", "defaultIndex", "keepAlive", "alignment", "orientation", "variant", "colorScheme", "size", "fitted"]), g = Se(() => o().slice().reverse()), S = (_) => {
+  }), [u, f, d] = S(e, ["class", "onChange"], ["index", "defaultIndex", "keepAlive", "alignment", "orientation", "variant", "colorScheme", "size", "fitted"]), g = ye(() => n().slice().reverse()), y = (I) => {
     var k;
-    c("_selectedIndex", _), (k = d.onChange) == null || k.call(d, _);
-  }, x = (_) => _ === l.selectedIndex, z = (_) => `${l.baseId}--tab-${_}`, C = (_) => `${l.baseId}--tabpanel-${_}`, $ = (_) => a((k) => [...k, _]).length - 1, B = (_) => s((k) => [...k, _]).length - 1, w = () => {
-    const _ = o().length - 1;
-    let k = It(l.selectedIndex, _, !0), K = o()[k];
-    for (; K.disabled; )
-      k = It(k, _, !0), K = o()[k];
-    K.focus();
-  }, E = () => {
-    const _ = o().length - 1;
-    let k = kt(l.selectedIndex, _, !0), K = o()[k];
-    for (; K.disabled; )
-      k = kt(k, _, !0), K = o()[k];
-    K.focus();
-  }, M = () => {
-    var _;
-    (_ = o().find((k) => !k.disabled)) == null || _.focus();
-  }, N = () => {
-    var _;
-    (_ = g().find((k) => !k.disabled)) == null || _.focus();
-  }, L = () => h(d.class, ps, Vf({
+    c("_selectedIndex", I), (k = u.onChange) == null || k.call(u, I);
+  }, b = (I) => I === l.selectedIndex, P = (I) => `${l.baseId}--tab-${I}`, h = (I) => `${l.baseId}--tabpanel-${I}`, x = (I) => a((k) => [...k, I]).length - 1, z = (I) => s((k) => [...k, I]).length - 1, v = () => {
+    const I = n().length - 1;
+    let k = _t(l.selectedIndex, I, !0), W = n()[k];
+    for (; W.disabled; )
+      k = _t(k, I, !0), W = n()[k];
+    W.focus();
+  }, D = () => {
+    const I = n().length - 1;
+    let k = Pt(l.selectedIndex, I, !0), W = n()[k];
+    for (; W.disabled; )
+      k = Pt(k, I, !0), W = n()[k];
+    W.focus();
+  }, _ = () => {
+    var I;
+    (I = n().find((k) => !k.disabled)) == null || I.focus();
+  }, R = () => {
+    var I;
+    (I = g().find((k) => !k.disabled)) == null || I.focus();
+  }, j = () => m(u.class, ws, Zf({
     orientation: l.orientation
-  })), O = {
+  })), ee = {
     state: l,
-    setSelectedIndex: S,
-    isSelectedIndex: x,
-    getTabId: z,
-    getTabPanelId: C,
-    registerTab: $,
-    registerTabPanel: B,
-    focusPrevTab: E,
-    focusNextTab: w,
-    focusFirstTab: M,
-    focusLastTab: N
+    setSelectedIndex: y,
+    isSelectedIndex: b,
+    getTabId: P,
+    getTabPanelId: h,
+    registerTab: x,
+    registerTabPanel: z,
+    focusPrevTab: D,
+    focusNextTab: v,
+    focusFirstTab: _,
+    focusLastTab: R
   };
-  return i(hs.Provider, {
-    value: O,
+  return i(Is.Provider, {
+    value: ee,
     get children() {
-      return i(P, p({
+      return i(B, p({
         get class() {
-          return L();
+          return j();
         },
         get __baseStyle() {
-          var _;
-          return (_ = r == null ? void 0 : r.baseStyle) == null ? void 0 : _.root;
+          var I;
+          return (I = r == null ? void 0 : r.baseStyle) == null ? void 0 : I.root;
         }
-      }, u));
+      }, d));
     }
   });
 }
-Xf.toString = () => v(ps);
-const hs = J();
-function br() {
-  const e = Q(hs);
+th.toString = () => $(ws);
+const Is = te();
+function vr() {
+  const e = Z(Is);
   if (!e)
     throw new Error("[Hope UI]: useTabsContext must be used within a `<Tabs />` component");
   return e;
 }
-const bs = "hope-tabs__tab";
-function Uf(e) {
-  const t = y().Tabs, r = br(), [o, a] = Z(-1), [n, s] = b(e, ["ref", "class", "disabled", "onClick", "onFocus"]), l = () => r.isSelectedIndex(o()), c = () => r.getTabId(o()), d = () => r.getTabPanelId(o()), f = (S) => {
-    r.setSelectedIndex(o()), ue(n.onClick, S);
-  }, u = (S) => {
-    r.setSelectedIndex(o()), ue(n.onFocus, S);
-  }, g = () => h(n.class, bs, jf({
+const ks = "hope-tabs__tab";
+function rh(e) {
+  const t = w().Tabs, r = vr(), [n, a] = re(-1), [o, s] = S(e, ["ref", "class", "disabled", "onClick", "onFocus"]), l = () => r.isSelectedIndex(n()), c = () => r.getTabId(n()), u = () => r.getTabPanelId(n()), f = (b) => {
+    a(r.registerTab(b)), de(o.ref) ? o.ref(b) : o.ref = b;
+  }, d = (b) => {
+    r.setSelectedIndex(n()), oe(o.onClick, b);
+  }, g = (b) => {
+    r.setSelectedIndex(n()), oe(o.onFocus, b);
+  }, y = () => m(o.class, ks, Gf({
     orientation: r.state.orientation,
     variant: r.state.variant,
     colorScheme: r.state.colorScheme,
@@ -12610,6 +12662,7 @@ function Uf(e) {
     fitted: r.state.fitted
   }));
   return i(A.button, p({
+    ref: f,
     role: "tab",
     type: "button",
     get id() {
@@ -12619,68 +12672,71 @@ function Uf(e) {
       return l() ? 0 : -1;
     },
     get disabled() {
-      return n.disabled;
+      return o.disabled;
     },
     get "aria-selected"() {
       return l();
     },
     get "aria-controls"() {
-      return d();
+      return u();
     },
     get class() {
-      return g();
+      return y();
     },
     get __baseStyle() {
-      var S;
-      return (S = t == null ? void 0 : t.baseStyle) == null ? void 0 : S.tab;
+      var b;
+      return (b = t == null ? void 0 : t.baseStyle) == null ? void 0 : b.tab;
     },
-    onClick: f,
-    onFocus: u
+    onClick: d,
+    onFocus: g
   }, s));
 }
-Uf.toString = () => v(bs);
-const ms = "hope-tabs__tablist";
-function Qf(e) {
-  const t = y().Tabs, r = br(), [o, a] = b(e, ["class", "onKeyDown"]), n = () => r.state.orientation === "horizontal", s = () => r.state.orientation === "vertical", l = () => n() && r.focusPrevTab(), c = () => n() && r.focusNextTab(), d = () => s() && r.focusNextTab(), f = () => s() && r.focusPrevTab(), u = Se(() => ({
+rh.toString = () => $(ks);
+const _s = "hope-tabs__tablist";
+function nh(e) {
+  const t = w().Tabs, r = vr(), [n, a] = S(e, ["class", "onKeyDown"]), o = () => r.state.orientation === "horizontal", s = () => r.state.orientation === "vertical", l = () => o() && r.focusPrevTab(), c = () => o() && r.focusNextTab(), u = () => s() && r.focusNextTab(), f = () => s() && r.focusPrevTab(), d = ye(() => ({
     ArrowLeft: l,
     ArrowRight: c,
-    ArrowDown: d,
+    ArrowDown: u,
     ArrowUp: f,
     Home: r.focusFirstTab,
     End: r.focusLastTab
-  })), g = (x) => {
-    ue(o.onKeyDown, x);
-    const z = Qr(x), C = u()[z];
-    C && (x.preventDefault(), ue(C, x));
-  }, S = () => h(o.class, ms, qf({
+  })), g = (b) => {
+    oe(n.onKeyDown, b);
+    const P = an(b), h = d()[P];
+    h && (b.preventDefault(), oe(h, b));
+  }, y = () => m(n.class, _s, Jf({
     alignment: r.state.alignment,
     orientation: r.state.orientation,
     variant: r.state.variant
   }));
-  return i(P, p({
+  return i(B, p({
     role: "tablist",
     get "aria-orientation"() {
       return r.state.orientation;
     },
     get class() {
-      return S();
+      return y();
     },
     get __baseStyle() {
-      var x;
-      return (x = t == null ? void 0 : t.baseStyle) == null ? void 0 : x.tabList;
+      var b;
+      return (b = t == null ? void 0 : t.baseStyle) == null ? void 0 : b.tabList;
     },
     onKeyDown: g
   }, a));
 }
-Qf.toString = () => v(ms);
-const vs = "hope-tabs__tab-panel";
-function Yf(e) {
-  const t = y().Tabs, r = br(), [o, a] = Z(-1), [n, s] = b(e, ["ref", "class", "children"]), l = () => r.isSelectedIndex(o()), c = () => r.getTabId(o()), d = () => r.getTabPanelId(o()), f = rt(() => n.children), u = () => h(n.class, vs, Kf());
-  return i(P, p({
+nh.toString = () => $(_s);
+const Ps = "hope-tabs__tab-panel";
+function oh(e) {
+  const t = w().Tabs, r = vr(), [n, a] = re(-1), [o, s] = S(e, ["ref", "class", "children"]), l = () => r.isSelectedIndex(n()), c = () => r.getTabId(n()), u = () => r.getTabPanelId(n()), f = (y) => {
+    a(r.registerTabPanel(y)), de(o.ref) ? o.ref(y) : o.ref = y;
+  }, d = ot(() => o.children), g = () => m(o.class, Ps, eh());
+  return i(B, p({
+    ref: f,
     role: "tabpanel",
     tabIndex: "0",
     get id() {
-      return d();
+      return u();
     },
     get "aria-labelledby"() {
       return c();
@@ -12689,28 +12745,28 @@ function Yf(e) {
       return !l();
     },
     get class() {
-      return u();
+      return g();
     },
     get __baseStyle() {
-      var g;
-      return (g = t == null ? void 0 : t.baseStyle) == null ? void 0 : g.tabPanel;
+      var y;
+      return (y = t == null ? void 0 : t.baseStyle) == null ? void 0 : y.tabPanel;
     }
   }, s, {
     get children() {
-      return i(D, {
+      return i(H, {
         get when() {
           return l();
         },
         get children() {
-          return i(D, {
+          return i(H, {
             get when() {
               return r.state.keepAlive;
             },
             get fallback() {
-              return n.children;
+              return o.children;
             },
             get children() {
-              return f();
+              return d();
             }
           });
         }
@@ -12718,14 +12774,14 @@ function Yf(e) {
     }
   }));
 }
-Yf.toString = () => v(vs);
-const Zf = m({
+oh.toString = () => $(Ps);
+const ah = C({
   marginInlineStart: "$2"
-}), Jf = m({
+}), sh = C({
   marginInlineEnd: "$2"
-}), Gf = m({
+}), ih = C({
   noOfLines: 1
-}), et = m({
+}), rt = C({
   appearance: "none",
   position: "relative",
   display: "inline-flex",
@@ -12769,46 +12825,46 @@ const Zf = m({
     }
   }
 });
-function Xt(e) {
+function Zt(e) {
   return {
     height: e.height,
     py: 0,
     px: e.paddingX,
     fontSize: e.fontSize,
     lineHeight: e.lineHeight,
-    [`& .${et}`]: {
+    [`& .${rt}`]: {
       boxSize: e.closeButtonSize
-    }
-  };
-}
-function Xe(e) {
-  return {
-    backgroundColor: e.bgColor,
-    color: e.color,
-    [`& .${et}:not(:disabled):hover`]: {
-      backgroundColor: e.closeButtonBgColorHover
-    }
-  };
-}
-function Ue(e) {
-  return {
-    backgroundColor: e.bgColor,
-    color: e.color,
-    [`& .${et}:not(:disabled):hover`]: {
-      backgroundColor: e.closeButtonBgColorHover
     }
   };
 }
 function Qe(e) {
   return {
-    borderColor: e.borderColor,
+    backgroundColor: e.bgColor,
     color: e.color,
-    [`& .${et}:not(:disabled):hover`]: {
+    [`& .${rt}:not(:disabled):hover`]: {
       backgroundColor: e.closeButtonBgColorHover
     }
   };
 }
-function Ut(e) {
+function Ye(e) {
+  return {
+    backgroundColor: e.bgColor,
+    color: e.color,
+    [`& .${rt}:not(:disabled):hover`]: {
+      backgroundColor: e.closeButtonBgColorHover
+    }
+  };
+}
+function Ze(e) {
+  return {
+    borderColor: e.borderColor,
+    color: e.color,
+    [`& .${rt}:not(:disabled):hover`]: {
+      backgroundColor: e.closeButtonBgColorHover
+    }
+  };
+}
+function Jt(e) {
   return {
     "&::before,  &::after": {
       boxSize: e
@@ -12821,7 +12877,7 @@ function Ut(e) {
     }
   };
 }
-const ep = m({
+const lh = C({
   display: "inline-flex",
   justifyContent: "center",
   alignItems: "center",
@@ -12856,10 +12912,10 @@ const ep = m({
         "&::after": {
           display: "none"
         },
-        [`& .${et}:not(:disabled):hover`]: {
+        [`& .${rt}:not(:disabled):hover`]: {
           backgroundColor: "$neutral4"
         },
-        [`& .${et}:not(:disabled):active`]: {
+        [`& .${rt}:not(:disabled):active`]: {
           backgroundColor: "$neutral5"
         }
       }
@@ -12874,21 +12930,21 @@ const ep = m({
       danger: {}
     },
     size: {
-      sm: Xt({
+      sm: Zt({
         height: "$5",
         paddingX: "$2",
         fontSize: "$xs",
         lineHeight: "$4",
         closeButtonSize: "$4"
       }),
-      md: Xt({
+      md: Zt({
         height: "$6",
         paddingX: "$2",
         fontSize: "$sm",
         lineHeight: "$5",
         closeButtonSize: "$5"
       }),
-      lg: Xt({
+      lg: Zt({
         height: "$8",
         paddingX: "$3",
         fontSize: "$base",
@@ -12908,7 +12964,7 @@ const ep = m({
     {
       variant: "solid",
       colorScheme: "primary",
-      css: Xe({
+      css: Qe({
         color: "white",
         bgColor: "$primary9",
         closeButtonBgColorHover: "$primary10"
@@ -12917,7 +12973,7 @@ const ep = m({
     {
       variant: "solid",
       colorScheme: "accent",
-      css: Xe({
+      css: Qe({
         color: "white",
         bgColor: "$accent9",
         closeButtonBgColorHover: "$accent10"
@@ -12926,7 +12982,7 @@ const ep = m({
     {
       variant: "solid",
       colorScheme: "neutral",
-      css: Xe({
+      css: Qe({
         color: "white",
         bgColor: "$neutral9",
         closeButtonBgColorHover: "$neutral11"
@@ -12935,7 +12991,7 @@ const ep = m({
     {
       variant: "solid",
       colorScheme: "success",
-      css: Xe({
+      css: Qe({
         color: "white",
         bgColor: "$success9",
         closeButtonBgColorHover: "$success10"
@@ -12944,7 +13000,7 @@ const ep = m({
     {
       variant: "solid",
       colorScheme: "info",
-      css: Xe({
+      css: Qe({
         color: "white",
         bgColor: "$info9",
         closeButtonBgColorHover: "$info10"
@@ -12953,7 +13009,7 @@ const ep = m({
     {
       variant: "solid",
       colorScheme: "warning",
-      css: Xe({
+      css: Qe({
         color: "$blackAlpha12",
         bgColor: "$warning9",
         closeButtonBgColorHover: "$warning10"
@@ -12962,7 +13018,7 @@ const ep = m({
     {
       variant: "solid",
       colorScheme: "danger",
-      css: Xe({
+      css: Qe({
         color: "white",
         bgColor: "$danger9",
         closeButtonBgColorHover: "$danger10"
@@ -12974,7 +13030,7 @@ const ep = m({
     {
       variant: "subtle",
       colorScheme: "primary",
-      css: Ue({
+      css: Ye({
         color: "$primary11",
         bgColor: "$primary4",
         closeButtonBgColorHover: "$primary6"
@@ -12983,7 +13039,7 @@ const ep = m({
     {
       variant: "subtle",
       colorScheme: "accent",
-      css: Ue({
+      css: Ye({
         color: "$accent11",
         bgColor: "$accent4",
         closeButtonBgColorHover: "$accent6"
@@ -12992,7 +13048,7 @@ const ep = m({
     {
       variant: "subtle",
       colorScheme: "neutral",
-      css: Ue({
+      css: Ye({
         color: "$neutral12",
         bgColor: "$neutral4",
         closeButtonBgColorHover: "$neutral7"
@@ -13001,7 +13057,7 @@ const ep = m({
     {
       variant: "subtle",
       colorScheme: "success",
-      css: Ue({
+      css: Ye({
         color: "$success11",
         bgColor: "$success4",
         closeButtonBgColorHover: "$success6"
@@ -13010,7 +13066,7 @@ const ep = m({
     {
       variant: "subtle",
       colorScheme: "info",
-      css: Ue({
+      css: Ye({
         color: "$info11",
         bgColor: "$info4",
         closeButtonBgColorHover: "$info6"
@@ -13019,7 +13075,7 @@ const ep = m({
     {
       variant: "subtle",
       colorScheme: "warning",
-      css: Ue({
+      css: Ye({
         color: "$warning11",
         bgColor: "$warning4",
         closeButtonBgColorHover: "$warning6"
@@ -13028,7 +13084,7 @@ const ep = m({
     {
       variant: "subtle",
       colorScheme: "danger",
-      css: Ue({
+      css: Ye({
         color: "$danger11",
         bgColor: "$danger4",
         closeButtonBgColorHover: "$danger6"
@@ -13040,7 +13096,7 @@ const ep = m({
     {
       variant: "outline",
       colorScheme: "primary",
-      css: Qe({
+      css: Ze({
         color: "$primary11",
         borderColor: "$primary7",
         closeButtonBgColorHover: "$primary4"
@@ -13049,7 +13105,7 @@ const ep = m({
     {
       variant: "outline",
       colorScheme: "accent",
-      css: Qe({
+      css: Ze({
         color: "$accent11",
         borderColor: "$accent7",
         closeButtonBgColorHover: "$accent4"
@@ -13058,7 +13114,7 @@ const ep = m({
     {
       variant: "outline",
       colorScheme: "neutral",
-      css: Qe({
+      css: Ze({
         color: "$neutral12",
         borderColor: "$neutral7",
         closeButtonBgColorHover: "$neutral4"
@@ -13067,7 +13123,7 @@ const ep = m({
     {
       variant: "outline",
       colorScheme: "success",
-      css: Qe({
+      css: Ze({
         color: "$success11",
         borderColor: "$success7",
         closeButtonBgColorHover: "$success4"
@@ -13076,7 +13132,7 @@ const ep = m({
     {
       variant: "outline",
       colorScheme: "info",
-      css: Qe({
+      css: Ze({
         color: "$info11",
         borderColor: "$info7",
         closeButtonBgColorHover: "$info4"
@@ -13085,7 +13141,7 @@ const ep = m({
     {
       variant: "outline",
       colorScheme: "warning",
-      css: Qe({
+      css: Ze({
         color: "$warning11",
         borderColor: "$warning7",
         closeButtonBgColorHover: "$warning4"
@@ -13094,7 +13150,7 @@ const ep = m({
     {
       variant: "outline",
       colorScheme: "danger",
-      css: Qe({
+      css: Ze({
         color: "$danger11",
         borderColor: "$danger7",
         closeButtonBgColorHover: "$danger4"
@@ -13172,17 +13228,17 @@ const ep = m({
     {
       variant: "dot",
       size: "sm",
-      css: Ut("$1_5")
+      css: Jt("$1_5")
     },
     {
       variant: "dot",
       size: "md",
-      css: Ut("$2")
+      css: Jt("$2")
     },
     {
       variant: "dot",
       size: "lg",
-      css: Ut("$2_5")
+      css: Jt("$2_5")
     },
     /* -------------------------------------------------------------------------------------------------
      * Variant - dot + dot placement
@@ -13212,45 +13268,45 @@ const ep = m({
       }
     }
   ]
-}), Ss = "hope-tag", xs = J();
-function tp(e) {
-  var f, u, g, S, x, z;
-  const t = y().Tag, r = {
-    variant: ((u = (f = t == null ? void 0 : t.defaultProps) == null ? void 0 : f.root) == null ? void 0 : u.variant) ?? "subtle",
-    colorScheme: ((S = (g = t == null ? void 0 : t.defaultProps) == null ? void 0 : g.root) == null ? void 0 : S.colorScheme) ?? "neutral",
-    size: ((z = (x = t == null ? void 0 : t.defaultProps) == null ? void 0 : x.root) == null ? void 0 : z.size) ?? "md"
-  }, o = q(r, e), [a, n, s] = b(o, ["class"], ["variant", "colorScheme", "size", "dotPlacement"]), l = () => h(a.class, Ss, ep(n)), d = {
-    size: () => n.size
+}), Ts = "hope-tag", zs = te();
+function ch(e) {
+  var f, d, g, y, b, P;
+  const t = w().Tag, r = {
+    variant: ((d = (f = t == null ? void 0 : t.defaultProps) == null ? void 0 : f.root) == null ? void 0 : d.variant) ?? "subtle",
+    colorScheme: ((y = (g = t == null ? void 0 : t.defaultProps) == null ? void 0 : g.root) == null ? void 0 : y.colorScheme) ?? "neutral",
+    size: ((P = (b = t == null ? void 0 : t.defaultProps) == null ? void 0 : b.root) == null ? void 0 : P.size) ?? "md"
+  }, n = N(r, e), [a, o, s] = S(n, ["class"], ["variant", "colorScheme", "size", "dotPlacement"]), l = () => m(a.class, Ts, lh(o)), u = {
+    size: () => o.size
   };
-  return i(xs.Provider, {
-    value: d,
+  return i(zs.Provider, {
+    value: u,
     get children() {
       return i(A.span, p({
         get class() {
           return l();
         },
         get __baseStyle() {
-          var C;
-          return (C = t == null ? void 0 : t.baseStyle) == null ? void 0 : C.root;
+          var h;
+          return (h = t == null ? void 0 : t.baseStyle) == null ? void 0 : h.root;
         }
       }, s));
     }
   });
 }
-tp.toString = () => v(Ss);
-function rp() {
-  const e = Q(xs);
+ch.toString = () => $(Ts);
+function dh() {
+  const e = Z(zs);
   if (!e)
     throw new Error("[Hope UI]: useTagContext must be used within a `<Tag />` component");
   return e;
 }
-const Cs = "hope-tag-close-button";
-function op(e) {
-  const t = y().Tag, r = rp(), a = q({
+const Bs = "hope-tag-close-button";
+function uh(e) {
+  const t = w().Tag, r = dh(), a = N({
     type: "button",
     role: "button",
     "aria-label": "Close"
-  }, e), [n, s] = b(a, ["class", "children"]), l = () => h(n.class, Cs, et({
+  }, e), [o, s] = S(a, ["class", "children"]), l = () => m(o.class, Bs, rt({
     size: r.size()
   }));
   return i(A.button, p({
@@ -13263,59 +13319,59 @@ function op(e) {
     }
   }, s, {
     get children() {
-      return i(Qa, {});
+      return i(as, {});
     }
   }));
 }
-op.toString = () => v(Cs);
-const ys = "hope-tag-left-icon";
-function np(e) {
-  const t = y().Tag, [r, o] = b(e, ["class"]), a = () => h(r.class, ys, Jf());
-  return i(ot, p({
+uh.toString = () => $(Bs);
+const Ls = "hope-tag-left-icon";
+function gh(e) {
+  const t = w().Tag, [r, n] = S(e, ["class"]), a = () => m(r.class, Ls, sh());
+  return i(at, p({
     get class() {
       return a();
     },
     get __baseStyle() {
-      var n;
-      return (n = t == null ? void 0 : t.baseStyle) == null ? void 0 : n.icon;
+      var o;
+      return (o = t == null ? void 0 : t.baseStyle) == null ? void 0 : o.icon;
     }
-  }, o));
+  }, n));
 }
-np.toString = () => v(ys);
-const $s = "hope-tag-right-icon";
-function ap(e) {
-  const t = y().Tag, [r, o] = b(e, ["class"]), a = () => h(r.class, $s, Zf());
-  return i(ot, p({
+gh.toString = () => $(Ls);
+const Hs = "hope-tag-right-icon";
+function fh(e) {
+  const t = w().Tag, [r, n] = S(e, ["class"]), a = () => m(r.class, Hs, ah());
+  return i(at, p({
     get class() {
       return a();
     },
     get __baseStyle() {
-      var n;
-      return (n = t == null ? void 0 : t.baseStyle) == null ? void 0 : n.icon;
+      var o;
+      return (o = t == null ? void 0 : t.baseStyle) == null ? void 0 : o.icon;
     }
-  }, o));
+  }, n));
 }
-ap.toString = () => v($s);
-const ws = "hope-tag-label";
-function sp(e) {
-  const t = y().Tag, [r, o] = b(e, ["class"]), a = () => h(r.class, ws, Gf());
+fh.toString = () => $(Hs);
+const Ds = "hope-tag-label";
+function hh(e) {
+  const t = w().Tag, [r, n] = S(e, ["class"]), a = () => m(r.class, Ds, ih());
   return i(A.span, p({
     get class() {
       return a();
     },
     get __baseStyle() {
-      var n;
-      return (n = t == null ? void 0 : t.baseStyle) == null ? void 0 : n.label;
+      var o;
+      return (o = t == null ? void 0 : t.baseStyle) == null ? void 0 : o.label;
     }
-  }, o));
+  }, n));
 }
-sp.toString = () => v(ws);
-const _s = "hope-text";
-function ip(e) {
+hh.toString = () => $(Ds);
+const Es = "hope-text";
+function ph(e) {
   var l;
-  const t = y().Text, r = {
+  const t = w().Text, r = {
     size: (l = t == null ? void 0 : t.defaultProps) == null ? void 0 : l.size
-  }, o = q(r, e), [a, n] = b(o, ["class", "size"]), s = () => h(a.class, _s, zn({
+  }, n = N(r, e), [a, o] = S(n, ["class", "size"]), s = () => m(a.class, Es, Wo({
     size: a.size
   }));
   return i(A.p, p({
@@ -13325,40 +13381,40 @@ function ip(e) {
     get __baseStyle() {
       return t == null ? void 0 : t.baseStyle;
     }
-  }, n));
+  }, o));
 }
-ip.toString = () => v(_s);
-function Qt(e, t) {
+ph.toString = () => $(Es);
+function Gt(e, t) {
   return Object.entries({
     xs: t ?? "$2",
     sm: t ?? "$2_5",
     md: t ?? "$3",
     lg: t ?? "$4"
-  }).map(([r, o]) => ({
+  }).map(([r, n]) => ({
     variant: e,
     size: r,
-    css: { px: o }
+    css: { px: n }
   }));
 }
-const lp = m(nr, {
+const bh = C(sr, {
   minHeight: "80px",
   py: "$2",
   compoundVariants: [
-    ...Qt("outline"),
-    ...Qt("filled"),
-    ...Qt("unstyled", 0)
+    ...Gt("outline"),
+    ...Gt("filled"),
+    ...Gt("unstyled", 0)
   ]
-}), Is = "hope-textarea";
-function cp(e) {
-  var c, d;
-  const t = y().Textarea, r = {
+}), As = "hope-textarea";
+function mh(e) {
+  var c, u;
+  const t = w().Textarea, r = {
     variant: ((c = t == null ? void 0 : t.defaultProps) == null ? void 0 : c.variant) ?? "outline",
-    size: ((d = t == null ? void 0 : t.defaultProps) == null ? void 0 : d.size) ?? "md"
-  }, o = q(r, e), [a, n] = b(o, ["class", "variant", "size"]), s = ut(e), l = () => h(a.class, Is, lp({
+    size: ((u = t == null ? void 0 : t.defaultProps) == null ? void 0 : u.size) ?? "md"
+  }, n = N(r, e), [a, o] = S(n, ["class", "variant", "size"]), s = pt(e), l = () => m(a.class, As, bh({
     variant: a.variant,
     size: a.size
   }));
-  return i(P, p({
+  return i(B, p({
     as: "textarea",
     get class() {
       return l();
@@ -13366,111 +13422,161 @@ function cp(e) {
     get __baseStyle() {
       return t == null ? void 0 : t.baseStyle;
     }
-  }, s, n));
+  }, s, o));
 }
-cp.toString = () => v(Is);
-const ks = "hope-tooltip", dp = "hope-tooltip__arrow";
-function up(e) {
-  var xe, ze, Ae, H, Y, X, I, W, be;
-  const t = `hope-tooltip-${ne()}`, r = y().Tooltip, o = {
+mh.toString = () => $(As);
+const Os = "hope-tooltip", vh = "hope-tooltip__arrow";
+function Sh(e) {
+  var E, X, U, T, M, xe, Oe, Pe, Me;
+  const t = `hope-tooltip-${ue()}`, r = w().Tooltip, n = {
     id: t,
-    placement: ((xe = r == null ? void 0 : r.defaultProps) == null ? void 0 : xe.placement) ?? "bottom",
-    offset: ((ze = r == null ? void 0 : r.defaultProps) == null ? void 0 : ze.offset) ?? 8,
-    withArrow: ((Ae = r == null ? void 0 : r.defaultProps) == null ? void 0 : Ae.withArrow) ?? !1,
-    arrowSize: ((H = r == null ? void 0 : r.defaultProps) == null ? void 0 : H.arrowSize) ?? 8,
-    arrowPadding: ((Y = r == null ? void 0 : r.defaultProps) == null ? void 0 : Y.arrowPadding) ?? 8,
-    openDelay: ((X = r == null ? void 0 : r.defaultProps) == null ? void 0 : X.openDelay) ?? 0,
-    closeDelay: ((I = r == null ? void 0 : r.defaultProps) == null ? void 0 : I.closeDelay) ?? 0,
-    closeOnClick: ((W = r == null ? void 0 : r.defaultProps) == null ? void 0 : W.closeOnClick) ?? !0,
-    closeOnMouseDown: ((be = r == null ? void 0 : r.defaultProps) == null ? void 0 : be.closeOnMouseDown) ?? !1
-  }, a = q(o, e), [n, s] = b(a, ["class", "children", "id", "label", "opened", "defaultOpened", "inline", "disabled", "placement", "offset", "withArrow", "arrowSize", "arrowPadding", "openDelay", "closeDelay", "closeOnClick", "closeOnMouseDown", "onOpen", "onClose"]), [l, c] = Z(!!n.defaultOpened), [d, f] = Z(!1);
-  let u, g;
-  const S = () => n.opened !== void 0, x = () => S() ? !!n.opened : l(), z = () => h(n.class, ks, Wl()), C = () => h(dp, Fl()), $ = rt(() => n.children), B = Se(() => {
-    let U = $();
-    for (; Te(U); )
-      U = U();
-    return U;
+    placement: ((E = r == null ? void 0 : r.defaultProps) == null ? void 0 : E.placement) ?? "bottom",
+    offset: ((X = r == null ? void 0 : r.defaultProps) == null ? void 0 : X.offset) ?? 8,
+    withArrow: ((U = r == null ? void 0 : r.defaultProps) == null ? void 0 : U.withArrow) ?? !1,
+    arrowSize: ((T = r == null ? void 0 : r.defaultProps) == null ? void 0 : T.arrowSize) ?? 8,
+    arrowPadding: ((M = r == null ? void 0 : r.defaultProps) == null ? void 0 : M.arrowPadding) ?? 8,
+    openDelay: ((xe = r == null ? void 0 : r.defaultProps) == null ? void 0 : xe.openDelay) ?? 0,
+    closeDelay: ((Oe = r == null ? void 0 : r.defaultProps) == null ? void 0 : Oe.closeDelay) ?? 0,
+    closeOnClick: ((Pe = r == null ? void 0 : r.defaultProps) == null ? void 0 : Pe.closeOnClick) ?? !0,
+    closeOnMouseDown: ((Me = r == null ? void 0 : r.defaultProps) == null ? void 0 : Me.closeOnMouseDown) ?? !1
+  }, a = N(n, e), [o, s] = S(a, ["class", "children", "id", "label", "opened", "defaultOpened", "inline", "disabled", "placement", "offset", "withArrow", "arrowSize", "arrowPadding", "openDelay", "closeDelay", "closeOnClick", "closeOnMouseDown", "onOpen", "onClose"]), [l, c] = re(!!o.defaultOpened), [u, f] = re(!1);
+  let d, g, y, b;
+  const P = () => o.opened !== void 0, h = () => P() ? !!o.opened : l(), x = () => m(o.class, Os, Ul()), z = () => m(vh, Ql());
+  let v;
+  const D = ot(() => o.children), _ = ye(() => {
+    let F = D();
+    for (; de(F); )
+      F = F();
+    return F;
   });
-  async function w() {
-    B();
+  async function R() {
+    var xr, Cr, yr;
+    const F = _();
+    if (!F || !d)
+      return;
+    const pe = [Et(o.offset)];
+    o.inline && pe.push(Nr()), pe.push(At()), pe.push(Ot()), o.withArrow && g && pe.push(Vr({
+      element: g,
+      padding: o.arrowPadding
+    })), pe.push(qr());
+    const {
+      x: lt,
+      y: L,
+      placement: O,
+      middlewareData: ne
+    } = await Dt(F, d, {
+      placement: o.placement,
+      middleware: pe
+    });
+    if (!d)
+      return;
+    const be = (xr = ne.hide) == null ? void 0 : xr.referenceHidden;
+    if (Object.assign(d.style, {
+      left: `${Math.round(lt)}px`,
+      top: `${Math.round(L)}px`,
+      visibility: be ? "hidden" : "visible"
+    }), !g)
+      return;
+    const bt = (Cr = ne.arrow) == null ? void 0 : Cr.x, Sr = (yr = ne.arrow) == null ? void 0 : yr.y, Ms = {
+      top: "bottom",
+      right: "left",
+      bottom: "top",
+      left: "right"
+    }[O.split("-")[0]], Rs = `${o.arrowSize ? Math.round(o.arrowSize / 2) * -1 : -4}px`;
+    Object.assign(g.style, {
+      left: bt != null ? `${Math.round(bt)}px` : "",
+      top: Sr != null ? `${Math.round(Sr)}px` : "",
+      right: "",
+      bottom: "",
+      [Ms]: Rs
+    });
   }
-  const E = () => {
-    var U;
-    S() || c(!0), (U = n.onOpen) == null || U.call(n), w();
-  }, M = () => {
-    var U;
-    S() || c(!1), (U = n.onClose) == null || U.call(n);
-  }, N = () => {
-    n.disabled || (u = window.setTimeout(E, n.openDelay));
-  }, L = () => {
-    u && window.clearTimeout(u), g = window.setTimeout(M, n.closeDelay);
-  }, O = () => {
-    n.closeOnClick && L();
-  }, _ = () => {
-    n.closeOnMouseDown && L();
-  }, k = (U) => {
-    x() && U.key === "Escape" && L();
-  }, K = () => {
-    const U = B();
-    U.addEventListener("mouseenter", N), U.addEventListener("focus", N), U.addEventListener("click", O), U.addEventListener("mousedown", _), U.addEventListener("mouseleave", L), U.addEventListener("blur", L);
-  }, se = () => {
-    const U = B();
-    U.removeEventListener("mouseenter", N), U.removeEventListener("focus", N), U.removeEventListener("click", O), U.removeEventListener("mousedown", _), U.removeEventListener("mouseleave", L), U.removeEventListener("blur", L);
+  const j = () => {
+    var F;
+    P() || c(!0), (F = o.onOpen) == null || F.call(o), R();
   }, ee = () => {
-  }, G = () => {
-    document.removeEventListener("keydown", k), f(!1);
+    var F;
+    P() || c(!1), (F = o.onClose) == null || F.call(o);
+  }, I = () => {
+    o.disabled || (y = window.setTimeout(j, o.openDelay));
+  }, k = () => {
+    y && window.clearTimeout(y), b = window.setTimeout(ee, o.closeDelay);
+  }, W = () => {
+    o.closeOnClick && k();
+  }, V = () => {
+    o.closeOnMouseDown && k();
+  }, Q = (F) => {
+    h() && F.key === "Escape" && k();
+  }, J = () => {
+    const F = _();
+    F.addEventListener("mouseenter", I), F.addEventListener("focus", I), F.addEventListener("click", W), F.addEventListener("mousedown", V), F.addEventListener("mouseleave", k), F.addEventListener("blur", k);
+  }, Y = () => {
+    const F = _();
+    F.removeEventListener("mouseenter", I), F.removeEventListener("focus", I), F.removeEventListener("click", W), F.removeEventListener("mousedown", V), F.removeEventListener("mouseleave", k), F.removeEventListener("blur", k);
+  }, K = () => {
+    Lt || !d || (document.addEventListener("keydown", Q), v = Ht(_(), d, R));
+  }, ve = () => {
+    document.removeEventListener("keydown", Q), v == null || v(), f(!1);
   };
-  return ae(() => {
-    K();
-  }), ge(() => {
-    se(), window.clearTimeout(u), window.clearTimeout(g);
-  }), pe(() => {
-    x() ? (f(!0), n.id && B().setAttribute("aria-describedby", n.id)) : B().removeAttribute("aria-describedby");
-  }), [B, i(D, {
+  return ge(() => {
+    J();
+  }), fe(() => {
+    Y(), window.clearTimeout(y), window.clearTimeout(b);
+  }), me(() => {
+    h() ? (f(!0), o.id && _().setAttribute("aria-describedby", o.id)) : _().removeAttribute("aria-describedby");
+  }), [_, i(H, {
     get when() {
-      return d();
+      return u();
     },
     get children() {
-      return i(tt, {
+      return i(gt, {
         get children() {
-          return i(De, {
+          return i(Ee, {
             get name() {
-              return Je.scale;
+              return et.scale;
             },
             appear: !0,
-            onBeforeEnter: w,
-            onAfterEnter: ee,
-            onAfterExit: G,
+            onBeforeEnter: R,
+            onAfterEnter: K,
+            onAfterExit: ve,
             get children() {
-              return i(D, {
+              return i(H, {
                 get when() {
-                  return x();
+                  return h();
                 },
                 get children() {
-                  return i(P, p({
+                  return i(B, p({
+                    ref(F) {
+                      var pe = d;
+                      typeof pe == "function" ? pe(F) : d = F;
+                    },
                     role: "tooltip",
                     get id() {
-                      return n.id;
+                      return o.id;
                     },
                     get class() {
-                      return z();
+                      return x();
                     },
                     get __baseStyle() {
                       return r == null ? void 0 : r.baseStyle;
                     }
                   }, s, {
                     get children() {
-                      return [n.label, i(D, {
+                      return [nt(() => o.label), i(H, {
                         get when() {
-                          return n.withArrow;
+                          return o.withArrow;
                         },
                         get children() {
-                          return i(P, {
+                          return i(B, {
+                            ref(F) {
+                              var pe = g;
+                              typeof pe == "function" ? pe(F) : g = F;
+                            },
                             get class() {
-                              return C();
+                              return z();
                             },
                             get boxSize() {
-                              return n.arrowSize;
+                              return o.arrowSize;
                             }
                           });
                         }
@@ -13486,455 +13592,455 @@ function up(e) {
     }
   })];
 }
-up.toString = () => v(ks);
-function qp(e = {}) {
-  const t = `disclosure-${ne()}`, [r, o] = Z(e.defaultIsOpen || !1), a = () => e.isOpen !== void 0, n = () => a() ? !!e.isOpen : r(), s = () => {
-    var u;
-    a() || o(!1), (u = e.onClose) == null || u.call(e);
+Sh.toString = () => $(Os);
+function Zh(e = {}) {
+  const t = `disclosure-${ue()}`, [r, n] = re(e.defaultIsOpen || !1), a = () => e.isOpen !== void 0, o = () => a() ? !!e.isOpen : r(), s = () => {
+    var d;
+    a() || n(!1), (d = e.onClose) == null || d.call(e);
   }, l = () => {
-    var u;
-    a() || o(!0), (u = e.onOpen) == null || u.call(e);
+    var d;
+    a() || n(!0), (d = e.onOpen) == null || d.call(e);
   };
   return {
     isControlled: a,
-    isOpen: n,
+    isOpen: o,
     onOpen: l,
     onClose: s,
     onToggle: () => {
-      n() ? s() : l();
+      o() ? s() : l();
     },
     triggerProps: () => ({
-      "aria-expanded": n(),
+      "aria-expanded": o(),
       "aria-controls": t
     }),
     disclosureProps: () => ({
       id: t,
-      hidden: !n()
+      hidden: !o()
     })
   };
 }
-function jp(e) {
+function Jh(e) {
   let t = !1;
   const r = (l) => {
-    var d;
+    var u;
     const { once: c } = e;
-    c && t || (t = !0, (d = e.handler) == null || d.call(e, l));
-  }, o = (l, c, d, f) => {
+    c && t || (t = !0, (u = e.handler) == null || u.call(e, l));
+  }, n = (l, c, u, f) => {
     c && l && l.addEventListener && l.addEventListener(c, r, {
-      capture: d,
+      capture: u,
       passive: f
     });
   }, a = () => {
-    const { element: l, eventName: c, capture: d, passive: f } = e;
-    o(l, c, d, f);
-  }, n = (l, c) => {
+    const { element: l, eventName: c, capture: u, passive: f } = e;
+    n(l, c, u, f);
+  }, o = (l, c) => {
     c && l && l.removeEventListener && l.removeEventListener(c, r);
   }, s = () => {
     const { element: l, eventName: c } = e;
-    n(l, c);
+    o(l, c);
   };
-  return pe((l) => {
-    const { element: c, eventName: d, capture: f, passive: u } = e;
-    return l && n(l.element, l.eventName), o(c, d, f, u), {
+  return me((l) => {
+    const { element: c, eventName: u, capture: f, passive: d } = e;
+    return l && o(l.element, l.eventName), n(c, u, f, d), {
       element: c,
-      eventName: d
+      eventName: u
     };
-  }), ge(() => {
+  }), fe(() => {
     const { element: l, eventName: c } = e;
-    n(l, c);
+    o(l, c);
   }), {
     active: a,
     inactive: s
   };
 }
 export {
-  pc as Accordion,
-  $c as AccordionButton,
-  Pc as AccordionIcon,
-  yc as AccordionItem,
-  zc as AccordionPanel,
-  Hc as Alert,
-  Ec as AlertDescription,
-  Vc as AlertIcon,
-  qc as AlertTitle,
-  Kc as Anchor,
-  Uc as AspectRatio,
-  td as AsyncButton,
-  ud as Avatar,
-  gd as AvatarBadge,
-  fd as AvatarExcess,
-  dd as AvatarGroup,
-  hd as Badge,
-  P as Box,
-  yd as Breadcrumb,
-  $d as BreadcrumbItem,
-  wd as BreadcrumbLink,
-  _d as BreadcrumbSeparator,
-  cr as Button,
-  Gc as ButtonGroup,
-  kd as Center,
-  Kd as Checkbox,
-  Bd as CheckboxGroup,
-  Rd as CheckboxPrimitive,
-  Pp as CheckboxPrimitiveIndicator,
-  ru as CircularProgress,
-  ou as CircularProgressIndicator,
-  nu as CircularProgressLabel,
-  Rt as CloseButton,
-  oo as Collapse,
-  cu as Container,
-  uu as Divider,
-  Tp as Drawer,
-  Bp as DrawerBody,
-  zp as DrawerCloseButton,
-  mu as DrawerContent,
-  Dp as DrawerFooter,
-  Lp as DrawerHeader,
-  vu as DrawerOverlay,
-  yn as Flex,
-  Md as FormControl,
-  Ko as FormControlContext,
-  Su as FormErrorMessage,
-  xu as FormHelperText,
-  yu as FormLabel,
-  kn as Grid,
-  $u as GridItem,
-  bg as HStack,
-  Tu as Heading,
-  Mt as HopeContext,
-  _p as HopeProvider,
-  ot as Icon,
-  zu as IconButton,
-  Bu as Image,
-  Du as Input,
-  En as InputAddon,
-  Rn as InputElement,
-  Lu as InputGroup,
-  Hu as InputLeftAddon,
-  Eu as InputLeftElement,
-  Au as InputRightAddon,
-  Mu as InputRightElement,
-  Ru as Kbd,
-  pr as List,
-  ju as ListIcon,
-  Ku as ListItem,
-  Hp as Menu,
-  Zu as MenuContent,
-  Ju as MenuGroup,
-  og as MenuItem,
-  ng as MenuLabel,
-  ag as MenuTrigger,
-  gu as Modal,
-  sn as ModalBody,
-  cn as ModalCloseButton,
-  pu as ModalContent,
-  un as ModalFooter,
-  fn as ModalHeader,
-  hu as ModalOverlay,
-  oa as Notification,
-  Jt as NotificationDescription,
-  ia as NotificationIcon,
-  Gt as NotificationTitle,
-  Ep as NotificationsProvider,
-  Vu as OrderedList,
-  Mp as Popover,
-  Op as PopoverAnchor,
-  _g as PopoverArrow,
-  Ig as PopoverBody,
-  kg as PopoverCloseButton,
-  Pg as PopoverContent,
-  Tg as PopoverFooter,
-  zg as PopoverHeader,
-  Rp as PopoverTrigger,
-  Eg as Progress,
-  Mg as ProgressIndicator,
-  Og as ProgressLabel,
-  Ug as Radio,
-  Ng as RadioGroup,
-  Jg as Select,
-  za as SelectContent,
-  La as SelectIcon,
-  of as SelectLabel,
-  Ma as SelectListbox,
-  tf as SelectOptGroup,
-  Wa as SelectOption,
-  Na as SelectOptionIndicator,
-  qa as SelectOptionText,
-  Ka as SelectPlaceholder,
-  Ua as SelectTag,
-  Za as SelectTagCloseButton,
-  Ga as SelectTrigger,
-  es as SelectValue,
-  ku as SimpleGrid,
-  Fp as SimpleOption,
-  Np as SimpleSelect,
-  zt as Skeleton,
-  gf as SkeletonCircle,
-  ff as SkeletonText,
-  hf as Spacer,
-  vf as Spinner,
-  hr as Stack,
-  Pf as Switch,
-  $f as SwitchPrimitive,
-  Vp as SwitchPrimitiveThumb,
-  Uf as Tab,
-  Qf as TabList,
-  Yf as TabPanel,
-  Af as Table,
-  Ef as TableCaption,
-  Xf as Tabs,
-  tp as Tag,
-  op as TagCloseButton,
-  sp as TagLabel,
-  np as TagLeftIcon,
-  ap as TagRightIcon,
-  Mf as Tbody,
-  Of as Td,
-  ip as Text,
-  cp as Textarea,
-  Rf as Tfoot,
-  Wf as Th,
-  Ff as Thead,
-  up as Tooltip,
-  Nf as Tr,
-  qu as UnorderedList,
-  ca as VStack,
-  Ar as __DEV__,
-  mc as accordionButtonStyles,
-  vc as accordionIconStyles,
-  bc as accordionItemStyles,
-  Sc as accordionPanelStyles,
-  Lc as alertDescriptionStyles,
-  ve as alertIconStyles,
-  Dc as alertStyles,
-  Bc as alertTitleStyles,
-  jc as anchorStyles,
-  Xc as aspectRatioStyles,
-  nd as avatarBadgeStyles,
-  rd as avatarExcessStyles,
-  ad as avatarGroupStyles,
-  od as avatarImageStyles,
-  dr as avatarStyles,
-  pd as badgeStyles,
-  Vr as baseDialogStyles,
-  nr as baseInputResetStyles,
-  Nr as baseModalContainerStyles,
-  Ri as baseTheme,
-  vd as breadcrumbItemStyles,
-  xd as breadcrumbLinkStyles,
-  md as breadcrumbListStyles,
-  Sd as breadcrumbSeparatorStyles,
-  bd as breadcrumbStyles,
-  Jc as buttonGroupStyles,
-  Zc as buttonIconSpinnerStyles,
-  Qc as buttonIconStyles,
-  Yc as buttonLoaderStyles,
-  mo as buttonStyles,
-  ue as callHandler,
-  yp as cast,
-  Id as centerStyles,
-  fe as chainHandlers,
-  zd as checkboxControlStyles,
-  Td as checkboxLabelStyles,
-  Pd as checkboxWrapperStyles,
-  Jd as circularProgressIndicatorContainerStyles,
-  Gd as circularProgressIndicatorStyles,
-  eu as circularProgressLabelStyles,
-  Yd as circularProgressStyles,
-  Zd as circularProgressTrackStyles,
-  h as classNames,
-  iu as closeButtonStyles,
-  Tc as collapseStyles,
-  lt as colorModeClassNames,
-  $p as config,
-  lu as containerStyles,
-  Ge as contains,
-  v as createClassSelector,
-  qp as createDisclosure,
-  $e as createIcon,
-  Wi as createTheme,
-  m as css,
-  du as dividerStyles,
-  Qi as drawerContainerStyles,
-  Yi as drawerDialogStyles,
-  j as drawerTransitionName,
-  Ui as drawerTransitionStyles,
-  Ld as formControlStyles,
-  Ed as formErrorMessageStyles,
-  Ad as formHelperTextStyles,
-  Dd as formLabelStyles,
-  Cc as getActiveElement,
-  Ks as getColorModeClassName,
-  wp as getCssText,
-  js as getDefaultColorMode,
-  It as getNextIndex,
-  Pt as getOwnerDocument,
-  kt as getPrevIndex,
-  Tt as getRelatedTarget,
-  Me as globalCss,
-  Qd as growAndShrink,
-  Cg as hasTabIndex,
-  Pu as headingStyles,
+  yc as Accordion,
+  Bc as AccordionButton,
+  Ac as AccordionIcon,
+  zc as AccordionItem,
+  Mc as AccordionPanel,
+  Nc as Alert,
+  qc as AlertDescription,
+  Zc as AlertIcon,
+  Jc as AlertTitle,
+  ed as Anchor,
+  rd as AspectRatio,
+  cd as AsyncButton,
+  Sd as Avatar,
+  xd as AvatarBadge,
+  Cd as AvatarExcess,
+  vd as AvatarGroup,
+  $d as Badge,
+  B as Box,
+  zd as Breadcrumb,
+  Bd as BreadcrumbItem,
+  Ld as BreadcrumbLink,
+  Hd as BreadcrumbSeparator,
+  ur as Button,
+  id as ButtonGroup,
+  Ed as Center,
+  eu as Checkbox,
+  Rd as CheckboxGroup,
+  Xd as CheckboxPrimitive,
+  Eh as CheckboxPrimitiveIndicator,
+  du as CircularProgress,
+  uu as CircularProgressIndicator,
+  gu as CircularProgressLabel,
+  Vt as CloseButton,
+  hn as Collapse,
+  mu as Container,
+  Su as Divider,
+  Ah as Drawer,
+  Mh as DrawerBody,
+  Oh as DrawerCloseButton,
+  Iu as DrawerContent,
+  Wh as DrawerFooter,
+  Rh as DrawerHeader,
+  ku as DrawerOverlay,
+  Lo as Flex,
+  jd as FormControl,
+  ro as FormControlContext,
+  _u as FormErrorMessage,
+  Pu as FormHelperText,
+  zu as FormLabel,
+  Oo as Grid,
+  Bu as GridItem,
+  wg as HStack,
+  Ou as Heading,
+  Ft as HopeContext,
+  Lh as HopeProvider,
+  at as Icon,
+  Mu as IconButton,
+  Ru as Image,
+  Fu as Input,
+  Ko as InputAddon,
+  Qo as InputElement,
+  Wu as InputGroup,
+  Nu as InputLeftAddon,
+  qu as InputLeftElement,
+  Vu as InputRightAddon,
+  ju as InputRightElement,
+  Xu as Kbd,
+  br as List,
+  Gu as ListIcon,
+  eg as ListItem,
+  Fh as Menu,
+  ag as MenuContent,
+  sg as MenuGroup,
+  ug as MenuItem,
+  gg as MenuLabel,
+  fg as MenuTrigger,
+  xu as Modal,
+  mo as ModalBody,
+  So as ModalCloseButton,
+  yu as ModalContent,
+  Co as ModalFooter,
+  $o as ModalHeader,
+  $u as ModalOverlay,
+  fa as Notification,
+  rr as NotificationDescription,
+  ma as NotificationIcon,
+  nr as NotificationTitle,
+  Vh as NotificationsProvider,
+  Zu as OrderedList,
+  qh as Popover,
+  jh as PopoverAnchor,
+  Hg as PopoverArrow,
+  Dg as PopoverBody,
+  Eg as PopoverCloseButton,
+  Ag as PopoverContent,
+  Og as PopoverFooter,
+  Mg as PopoverHeader,
+  Kh as PopoverTrigger,
+  qg as Progress,
+  jg as ProgressIndicator,
+  Kg as ProgressLabel,
+  rf as Radio,
+  Yg as RadioGroup,
+  sf as Select,
+  Wa as SelectContent,
+  Na as SelectIcon,
+  gf as SelectLabel,
+  Xa as SelectListbox,
+  df as SelectOptGroup,
+  Ya as SelectOption,
+  Ja as SelectOptionIndicator,
+  es as SelectOptionText,
+  rs as SelectPlaceholder,
+  os as SelectTag,
+  is as SelectTagCloseButton,
+  cs as SelectTrigger,
+  ds as SelectValue,
+  Eu as SimpleGrid,
+  Uh as SimpleOption,
+  Qh as SimpleSelect,
+  Bt as Skeleton,
+  xf as SkeletonCircle,
+  Cf as SkeletonText,
+  $f as Spacer,
+  kf as Spinner,
+  mr as Stack,
+  Af as Switch,
+  Bf as SwitchPrimitive,
+  Yh as SwitchPrimitiveThumb,
+  rh as Tab,
+  nh as TabList,
+  oh as TabPanel,
+  Vf as Table,
+  qf as TableCaption,
+  th as Tabs,
+  ch as Tag,
+  uh as TagCloseButton,
+  hh as TagLabel,
+  gh as TagLeftIcon,
+  fh as TagRightIcon,
+  jf as Tbody,
+  Kf as Td,
+  ph as Text,
+  mh as Textarea,
+  Xf as Tfoot,
+  Uf as Th,
+  Qf as Thead,
+  Sh as Tooltip,
+  Yf as Tr,
+  Ju as UnorderedList,
+  Sa as VStack,
+  jr as __DEV__,
+  Ic as accordionButtonStyles,
+  kc as accordionIconStyles,
+  wc as accordionItemStyles,
+  _c as accordionPanelStyles,
+  Wc as alertDescriptionStyles,
+  Ce as alertIconStyles,
+  Fc as alertStyles,
+  Rc as alertTitleStyles,
+  Gc as anchorStyles,
+  td as aspectRatioStyles,
+  gd as avatarBadgeStyles,
+  dd as avatarExcessStyles,
+  fd as avatarGroupStyles,
+  ud as avatarImageStyles,
+  gr as avatarStyles,
+  yd as badgeStyles,
+  Gr as baseDialogStyles,
+  sr as baseInputResetStyles,
+  Jr as baseModalContainerStyles,
+  Xi as baseTheme,
+  kd as breadcrumbItemStyles,
+  Pd as breadcrumbLinkStyles,
+  Id as breadcrumbListStyles,
+  _d as breadcrumbSeparatorStyles,
+  wd as breadcrumbStyles,
+  sd as buttonGroupStyles,
+  ad as buttonIconSpinnerStyles,
+  nd as buttonIconStyles,
+  od as buttonLoaderStyles,
+  _n as buttonStyles,
+  oe as callHandler,
+  Th as cast,
+  Dd as centerStyles,
+  he as chainHandlers,
+  Md as checkboxControlStyles,
+  Od as checkboxLabelStyles,
+  Ad as checkboxWrapperStyles,
+  su as circularProgressIndicatorContainerStyles,
+  iu as circularProgressIndicatorStyles,
+  lu as circularProgressLabelStyles,
+  ou as circularProgressStyles,
+  au as circularProgressTrackStyles,
+  m as classNames,
+  pu as closeButtonStyles,
+  Oc as collapseStyles,
+  ut as colorModeClassNames,
+  zh as config,
+  bu as containerStyles,
+  tt as contains,
+  $ as createClassSelector,
+  Zh as createDisclosure,
+  Ie as createIcon,
+  Ui as createTheme,
+  C as css,
+  vu as dividerStyles,
+  nl as drawerContainerStyles,
+  ol as drawerDialogStyles,
+  q as drawerTransitionName,
+  rl as drawerTransitionStyles,
+  Wd as formControlStyles,
+  qd as formErrorMessageStyles,
+  Vd as formHelperTextStyles,
+  Fd as formLabelStyles,
+  Tc as getActiveElement,
+  ei as getColorModeClassName,
+  Bh as getCssText,
+  Gs as getDefaultColorMode,
+  _t as getNextIndex,
+  Tt as getOwnerDocument,
+  Pt as getPrevIndex,
+  zt as getRelatedTarget,
+  We as globalCss,
+  nu as growAndShrink,
+  Tg as hasTabIndex,
+  Au as headingStyles,
   A as hope,
-  lr as hopeButtonClass,
-  Ot as hopeIconButtonClass,
-  ir as hopeIconClass,
-  Nt as hopeSkeletonClass,
-  wc as iconStyles,
-  wl as inputAddonStyles,
-  $l as inputElementStyles,
-  yl as inputGroupStyles,
-  Cl as inputStyles,
-  it as isArray,
-  mt as isChildrenFunction,
-  $g as isContentEditable,
-  yg as isDisabled,
-  Ur as isElement,
-  wg as isFocusable,
-  Te as isFunction,
-  xc as isHTMLElement,
-  ua as isHidden,
-  Er as isNull,
-  Os as isNumber,
-  Ht as isObject,
-  Yr as isScrollable,
-  Rs as isString,
-  Cp as isUndefined,
-  Kt as isValidEvent,
-  Ou as kbdStyles,
-  ct as keyframes,
-  Fu as listIconStyles,
-  Wu as listStyles,
-  Zr as maintainScrollVisibility,
-  Ws as mapKeys,
-  Gi as menuContentStyles,
-  el as menuGroupStyles,
-  al as menuItemCommandStyles,
-  ol as menuItemIconWrapperStyles,
-  rl as menuItemStyles,
-  nl as menuItemTextStyles,
-  tl as menuLabelStyles,
-  Ee as menuTransitionName,
-  Zi as menuTransitionStyles,
-  Ji as menuTriggerStyles,
-  Ns as mockBody,
-  ji as modalBodyStyles,
-  Xi as modalCloseButtonStyles,
-  Ni as modalContainerStyles,
-  Vi as modalDialogStyles,
-  Ki as modalFooterStyles,
-  qi as modalHeaderStyles,
-  Fr as modalOverlayStyles,
-  ce as modalTransitionName,
-  Fi as modalTransitionStyles,
-  Sr as noop,
-  Qr as normalizeEventKey,
-  fl as notificationDescriptionStyles,
-  ul as notificationIconStyles,
-  ll as notificationListStyles,
-  dl as notificationLoaderStyles,
-  Ap as notificationService,
-  cl as notificationStyles,
-  gl as notificationTitleStyles,
-  we as notificationTransitionName,
-  il as notificationTransitionStyles,
-  xl as popoverArrowStyles,
-  ml as popoverBodyStyles,
-  Sl as popoverCloseButtonStyles,
-  hl as popoverContentStyles,
-  vl as popoverFooterStyles,
-  bl as popoverHeaderStyles,
-  Ye as popoverTransitionName,
-  pl as popoverTransitionStyles,
-  Hg as progressIndicatorStyles,
-  Ag as progressLabelStyles,
-  Dg as progressStyles,
-  Fg as radioControlStyles,
-  Wg as radioLabelStyles,
-  Rg as radioWrapperStyles,
-  Fs as range,
-  Hd as requiredIndicatorStyles,
-  qs as saveColorModeToLocalStorage,
-  Ll as selectContentStyles,
-  Bl as selectIconStyles,
-  Al as selectLabelStyles,
-  Dl as selectListboxStyles,
-  kl as selectMultiValueStyles,
-  Hl as selectOptGroupStyles,
-  Ol as selectOptionIndicatorStyles,
-  El as selectOptionStyles,
-  Ml as selectOptionTextStyles,
-  zl as selectPlaceholderStyles,
-  qr as selectSingleValueStyles,
-  Tl as selectTagCloseButtonStyles,
-  Pl as selectTagStyles,
-  Ze as selectTransitionName,
-  _l as selectTransitionStyles,
-  Il as selectTriggerStyles,
-  uf as skeletonStyles,
-  pf as spacerStyles,
-  bf as spinnerStyles,
-  hg as stackStyles,
-  Cf as switchControlStyles,
-  xf as switchLabelStyles,
-  Sf as switchWrapperStyles,
-  Xs as syncBodyColorModeClassName,
-  qf as tabListStyles,
-  Kf as tabPanelStyles,
-  jf as tabStyles,
-  Bf as tableBodyStyles,
-  zf as tableCaptionStyles,
-  Hf as tableCellStyles,
-  Df as tableColumnHeaderStyles,
-  Lf as tableFootStyles,
-  Tf as tableStyles,
-  Vf as tabsStyles,
-  et as tagCloseButtonStyles,
-  Gf as tagLabelStyles,
-  Jf as tagLeftIconStyles,
-  Zf as tagRightIconStyles,
-  ep as tagStyles,
-  zn as textStyles,
-  lp as textareaStyles,
-  gr as toggleControlLabelStyles,
-  fr as toggleControlStyles,
-  ur as toggleWrapperStyles,
-  Fl as tooltipArrowStyles,
-  Wl as tooltipStyles,
-  Je as tooltipTransitionName,
-  Rl as tooltipTransitionStyles,
-  hc as useAccordionContext,
-  sr as useAccordionItemContext,
-  Ac as useAlertContext,
-  Io as useAvatarGroupContext,
-  Oo as useBreadcrumbContext,
-  xo as useButtonGroupContext,
-  jo as useCheckboxGroupContext,
-  Wd as useCheckboxPrimitiveContext,
-  Jo as useCircularProgressContext,
-  Yu as useClickOutside,
-  jl as useColorMode,
-  kp as useColorModeValue,
-  hn as useDrawerContext,
-  jp as useEvent,
-  dt as useFormControlContext,
-  vt as useInputGroupContext,
-  Wt as useMenuContext,
-  Gu as useMenuGroupContext,
-  Oe as useModalContext,
-  sg as useNotificationContext,
-  at as usePopoverContext,
-  Ca as useProgressContext,
-  Wp as useRadioContext,
-  Vg as useRadioGroupContext,
-  He as useSelectContext,
-  rf as useSelectOptGroupContext,
-  nf as useSelectOptionContext,
-  y as useStyleConfig,
-  wf as useSwitchPrimitivehContext,
-  Vt as useTableContext,
-  br as useTabsContext,
-  rp as useTagContext,
-  Ip as useTheme,
-  jr as valueToPercent
+  dr as hopeButtonClass,
+  Nt as hopeIconButtonClass,
+  cr as hopeIconClass,
+  Kt as hopeSkeletonClass,
+  Lc as iconStyles,
+  Ll as inputAddonStyles,
+  Bl as inputElementStyles,
+  zl as inputGroupStyles,
+  Tl as inputStyles,
+  dt as isArray,
+  Ct as isChildrenFunction,
+  Bg as isContentEditable,
+  zg as isDisabled,
+  on as isElement,
+  Lg as isFocusable,
+  de as isFunction,
+  Pc as isHTMLElement,
+  Ca as isHidden,
+  Kr as isNull,
+  Ks as isNumber,
+  Mt as isObject,
+  sn as isScrollable,
+  Xs as isString,
+  Ph as isUndefined,
+  Yt as isValidEvent,
+  Ku as kbdStyles,
+  ft as keyframes,
+  Qu as listIconStyles,
+  Uu as listStyles,
+  ln as maintainScrollVisibility,
+  Us as mapKeys,
+  il as menuContentStyles,
+  ll as menuGroupStyles,
+  fl as menuItemCommandStyles,
+  ul as menuItemIconWrapperStyles,
+  dl as menuItemStyles,
+  gl as menuItemTextStyles,
+  cl as menuLabelStyles,
+  Re as menuTransitionName,
+  al as menuTransitionStyles,
+  sl as menuTriggerStyles,
+  Ys as mockBody,
+  Gi as modalBodyStyles,
+  tl as modalCloseButtonStyles,
+  Yi as modalContainerStyles,
+  Zi as modalDialogStyles,
+  el as modalFooterStyles,
+  Ji as modalHeaderStyles,
+  Zr as modalOverlayStyles,
+  le as modalTransitionName,
+  Qi as modalTransitionStyles,
+  wr as noop,
+  an as normalizeEventKey,
+  Cl as notificationDescriptionStyles,
+  Sl as notificationIconStyles,
+  bl as notificationListStyles,
+  vl as notificationLoaderStyles,
+  Nh as notificationService,
+  ml as notificationStyles,
+  xl as notificationTitleStyles,
+  ke as notificationTransitionName,
+  pl as notificationTransitionStyles,
+  Pl as popoverArrowStyles,
+  Il as popoverBodyStyles,
+  _l as popoverCloseButtonStyles,
+  $l as popoverContentStyles,
+  kl as popoverFooterStyles,
+  wl as popoverHeaderStyles,
+  Je as popoverTransitionName,
+  yl as popoverTransitionStyles,
+  Ng as progressIndicatorStyles,
+  Vg as progressLabelStyles,
+  Fg as progressStyles,
+  Qg as radioControlStyles,
+  Ug as radioLabelStyles,
+  Xg as radioWrapperStyles,
+  Qs as range,
+  Nd as requiredIndicatorStyles,
+  Js as saveColorModeToLocalStorage,
+  Wl as selectContentStyles,
+  Rl as selectIconStyles,
+  Vl as selectLabelStyles,
+  Fl as selectListboxStyles,
+  El as selectMultiValueStyles,
+  Nl as selectOptGroupStyles,
+  Kl as selectOptionIndicatorStyles,
+  ql as selectOptionStyles,
+  jl as selectOptionTextStyles,
+  Ml as selectPlaceholderStyles,
+  en as selectSingleValueStyles,
+  Ol as selectTagCloseButtonStyles,
+  Al as selectTagStyles,
+  Ge as selectTransitionName,
+  Hl as selectTransitionStyles,
+  Dl as selectTriggerStyles,
+  Sf as skeletonStyles,
+  yf as spacerStyles,
+  wf as spinnerStyles,
+  $g as stackStyles,
+  Tf as switchControlStyles,
+  Pf as switchLabelStyles,
+  _f as switchWrapperStyles,
+  ti as syncBodyColorModeClassName,
+  Jf as tabListStyles,
+  eh as tabPanelStyles,
+  Gf as tabStyles,
+  Rf as tableBodyStyles,
+  Mf as tableCaptionStyles,
+  Nf as tableCellStyles,
+  Ff as tableColumnHeaderStyles,
+  Wf as tableFootStyles,
+  Of as tableStyles,
+  Zf as tabsStyles,
+  rt as tagCloseButtonStyles,
+  ih as tagLabelStyles,
+  sh as tagLeftIconStyles,
+  ah as tagRightIconStyles,
+  lh as tagStyles,
+  Wo as textStyles,
+  bh as textareaStyles,
+  hr as toggleControlLabelStyles,
+  pr as toggleControlStyles,
+  fr as toggleWrapperStyles,
+  Ql as tooltipArrowStyles,
+  Ul as tooltipStyles,
+  et as tooltipTransitionName,
+  Xl as tooltipTransitionStyles,
+  $c as useAccordionContext,
+  lr as useAccordionItemContext,
+  Vc as useAlertContext,
+  An as useAvatarGroupContext,
+  Un as useBreadcrumbContext,
+  zn as useButtonGroupContext,
+  to as useCheckboxGroupContext,
+  Ud as useCheckboxPrimitiveContext,
+  lo as useCircularProgressContext,
+  og as useClickOutside,
+  Gl as useColorMode,
+  Dh as useColorModeValue,
+  Io as useDrawerContext,
+  Jh as useEvent,
+  ht as useFormControlContext,
+  yt as useInputGroupContext,
+  qt as useMenuContext,
+  ig as useMenuGroupContext,
+  Fe as useModalContext,
+  hg as useNotificationContext,
+  it as usePopoverContext,
+  Ba as useProgressContext,
+  Xh as useRadioContext,
+  Zg as useRadioGroupContext,
+  Ae as useSelectContext,
+  uf as useSelectOptGroupContext,
+  ff as useSelectOptionContext,
+  w as useStyleConfig,
+  Lf as useSwitchPrimitivehContext,
+  Xt as useTableContext,
+  vr as useTabsContext,
+  dh as useTagContext,
+  Hh as useTheme,
+  tn as valueToPercent
 };
